@@ -52,14 +52,6 @@ namespace Logics.Functions.Connection
             ConnectString= $"Host={connection.ip};Username={_login};Password={_password};Database={connection.dbname}";
             return true;
         }
-        /// <summary>
-        /// получение строки подключение
-        /// </summary>
-
-        /// <summary>
-        /// Получение строки подключения
-        /// </summary>
-        /// <returns></returns>
 
         /// <summary>
         /// Метод инициализации
