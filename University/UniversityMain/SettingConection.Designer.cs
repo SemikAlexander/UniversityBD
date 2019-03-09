@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.password = new System.Windows.Forms.TextBox();
             this.login = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -50,6 +50,21 @@
             this.panel1.Size = new System.Drawing.Size(385, 63);
             this.panel1.TabIndex = 1;
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
+            // 
+            // button2
+            // 
+            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button2.FlatAppearance.BorderSize = 0;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.Image = global::UniversityMain.Properties.Resources.close;
+            this.button2.Location = new System.Drawing.Point(357, 0);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(28, 28);
+            this.button2.TabIndex = 1;
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.button2.MouseEnter += new System.EventHandler(this.button2_MouseEnter);
+            this.button2.MouseLeave += new System.EventHandler(this.button2_MouseLeave);
             // 
             // label1
             // 
@@ -66,9 +81,9 @@
             this.password.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.password.Location = new System.Drawing.Point(98, 124);
             this.password.Name = "password";
-            this.password.PasswordChar = '*';
             this.password.Size = new System.Drawing.Size(279, 26);
             this.password.TabIndex = 5;
+            this.password.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.password_KeyPress);
             // 
             // login
             // 
@@ -78,6 +93,7 @@
             this.login.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.login.Size = new System.Drawing.Size(279, 26);
             this.login.TabIndex = 4;
+            this.login.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.login_KeyPress);
             // 
             // label2
             // 
@@ -111,21 +127,6 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button2
-            // 
-            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Image = global::UniversityMain.Properties.Resources.close;
-            this.button2.Location = new System.Drawing.Point(357, 0);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(28, 28);
-            this.button2.TabIndex = 1;
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            this.button2.MouseEnter += new System.EventHandler(this.button2_MouseEnter);
-            this.button2.MouseLeave += new System.EventHandler(this.button2_MouseLeave);
-            // 
             // SettingConection
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
@@ -139,7 +140,7 @@
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "SettingConection";
             this.Text = "SettingConection";
             this.panel1.ResumeLayout(false);

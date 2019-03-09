@@ -37,8 +37,17 @@ namespace UniversityMain
         private void button2_MouseLeave(object sender, EventArgs e)
         {
             button2.BackColor = Color.DeepSkyBlue;
+        }        
+        private void login_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((e.KeyChar < 48 || e.KeyChar >= 58) && e.KeyChar != 8 && e.KeyChar != 46)
+                e.Handled = true;
+        }
+        private void password_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((e.KeyChar < 48 || e.KeyChar >= 58) && e.KeyChar != 8)
+                e.Handled = true;
         }
         #endregion
-
     }
 }
