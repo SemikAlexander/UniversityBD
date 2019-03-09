@@ -49,5 +49,9 @@ namespace UniversityMain
                 e.Handled = true;
         }
         #endregion
+        private void SettingConection_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
