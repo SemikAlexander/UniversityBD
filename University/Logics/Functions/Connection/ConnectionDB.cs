@@ -25,6 +25,7 @@ namespace Logics.Functions.Connection
         /// Настройки подключения
         /// </summary>
         private Connection connection;
+        public Connection ConfigConnection { get => connection; }
         /// <summary>
         /// Строка для хранения ошибки
         /// </summary>
@@ -38,6 +39,12 @@ namespace Logics.Functions.Connection
 
         #endregion
         #region Function
+        public ConnectionDB()
+        {
+            Load();
+        }
+
+
         /// <summary>
         /// указание логина и пароля
         /// </summary>
