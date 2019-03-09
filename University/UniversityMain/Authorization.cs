@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using Logics;
 
 namespace UniversityMain
 {
@@ -56,9 +57,16 @@ namespace UniversityMain
                     }
                 }
             }
-            /*Функция авторизации*/
-            Hide();
-            new MainForm().Show();
+            Logics.Functions.Connection.ConnectionDB connection;
+            Logics.Login.Auth authorizationUser= new Logics.Login.Auth();
+            if (authorizationUser.Login(login.Text.Trim(' '), password.Text.Trim(' '), out connection))
+            {
+                Hide();
+                new MainForm().Show();
+            }
+            else
+                MessageBox.Show(authorizationUser.exception, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            
         }
         private void button3_Click(object sender, EventArgs e)
         {

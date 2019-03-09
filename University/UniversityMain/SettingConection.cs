@@ -7,6 +7,7 @@ namespace UniversityMain
 {
     public partial class SettingConection : Form
     {
+        Logics.Functions.Connection.ConnectionDB connection = new Logics.Functions.Connection.ConnectionDB();
         [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
         private extern static void ReleaseCapture();
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
@@ -22,7 +23,17 @@ namespace UniversityMain
         }
         private void button1_Click(object sender, EventArgs e)
         {
-
+            Logics.Functions.Connection.ConnectionDB.Connection connectionStruct;
+            connectionStruct.ip = ip_adress.Text;
+            connectionStruct.port = port.Text;
+            connectionStruct.dbname = nameDB.Text;
+            if (connection.updateSettings(connectionStruct))
+            {
+                MessageBox.Show("Изменения сохранены!", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Close();
+            }
+            else
+                MessageBox.Show(connection.exception, Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
         #region Design
         private void panel1_MouseDown(object sender, MouseEventArgs e)
@@ -47,6 +58,20 @@ namespace UniversityMain
         {
             if ((e.KeyChar < 48 || e.KeyChar >= 58) && e.KeyChar != 8)
                 e.Handled = true;
+        }
+        private void SettingConection_Load(object sender, EventArgs e)
+        {
+            if (connection.ConfigConnection.ip == null)
+            {
+                MessageBox.Show(connection.exception, Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Close();
+            }
+            else
+            {
+                ip_adress.Text = connection.ConfigConnection.ip;
+                port.Text = connection.ConfigConnection.port;
+                nameDB.Text = connection.ConfigConnection.dbname;
+            }
         }
         #endregion
     }
