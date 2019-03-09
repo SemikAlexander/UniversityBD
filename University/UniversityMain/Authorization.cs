@@ -11,13 +11,13 @@ using System.Windows.Forms;
 
 namespace UniversityMain
 {
-    public partial class Form1 : Form
+    public partial class Authorization : Form
     {
         [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
         private extern static void ReleaseCapture();
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
         private extern static void SendMessage(System.IntPtr hwnd, int wmsg, int wparam, int lparam);
-        public Form1()
+        public Authorization()
         {
             InitializeComponent();
         }
@@ -35,11 +35,11 @@ namespace UniversityMain
         #region Design
         private void button2_MouseEnter(object sender, EventArgs e)
         {
-                    button2.BackColor = Color.Red;
+            button2.BackColor = Color.Red;
         }
         private void button2_MouseLeave(object sender, EventArgs e)
         {
-                    button2.BackColor = Color.DeepSkyBlue;
+            button2.BackColor = Color.DeepSkyBlue;
         }
         #endregion
 
@@ -57,6 +57,12 @@ namespace UniversityMain
                 }
             }
             /*Функция авторизации*/
+            Hide();
+            new MainForm().Show();
+        }
+        private void button3_Click(object sender, EventArgs e)
+        {
+            new SettingConection().Show();
         }
     }
 }
