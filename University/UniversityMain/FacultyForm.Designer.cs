@@ -28,15 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.FacultyInfo = new System.Windows.Forms.DataGridView();
-            this.IDFaculty = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NameFaculty = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Logo = new System.Windows.Forms.DataGridViewImageColumn();
             this.panel1.SuspendLayout();
@@ -52,7 +51,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(640, 44);
+            this.panel1.Size = new System.Drawing.Size(550, 44);
             this.panel1.TabIndex = 1;
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
             // 
@@ -61,7 +60,7 @@
             this.panel2.Controls.Add(this.button2);
             this.panel2.Controls.Add(this.button1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel2.Location = new System.Drawing.Point(530, 0);
+            this.panel2.Location = new System.Drawing.Point(440, 0);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(110, 44);
             this.panel2.TabIndex = 1;
@@ -93,60 +92,53 @@
             // panel3
             // 
             this.panel3.Controls.Add(this.FacultyInfo);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(0, 44);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(640, 406);
+            this.panel3.Size = new System.Drawing.Size(550, 406);
             this.panel3.TabIndex = 2;
             // 
             // FacultyInfo
             // 
             this.FacultyInfo.BackgroundColor = System.Drawing.Color.White;
             this.FacultyInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.FacultyInfo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.FacultyInfo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.FacultyInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.FacultyInfo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.IDFaculty,
             this.NameFaculty,
             this.Logo});
             this.FacultyInfo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FacultyInfo.Location = new System.Drawing.Point(0, 0);
             this.FacultyInfo.Name = "FacultyInfo";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.FacultyInfo.RowsDefaultCellStyle = dataGridViewCellStyle4;
-            this.FacultyInfo.Size = new System.Drawing.Size(640, 406);
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.FacultyInfo.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            this.FacultyInfo.Size = new System.Drawing.Size(550, 406);
             this.FacultyInfo.TabIndex = 0;
-            // 
-            // IDFaculty
-            // 
-            this.IDFaculty.HeaderText = "ID";
-            this.IDFaculty.Name = "IDFaculty";
             // 
             // NameFaculty
             // 
             this.NameFaculty.HeaderText = "Название";
             this.NameFaculty.Name = "NameFaculty";
-            this.NameFaculty.Width = 285;
+            this.NameFaculty.Width = 300;
             // 
             // Logo
             // 
             this.Logo.HeaderText = "Логотип";
             this.Logo.Name = "Logo";
-            this.Logo.Width = 185;
+            this.Logo.Width = 200;
             // 
             // FacultyForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(640, 450);
+            this.ClientSize = new System.Drawing.Size(550, 450);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -169,7 +161,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.DataGridView FacultyInfo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IDFaculty;
         private System.Windows.Forms.DataGridViewTextBoxColumn NameFaculty;
         private System.Windows.Forms.DataGridViewImageColumn Logo;
     }

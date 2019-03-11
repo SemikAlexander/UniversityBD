@@ -137,5 +137,26 @@
   <ItemGroup>
     <None Include="Resources\Save.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Menu.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TimeTable.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Department.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Help.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\User.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Teacher.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Groups.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -29,7 +29,6 @@ namespace UniversityMain
         private void button1_Click(object sender, EventArgs e)
         {
             Close();
-            new MainForm().Show();
         }
         private void panel1_MouseDown(object sender, MouseEventArgs e)
         {
