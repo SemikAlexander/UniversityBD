@@ -64,6 +64,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Facultets\Faculty.cs" />
     <Compile Include="Functions\Converting\Base64.cs" />
     <Compile Include="Functions\Connection\ConnectionDB.cs" />
     <Compile Include="Login\Auth.cs" />
