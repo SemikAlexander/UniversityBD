@@ -12,9 +12,9 @@ namespace Logics.Facultets
     {
         public struct StructFaculty
         {
-            Image logo;
-            string Name;
-            int id;
+            public Image logo;
+            public string Name;
+            public int id;
         }
 
         #region Variable
@@ -27,16 +27,29 @@ namespace Logics.Facultets
         public Faculty(Functions.Connection.ConnectionDB connectionDB) => _connectionDB = connectionDB;
 
 
-        public bool GetFaculty(out List<StructFaculty> @struct)
+        public bool GetAllFaculty(out List<StructFaculty> @struct)
         {
             @struct = new List<StructFaculty>();
+            StructFaculty str;
             if (_connectionDB == null) { exception = "Подключение не установленно"; return false; }
             try
             {
                 var conn = new NpgsqlConnection(this._connectionDB.ConnectString);
                 conn.Open();
-                
 
+                using (var cmd = new NpgsqlCommand("SELECT * FROM getallfaculty();", conn))
+                using (var reader = cmd.ExecuteReader())
+                    while (reader.Read())
+                    {
+                        str.id = reader.GetInt32(0);
+                        str.Name = reader.GetString(1);
+                        if (!reader.IsDBNull(2))
+                        {
+                            str.logo = Functions.Converting.Base64.decodeImage(reader.GetString(2));
+                        }
+                        else str.logo = null;
+                        @struct.Add(str);
+                    }
                 conn.Close();
                 return true;
             }
@@ -45,12 +58,35 @@ namespace Logics.Facultets
                 exception = ex.Message;
                 return false;
             }
-            return true;
         }
-        public bool AddFaculty(StructFaculty structFaculty)
+        public bool AddFaculty(string nameFaclty,Image image)
         {
+            if (nameFaclty.Trim().Length == 0) { exception = "Название факультета не задано"; return false; }
+            if (_connectionDB == null) { exception = "Подключение не установленно"; return false; }
+            try
+            {
+                var conn = new NpgsqlConnection(this._connectionDB.ConnectString);
+                conn.Open();
 
-            return true;
+                using (var cmd = new NpgsqlCommand())
+                {
+                    cmd.Connection = conn;
+                    cmd.CommandText = "SELECT * from addfaculty('@name','@logo');";
+                    cmd.Parameters.AddWithValue("name", "Hello world");
+                    if(image==null)
+                    cmd.Parameters.AddWithValue("logo", null);
+                    else
+                        cmd.Parameters.AddWithValue("logo", Functions.Converting.Base64.encodeImage(image));
+                    cmd.ExecuteNonQuery();
+                }
+                conn.Close();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                exception = ex.Message;
+                return false;
+            }
         }
 
     }
