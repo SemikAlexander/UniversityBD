@@ -12,7 +12,7 @@
  Target Server Version : 90612
  File Encoding         : 65001
 
- Date: 13/03/2019 08:51:14
+ Date: 14/03/2019 10:16:03
 */
 
 
@@ -340,12 +340,30 @@ CREATE TABLE "public"."week" (
 COMMENT ON COLUMN "public"."week"."TypeWeek" IS 'Тип недели (V - верхняя N - нижняя неделя)';
 
 -- ----------------------------
--- Function structure for addfaculty
+-- Function structure for classroom_add
 -- ----------------------------
-DROP FUNCTION IF EXISTS "public"."addfaculty"("name" text, "logo" text);
-CREATE OR REPLACE FUNCTION "public"."addfaculty"("name" text, "logo" text)
+DROP FUNCTION IF EXISTS "public"."classroom_add"("housing" int4, "num_classroom" int4);
+CREATE OR REPLACE FUNCTION "public"."classroom_add"("housing" int4, "num_classroom" int4)
+  RETURNS "pg_catalog"."text" AS $BODY$
+BEGIN
+	 	IF EXISTS(SELECT FROM "public".classroom WHERE "public".classroom."Housing"=Housing AND "public".classroom."Num_Classroom"=Num_Classroom) THEN
+		RETURN 'Запись существует';
+	ELSE
+		INSERT INTO classroom ("Housing","Num_Classroom") VALUES(Housing,Num_Classroom);	
+		RETURN 'Успешно';
+	END IF;
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+-- ----------------------------
+-- Function structure for classroom_delete
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."classroom_delete"("id" int4);
+CREATE OR REPLACE FUNCTION "public"."classroom_delete"("id" int4)
   RETURNS "pg_catalog"."text" AS $BODY$BEGIN
-	 INSERT INTO faculty("Name_Faculty","Logo_Faculty") VALUES('','');	
+	 DELETE FROM classroom WHERE "ID_CLASSROOM"=id;
 		RETURN 'Success';
 
 END
@@ -354,10 +372,57 @@ $BODY$
   COST 100;
 
 -- ----------------------------
--- Function structure for getallfaculty
+-- Function structure for classroom_get_all
 -- ----------------------------
-DROP FUNCTION IF EXISTS "public"."getallfaculty"();
-CREATE OR REPLACE FUNCTION "public"."getallfaculty"()
+DROP FUNCTION IF EXISTS "public"."classroom_get_all"("start_row" int4, "count_rows" int4);
+CREATE OR REPLACE FUNCTION "public"."classroom_get_all"("start_row" int4, "count_rows" int4)
+  RETURNS TABLE("id" int4, "house" int4, "number_kab" int4) AS $BODY$
+	BEGIN
+	RETURN QUERY SELECT * FROM classroom  LIMIT count_rows OFFSET start_row;
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100
+  ROWS 1000;
+
+-- ----------------------------
+-- Function structure for faculty_add
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."faculty_add"("name_faculty" text, "logo" text);
+CREATE OR REPLACE FUNCTION "public"."faculty_add"("name_faculty" text, "logo" text)
+  RETURNS "pg_catalog"."text" AS $BODY$
+	BEGIN 
+	IF EXISTS(SELECT * INTO count_rec FROM faculty WHERE "Name_Faculty"=name_faculty) THEN
+		RETURN 'Запись существует';
+	ELSE
+		INSERT INTO faculty("Name_Faculty","Logo_Faculty") VALUES(name_faculty,logo);	
+		RETURN 'Успешно';
+	END IF;
+
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+-- ----------------------------
+-- Function structure for faculty_delete
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."faculty_delete"("id" int4);
+CREATE OR REPLACE FUNCTION "public"."faculty_delete"("id" int4)
+  RETURNS "pg_catalog"."text" AS $BODY$BEGIN
+	 DELETE FROM faculty WHERE "ID_FACULTY"=id;
+		RETURN 'Success';
+
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+-- ----------------------------
+-- Function structure for faculty_get_all
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."faculty_get_all"();
+CREATE OR REPLACE FUNCTION "public"."faculty_get_all"()
   RETURNS TABLE("id" int4, "name" text, "logo" text) AS $BODY$BEGIN
 	RETURN QUERY SELECT * FROM faculty;
 END

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Logics.Facultets
+namespace Logics.Books
 {
     public class Faculty
     {
