@@ -37,7 +37,7 @@ namespace Logics.Books
                 var conn = new NpgsqlConnection(this._connectionDB.ConnectString);
                 conn.Open();
 
-                using (var cmd = new NpgsqlCommand("SELECT * FROM getallfaculty();", conn))
+                using (var cmd = new NpgsqlCommand("SELECT * FROM faculty_get_all();", conn))
                 using (var reader = cmd.ExecuteReader())
                     while (reader.Read())
                     {
@@ -77,7 +77,40 @@ namespace Logics.Books
                     cmd.Parameters.AddWithValue("logo", null);
                     else
                         cmd.Parameters.AddWithValue("logo", Functions.Converting.Base64.encodeImage(image));
-                    cmd.ExecuteNonQuery();
+                    using (var reader = cmd.ExecuteReader())
+                        if (reader.Read())
+                        {
+                            if (reader.GetString(0) == "Success") return true; else { exception = reader.GetString(0); return false; }
+                        }
+                }
+                conn.Close();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                exception = ex.Message;
+                return false;
+            }
+        }
+        public bool DeleteFaculty(int id)
+        {
+            if (id < 0) { exception = "ID не указан"; return false; }
+            if (_connectionDB == null) { exception = "Подключение не установленно"; return false; }
+            try
+            {
+                var conn = new NpgsqlConnection(this._connectionDB.ConnectString);
+                conn.Open();
+
+                using (var cmd = new NpgsqlCommand())
+                {
+                    cmd.Connection = conn;
+                    cmd.CommandText = "SELECT * from faculty_delete(@id);";
+                    cmd.Parameters.AddWithValue("id", id);
+                    using (var reader = cmd.ExecuteReader())
+                        if (reader.Read())
+                        {
+                            if (reader.GetString(0) == "Success") return true; else { exception = reader.GetString(0); return false; }
+                        }
                 }
                 conn.Close();
                 return true;
