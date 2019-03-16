@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace Logics.Books
 {
-    public class Position
+    public class TypeSubject
     {
-        public struct StructPosition
+        public struct StructTypeSubject
         {
             public int name;
             public int id;
@@ -16,21 +16,21 @@ namespace Logics.Books
         public string exception = "";
         private  Functions.Connection.ConnectionDB _connectionDB =null;
         #endregion
-        public Position(Functions.Connection.ConnectionDB connectionDB) => _connectionDB = connectionDB;
+        public TypeSubject(Functions.Connection.ConnectionDB connectionDB) => _connectionDB = connectionDB;
         
-        public bool GetAllPositions(out List<StructPosition> disciplines)
+        public bool GetAllTypeSubjects(out List<StructTypeSubject> disciplines)
         {
-            disciplines = new List<StructPosition>();
+            disciplines = new List<StructTypeSubject>();
             if (_connectionDB == null) { exception = "Подключение не установленно"; return false; }
             try
             {
                 var conn = new NpgsqlConnection(this._connectionDB.ConnectString);
                 conn.Open();
-                using (var cmd = new NpgsqlCommand($"SELECT * FROM position_get_all();", conn))
+                using (var cmd = new NpgsqlCommand($"SELECT * FROM type_subject_get_all();", conn))
                 using (var reader = cmd.ExecuteReader())
                     while (reader.Read())
                     {
-                        disciplines.Add(new StructPosition() { id = reader.GetInt32(0), name = reader.GetInt32(1)});
+                        disciplines.Add(new StructTypeSubject() { id = reader.GetInt32(0), name = reader.GetInt32(1)});
                     }
                 conn.Close();
                 return true;
@@ -41,7 +41,7 @@ namespace Logics.Books
                 return false;
             }
         }
-        public bool AddPosition(string name)
+        public bool AddTypeSubject(string name)
         {
             if (_connectionDB == null) { exception = "Подключение не установленно"; return false; }
             try
@@ -49,7 +49,7 @@ namespace Logics.Books
                 var conn = new NpgsqlConnection(this._connectionDB.ConnectString);
                 conn.Open();
 
-                using (var cmd = new NpgsqlCommand($"SELECT * from position_add('{name}'", conn))
+                using (var cmd = new NpgsqlCommand($"SELECT * from type_subject_add('{name}'", conn))
                 using (var reader = cmd.ExecuteReader())
                     if (reader.Read())
                     {
@@ -64,7 +64,7 @@ namespace Logics.Books
                 return false;
             }
         }
-        public bool DeletePosition(int id)
+        public bool DeleteTypeSubject(int id)
         {
             if (id < 0) { exception = "ID не указан"; return false; }
             if (_connectionDB == null) { exception = "Подключение не установленно"; return false; }
@@ -72,7 +72,7 @@ namespace Logics.Books
             {
                 var conn = new NpgsqlConnection(this._connectionDB.ConnectString);
                 conn.Open();
-                using (var cmd = new NpgsqlCommand($"SELECT * from position_delete({id});", conn))
+                using (var cmd = new NpgsqlCommand($"SELECT * from type_subject_delete({id});", conn))
                 using (var reader = cmd.ExecuteReader())
                     if (reader.Read())
                     {

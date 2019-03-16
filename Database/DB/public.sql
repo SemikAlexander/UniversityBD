@@ -12,7 +12,7 @@
  Target Server Version : 90612
  File Encoding         : 65001
 
- Date: 16/03/2019 15:43:23
+ Date: 16/03/2019 16:05:23
 */
 
 
@@ -529,6 +529,51 @@ DROP FUNCTION IF EXISTS "public"."position_get_all"();
 CREATE OR REPLACE FUNCTION "public"."position_get_all"()
   RETURNS TABLE("id" int4, "name" text) AS $BODY$BEGIN
 	RETURN QUERY SELECT * FROM "position";
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100
+  ROWS 1000;
+
+-- ----------------------------
+-- Function structure for type_subject_add
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."type_subject_add"("name_Subject" text);
+CREATE OR REPLACE FUNCTION "public"."type_subject_add"("name_Subject" text)
+  RETURNS "pg_catalog"."text" AS $BODY$
+	BEGIN 
+	IF EXISTS(SELECT * FROM "typeSubject" WHERE "Name_Subject"=name_Subject) THEN
+		RETURN 'Запись существует';
+	ELSE
+		INSERT INTO "typeSubject"("Name_Subject") VALUES(name_Subject);	
+		RETURN 'Успешно';
+	END IF;
+
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+-- ----------------------------
+-- Function structure for type_subject_delete
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."type_subject_delete"("id" int4);
+CREATE OR REPLACE FUNCTION "public"."type_subject_delete"("id" int4)
+  RETURNS "pg_catalog"."text" AS $BODY$BEGIN
+	 DELETE FROM "typeSubject" WHERE "ID_SUBJECT"=id;
+		RETURN 'Success';
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+-- ----------------------------
+-- Function structure for type_subject_get_all
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."type_subject_get_all"();
+CREATE OR REPLACE FUNCTION "public"."type_subject_get_all"()
+  RETURNS TABLE("id" int4, "name" text) AS $BODY$BEGIN
+	RETURN QUERY SELECT * FROM "typeSubject";
 END
 $BODY$
   LANGUAGE plpgsql VOLATILE
