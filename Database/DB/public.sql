@@ -12,7 +12,7 @@
  Target Server Version : 90612
  File Encoding         : 65001
 
- Date: 14/03/2019 10:16:03
+ Date: 16/03/2019 16:05:23
 */
 
 
@@ -374,11 +374,71 @@ $BODY$
 -- ----------------------------
 -- Function structure for classroom_get_all
 -- ----------------------------
-DROP FUNCTION IF EXISTS "public"."classroom_get_all"("start_row" int4, "count_rows" int4);
-CREATE OR REPLACE FUNCTION "public"."classroom_get_all"("start_row" int4, "count_rows" int4)
+DROP FUNCTION IF EXISTS "public"."classroom_get_all"("start_row" int4, "count_rows" int4, "number_korpus" int4);
+CREATE OR REPLACE FUNCTION "public"."classroom_get_all"("start_row" int4, "count_rows" int4, "number_korpus" int4)
   RETURNS TABLE("id" int4, "house" int4, "number_kab" int4) AS $BODY$
 	BEGIN
-	RETURN QUERY SELECT * FROM classroom  LIMIT count_rows OFFSET start_row;
+	RETURN QUERY SELECT * FROM classroom WHERE "Housing"=number_korpus ORDER BY "ID_CLASSROOM" ASC LIMIT count_rows OFFSET start_row ;
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100
+  ROWS 1000;
+
+-- ----------------------------
+-- Function structure for classroom_get_housing
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."classroom_get_housing"();
+CREATE OR REPLACE FUNCTION "public"."classroom_get_housing"()
+  RETURNS TABLE("housing" int4) AS $BODY$BEGIN
+	-- Routine body goes here...
+	RETURN QUERY SELECT "Housing" FROM classroom GROUP BY "Housing";
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100
+  ROWS 1000;
+
+-- ----------------------------
+-- Function structure for discipline_add
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."discipline_add"("name_discipline" text);
+CREATE OR REPLACE FUNCTION "public"."discipline_add"("name_discipline" text)
+  RETURNS "pg_catalog"."text" AS $BODY$
+	BEGIN 
+	IF EXISTS(SELECT * FROM discipline WHERE "Name_Discipline"=name_discipline) THEN
+		RETURN 'Запись существует';
+	ELSE
+		INSERT INTO discipline("Name_Discipline") VALUES(name_discipline);	
+		RETURN 'Успешно';
+	END IF;
+
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+-- ----------------------------
+-- Function structure for discipline_delete
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."discipline_delete"("id" int4);
+CREATE OR REPLACE FUNCTION "public"."discipline_delete"("id" int4)
+  RETURNS "pg_catalog"."text" AS $BODY$BEGIN
+	 DELETE FROM discipline WHERE "ID_DISCIPLINE"=id;
+		RETURN 'Success';
+
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+-- ----------------------------
+-- Function structure for discipline_get_all
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."discipline_get_all"("start_row" int4, "count_rows" int4);
+CREATE OR REPLACE FUNCTION "public"."discipline_get_all"("start_row" int4, "count_rows" int4)
+  RETURNS TABLE("id" int4, "name" text) AS $BODY$BEGIN
+	RETURN QUERY SELECT * FROM discipline ORDER BY "ID_DISCIPLINE" ASC LIMIT count_rows OFFSET start_row;
 END
 $BODY$
   LANGUAGE plpgsql VOLATILE
@@ -392,7 +452,7 @@ DROP FUNCTION IF EXISTS "public"."faculty_add"("name_faculty" text, "logo" text)
 CREATE OR REPLACE FUNCTION "public"."faculty_add"("name_faculty" text, "logo" text)
   RETURNS "pg_catalog"."text" AS $BODY$
 	BEGIN 
-	IF EXISTS(SELECT * INTO count_rec FROM faculty WHERE "Name_Faculty"=name_faculty) THEN
+	IF EXISTS(SELECT * FROM faculty WHERE "Name_Faculty"=name_faculty) THEN
 		RETURN 'Запись существует';
 	ELSE
 		INSERT INTO faculty("Name_Faculty","Logo_Faculty") VALUES(name_faculty,logo);	
@@ -412,7 +472,6 @@ CREATE OR REPLACE FUNCTION "public"."faculty_delete"("id" int4)
   RETURNS "pg_catalog"."text" AS $BODY$BEGIN
 	 DELETE FROM faculty WHERE "ID_FACULTY"=id;
 		RETURN 'Success';
-
 END
 $BODY$
   LANGUAGE plpgsql VOLATILE
@@ -425,6 +484,142 @@ DROP FUNCTION IF EXISTS "public"."faculty_get_all"();
 CREATE OR REPLACE FUNCTION "public"."faculty_get_all"()
   RETURNS TABLE("id" int4, "name" text, "logo" text) AS $BODY$BEGIN
 	RETURN QUERY SELECT * FROM faculty;
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100
+  ROWS 1000;
+
+-- ----------------------------
+-- Function structure for position_add
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."position_add"("name_position" text);
+CREATE OR REPLACE FUNCTION "public"."position_add"("name_position" text)
+  RETURNS "pg_catalog"."text" AS $BODY$
+	BEGIN 
+	IF EXISTS(SELECT * FROM "position" WHERE "Name_Position"=name_position) THEN
+		RETURN 'Запись существует';
+	ELSE
+		INSERT INTO "position"("Name_Position") VALUES(name_position);	
+		RETURN 'Успешно';
+	END IF;
+
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+-- ----------------------------
+-- Function structure for position_delete
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."position_delete"("id" int4);
+CREATE OR REPLACE FUNCTION "public"."position_delete"("id" int4)
+  RETURNS "pg_catalog"."text" AS $BODY$BEGIN
+	 DELETE FROM "position" WHERE "ID_POSITION"=id;
+		RETURN 'Success';
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+-- ----------------------------
+-- Function structure for position_get_all
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."position_get_all"();
+CREATE OR REPLACE FUNCTION "public"."position_get_all"()
+  RETURNS TABLE("id" int4, "name" text) AS $BODY$BEGIN
+	RETURN QUERY SELECT * FROM "position";
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100
+  ROWS 1000;
+
+-- ----------------------------
+-- Function structure for type_subject_add
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."type_subject_add"("name_Subject" text);
+CREATE OR REPLACE FUNCTION "public"."type_subject_add"("name_Subject" text)
+  RETURNS "pg_catalog"."text" AS $BODY$
+	BEGIN 
+	IF EXISTS(SELECT * FROM "typeSubject" WHERE "Name_Subject"=name_Subject) THEN
+		RETURN 'Запись существует';
+	ELSE
+		INSERT INTO "typeSubject"("Name_Subject") VALUES(name_Subject);	
+		RETURN 'Успешно';
+	END IF;
+
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+-- ----------------------------
+-- Function structure for type_subject_delete
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."type_subject_delete"("id" int4);
+CREATE OR REPLACE FUNCTION "public"."type_subject_delete"("id" int4)
+  RETURNS "pg_catalog"."text" AS $BODY$BEGIN
+	 DELETE FROM "typeSubject" WHERE "ID_SUBJECT"=id;
+		RETURN 'Success';
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+-- ----------------------------
+-- Function structure for type_subject_get_all
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."type_subject_get_all"();
+CREATE OR REPLACE FUNCTION "public"."type_subject_get_all"()
+  RETURNS TABLE("id" int4, "name" text) AS $BODY$BEGIN
+	RETURN QUERY SELECT * FROM "typeSubject";
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100
+  ROWS 1000;
+
+-- ----------------------------
+-- Function structure for week_add
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."week_add"("name_day" text, "type_week" bpchar);
+CREATE OR REPLACE FUNCTION "public"."week_add"("name_day" text, "type_week" bpchar)
+  RETURNS "pg_catalog"."text" AS $BODY$
+	BEGIN 
+	IF EXISTS(SELECT * FROM week WHERE week."NameDay"=name_day and week."TypeWeek"=type_week) THEN
+		RETURN 'Запись существует';
+	ELSE
+		INSERT INTO week("NameDay","TypeWeek") VALUES(name_day,type_week);	
+		RETURN 'Успешно';
+	END IF;
+
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+-- ----------------------------
+-- Function structure for week_delete
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."week_delete"("id" int4);
+CREATE OR REPLACE FUNCTION "public"."week_delete"("id" int4)
+  RETURNS "pg_catalog"."text" AS $BODY$BEGIN
+	 DELETE FROM week WHERE week."ID_DAY"=id;
+		RETURN 'Success';
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+-- ----------------------------
+-- Function structure for week_get_all
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."week_get_all"();
+CREATE OR REPLACE FUNCTION "public"."week_get_all"()
+  RETURNS TABLE("id_w" int4, "name_w" text, "type_w" bpchar) AS $BODY$BEGIN
+	
+	RETURN QUERY SELECT * FROM week;
 END
 $BODY$
   LANGUAGE plpgsql VOLATILE

@@ -64,6 +64,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Books\TypeSubject.cs" />
+    <Compile Include="Books\Week.cs" />
+    <Compile Include="Books\Position.cs" />
+    <Compile Include="Books\Discipline.cs" />
+    <Compile Include="Books\Classroom.cs" />
     <Compile Include="Books\Faculty.cs" />
     <Compile Include="Functions\Converting\Base64.cs" />
     <Compile Include="Functions\Connection\ConnectionDB.cs" />
