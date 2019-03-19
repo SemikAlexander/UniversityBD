@@ -17,9 +17,11 @@ namespace UniversityMain
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
         private extern static void SendMessage(System.IntPtr hwnd, int wmsg, int wparam, int lparam);
         bool WindowMaximize = true, ShowMenu = true;
-        public MainForm()
+        Logics.Functions.Connection.ConnectionDB connectionDB;
+        public MainForm(Logics.Functions.Connection.ConnectionDB connection)
         {
             InitializeComponent();
+            connectionDB = connection;
         }
         #region Design
         private void button1_Click_1(object sender, EventArgs e)
@@ -64,18 +66,24 @@ namespace UniversityMain
         {
             WindowState = FormWindowState.Minimized;
         }
-        #endregion
         private void panel1_MouseDown_1(object sender, MouseEventArgs e)
         {
             ReleaseCapture();
             SendMessage(Handle, 0x112, 0xf012, 0);
         }
-
         private void button5_Click(object sender, EventArgs e)
         {
-            new FacultyForm().Show();
+            new FacultyForm(connectionDB).Show();
         }
-
+        private void button7_Click(object sender, EventArgs e)
+        {
+            /*Пока так. Как только будут готовы функции - изменю.*/
+            new ShowGroups().Show();
+        }
+        private void button6_Click(object sender, EventArgs e)
+        {
+            new Teachers(connectionDB).Show();
+        }
         private void button4_Click(object sender, EventArgs e)
         {
             if (VerticalMenu.Width==210)
@@ -83,5 +91,6 @@ namespace UniversityMain
             else
                 VerticalMenu.Width = 210;
         }
+        #endregion
     }
 }

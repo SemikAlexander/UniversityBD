@@ -54,7 +54,7 @@ namespace UniversityMain
             if (authorizationUser.Login(login.Text.Trim(' '), password.Text.Trim(' '), out connection))
             {
                 Hide();
-                new MainForm().Show();
+                new MainForm(connection).Show();
             }
             else
                 MessageBox.Show(authorizationUser.exception, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);           
