@@ -68,8 +68,8 @@ namespace Logics.Books
                 using (var cmd = new NpgsqlCommand())
                 {
                     cmd.Connection = conn;
-                    cmd.CommandText = "SELECT * from addfaculty('@name','@logo');";
-                    cmd.Parameters.AddWithValue("name", "Hello world");
+                    cmd.CommandText = "SELECT * from faculty_add('@name','@logo');";
+                    cmd.Parameters.AddWithValue("name", nameFaclty);
                     if(image==null)
                     cmd.Parameters.AddWithValue("logo", null);
                     else
