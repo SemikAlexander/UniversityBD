@@ -40,7 +40,7 @@ namespace Logics.Books
                     {
                         str.id = reader.GetInt32(0);
                         str.Name = reader.GetString(1);
-                        if (!reader.IsDBNull(2))
+                        if (reader.GetString(2)!=null)
                         {
                             str.logo = Functions.Converting.Base64.decodeImage(reader.GetString(2));
                         }

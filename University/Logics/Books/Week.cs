@@ -61,7 +61,7 @@ namespace Logics.Books
                 if (week.type == Type_Week.Top)
                     type_w = 'V';
                 else type_w = 'N';
-                using (var cmd = new NpgsqlCommand($"SELECT * from week_add('{week.name_day}','{type_w}'", conn))
+                using (var cmd = new NpgsqlCommand($"SELECT * from week_add('{week.name_day}','{type_w}');", conn))
                 using (var reader = cmd.ExecuteReader())
                     if (reader.Read())
                     {
