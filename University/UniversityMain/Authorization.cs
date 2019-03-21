@@ -1,14 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using Logics;
 
 namespace UniversityMain
 {
@@ -43,7 +36,6 @@ namespace UniversityMain
             button2.BackColor = Color.DeepSkyBlue;
         }
         #endregion
-
         private void button1_Click(object sender, EventArgs e)
         {
             foreach (Control control in Controls)       /*Проверка на пустоту в textbox*/
@@ -62,11 +54,10 @@ namespace UniversityMain
             if (authorizationUser.Login(login.Text.Trim(' '), password.Text.Trim(' '), out connection))
             {
                 Hide();
-                new MainForm().Show();
+                new MainForm(connection).Show();
             }
             else
-                MessageBox.Show(authorizationUser.exception, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            
+                MessageBox.Show(authorizationUser.exception, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);           
         }
         private void button3_Click(object sender, EventArgs e)
         {
