@@ -64,13 +64,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Books\TypeSubject.cs" />
+    <Compile Include="Books\Week.cs" />
+    <Compile Include="Books\Position.cs" />
+    <Compile Include="Books\Discipline.cs" />
+    <Compile Include="Books\Classroom.cs" />
+    <Compile Include="Books\Faculty.cs" />
     <Compile Include="Functions\Converting\Base64.cs" />
     <Compile Include="Functions\Connection\ConnectionDB.cs" />
     <Compile Include="Login\Auth.cs" />
+    <Compile Include="MainTable\Departments.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
