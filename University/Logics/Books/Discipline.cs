@@ -8,7 +8,7 @@ namespace Logics.Books
     {
         public struct StructDiscipline
         {
-            public int name;
+            public string name;
             public int id;
         }
 
@@ -30,7 +30,7 @@ namespace Logics.Books
                 using (var reader = cmd.ExecuteReader())
                     while (reader.Read())
                     {
-                        disciplines.Add(new StructDiscipline() { id = reader.GetInt32(0), name = reader.GetInt32(1)});
+                        disciplines.Add(new StructDiscipline() { id = reader.GetInt32(0), name = reader.GetString(1)});
                     }
                 conn.Close();
                 return true;
