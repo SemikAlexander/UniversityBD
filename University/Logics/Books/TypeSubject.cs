@@ -49,7 +49,7 @@ namespace Logics.Books
                 var conn = new NpgsqlConnection(this._connectionDB.ConnectString);
                 conn.Open();
 
-                using (var cmd = new NpgsqlCommand($"SELECT * from type_subject_add('{name}'", conn))
+                using (var cmd = new NpgsqlCommand($"SELECT * from type_subject_add('{name}');", conn))
                 using (var reader = cmd.ExecuteReader())
                     if (reader.Read())
                     {
