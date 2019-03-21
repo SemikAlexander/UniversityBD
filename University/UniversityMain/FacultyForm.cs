@@ -31,6 +31,7 @@ namespace UniversityMain
         private void button1_Click(object sender, EventArgs e)
         {
             Close();
+            new MainForm(connectionDB).Show();
         }
         private void panel1_MouseDown(object sender, MouseEventArgs e)
         {
@@ -41,6 +42,7 @@ namespace UniversityMain
 
         private void FacultyForm_Load(object sender, EventArgs e)
         {
+            /*Проверка на права тут должна быть!*/
             List<Logics.Books.Faculty.StructFaculty> structFaculties = new List<Logics.Books.Faculty.StructFaculty>();
             Logics.Books.Faculty faculty = new Logics.Books.Faculty(connectionDB);
             if(faculty.GetAllFaculty(out structFaculties))
@@ -52,6 +54,60 @@ namespace UniversityMain
             {
                 MessageBox.Show(faculty.exception, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog open_dialog = new OpenFileDialog(); //создание диалогового окна для выбора файла
+            open_dialog.Filter = "Image Files(*.JPG;*.PNG)|*.JPG;*.PNG|All files (*.*)|*.*"; //формат загружаемого файла
+            if (open_dialog.ShowDialog() == DialogResult.OK) //если в окне была нажата кнопка "ОК"
+            {
+                try
+                {
+                    pictureBox2.Image = new Bitmap(open_dialog.FileName);
+                }
+                catch
+                {
+                    DialogResult rezult = MessageBox.Show("Невозможно открыть выбранный файл",
+                    "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (textBox1.Text.Trim(' ').Length == 0)
+            {
+                MessageBox.Show("Вы не ввели имя факультета!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            else
+            {
+                Logics.Books.Faculty faculty = new Logics.Books.Faculty(connectionDB);
+                if(!faculty.AddFaculty(textBox1.Text, pictureBox2.Image))
+                {
+                    MessageBox.Show(faculty.exception, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show("Данные добавлены!", "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    pictureBox2.Image = null;
+                    textBox1.Clear();
+                    FacultyInfo.Rows.Clear();
+                    List<Logics.Books.Faculty.StructFaculty> structFaculties = new List<Logics.Books.Faculty.StructFaculty>();
+                    if (faculty.GetAllFaculty(out structFaculties))
+                    {
+                        for (int i = 0; i < structFaculties.Count; i++)
+                            FacultyInfo.Rows.Add(structFaculties[i].Name, structFaculties[i].logo);
+                    }
+                    else
+                    {
+                        MessageBox.Show(faculty.exception, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
             }
         }
     }

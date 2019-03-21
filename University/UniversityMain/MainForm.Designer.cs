@@ -90,12 +90,13 @@
             // 
             // button4
             // 
+            this.button4.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.button4.FlatAppearance.BorderSize = 0;
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button4.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button4.Image = global::UniversityMain.Properties.Resources.Help;
             this.button4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button4.Location = new System.Drawing.Point(-1, 573);
+            this.button4.Location = new System.Drawing.Point(0, 573);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(210, 42);
             this.button4.TabIndex = 3;
@@ -110,7 +111,7 @@
             this.button6.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button6.Image = global::UniversityMain.Properties.Resources.Teacher;
             this.button6.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button6.Location = new System.Drawing.Point(-1, 63);
+            this.button6.Location = new System.Drawing.Point(-1, 111);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(210, 42);
             this.button6.TabIndex = 2;
@@ -143,7 +144,7 @@
             this.timetable.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.timetable.Image = ((System.Drawing.Image)(resources.GetObject("timetable.Image")));
             this.timetable.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.timetable.Location = new System.Drawing.Point(-1, 111);
+            this.timetable.Location = new System.Drawing.Point(-1, 63);
             this.timetable.Name = "timetable";
             this.timetable.Size = new System.Drawing.Size(210, 42);
             this.timetable.TabIndex = 0;
