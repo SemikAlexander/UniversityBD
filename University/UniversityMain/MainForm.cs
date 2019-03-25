@@ -73,6 +73,7 @@ namespace UniversityMain
         }
         private void button5_Click(object sender, EventArgs e)
         {
+            /*Проверка прав доступа*/
             new FacultyForm(connectionDB).Show();
             Close();
         }

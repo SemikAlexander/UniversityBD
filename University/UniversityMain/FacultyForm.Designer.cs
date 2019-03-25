@@ -39,19 +39,22 @@
             this.FacultyInfo = new System.Windows.Forms.DataGridView();
             this.panel3 = new System.Windows.Forms.Panel();
             this.button4 = new System.Windows.Forms.Button();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.LogoBox = new System.Windows.Forms.PictureBox();
             this.button3 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.InputNameFaculty = new System.Windows.Forms.TextBox();
+            this.IDFaculty = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NameFaculty = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Logo = new System.Windows.Forms.DataGridViewImageColumn();
+            this.DeleteFaculty = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.EditFaculty = new System.Windows.Forms.DataGridViewButtonColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FacultyInfo)).BeginInit();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LogoBox)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -63,7 +66,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(550, 44);
+            this.panel1.Size = new System.Drawing.Size(712, 44);
             this.panel1.TabIndex = 1;
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
             // 
@@ -92,9 +95,9 @@
             this.panel2.Controls.Add(this.button2);
             this.panel2.Controls.Add(this.button1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel2.Location = new System.Drawing.Point(440, 0);
+            this.panel2.Location = new System.Drawing.Point(639, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(110, 44);
+            this.panel2.Size = new System.Drawing.Size(73, 44);
             this.panel2.TabIndex = 1;
             // 
             // button2
@@ -102,7 +105,7 @@
             this.button2.FlatAppearance.BorderSize = 0;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.Image = global::UniversityMain.Properties.Resources.Minimize;
-            this.button2.Location = new System.Drawing.Point(37, 8);
+            this.button2.Location = new System.Drawing.Point(3, 8);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(30, 28);
             this.button2.TabIndex = 4;
@@ -114,7 +117,7 @@
             this.button1.FlatAppearance.BorderSize = 0;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Image = global::UniversityMain.Properties.Resources.close;
-            this.button1.Location = new System.Drawing.Point(73, 8);
+            this.button1.Location = new System.Drawing.Point(39, 8);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(30, 28);
             this.button1.TabIndex = 3;
@@ -137,28 +140,33 @@
             this.FacultyInfo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.FacultyInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.FacultyInfo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.IDFaculty,
             this.NameFaculty,
-            this.Logo});
+            this.Logo,
+            this.DeleteFaculty,
+            this.EditFaculty});
             this.FacultyInfo.Location = new System.Drawing.Point(0, 42);
             this.FacultyInfo.Name = "FacultyInfo";
             this.FacultyInfo.ReadOnly = true;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.FacultyInfo.RowsDefaultCellStyle = dataGridViewCellStyle2;
-            this.FacultyInfo.Size = new System.Drawing.Size(550, 297);
+            this.FacultyInfo.Size = new System.Drawing.Size(713, 297);
             this.FacultyInfo.TabIndex = 2;
+            this.FacultyInfo.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.FacultyInfo_CellContentClick);
             // 
             // panel3
             // 
             this.panel3.Controls.Add(this.button4);
-            this.panel3.Controls.Add(this.pictureBox2);
+            this.panel3.Controls.Add(this.LogoBox);
             this.panel3.Controls.Add(this.button3);
             this.panel3.Controls.Add(this.label2);
             this.panel3.Controls.Add(this.label1);
-            this.panel3.Controls.Add(this.textBox1);
-            this.panel3.Location = new System.Drawing.Point(0, 337);
+            this.panel3.Controls.Add(this.InputNameFaculty);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel3.Location = new System.Drawing.Point(0, 336);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(550, 198);
+            this.panel3.Size = new System.Drawing.Size(712, 198);
             this.panel3.TabIndex = 3;
             // 
             // button4
@@ -167,21 +175,21 @@
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button4.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button4.Image = global::UniversityMain.Properties.Resources.OK;
-            this.button4.Location = new System.Drawing.Point(493, 149);
+            this.button4.Location = new System.Drawing.Point(658, 148);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(50, 46);
             this.button4.TabIndex = 10;
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
-            // pictureBox2
+            // LogoBox
             // 
-            this.pictureBox2.Location = new System.Drawing.Point(153, 37);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(191, 158);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 9;
-            this.pictureBox2.TabStop = false;
+            this.LogoBox.Location = new System.Drawing.Point(316, 37);
+            this.LogoBox.Name = "LogoBox";
+            this.LogoBox.Size = new System.Drawing.Size(191, 158);
+            this.LogoBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.LogoBox.TabIndex = 9;
+            this.LogoBox.TabStop = false;
             // 
             // button3
             // 
@@ -215,13 +223,20 @@
             this.label1.TabIndex = 6;
             this.label1.Text = "Название";
             // 
-            // textBox1
+            // InputNameFaculty
             // 
-            this.textBox1.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox1.Location = new System.Drawing.Point(89, 5);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(418, 26);
-            this.textBox1.TabIndex = 5;
+            this.InputNameFaculty.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.InputNameFaculty.Location = new System.Drawing.Point(89, 5);
+            this.InputNameFaculty.Name = "InputNameFaculty";
+            this.InputNameFaculty.Size = new System.Drawing.Size(418, 26);
+            this.InputNameFaculty.TabIndex = 5;
+            // 
+            // IDFaculty
+            // 
+            this.IDFaculty.HeaderText = "ID";
+            this.IDFaculty.Name = "IDFaculty";
+            this.IDFaculty.ReadOnly = true;
+            this.IDFaculty.Visible = false;
             // 
             // NameFaculty
             // 
@@ -238,11 +253,27 @@
             this.Logo.ReadOnly = true;
             this.Logo.Width = 209;
             // 
+            // DeleteFaculty
+            // 
+            this.DeleteFaculty.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.DeleteFaculty.HeaderText = "Удалить";
+            this.DeleteFaculty.Name = "DeleteFaculty";
+            this.DeleteFaculty.ReadOnly = true;
+            this.DeleteFaculty.Width = 80;
+            // 
+            // EditFaculty
+            // 
+            this.EditFaculty.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.EditFaculty.HeaderText = "Изменить";
+            this.EditFaculty.Name = "EditFaculty";
+            this.EditFaculty.ReadOnly = true;
+            this.EditFaculty.Width = 80;
+            // 
             // FacultyForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(550, 534);
+            this.ClientSize = new System.Drawing.Size(712, 534);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.FacultyInfo);
             this.Controls.Add(this.panel1);
@@ -258,7 +289,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.FacultyInfo)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LogoBox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -276,10 +307,13 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.TextBox InputNameFaculty;
+        private System.Windows.Forms.PictureBox LogoBox;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IDFaculty;
         private System.Windows.Forms.DataGridViewTextBoxColumn NameFaculty;
         private System.Windows.Forms.DataGridViewImageColumn Logo;
+        private System.Windows.Forms.DataGridViewButtonColumn DeleteFaculty;
+        private System.Windows.Forms.DataGridViewButtonColumn EditFaculty;
     }
 }

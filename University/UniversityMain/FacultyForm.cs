@@ -47,8 +47,8 @@ namespace UniversityMain
             Logics.Books.Faculty faculty = new Logics.Books.Faculty(connectionDB);
             if(faculty.GetAllFaculty(out structFaculties))
             {
-                for(int i = 0; i < structFaculties.Count; i++)
-                    FacultyInfo.Rows.Add(structFaculties[i].Name, structFaculties[i].logo);
+                for (int i = 0; i < structFaculties.Count; i++)
+                    FacultyInfo.Rows.Add(structFaculties[i].id, structFaculties[i].Name, structFaculties[i].logo);
             }
             else
             {
@@ -56,7 +56,6 @@ namespace UniversityMain
                 return;
             }
         }
-
         private void button3_Click(object sender, EventArgs e)
         {
             OpenFileDialog open_dialog = new OpenFileDialog(); //создание диалогового окна для выбора файла
@@ -65,7 +64,7 @@ namespace UniversityMain
             {
                 try
                 {
-                    pictureBox2.Image = new Bitmap(open_dialog.FileName);
+                    LogoBox.Image = new Bitmap(open_dialog.FileName);
                 }
                 catch
                 {
@@ -74,10 +73,9 @@ namespace UniversityMain
                 }
             }
         }
-
         private void button4_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text.Trim(' ').Length == 0)
+            if (InputNameFaculty.Text.Trim(' ').Length == 0)
             {
                 MessageBox.Show("Вы не ввели имя факультета!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -85,7 +83,7 @@ namespace UniversityMain
             else
             {
                 Logics.Books.Faculty faculty = new Logics.Books.Faculty(connectionDB);
-                if(!faculty.AddFaculty(textBox1.Text, pictureBox2.Image))
+                if(!faculty.AddFaculty(InputNameFaculty.Text, LogoBox.Image))
                 {
                     MessageBox.Show(faculty.exception, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
@@ -93,20 +91,44 @@ namespace UniversityMain
                 else
                 {
                     MessageBox.Show("Данные добавлены!", "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    pictureBox2.Image = null;
-                    textBox1.Clear();
+                    LogoBox.Image = null;
+                    InputNameFaculty.Clear();
                     FacultyInfo.Rows.Clear();
                     List<Logics.Books.Faculty.StructFaculty> structFaculties = new List<Logics.Books.Faculty.StructFaculty>();
                     if (faculty.GetAllFaculty(out structFaculties))
                     {
                         for (int i = 0; i < structFaculties.Count; i++)
-                            FacultyInfo.Rows.Add(structFaculties[i].Name, structFaculties[i].logo);
+                            FacultyInfo.Rows.Add(structFaculties[i].id, structFaculties[i].Name, structFaculties[i].logo);
                     }
                     else
                     {
                         MessageBox.Show(faculty.exception, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
+                }
+            }
+        }
+
+        private void FacultyInfo_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var senderGrid = (DataGridView)sender;
+
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
+            {
+                Logics.Books.Faculty.StructFaculty structFaculty;
+                structFaculty.id = (int)FacultyInfo.Rows[e.RowIndex].Cells[0].Value;
+                structFaculty.Name = FacultyInfo.Rows[e.RowIndex].Cells[1].Value.ToString();
+                InputNameFaculty.Text = structFaculty.Name;
+                structFaculty.logo = (Image)FacultyInfo.Rows[e.RowIndex].Cells[2].Value;
+                LogoBox.Image = structFaculty.logo;
+                Logics.Books.Faculty faculty = new Logics.Books.Faculty(connectionDB);
+                faculty.DeleteFaculty(structFaculty.id);
+                FacultyInfo.Rows.Clear();
+                List<Logics.Books.Faculty.StructFaculty> structFaculties = new List<Logics.Books.Faculty.StructFaculty>();
+                if (faculty.GetAllFaculty(out structFaculties))
+                {
+                    for (int i = 0; i < structFaculties.Count; i++)
+                        FacultyInfo.Rows.Add(structFaculties[i].id, structFaculties[i].Name, structFaculties[i].logo);
                 }
             }
         }
