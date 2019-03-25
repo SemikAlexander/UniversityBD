@@ -88,10 +88,54 @@ namespace UniversityMain
         }
         private void button4_Click(object sender, EventArgs e)
         {
-            if (VerticalMenu.Width==210)
+            if (VerticalMenu.Width == 210)
                 VerticalMenu.Width = 40;
             else
                 VerticalMenu.Width = 210;
+        }      
+        private void INFO_Click(object sender, EventArgs e)
+        {
+            if (INFO.Height == 42)
+            {
+                INFO.Height = 245;
+                pictureBox1.Image = Properties.Resources.CloseDir;
+            }
+            else
+            {
+                INFO.Height = 42;
+                pictureBox1.Image = Properties.Resources.OpenDir;
+            }
+        }
+        private void label2_Click(object sender, EventArgs e)
+        {
+            if (INFO.Height == 42)
+            {
+                INFO.Height = 245;
+                pictureBox1.Image = Properties.Resources.CloseDir;
+            }
+            else
+            {
+                INFO.Height = 42;
+                pictureBox1.Image = Properties.Resources.OpenDir;
+            }
+        }
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            if (INFO.Height == 42)
+            {
+                INFO.Height = 245;
+                pictureBox1.Image = Properties.Resources.CloseDir;
+            }
+            else
+            {
+                INFO.Height = 42;
+                pictureBox1.Image = Properties.Resources.OpenDir;
+            }
+        }
+        private void button8_Click(object sender, EventArgs e)
+        {
+            new Classroom(connectionDB).Show();
+            Close();
         }
         #endregion
     }

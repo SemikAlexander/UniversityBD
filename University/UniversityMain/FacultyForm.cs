@@ -39,7 +39,6 @@ namespace UniversityMain
             SendMessage(Handle, 0x112, 0xf012, 0);
         }
         #endregion
-
         private void FacultyForm_Load(object sender, EventArgs e)
         {
             /*Проверка на права тут должна быть!*/
@@ -108,7 +107,6 @@ namespace UniversityMain
                 }
             }
         }
-
         private void FacultyInfo_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var senderGrid = (DataGridView)sender;

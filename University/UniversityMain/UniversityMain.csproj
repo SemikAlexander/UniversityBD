@@ -52,6 +52,12 @@
     <Compile Include="Authorization.Designer.cs">
       <DependentUpon>Authorization.cs</DependentUpon>
     </Compile>
+    <Compile Include="Classroom.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Classroom.Designer.cs">
+      <DependentUpon>Classroom.cs</DependentUpon>
+    </Compile>
     <Compile Include="FacultyForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -86,6 +92,9 @@
     </Compile>
     <EmbeddedResource Include="Authorization.resx">
       <DependentUpon>Authorization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Classroom.resx">
+      <DependentUpon>Classroom.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FacultyForm.resx">
       <DependentUpon>FacultyForm.cs</DependentUpon>
@@ -144,9 +153,6 @@
     <None Include="Resources\minimize.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\MinimizeWindow.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\Maximize.png" />
   </ItemGroup>
   <ItemGroup>
@@ -199,6 +205,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\OK.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CloseDir.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\OpenDir.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Classroom.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Classroom%2850%29.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
