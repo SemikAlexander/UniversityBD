@@ -100,7 +100,7 @@ namespace UniversityMain
         private void Classroom_Load(object sender, EventArgs e)
         {
             classroom.GetAllHousign(out housing);
-            for (int i = StartRow; i < housing.Count; i++)
+            for (int i = 0; i < housing.Count; i++)
             {
                 classroom.GetAllClassroom(housing[i], i, 20, out structClassrooms);
                 for (int j = 0; j < 20; j++)
