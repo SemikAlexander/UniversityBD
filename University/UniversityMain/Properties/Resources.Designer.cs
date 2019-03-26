@@ -73,9 +73,39 @@ namespace UniversityMain.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Classroom {
+            get {
+                object obj = ResourceManager.GetObject("Classroom", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Classroom_50_ {
+            get {
+                object obj = ResourceManager.GetObject("Classroom_50_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap close {
             get {
                 object obj = ResourceManager.GetObject("close", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap CloseDir {
+            get {
+                object obj = ResourceManager.GetObject("CloseDir", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -96,6 +126,16 @@ namespace UniversityMain.Properties {
         internal static System.Drawing.Bitmap Department_50px_ {
             get {
                 object obj = ResourceManager.GetObject("Department_50px_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap DOWN {
+            get {
+                object obj = ResourceManager.GetObject("DOWN", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -203,6 +243,16 @@ namespace UniversityMain.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap OpenDir {
+            get {
+                object obj = ResourceManager.GetObject("OpenDir", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Password {
             get {
                 object obj = ResourceManager.GetObject("Password", resourceCulture);
@@ -256,6 +306,16 @@ namespace UniversityMain.Properties {
         internal static System.Drawing.Bitmap TimeTable {
             get {
                 object obj = ResourceManager.GetObject("TimeTable", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap UP {
+            get {
+                object obj = ResourceManager.GetObject("UP", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
