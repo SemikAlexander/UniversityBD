@@ -133,6 +133,16 @@ namespace UniversityMain.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap DOWN {
+            get {
+                object obj = ResourceManager.GetObject("DOWN", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap EditRecord {
             get {
                 object obj = ResourceManager.GetObject("EditRecord", resourceCulture);
@@ -296,6 +306,16 @@ namespace UniversityMain.Properties {
         internal static System.Drawing.Bitmap TimeTable {
             get {
                 object obj = ResourceManager.GetObject("TimeTable", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap UP {
+            get {
+                object obj = ResourceManager.GetObject("UP", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

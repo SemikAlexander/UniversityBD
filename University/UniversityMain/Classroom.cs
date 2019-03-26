@@ -21,6 +21,7 @@ namespace UniversityMain
         Logics.Books.Classroom classroom;
         List<Logics.Books.Classroom.StructClassroom> structClassrooms = new List<Logics.Books.Classroom.StructClassroom>();
         List<int> housing = new List<int>();
+        int StartRow = 0;
         public Classroom(Logics.Functions.Connection.ConnectionDB connection)
         {
             connectionDB = connection;
@@ -65,6 +66,7 @@ namespace UniversityMain
                 else
                 {
                     MessageBox.Show("Данные успешно добавлены!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    StartRow = 0;
                     ClassroomInfo.Rows.Clear();
                     InputClassroom.Clear();
                     InputHousing.Clear();
@@ -95,11 +97,10 @@ namespace UniversityMain
                 return;
             }
         }
-
         private void Classroom_Load(object sender, EventArgs e)
         {
             classroom.GetAllHousign(out housing);
-            for (int i = 0; i < housing.Count; i++)
+            for (int i = StartRow; i < housing.Count; i++)
             {
                 classroom.GetAllClassroom(housing[i], i, 20, out structClassrooms);
                 for (int j = 0; j < 20; j++)
@@ -108,13 +109,14 @@ namespace UniversityMain
                 }
             }
         }
-
         private void ClassroomInfo_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var senderGrid = (DataGridView)sender;
-
             if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
             {
+                int ID_Delete = (int)ClassroomInfo.Rows[e.RowIndex].Cells[0].Value;
+                StartRow = 0;
+                classroom.DeleteClass(ID_Delete);
                 ClassroomInfo.Rows.Clear();
                 InputClassroom.Clear();
                 InputHousing.Clear();
@@ -124,6 +126,59 @@ namespace UniversityMain
                 for (int i = 0; i < housing.Count; i++)
                 {
                     classroom.GetAllClassroom(housing[i], i, 20, out structClassrooms);
+                    for (int j = 0; j < 20; j++)
+                    {
+                        try
+                        {
+                            ClassroomInfo.Rows.Add(structClassrooms[j].id, structClassrooms[j].Housing, structClassrooms[j].Number_Class);
+                        }
+                        catch (Exception)
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        private void DownButton_Click(object sender, EventArgs e)
+        {
+            StartRow += 20;           
+            classroom.GetAllHousign(out housing);
+            for (int i = 0; i < housing.Count; i++)
+            {
+                classroom.GetAllClassroom(housing[i], StartRow, 20, out structClassrooms);
+                if (structClassrooms.Count != 0)
+                {
+                    ClassroomInfo.Rows.Clear();
+                    for (int j = 0; j < 20; j++)
+                    {
+                        try
+                        {
+                            ClassroomInfo.Rows.Add(structClassrooms[j].id, structClassrooms[j].Housing, structClassrooms[j].Number_Class);
+                        }
+                        catch (Exception)
+                        {
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    StartRow -= 20;
+                    break;
+                }
+            }
+        }
+        private void UpButton_Click(object sender, EventArgs e)
+        {
+            if (StartRow - 20 >= 0)
+            {
+                StartRow -= 20;
+                ClassroomInfo.Rows.Clear();
+                classroom.GetAllHousign(out housing);
+                for (int i = 0; i < housing.Count; i++)
+                {
+                    classroom.GetAllClassroom(housing[i], StartRow, 20, out structClassrooms);
                     for (int j = 0; j < 20; j++)
                     {
                         try
