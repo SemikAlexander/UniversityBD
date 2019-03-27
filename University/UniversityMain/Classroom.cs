@@ -66,7 +66,6 @@ namespace UniversityMain
                 else
                 {
                     MessageBox.Show("Данные успешно добавлены!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    StartRow = 0;
                     ClassroomInfo.Rows.Clear();
                     InputClassroom.Clear();
                     InputHousing.Clear();
@@ -115,7 +114,6 @@ namespace UniversityMain
             if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
             {
                 int ID_Delete = (int)ClassroomInfo.Rows[e.RowIndex].Cells[0].Value;
-                StartRow = 0;
                 classroom.DeleteClass(ID_Delete);
                 ClassroomInfo.Rows.Clear();
                 InputClassroom.Clear();
