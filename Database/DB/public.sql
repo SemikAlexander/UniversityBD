@@ -12,7 +12,7 @@
  Target Server Version : 90612
  File Encoding         : 65001
 
- Date: 27/03/2019 15:42:27
+ Date: 27/03/2019 16:04:15
 */
 
 
@@ -356,7 +356,7 @@ DROP FUNCTION IF EXISTS "public"."GetAllDepartmentNames"("namefaculty" text);
 CREATE OR REPLACE FUNCTION "public"."GetAllDepartmentNames"("namefaculty" text)
   RETURNS TABLE("Name_Department" text) AS $BODY$BEGIN
 				
-			RETURN QUERY	SELECT department."Name_Department" FROM (SELECT "ID_FACULTY" as "FacultyID" FROM faculty WHERE faculty."Name_Faculty"=namefaculty) as faculty_sel_name INNER JOIN department ON ("FacultyID"=department.id_faculty) INNER JOIN classroom on classroom."ID_CLASSROOM"=department.id_classrooms;
+			RETURN QUERY	SELECT department."Name_Department" FROM (SELECT "ID_FACULTY" as "FacultyID" FROM faculty WHERE faculty."Name_Faculty"=namefaculty) as faculty_sel_name INNER JOIN department ON (faculty_sel_name."FacultyID"=department.id_faculty) INNER JOIN classroom on classroom."ID_CLASSROOM"=department.id_classrooms;
 END
 $BODY$
   LANGUAGE plpgsql VOLATILE
@@ -399,7 +399,7 @@ DROP FUNCTION IF EXISTS "public"."GetDepartmentFull"("namefaculty" text, "startr
 CREATE OR REPLACE FUNCTION "public"."GetDepartmentFull"("namefaculty" text, "startrow" int4, "countrow" int4)
   RETURNS TABLE("Name_Department" text, "Logo_Department" text, "Housing" int4, "Num_Classroom" int4) AS $BODY$BEGIN
 				
-			RETURN QUERY	SELECT department."Name_Department",department."Logo_Department",classroom."Housing",classroom."Num_Classroom" FROM (SELECT "ID_FACULTY" as "FacultyID" FROM faculty WHERE faculty."Name_Faculty"=namefaculty) as faculty_sel_name INNER JOIN department ON ("FacultyID"=department.id_faculty) INNER JOIN classroom on classroom."ID_CLASSROOM"=department.id_classrooms LIMIT countrow OFFSET startrow;
+			RETURN QUERY	SELECT department."Name_Department",department."Logo_Department",classroom."Housing",classroom."Num_Classroom" FROM (SELECT "ID_FACULTY" as "FacultyID" FROM faculty WHERE faculty."Name_Faculty"=namefaculty) as faculty_sel_name INNER JOIN department ON (faculty_sel_name."FacultyID"=department.id_faculty) INNER JOIN classroom on classroom."ID_CLASSROOM"=department.id_classrooms LIMIT countrow OFFSET startrow;
 END
 $BODY$
   LANGUAGE plpgsql VOLATILE
