@@ -65,7 +65,13 @@ namespace Logics.MainTable
                             });
                         else
                         {
-
+                            departments.Add(new DepartmentsStructure()
+                            {
+                                Name_Department = reader.GetString(0),
+                                Logo_Department = null,
+                                Housing = reader.GetInt32(2),
+                                Num_Classroom = reader.GetInt32(3)
+                            });
                         }
                     }
                 conn.Close();

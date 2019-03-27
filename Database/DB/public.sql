@@ -12,7 +12,7 @@
  Target Server Version : 90612
  File Encoding         : 65001
 
- Date: 21/03/2019 21:07:48
+ Date: 27/03/2019 15:15:21
 */
 
 
@@ -149,6 +149,16 @@ START 1
 CACHE 1;
 
 -- ----------------------------
+-- Table structure for Spec_discipline
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."Spec_discipline";
+CREATE TABLE "public"."Spec_discipline" (
+  "id_discipline" int4 NOT NULL,
+  "id_department" int4 NOT NULL
+)
+;
+
+-- ----------------------------
 -- Table structure for classroom
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."classroom";
@@ -242,9 +252,9 @@ DROP TABLE IF EXISTS "public"."specialty";
 CREATE TABLE "public"."specialty" (
   "ID_SPECIALTY" int4 NOT NULL DEFAULT nextval('"specialty_ID_SPECIALTY_seq"'::regclass),
   "id_department" int4 NOT NULL,
-  "Cipher_Specialty" char(6) COLLATE "pg_catalog"."default" NOT NULL,
+  "Cipher_Specialty" text COLLATE "pg_catalog"."default" NOT NULL,
   "Name_Specialty" text COLLATE "pg_catalog"."default" NOT NULL,
-  "Abbreviation_Specialty" char(6) COLLATE "pg_catalog"."default" NOT NULL
+  "Abbreviation_Specialty" text COLLATE "pg_catalog"."default" NOT NULL
 )
 ;
 
@@ -354,6 +364,35 @@ $BODY$
   ROWS 1000;
 
 -- ----------------------------
+-- Function structure for GetAllSpeciality
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."GetAllSpeciality"("namefaculty" text, "NameDepartment" text, "startrow" int4, "countrow" int4);
+CREATE OR REPLACE FUNCTION "public"."GetAllSpeciality"("namefaculty" text, "NameDepartment" text, "startrow" int4, "countrow" int4)
+  RETURNS TABLE("Abbreviation_Specialty" text, "Cipher_Specialty" text, "Name_Specialty" text) AS $BODY$BEGIN
+				
+RETURN QUERY	SELECT specialty."Abbreviation_Specialty",specialty."Cipher_Specialty",specialty."Name_Specialty" FROM(SELECT department."ID_DEPARTMENT" FROM (SELECT faculty."ID_FACULTY" FROM faculty WHERE faculty."Name_Faculty"="namefaculty" LIMIT 1) as id_fac INNER JOIN department on department.id_faculty=id_fac."ID_FACULTY" WHERE department."Name_Department"="NameDepartment") as dep INNER JOIN specialty on specialty.id_department=dep."ID_DEPARTMENT" LIMIT countrow OFFSET startrow;
+
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100
+  ROWS 1000;
+
+-- ----------------------------
+-- Function structure for GetAllSpecialityNames
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."GetAllSpecialityNames"("namefaculty" text, "NameDepartment" text);
+CREATE OR REPLACE FUNCTION "public"."GetAllSpecialityNames"("namefaculty" text, "NameDepartment" text)
+  RETURNS TABLE("Name_Specialty" text) AS $BODY$BEGIN
+				
+			RETURN QUERY	SELECT specialty."Abbreviation_Specialty" FROM(SELECT department."ID_DEPARTMENT" FROM (SELECT faculty."ID_FACULTY" FROM faculty WHERE faculty."Name_Faculty"=namefaculty LIMIT 1) as id_fac INNER JOIN department on department.id_faculty=id_fac."ID_FACULTY" WHERE department."Name_Department"=NameDepartment) as dep INNER JOIN specialty on specialty.id_department=dep."ID_DEPARTMENT";
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100
+  ROWS 1000;
+
+-- ----------------------------
 -- Function structure for GetDepartmentFull
 -- ----------------------------
 DROP FUNCTION IF EXISTS "public"."GetDepartmentFull"("namefaculty" text, "startrow" int4, "countrow" int4);
@@ -428,19 +467,56 @@ $BODY$
   ROWS 1000;
 
 -- ----------------------------
+-- Function structure for department_add
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."department_add"("namedepartment" text, "logo" text, "NameDepartment" text, "housing" int4, "NumClassroom" int4);
+CREATE OR REPLACE FUNCTION "public"."department_add"("namedepartment" text, "logo" text, "NameDepartment" text, "housing" int4, "NumClassroom" int4)
+  RETURNS "pg_catalog"."text" AS $BODY$
+	DECLARE
+	IDCLASSROOM INTEGER :=0;
+	IDFACULTY INTEGER := 0;
+	BEGIN 
+
+
+SELECT "ID_FACULTY" FROM faculty INTO IDFACULTY WHERE "Name_Faculty"=NameFaculty LIMIT 1;
+IF NOT FOUND THEN
+    RETURN "Факультет не найден";
+END IF;
+SELECT "ID_CLASSROOM" FROM classroom INTO IDCLASSROOM WHERE "Housing"=housing and "Num_Classroom"=NumClassroom LIMIT 1;
+IF NOT FOUND THEN
+    RETURN "Класс не найден";
+END IF;
+
+SELECT * From department WHERE  department."Name_Department"=NameDepartment and IDFACULTY=department.id_faculty;
+IF FOUND THEN
+    RETURN "Кафедра существует";
+END IF;
+			INSERT INTO department(department."Logo_Department",department."Name_Department",department.id_classrooms,department.id_faculty) VALUES(logo,NameFaculty,IDCLASSROOM,IDFACULTY);
+			RETURN "Success";
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+-- ----------------------------
 -- Function structure for discipline_add
 -- ----------------------------
-DROP FUNCTION IF EXISTS "public"."discipline_add"("name_discipline" text);
-CREATE OR REPLACE FUNCTION "public"."discipline_add"("name_discipline" text)
+DROP FUNCTION IF EXISTS "public"."discipline_add"("name_discipline" text, "namefacul" text, "NameDepartment" text);
+CREATE OR REPLACE FUNCTION "public"."discipline_add"("name_discipline" text, "namefacul" text, "NameDepartment" text)
   RETURNS "pg_catalog"."text" AS $BODY$
+	DECLARE
+	id_dep INTEGER :=0;
+	id_disc INTEGER :=0;
 	BEGIN 
-	IF EXISTS(SELECT * FROM discipline WHERE "Name_Discipline"=name_discipline) THEN
-		RETURN 'Запись существует';
-	ELSE
-		INSERT INTO discipline("Name_Discipline") VALUES(name_discipline);	
-		RETURN 'Success';
+	SELECT discipline."ID_DISCIPLINE", discipline."Name_Discipline" FROM(SELECT department."ID_DEPARTMENT" FROM (SELECT faculty."ID_FACULTY" FROM faculty WHERE faculty."Name_Faculty"=namefacul LIMIT 1) as id_fac INNER JOIN department on department.id_faculty=id_fac."ID_FACULTY" WHERE department."Name_Department"=NameDepartment INTO id_dep) as dep INNER JOIN  "Spec_discipline" on "Spec_discipline".id_department= dep."ID_DEPARTMENT" INNER JOIN discipline on discipline."ID_DISCIPLINE"="Spec_discipline".id_discipline WHERE discipline."Name_Discipline"=name_discipline;
+	IF FOUND THEN
+		RETURN 'Запись уже существует';
 	END IF;
-
+	INSERT INTO discipline(discipline."Name_Discipline") VALUES (name_discipline);
+	  SELECT currval(pg_get_serial_sequence('discipline','ID_DISCIPLINE')) INTO id_disc;
+	
+		INSERT INTO "Spec_discipline" VALUES (id_disc,id_dep);
+		RETURN 'Success';
 END
 $BODY$
   LANGUAGE plpgsql VOLATILE
@@ -453,6 +529,7 @@ DROP FUNCTION IF EXISTS "public"."discipline_delete"("id" int4);
 CREATE OR REPLACE FUNCTION "public"."discipline_delete"("id" int4)
   RETURNS "pg_catalog"."text" AS $BODY$BEGIN
 	 DELETE FROM discipline WHERE "ID_DISCIPLINE"=id;
+	 DELETE FROM "Spec_discipline" WHERE "Spec_discipline".id_discipline=id;
 		RETURN 'Success';
 
 END
@@ -463,10 +540,11 @@ $BODY$
 -- ----------------------------
 -- Function structure for discipline_get_all
 -- ----------------------------
-DROP FUNCTION IF EXISTS "public"."discipline_get_all"("start_row" int4, "count_rows" int4);
-CREATE OR REPLACE FUNCTION "public"."discipline_get_all"("start_row" int4, "count_rows" int4)
+DROP FUNCTION IF EXISTS "public"."discipline_get_all"("namefaculty" text, "department" text, "start_row" int4, "count_rows" int4);
+CREATE OR REPLACE FUNCTION "public"."discipline_get_all"("namefaculty" text, "department" text, "start_row" int4, "count_rows" int4)
   RETURNS TABLE("id" int4, "name" text) AS $BODY$BEGIN
-	RETURN QUERY SELECT * FROM discipline ORDER BY "ID_DISCIPLINE" ASC LIMIT count_rows OFFSET start_row;
+	RETURN QUERY SELECT discipline."ID_DISCIPLINE", discipline."Name_Discipline" FROM(SELECT department."ID_DEPARTMENT" FROM (SELECT faculty."ID_FACULTY" FROM faculty WHERE faculty."Name_Faculty"=namefaculty LIMIT 1) as id_fac INNER JOIN department on department.id_faculty=id_fac."ID_FACULTY" WHERE department."Name_Department"=department) as dep INNER JOIN  "Spec_discipline" on "Spec_discipline".id_department= dep."ID_DEPARTMENT" INNER JOIN discipline on discipline."ID_DISCIPLINE"="Spec_discipline".id_discipline LIMIT count_rows OFFSET start_row;
+
 END
 $BODY$
   LANGUAGE plpgsql VOLATILE
@@ -753,6 +831,12 @@ ALTER TABLE "public"."typeSubject" ADD CONSTRAINT "TypeSubject_pkey" PRIMARY KEY
 -- Primary Key structure for table week
 -- ----------------------------
 ALTER TABLE "public"."week" ADD CONSTRAINT "Week_pkey" PRIMARY KEY ("ID_DAY");
+
+-- ----------------------------
+-- Foreign Keys structure for table Spec_discipline
+-- ----------------------------
+ALTER TABLE "public"."Spec_discipline" ADD CONSTRAINT "fk_Spec_discipline_department_1" FOREIGN KEY ("id_department") REFERENCES "public"."department" ("ID_DEPARTMENT") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."Spec_discipline" ADD CONSTRAINT "fk_Spec_discipline_discipline_1" FOREIGN KEY ("id_discipline") REFERENCES "public"."discipline" ("ID_DISCIPLINE") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- ----------------------------
 -- Foreign Keys structure for table department

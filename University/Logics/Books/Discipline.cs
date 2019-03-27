@@ -18,7 +18,7 @@ namespace Logics.Books
         #endregion
         public Discipline(Functions.Connection.ConnectionDB connectionDB) => _connectionDB = connectionDB;
         
-        public bool GetAllDiscipline(int start_row,int count_rows,out List<StructDiscipline> disciplines)
+        public bool GetAllDiscipline(string namefaculty,string department,int start_row,int count_rows,out List<StructDiscipline> disciplines)
         {
             disciplines = new List<StructDiscipline>();
             if (_connectionDB == null) { exception = "Подключение не установленно"; return false; }
@@ -26,7 +26,7 @@ namespace Logics.Books
             {
                 var conn = new NpgsqlConnection(this._connectionDB.ConnectString);
                 conn.Open();
-                using (var cmd = new NpgsqlCommand($"SELECT * FROM discipline_get_all({start_row}, {count_rows});", conn))
+                using (var cmd = new NpgsqlCommand($"SELECT * FROM discipline_get_all('{namefaculty}','{department}',{start_row}, {count_rows});", conn))
                 using (var reader = cmd.ExecuteReader())
                     while (reader.Read())
                     {
@@ -41,7 +41,7 @@ namespace Logics.Books
                 return false;
             }
         }
-        public bool AddDiscipline(string name)
+        public bool AddDiscipline(string name_discipline, string namefacul, string NameDepartment)
         {
             if (_connectionDB == null) { exception = "Подключение не установленно"; return false; }
             try
@@ -49,7 +49,7 @@ namespace Logics.Books
                 var conn = new NpgsqlConnection(this._connectionDB.ConnectString);
                 conn.Open();
 
-                using (var cmd = new NpgsqlCommand($"SELECT * from discipline_add('{name}');", conn))
+                using (var cmd = new NpgsqlCommand($"SELECT * from discipline_add('{name_discipline}','{namefacul}','{NameDepartment}');", conn))
                 using (var reader = cmd.ExecuteReader())
                     if (reader.Read())
                     {
