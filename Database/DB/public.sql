@@ -12,7 +12,7 @@
  Target Server Version : 90612
  File Encoding         : 65001
 
- Date: 27/03/2019 16:17:23
+ Date: 27/03/2019 16:36:38
 */
 
 
@@ -469,8 +469,8 @@ $BODY$
 -- ----------------------------
 -- Function structure for department_add
 -- ----------------------------
-DROP FUNCTION IF EXISTS "public"."department_add"("logo" text, "NameDepartment" text, "housing" int4, "NumClassroom" int4);
-CREATE OR REPLACE FUNCTION "public"."department_add"("logo" text, "NameDepartment" text, "housing" int4, "NumClassroom" int4)
+DROP FUNCTION IF EXISTS "public"."department_add"("namefaculty" text, "logo" text, "NameDepartment" text, "housing" int4, "NumClassroom" int4);
+CREATE OR REPLACE FUNCTION "public"."department_add"("namefaculty" text, "logo" text, "NameDepartment" text, "housing" int4, "NumClassroom" int4)
   RETURNS "pg_catalog"."text" AS $BODY$
 	DECLARE
 	IDCLASSROOM INTEGER :=0;
@@ -478,7 +478,7 @@ CREATE OR REPLACE FUNCTION "public"."department_add"("logo" text, "NameDepartmen
 	BEGIN 
 
 
-SELECT "ID_FACULTY" FROM faculty INTO IDFACULTY WHERE "Name_Faculty"=NameFaculty LIMIT 1;
+SELECT "ID_FACULTY" FROM faculty INTO IDFACULTY WHERE "Name_Faculty"=namefaculty LIMIT 1;
 IF NOT FOUND THEN
     RETURN "Факультет не найден";
 END IF;
@@ -662,10 +662,47 @@ $BODY$
   ROWS 1000;
 
 -- ----------------------------
+-- Function structure for specialty_add
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."specialty_add"("namefaculty" text, "NameDepartment" text, "CipherSpecialty" text, "NameSpecialty" text, "AbbreviationSpecialty" text);
+CREATE OR REPLACE FUNCTION "public"."specialty_add"("namefaculty" text, "NameDepartment" text, "CipherSpecialty" text, "NameSpecialty" text, "AbbreviationSpecialty" text)
+  RETURNS "pg_catalog"."text" AS $BODY$
+	DECLARE
+	IDDEPARTMENT INTEGER :=0;
+	IDFACULTY INTEGER := 0;
+	BEGIN 
+
+
+SELECT "ID_FACULTY" FROM faculty INTO IDFACULTY WHERE "Name_Faculty"=namefaculty LIMIT 1;
+IF NOT FOUND THEN
+    RETURN "Факультет не найден";
+END IF;
+
+SELECT department."ID_DEPARTMENT" From department WHERE  department."Name_Department"=NameDepartment and IDFACULTY=department.id_faculty LIMIT 1 INTO IDDEPARTMENT;
+IF NOT FOUND THEN
+    RETURN "Кафедра не существует";
+END IF;
+
+SELECT * From specialty WHERE specialty."Abbreviation_Specialty"=AbbreviationSpecialty or specialty."Cipher_Specialty"=CipherSpecialty or specialty."Name_Specialty"=NameSpecialty or specialty.id_department=IDDEPARTMENT;
+IF FOUND THEN
+    RETURN "Специальность существует";
+END IF;
+INSERT INTO specialty (specialty."Abbreviation_Specialty",specialty."Cipher_Specialty",specialty."Name_Specialty",specialty.id_department) VALUES(AbbreviationSpecialty,CipherSpecialty,NameSpecialty,IDDEPARTMENT);
+RETURN 'Success';
+
+
+
+			RETURN "Success";
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+-- ----------------------------
 -- Function structure for specialty_delete
 -- ----------------------------
-DROP FUNCTION IF EXISTS "public"."specialty_delete"("namefaculty" text, "department" text, "specialty" text);
-CREATE OR REPLACE FUNCTION "public"."specialty_delete"("namefaculty" text, "department" text, "specialty" text)
+DROP FUNCTION IF EXISTS "public"."specialty_delete"("namefaculty" text, "department" text, "specialtyABR" text);
+CREATE OR REPLACE FUNCTION "public"."specialty_delete"("namefaculty" text, "department" text, "specialtyABR" text)
   RETURNS "pg_catalog"."text" AS $BODY$
 	DECLARE
 	id_depar INTEGER :=0;
@@ -674,7 +711,9 @@ CREATE OR REPLACE FUNCTION "public"."specialty_delete"("namefaculty" text, "depa
 	if not FOUND then
 	RETURN 'Кафедра не найдена';
 	end if;
-	RETURN 'NULL';
+	DELETE FROM specialty WHERE specialty."Abbreviation_Specialty"=specialtyABR and specialty.id_department=id_depar;
+	
+	RETURN 'Success';
 END
 $BODY$
   LANGUAGE plpgsql VOLATILE

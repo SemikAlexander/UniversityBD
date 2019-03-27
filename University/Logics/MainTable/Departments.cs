@@ -84,7 +84,7 @@ namespace Logics.MainTable
             }
         }
 
-        public bool AddDepartment(DepartmentsStructure departments)
+        public bool AddDepartment(DepartmentsStructure departments,string faculty)
         {
             if (_connectionDB == null) { exception = "Подключение не установленно"; return false; }
             try
@@ -94,12 +94,12 @@ namespace Logics.MainTable
                 string sql = "";
                 if (departments.Logo_Department == null)
                 {
-                    sql = $"SELECT * from department_add('{null}','{departments.Name_Department}','{departments.Housing}','{departments.Num_Classroom}');";
+                    sql = $"SELECT * from department_add('{faculty}','{null}','{departments.Name_Department}','{departments.Housing}','{departments.Num_Classroom}');";
 
                 }
                 else
                 {
-                    sql = $"SELECT * from department_add('{ Functions.Converting.Base64.encodeImage(departments.Logo_Department)}','{departments.Name_Department}','{departments.Housing}','{departments.Num_Classroom}');";
+                    sql = $"SELECT * from department_add('{faculty}','{ Functions.Converting.Base64.encodeImage(departments.Logo_Department)}','{departments.Name_Department}','{departments.Housing}','{departments.Num_Classroom}');";
 
                 }
                 using (var cmd = new NpgsqlCommand(sql, conn))
