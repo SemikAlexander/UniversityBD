@@ -84,5 +84,68 @@ namespace Logics.MainTable
             }
         }
 
+        public bool AddDepartment(DepartmentsStructure departments)
+        {
+            if (_connectionDB == null) { exception = "Подключение не установленно"; return false; }
+            try
+            {
+                var conn = new NpgsqlConnection(this._connectionDB.ConnectString);
+                conn.Open();
+                string sql = "";
+                if (departments.Logo_Department == null)
+                {
+                    sql = $"SELECT * from department_add('{null}','{departments.Name_Department}','{departments.Housing}','{departments.Num_Classroom}');";
+
+                }
+                else
+                {
+                    sql = $"SELECT * from department_add('{ Functions.Converting.Base64.encodeImage(departments.Logo_Department)}','{departments.Name_Department}','{departments.Housing}','{departments.Num_Classroom}');";
+
+                }
+                using (var cmd = new NpgsqlCommand(sql, conn))
+                using (var reader = cmd.ExecuteReader())
+                    if (reader.Read())
+                    {
+                        if (reader.GetString(0) == "Success") return true; else { exception = reader.GetString(0); return false; }
+                    }
+                conn.Close();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                exception = ex.Message;
+                return false;
+            }
+        }
+        public bool Delete(int id)
+        {
+            if (id < 0) { exception = "ID не указан"; return false; }
+            if (_connectionDB == null) { exception = "Подключение не установленно"; return false; }
+            try
+            {
+                var conn = new NpgsqlConnection(this._connectionDB.ConnectString);
+                conn.Open();
+
+                using (var cmd = new NpgsqlCommand())
+                {
+                    cmd.Connection = conn;
+                    cmd.CommandText = "SELECT * from faculty_delete(@id);";
+                    cmd.Parameters.AddWithValue("id", id);
+                    using (var reader = cmd.ExecuteReader())
+                        if (reader.Read())
+                        {
+                            if (reader.GetString(0) == "Success") return true; else { exception = reader.GetString(0); return false; }
+                        }
+                }
+                conn.Close();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                exception = ex.Message;
+                return false;
+            }
+        }
+
     }
 }
