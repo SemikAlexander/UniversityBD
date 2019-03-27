@@ -74,7 +74,7 @@ namespace UniversityMain
                     classroom.GetAllHousign(out housing);
                     for(int i = 0; i < housing.Count; i++)
                     {
-                        classroom.GetAllClassroom(housing[i], i, 20, out structClassrooms);
+                        classroom.GetAllClassroom(housing[i], StartRow, 20, out structClassrooms);
                         for (int j = 0; j < structClassrooms.Count; j++)
                             ClassroomInfo.Rows.Add(structClassrooms[j].id, structClassrooms[j].Housing, structClassrooms[j].Number_Class);
                     }
@@ -92,8 +92,8 @@ namespace UniversityMain
             classroom.GetAllHousign(out housing);
             for (int i = 0; i < housing.Count; i++)
             {
-                classroom.GetAllClassroom(housing[i], i, 20, out structClassrooms);
-                for (int j = 0; j < 20; j++)
+                classroom.GetAllClassroom(housing[i], 0, 20, out structClassrooms);
+                for (int j = 0; j < structClassrooms.Count; j++)
                 {
                     ClassroomInfo.Rows.Add(structClassrooms[j].id, structClassrooms[j].Housing, structClassrooms[j].Number_Class);
                 }
