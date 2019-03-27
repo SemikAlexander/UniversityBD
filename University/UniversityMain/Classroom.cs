@@ -75,17 +75,8 @@ namespace UniversityMain
                     for(int i = 0; i < housing.Count; i++)
                     {
                         classroom.GetAllClassroom(housing[i], i, 20, out structClassrooms);
-                        for(int j = 0; j < 20; j++)
-                        {
-                            try
-                            {
-                                ClassroomInfo.Rows.Add(structClassrooms[j].id, structClassrooms[j].Housing, structClassrooms[j].Number_Class);
-                            }
-                            catch(Exception)
-                            {
-                                break;
-                            }
-                        }
+                        for (int j = 0; j < structClassrooms.Count; j++)
+                            ClassroomInfo.Rows.Add(structClassrooms[j].id, structClassrooms[j].Housing, structClassrooms[j].Number_Class);
                     }
                 }
 
@@ -124,17 +115,8 @@ namespace UniversityMain
                 for (int i = 0; i < housing.Count; i++)
                 {
                     classroom.GetAllClassroom(housing[i], i, 20, out structClassrooms);
-                    for (int j = 0; j < 20; j++)
-                    {
-                        try
-                        {
-                            ClassroomInfo.Rows.Add(structClassrooms[j].id, structClassrooms[j].Housing, structClassrooms[j].Number_Class);
-                        }
-                        catch (Exception)
-                        {
-                            break;
-                        }
-                    }
+                    for (int j = 0; j < structClassrooms.Count; j++)
+                        ClassroomInfo.Rows.Add(structClassrooms[j].id, structClassrooms[j].Housing, structClassrooms[j].Number_Class);
                 }
             }
         }
@@ -148,17 +130,8 @@ namespace UniversityMain
                 if (structClassrooms.Count != 0)
                 {
                     ClassroomInfo.Rows.Clear();
-                    for (int j = 0; j < 20; j++)
-                    {
-                        try
-                        {
-                            ClassroomInfo.Rows.Add(structClassrooms[j].id, structClassrooms[j].Housing, structClassrooms[j].Number_Class);
-                        }
-                        catch (Exception)
-                        {
-                            break;
-                        }
-                    }
+                    for (int j = 0; j < structClassrooms.Count; j++)
+                        ClassroomInfo.Rows.Add(structClassrooms[j].id, structClassrooms[j].Housing, structClassrooms[j].Number_Class);
                 }
                 else
                 {
@@ -177,17 +150,8 @@ namespace UniversityMain
                 for (int i = 0; i < housing.Count; i++)
                 {
                     classroom.GetAllClassroom(housing[i], StartRow, 20, out structClassrooms);
-                    for (int j = 0; j < 20; j++)
-                    {
-                        try
-                        {
-                            ClassroomInfo.Rows.Add(structClassrooms[j].id, structClassrooms[j].Housing, structClassrooms[j].Number_Class);
-                        }
-                        catch (Exception)
-                        {
-                            break;
-                        }
-                    }
+                    for (int j = 0; j < structClassrooms.Count; j++)
+                        ClassroomInfo.Rows.Add(structClassrooms[j].id, structClassrooms[j].Housing, structClassrooms[j].Number_Class);
                 }
             }
         }

@@ -47,12 +47,12 @@ namespace UniversityMain
         private void DownButton_Click(object sender, EventArgs e)
         {
             StartRow += 20;
-            discipline.GetAllDiscipline(StartRow, 20, out structDisciplines);
+            discipline.GetAllDiscipline(FacultyBox.SelectedItem.ToString(), DepartmentBox.SelectedItem.ToString(), StartRow, 20, out structDisciplines);
             if (structDisciplines.Count != 0)
             {
                 DisciplineInfo.Rows.Clear();
-                for (int i = 0; i < structDisciplines.Count; i++)
-                    DisciplineInfo.Rows.Add(structDisciplines[i].id, structDisciplines[i].name);
+                foreach (var descipline in structDisciplines)
+                    DisciplineInfo.Rows.Add(descipline.id, descipline.name);
             }
             else
                 StartRow -= 20;
@@ -63,22 +63,24 @@ namespace UniversityMain
             {
                 StartRow -= 20;
                 DisciplineInfo.Rows.Clear();
-                discipline.GetAllDiscipline(StartRow, 20, out structDisciplines);
+                discipline.GetAllDiscipline(FacultyBox.SelectedItem.ToString(), DepartmentBox.SelectedItem.ToString(), StartRow, 20, out structDisciplines);
                 for (int i = 0; i < structDisciplines.Count; i++)
                     DisciplineInfo.Rows.Add(structDisciplines[i].id, structDisciplines[i].name);
             }
         }
         private void Discipline_Load(object sender, EventArgs e)
         {
-            discipline.GetAllDiscipline(StartRow, 20, out structDisciplines);
-            for(int i = 0; i < 20; i++)
-                DisciplineInfo.Rows.Add(structDisciplines[i].id, structDisciplines[i].name);
+            Logics.Books.Faculty faculty = new Logics.Books.Faculty(connectionDB);
+            List<Logics.Books.Faculty.StructFaculty> structFaculties = new List<Logics.Books.Faculty.StructFaculty>();
+            faculty.GetAllFaculty(out structFaculties);
+            foreach(var faculties in structFaculties)
+                FacultyBox.Items.Add(faculties.Name);
         }
         private void button4_Click(object sender, EventArgs e)
         {
             if(InputDiscipline.Text.Trim(' ').Length != 0)
             {
-                if (!discipline.AddDiscipline(InputDiscipline.Text))
+                if (!discipline.AddDiscipline(InputDiscipline.Text, FacultyBox.SelectedItem.ToString(), DepartmentBox.SelectedItem.ToString()))
                 {
                     MessageBox.Show(discipline.exception, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -88,17 +90,16 @@ namespace UniversityMain
                     MessageBox.Show("Данные успешно добавлены!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     InputDiscipline.Clear();
                     DisciplineInfo.Rows.Clear();
-                    discipline.GetAllDiscipline(StartRow, 20, out structDisciplines);
-                    for (int i = 0; i < structDisciplines.Count; i++)
-                        DisciplineInfo.Rows.Add(structDisciplines[i].id, structDisciplines[i].name);
+                    discipline.GetAllDiscipline(FacultyBox.SelectedItem.ToString(), DepartmentBox.SelectedItem.ToString(), StartRow, 20, out structDisciplines);
+                    foreach (var descipline in structDisciplines)
+                        DisciplineInfo.Rows.Add(descipline.id, descipline.name);
                 }
             }
         }
-
         private void DisciplineInfo_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var senderGrid = (DataGridView)sender;
-            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn & senderGrid.Columns[e.ColumnIndex].Name== "DeleteDiscipline" && e.RowIndex >= 0)
             {
                 int ID_Delete = (int)DisciplineInfo.Rows[e.RowIndex].Cells[0].Value;
                 StartRow = 0;
@@ -106,10 +107,26 @@ namespace UniversityMain
                 DisciplineInfo.Rows.Clear();
                 InputDiscipline.Clear();
                 structDisciplines.Clear();
-                discipline.GetAllDiscipline(StartRow, 20, out structDisciplines);
-                for (int i = 0; i < structDisciplines.Count; i++)
-                    DisciplineInfo.Rows.Add(structDisciplines[i].id, structDisciplines[i].name);
+                discipline.GetAllDiscipline(FacultyBox.SelectedItem.ToString(), DepartmentBox.SelectedItem.ToString(), StartRow, 20, out structDisciplines);
+                foreach (var descipline in structDisciplines)
+                    DisciplineInfo.Rows.Add(descipline.id, descipline.name);
             }
+        }
+
+        private void DepartmentBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DisciplineInfo.Rows.Clear();
+            discipline.GetAllDiscipline(FacultyBox.SelectedItem.ToString(), DepartmentBox.SelectedItem.ToString(), StartRow, 20, out structDisciplines);
+            foreach (var descipline in structDisciplines)
+                DisciplineInfo.Rows.Add(descipline.id, descipline.name);
+        }
+        private void FacultyBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Logics.MainTable.Departments departments = new Logics.MainTable.Departments(connectionDB);
+            List<string> nameDepartments = new List<string>();
+            departments.GetAllDepartmentNames(FacultyBox.SelectedItem.ToString(), out nameDepartments);
+            foreach(var dep in nameDepartments)
+                DepartmentBox.Items.Add(dep);
         }
     }
 }

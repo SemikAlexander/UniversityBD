@@ -28,7 +28,7 @@ namespace Logics.MainTable
             {
                 var conn = new NpgsqlConnection(this._connectionDB.ConnectString);
                 conn.Open();
-                using (var cmd = new NpgsqlCommand("SELECT * FROM GetAllDepartmentNames("+ nameFaculty+");", conn))
+                using (var cmd = new NpgsqlCommand("SELECT * FROM getalldepartmentnames('"+ nameFaculty+"');", conn))
                 using (var reader = cmd.ExecuteReader())
                     while (reader.Read())
                     {
@@ -51,7 +51,7 @@ namespace Logics.MainTable
             {
                 var conn = new NpgsqlConnection(this._connectionDB.ConnectString);
                 conn.Open();
-                using (var cmd = new NpgsqlCommand($"SELECT * FROM GetDepartmentFull({nameFaculty},{startRow},{countRow});", conn))
+                using (var cmd = new NpgsqlCommand($"SELECT * FROM getdepartmentfull({nameFaculty},{startRow},{countRow});", conn))
                 using (var reader = cmd.ExecuteReader())
                     while (reader.Read())
                     {

@@ -141,8 +141,8 @@ namespace UniversityMain
 
         private void button9_Click(object sender, EventArgs e)
         {
-            new Discipline(connectionDB).Show();
             Close();
+            new Discipline(connectionDB).Show();          
         }
     }
 }
