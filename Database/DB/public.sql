@@ -12,7 +12,7 @@
  Target Server Version : 90612
  File Encoding         : 65001
 
- Date: 27/03/2019 15:15:21
+ Date: 27/03/2019 15:31:53
 */
 
 
@@ -469,8 +469,8 @@ $BODY$
 -- ----------------------------
 -- Function structure for department_add
 -- ----------------------------
-DROP FUNCTION IF EXISTS "public"."department_add"("namedepartment" text, "logo" text, "NameDepartment" text, "housing" int4, "NumClassroom" int4);
-CREATE OR REPLACE FUNCTION "public"."department_add"("namedepartment" text, "logo" text, "NameDepartment" text, "housing" int4, "NumClassroom" int4)
+DROP FUNCTION IF EXISTS "public"."department_add"("logo" text, "NameDepartment" text, "housing" int4, "NumClassroom" int4);
+CREATE OR REPLACE FUNCTION "public"."department_add"("logo" text, "NameDepartment" text, "housing" int4, "NumClassroom" int4)
   RETURNS "pg_catalog"."text" AS $BODY$
 	DECLARE
 	IDCLASSROOM INTEGER :=0;
