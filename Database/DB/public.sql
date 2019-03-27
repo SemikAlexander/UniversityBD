@@ -12,7 +12,7 @@
  Target Server Version : 90612
  File Encoding         : 65001
 
- Date: 27/03/2019 15:31:53
+ Date: 27/03/2019 15:42:27
 */
 
 
@@ -493,6 +493,26 @@ IF FOUND THEN
 END IF;
 			INSERT INTO department(department."Logo_Department",department."Name_Department",department.id_classrooms,department.id_faculty) VALUES(logo,NameFaculty,IDCLASSROOM,IDFACULTY);
 			RETURN "Success";
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+-- ----------------------------
+-- Function structure for department_delete
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."department_delete"("facultyname" text, "departmentname" text);
+CREATE OR REPLACE FUNCTION "public"."department_delete"("facultyname" text, "departmentname" text)
+  RETURNS "pg_catalog"."text" AS $BODY$
+	DECLARE 
+	id_fac INTEGER :=0;
+	BEGIN
+		SELECT faculty."ID_FACULTY" FROM faculty INTO id_fac WHERE faculty."Name_Faculty"=facultyName LIMIT 1;
+		IF NOT FOUND THEN
+				RETURN 'Факультет не найден';
+		END IF;
+	 DELETE FROM department WHERE department."Name_Department"=departmentName and department.id_faculty = id_fac;
+		RETURN 'Success';
 END
 $BODY$
   LANGUAGE plpgsql VOLATILE
