@@ -39,6 +39,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.VerticalMenuStatus = new System.Windows.Forms.Button();
+            this.button9 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.button7 = new System.Windows.Forms.Button();
@@ -69,6 +70,7 @@
             // INFO
             // 
             this.INFO.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.INFO.Controls.Add(this.button9);
             this.INFO.Controls.Add(this.button8);
             this.INFO.Controls.Add(this.pictureBox1);
             this.INFO.Controls.Add(this.label2);
@@ -86,7 +88,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Century Gothic", 14.25F);
             this.label2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label2.Location = new System.Drawing.Point(52, 9);
+            this.label2.Location = new System.Drawing.Point(57, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(137, 22);
             this.label2.TabIndex = 0;
@@ -175,6 +177,22 @@
             this.VerticalMenuStatus.TabIndex = 2;
             this.VerticalMenuStatus.UseVisualStyleBackColor = true;
             this.VerticalMenuStatus.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // button9
+            // 
+            this.button9.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button9.FlatAppearance.BorderSize = 0;
+            this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button9.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button9.Image = global::UniversityMain.Properties.Resources.Discipline;
+            this.button9.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button9.Location = new System.Drawing.Point(-3, 244);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(210, 42);
+            this.button9.TabIndex = 9;
+            this.button9.Text = "        Дисциплины";
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
             // button8
             // 
@@ -326,5 +344,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button button9;
     }
 }
