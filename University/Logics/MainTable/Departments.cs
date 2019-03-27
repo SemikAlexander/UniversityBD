@@ -5,7 +5,7 @@ using System.Drawing;
 
 namespace Logics.MainTable
 {
-    class Departments
+     public class Departments
     {
         public struct DepartmentsStructure
         {
@@ -65,9 +65,76 @@ namespace Logics.MainTable
                             });
                         else
                         {
-
+                            departments.Add(new DepartmentsStructure()
+                            {
+                                Name_Department = reader.GetString(0),
+                                Logo_Department = null,
+                                Housing = reader.GetInt32(2),
+                                Num_Classroom = reader.GetInt32(3)
+                            });
                         }
                     }
+                conn.Close();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                exception = ex.Message;
+                return false;
+            }
+        }
+
+        public bool AddDepartment(DepartmentsStructure departments)
+        {
+            if (_connectionDB == null) { exception = "Подключение не установленно"; return false; }
+            try
+            {
+                var conn = new NpgsqlConnection(this._connectionDB.ConnectString);
+                conn.Open();
+                string sql = "";
+                if (departments.Logo_Department == null)
+                {
+                    sql = $"SELECT * from department_add('{null}','{departments.Name_Department}','{departments.Housing}','{departments.Num_Classroom}');";
+
+                }
+                else
+                {
+                    sql = $"SELECT * from department_add('{ Functions.Converting.Base64.encodeImage(departments.Logo_Department)}','{departments.Name_Department}','{departments.Housing}','{departments.Num_Classroom}');";
+
+                }
+                using (var cmd = new NpgsqlCommand(sql, conn))
+                using (var reader = cmd.ExecuteReader())
+                    if (reader.Read())
+                    {
+                        if (reader.GetString(0) == "Success") return true; else { exception = reader.GetString(0); return false; }
+                    }
+                conn.Close();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                exception = ex.Message;
+                return false;
+            }
+        }
+        public bool Delete(string department,string faculty)
+        {
+            if (_connectionDB == null) { exception = "Подключение не установленно"; return false; }
+            try
+            {
+                var conn = new NpgsqlConnection(this._connectionDB.ConnectString);
+                conn.Open();
+
+                using (var cmd = new NpgsqlCommand())
+                {
+                    cmd.Connection = conn;
+                    cmd.CommandText = $"SELECT * from department_delete({faculty},{department});";
+                    using (var reader = cmd.ExecuteReader())
+                        if (reader.Read())
+                        {
+                            if (reader.GetString(0) == "Success") return true; else { exception = reader.GetString(0); return false; }
+                        }
+                }
                 conn.Close();
                 return true;
             }

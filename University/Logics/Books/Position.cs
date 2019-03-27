@@ -8,7 +8,7 @@ namespace Logics.Books
     {
         public struct StructPosition
         {
-            public int name;
+            public string name;
             public int id;
         }
 
@@ -30,7 +30,7 @@ namespace Logics.Books
                 using (var reader = cmd.ExecuteReader())
                     while (reader.Read())
                     {
-                        disciplines.Add(new StructPosition() { id = reader.GetInt32(0), name = reader.GetInt32(1)});
+                        disciplines.Add(new StructPosition() { id = reader.GetInt32(0), name = reader.GetString(1)});
                     }
                 conn.Close();
                 return true;
@@ -49,7 +49,7 @@ namespace Logics.Books
                 var conn = new NpgsqlConnection(this._connectionDB.ConnectString);
                 conn.Open();
 
-                using (var cmd = new NpgsqlCommand($"SELECT * from position_add('{name}'", conn))
+                using (var cmd = new NpgsqlCommand($"SELECT * from position_add('{name}');", conn))
                 using (var reader = cmd.ExecuteReader())
                     if (reader.Read())
                     {
