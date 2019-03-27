@@ -5,7 +5,7 @@ using System.Drawing;
 
 namespace Logics.MainTable
 {
-    class Departments
+     public class Departments
     {
         public struct DepartmentsStructure
         {
@@ -117,9 +117,8 @@ namespace Logics.MainTable
                 return false;
             }
         }
-        public bool Delete(int id)
+        public bool Delete(string department,string faculty)
         {
-            if (id < 0) { exception = "ID не указан"; return false; }
             if (_connectionDB == null) { exception = "Подключение не установленно"; return false; }
             try
             {
@@ -129,8 +128,7 @@ namespace Logics.MainTable
                 using (var cmd = new NpgsqlCommand())
                 {
                     cmd.Connection = conn;
-                    cmd.CommandText = "SELECT * from faculty_delete(@id);";
-                    cmd.Parameters.AddWithValue("id", id);
+                    cmd.CommandText = $"SELECT * from department_delete({faculty},{department});";
                     using (var reader = cmd.ExecuteReader())
                         if (reader.Read())
                         {
