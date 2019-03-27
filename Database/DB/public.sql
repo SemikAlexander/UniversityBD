@@ -12,7 +12,7 @@
  Target Server Version : 90612
  File Encoding         : 65001
 
- Date: 27/03/2019 16:04:15
+ Date: 27/03/2019 16:17:23
 */
 
 
@@ -177,7 +177,7 @@ CREATE TABLE "public"."department" (
   "ID_DEPARTMENT" int4 NOT NULL DEFAULT nextval('"department_ID_DEPARTMENT_seq"'::regclass),
   "id_faculty" int4 NOT NULL,
   "Name_Department" text COLLATE "pg_catalog"."default" NOT NULL,
-  "Logo_Department" text COLLATE "pg_catalog"."default" NOT NULL,
+  "Logo_Department" text COLLATE "pg_catalog"."default",
   "id_classrooms" int4 NOT NULL
 )
 ;
@@ -660,6 +660,25 @@ $BODY$
   LANGUAGE plpgsql VOLATILE
   COST 100
   ROWS 1000;
+
+-- ----------------------------
+-- Function structure for specialty_delete
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."specialty_delete"("namefaculty" text, "department" text, "specialty" text);
+CREATE OR REPLACE FUNCTION "public"."specialty_delete"("namefaculty" text, "department" text, "specialty" text)
+  RETURNS "pg_catalog"."text" AS $BODY$
+	DECLARE
+	id_depar INTEGER :=0;
+	BEGIN
+	SELECT department."ID_DEPARTMENT"  FROM (SELECT "ID_FACULTY" as "FacultyID" FROM faculty WHERE faculty."Name_Faculty"=namefaculty) as faculty_sel_name INNER JOIN department ON (faculty_sel_name."FacultyID"=department.id_faculty) INTO id_depar LIMIT 1;
+	if not FOUND then
+	RETURN 'Кафедра не найдена';
+	end if;
+	RETURN 'NULL';
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
 
 -- ----------------------------
 -- Function structure for type_subject_add
