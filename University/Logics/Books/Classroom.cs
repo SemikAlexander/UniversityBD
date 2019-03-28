@@ -41,6 +41,29 @@ namespace Logics.Books
                 return false;
             }
         }
+        public bool GetAllClass(int housing,out List<int> classes)
+        {
+            classes = new List<int>();
+            if (_connectionDB == null) { exception = "Подключение не установленно"; return false; }
+            try
+            {
+                var conn = new NpgsqlConnection(this._connectionDB.ConnectString);
+                conn.Open();
+                using (var cmd = new NpgsqlCommand($"SELECT * FROM classroom_get_class({housing});", conn))
+                using (var reader = cmd.ExecuteReader())
+                    while (reader.Read())
+                    {
+                        classes.Add(reader.GetInt32(0));
+                    }
+                conn.Close();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                exception = ex.Message;
+                return false;
+            }
+        }
         public bool GetAllClassroom(int idHousing,int start_row,int count_rows,out List<StructClassroom> housing)
         {
             housing = new List<StructClassroom>();
