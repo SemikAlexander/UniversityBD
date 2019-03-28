@@ -58,6 +58,12 @@
     <Compile Include="Classroom.Designer.cs">
       <DependentUpon>Classroom.cs</DependentUpon>
     </Compile>
+    <Compile Include="Departments.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Departments.Designer.cs">
+      <DependentUpon>Departments.cs</DependentUpon>
+    </Compile>
     <Compile Include="Discipline.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -119,6 +125,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Classroom.resx">
       <DependentUpon>Classroom.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Departments.resx">
+      <DependentUpon>Departments.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Discipline.resx">
       <DependentUpon>Discipline.cs</DependentUpon>
@@ -283,6 +292,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Type.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Dep%2850%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Dep.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

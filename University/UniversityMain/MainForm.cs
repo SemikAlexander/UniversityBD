@@ -97,7 +97,7 @@ namespace UniversityMain
         {
             if (INFO.Height == 42)
             {
-                INFO.Height = 435;
+                INFO.Height = 485;
                 pictureBox1.Image = Properties.Resources.CloseDir;
             }
             else
@@ -110,7 +110,7 @@ namespace UniversityMain
         {
             if (INFO.Height == 42)
             {
-                INFO.Height = 435;
+                INFO.Height = 485;
                 pictureBox1.Image = Properties.Resources.CloseDir;
             }
             else
@@ -123,7 +123,7 @@ namespace UniversityMain
         {
             if (INFO.Height == 42)
             {
-                INFO.Height = 435;
+                INFO.Height = 485;
                 pictureBox1.Image = Properties.Resources.CloseDir;
             }
             else
@@ -157,6 +157,11 @@ namespace UniversityMain
         {
             Close();
             new TypeSubject(connectionDB).Show();
+        }
+        private void button4_Click_1(object sender, EventArgs e)
+        {
+            Close();
+            new Departments(connectionDB).Show();
         }
     }
 }

@@ -237,7 +237,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::UniversityMain.Properties.Resources.Department_50px_;
+            this.pictureBox1.Image = global::UniversityMain.Properties.Resources.Faculty_50px_;
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(70, 44);

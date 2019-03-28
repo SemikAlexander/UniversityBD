@@ -39,6 +39,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.VerticalMenuStatus = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
             this.button12 = new System.Windows.Forms.Button();
             this.button11 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
@@ -71,6 +72,7 @@
             // INFO
             // 
             this.INFO.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.INFO.Controls.Add(this.button4);
             this.INFO.Controls.Add(this.button12);
             this.INFO.Controls.Add(this.button11);
             this.INFO.Controls.Add(this.button10);
@@ -182,6 +184,22 @@
             this.VerticalMenuStatus.UseVisualStyleBackColor = true;
             this.VerticalMenuStatus.Click += new System.EventHandler(this.button4_Click);
             // 
+            // button4
+            // 
+            this.button4.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button4.FlatAppearance.BorderSize = 0;
+            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button4.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button4.Image = global::UniversityMain.Properties.Resources.Dep;
+            this.button4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button4.Location = new System.Drawing.Point(-3, 148);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(210, 42);
+            this.button4.TabIndex = 13;
+            this.button4.Text = "         Кафедры";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click_1);
+            // 
             // button12
             // 
             this.button12.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -190,7 +208,7 @@
             this.button12.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button12.Image = global::UniversityMain.Properties.Resources.Type;
             this.button12.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button12.Location = new System.Drawing.Point(-2, 388);
+            this.button12.Location = new System.Drawing.Point(-3, 436);
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(210, 42);
             this.button12.TabIndex = 12;
@@ -206,7 +224,7 @@
             this.button11.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button11.Image = global::UniversityMain.Properties.Resources.Week;
             this.button11.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button11.Location = new System.Drawing.Point(-3, 340);
+            this.button11.Location = new System.Drawing.Point(-3, 388);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(210, 42);
             this.button11.TabIndex = 11;
@@ -222,7 +240,7 @@
             this.button10.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button10.Image = global::UniversityMain.Properties.Resources.Position;
             this.button10.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button10.Location = new System.Drawing.Point(-2, 292);
+            this.button10.Location = new System.Drawing.Point(-3, 340);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(210, 42);
             this.button10.TabIndex = 10;
@@ -238,7 +256,7 @@
             this.button9.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button9.Image = global::UniversityMain.Properties.Resources.Discipline;
             this.button9.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button9.Location = new System.Drawing.Point(-3, 244);
+            this.button9.Location = new System.Drawing.Point(-2, 292);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(210, 42);
             this.button9.TabIndex = 9;
@@ -254,7 +272,7 @@
             this.button8.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button8.Image = global::UniversityMain.Properties.Resources.Classroom;
             this.button8.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button8.Location = new System.Drawing.Point(-1, 196);
+            this.button8.Location = new System.Drawing.Point(-3, 244);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(210, 42);
             this.button8.TabIndex = 8;
@@ -282,7 +300,7 @@
             this.button7.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button7.Image = global::UniversityMain.Properties.Resources.Groups;
             this.button7.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button7.Location = new System.Drawing.Point(-1, 148);
+            this.button7.Location = new System.Drawing.Point(-2, 196);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(210, 42);
             this.button7.TabIndex = 5;
@@ -313,7 +331,7 @@
             this.button5.FlatAppearance.BorderSize = 0;
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button5.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button5.Image = global::UniversityMain.Properties.Resources.Department;
+            this.button5.Image = global::UniversityMain.Properties.Resources.Faculty;
             this.button5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button5.Location = new System.Drawing.Point(-3, 100);
             this.button5.Name = "button5";
@@ -384,5 +402,6 @@
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.Button button11;
         private System.Windows.Forms.Button button12;
+        private System.Windows.Forms.Button button4;
     }
 }
