@@ -1,67 +1,60 @@
 ﻿using Npgsql;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 
-namespace Logics.Books
+namespace Logics.MainTable
 {
-    public class Week
+     public class Groups
     {
-        public struct StructWeek
+        public struct GroupsStructure
         {
-            public Type_Week type;
-            public string name_day;
-            public int id;
+            public string YearCreate, Subname;
         }
-        public enum Type_Week
-        {
-            Top,
-            Bottom
-        }
+
         #region Variable
         public string exception = "";
-        private  Functions.Connection.ConnectionDB _connectionDB =null;
+        private Functions.Connection.ConnectionDB _connectionDB = null;
         #endregion
-        public Week(Functions.Connection.ConnectionDB connectionDB) => _connectionDB = connectionDB;
+        public Groups(Functions.Connection.ConnectionDB connectionDB) => _connectionDB = connectionDB;
         
-        public bool GetAllWeek(out List<StructWeek> disciplines)
+        public bool GetGroups(string nameFaculty,string department,string specialABR, out List<GroupsStructure> specialtyStructures)
         {
-            disciplines = new List<StructWeek>();
+            specialtyStructures = new List<GroupsStructure>();
             if (_connectionDB == null) { exception = "Подключение не установленно"; return false; }
             try
             {
                 var conn = new NpgsqlConnection(this._connectionDB.ConnectString);
                 conn.Open();
-                using (var cmd = new NpgsqlCommand($"SELECT * FROM week_get_all();", conn))
+                using (var cmd = new NpgsqlCommand($"SELECT * FROM getallgroupsnames('{nameFaculty}','{department}','{specialABR}');", conn))
                 using (var reader = cmd.ExecuteReader())
                     while (reader.Read())
                     {
-                        if(reader.GetChar(2)=='V')
-                        disciplines.Add(new StructWeek() { id = reader.GetInt32(0), name_day = reader.GetString(1), type= Type_Week.Top });
-                        else
-                            disciplines.Add(new StructWeek() { id = reader.GetInt32(0), name_day = reader.GetString(1), type = Type_Week.Bottom });
+                        specialtyStructures.Add(new GroupsStructure()
+                        {
+                            YearCreate = reader.GetString(0),
+                            Subname = reader.GetString(1)
+                        });
+                    }
+                conn.Close();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                exception = ex.Message;
+                return false;
+            }
+        }
 
-                    }
-                conn.Close();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                exception = ex.Message;
-                return false;
-            }
-        }
-        public bool AddWeek(StructWeek week)
+        public bool Add(GroupsStructure specialtyStructure,string faculty,string department,string special)
         {
             if (_connectionDB == null) { exception = "Подключение не установленно"; return false; }
             try
             {
                 var conn = new NpgsqlConnection(this._connectionDB.ConnectString);
                 conn.Open();
-                char type_w=' ';
-                if (week.type == Type_Week.Top)
-                    type_w = 'V';
-                else type_w = 'N';
-                using (var cmd = new NpgsqlCommand($"SELECT * from week_add('{week.name_day}','{type_w}');", conn))
+                string sql =$"SELECT * from group_add('{faculty}','{department}','{special}','{specialtyStructure.YearCreate}','{specialtyStructure.Subname}');";
+                using (var cmd = new NpgsqlCommand(sql, conn))
                 using (var reader = cmd.ExecuteReader())
                     if (reader.Read())
                     {
@@ -76,20 +69,24 @@ namespace Logics.Books
                 return false;
             }
         }
-        public bool DeleteWeek(int id)
+        public bool Delete(string department,string faculty,string abbreviature,GroupsStructure groupsStructure)
         {
-            if (id < 0) { exception = "ID не указан"; return false; }
             if (_connectionDB == null) { exception = "Подключение не установленно"; return false; }
             try
             {
                 var conn = new NpgsqlConnection(this._connectionDB.ConnectString);
                 conn.Open();
-                using (var cmd = new NpgsqlCommand($"SELECT * from week_delete({id});", conn))
-                using (var reader = cmd.ExecuteReader())
-                    if (reader.Read())
-                    {
-                        if (reader.GetString(0) == "Success") return true; else { exception = reader.GetString(0); return false; }
-                    }
+
+                using (var cmd = new NpgsqlCommand())
+                {
+                    cmd.Connection = conn;
+                    cmd.CommandText = $"SELECT * from group_delete('{faculty}','{department}','{abbreviature}','{groupsStructure.YearCreate}','{groupsStructure.Subname}');";
+                    using (var reader = cmd.ExecuteReader())
+                        if (reader.Read())
+                        {
+                            if (reader.GetString(0) == "Success") return true; else { exception = reader.GetString(0); return false; }
+                        }
+                }
                 conn.Close();
                 return true;
             }
