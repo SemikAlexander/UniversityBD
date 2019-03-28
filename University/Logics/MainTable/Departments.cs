@@ -55,7 +55,7 @@ namespace Logics.MainTable
                 using (var reader = cmd.ExecuteReader())
                     while (reader.Read())
                     {
-                        if (reader.GetString(1) != null)
+                        if (reader.IsDBNull(1) == false && reader.GetString(1)!="")
                             departments.Add(new DepartmentsStructure()
                             {
                                 Name_Department = reader.GetString(0),
