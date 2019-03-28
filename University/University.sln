@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversityMain", "Universit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logics", "Logics\Logics.csproj", "{5FDE5D4D-1AC0-4879-BD48-41803693D9F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestLogics", "UnitTestLogics\UnitTestLogics.csproj", "{8EEB6EEF-D1E2-4A6D-95DA-004CEF4ECB78}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{5FDE5D4D-1AC0-4879-BD48-41803693D9F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5FDE5D4D-1AC0-4879-BD48-41803693D9F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5FDE5D4D-1AC0-4879-BD48-41803693D9F2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8EEB6EEF-D1E2-4A6D-95DA-004CEF4ECB78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8EEB6EEF-D1E2-4A6D-95DA-004CEF4ECB78}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8EEB6EEF-D1E2-4A6D-95DA-004CEF4ECB78}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8EEB6EEF-D1E2-4A6D-95DA-004CEF4ECB78}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

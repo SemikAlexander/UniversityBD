@@ -12,7 +12,7 @@
  Target Server Version : 90612
  File Encoding         : 65001
 
- Date: 28/03/2019 07:57:30
+ Date: 28/03/2019 09:41:51
 */
 
 
@@ -597,6 +597,20 @@ $BODY$
   ROWS 1000;
 
 -- ----------------------------
+-- Function structure for getallgroupsnames
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."getallgroupsnames"("namefaculty" text, "namedepartment" text, "abbreviature" text);
+CREATE OR REPLACE FUNCTION "public"."getallgroupsnames"("namefaculty" text, "namedepartment" text, "abbreviature" text)
+  RETURNS TABLE("year" text, "sub_name" text) AS $BODY$BEGIN
+				
+			RETURN QUERY  SELECT "Year_Of_Entry","Sub_Name_Group" FROM	(SELECT specialty."ID_SPECIALTY" FROM(SELECT department."ID_DEPARTMENT" FROM (SELECT faculty."ID_FACULTY" FROM faculty WHERE faculty."Name_Faculty"=namefaculty LIMIT 1) as id_fac INNER JOIN department on department.id_faculty=id_fac."ID_FACULTY" WHERE department."Name_Department"=namedepartment) as dep INNER JOIN specialty on specialty.id_department=dep."ID_DEPARTMENT" WHERE specialty."Abbreviation_Specialty"=abbreviature) as spec INNER JOIN groups on groups.id_specialty=spec.ID_SPECIALTY;
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100
+  ROWS 1000;
+
+-- ----------------------------
 -- Function structure for getallspeciality
 -- ----------------------------
 DROP FUNCTION IF EXISTS "public"."getallspeciality"("namefaculty" text, "NameDepartment" text, "startrow" int4, "countrow" int4);
@@ -638,6 +652,79 @@ $BODY$
   LANGUAGE plpgsql VOLATILE
   COST 100
   ROWS 1000;
+
+-- ----------------------------
+-- Function structure for group_add
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."group_add"("namefaculty" text, "namedepartment" text, "namespecialty" text, "year_create" text, "subnamegroup" text);
+CREATE OR REPLACE FUNCTION "public"."group_add"("namefaculty" text, "namedepartment" text, "namespecialty" text, "year_create" text, "subnamegroup" text)
+  RETURNS "pg_catalog"."text" AS $BODY$
+	DECLARE
+	IDDEPARTMENT INTEGER :=0;
+	IDFACULTY INTEGER := 0;
+	IDSPECIALTY INTEGER := 0;
+	BEGIN 
+SELECT "ID_FACULTY" FROM faculty INTO IDFACULTY WHERE "Name_Faculty"=namefaculty LIMIT 1;
+IF NOT FOUND THEN
+    RETURN 'Факультет не найден';
+END IF;
+
+SELECT department."ID_DEPARTMENT" From department WHERE  department."Name_Department"=namedepartment and IDFACULTY=department.id_faculty LIMIT 1 INTO IDDEPARTMENT;
+IF NOT FOUND THEN
+    RETURN 'Кафедра не существует';
+END IF;
+
+SELECT "ID_SPECIALTY" From specialty WHERE specialty."Abbreviation_Specialty"=namespecialty and specialty.id_department=IDDEPARTMENT LIMIT 1 INTO IDSPECIALTY;
+IF NOT FOUND THEN
+    RETURN 'Специальность не существует';
+END IF;
+
+if EXISTS(SELECT * from groups WHERE groups."Sub_Name_Group"=subnamegroup and groups."Year_Of_Entry"=year_create AND groups.id_specialty= IDSPECIALTY) THEN
+	RETURN 'Группа существует';
+	end if;
+
+INSERT INTO groups(groups.id_specialty,groups."Year_Of_Entry",groups."Sub_Name_Group") VALUES (IDSPECIALTY,year_create,subnamegroup);
+
+
+RETURN 'Success';
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+-- ----------------------------
+-- Function structure for group_delete
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."group_delete"("namefaculty" text, "namedepartment" text, "namespecialty" text, "year_create" text, "subnamegroup" text);
+CREATE OR REPLACE FUNCTION "public"."group_delete"("namefaculty" text, "namedepartment" text, "namespecialty" text, "year_create" text, "subnamegroup" text)
+  RETURNS "pg_catalog"."text" AS $BODY$
+	DECLARE
+	IDDEPARTMENT INTEGER :=0;
+	IDFACULTY INTEGER := 0;
+	IDSPECIALTY INTEGER := 0;
+	BEGIN 
+SELECT "ID_FACULTY" FROM faculty INTO IDFACULTY WHERE "Name_Faculty"=namefaculty LIMIT 1;
+IF NOT FOUND THEN
+    RETURN 'Факультет не найден';
+END IF;
+
+SELECT department."ID_DEPARTMENT" From department WHERE  department."Name_Department"=namedepartment and IDFACULTY=department.id_faculty LIMIT 1 INTO IDDEPARTMENT;
+IF NOT FOUND THEN
+    RETURN 'Кафедра не существует';
+END IF;
+
+SELECT "ID_SPECIALTY" From specialty WHERE specialty."Abbreviation_Specialty"=namespecialty and specialty.id_department=IDDEPARTMENT LIMIT 1 INTO IDSPECIALTY;
+IF NOT FOUND THEN
+    RETURN 'Специальность не существует';
+END IF;
+
+DELETE FROM groups WHERE groups."Year_Of_Entry"=year_create and groups."Sub_Name_Group"=subnamegroup and groups.id_specialty=IDSPECIALTY;
+
+RETURN 'Success';
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
 
 -- ----------------------------
 -- Function structure for position_add
@@ -706,7 +793,7 @@ IF NOT FOUND THEN
     RETURN 'Кафедра не существует';
 END IF;
 
-IF EXISTS(SELECT * From specialty WHERE specialty."Abbreviation_Specialty"=abbreviationspecialty or specialty."Cipher_Specialty"=cipherspecialty or specialty."Name_Specialty"=namespecialty or specialty.id_department=IDDEPARTMENT) THEN
+IF EXISTS(SELECT * From specialty WHERE specialty."Abbreviation_Specialty"=abbreviationspecialty or specialty."Cipher_Specialty"=cipherspecialty or specialty."Name_Specialty"=namespecialty and specialty.id_department=IDDEPARTMENT) THEN
     RETURN 'Специальность существует';
 END IF;
 INSERT INTO specialty ("Abbreviation_Specialty","Cipher_Specialty","Name_Specialty",id_department) VALUES(abbreviationspecialty,cipherspecialty,namespecialty,IDDEPARTMENT);
