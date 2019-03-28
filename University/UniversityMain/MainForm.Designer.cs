@@ -39,13 +39,15 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.VerticalMenuStatus = new System.Windows.Forms.Button();
+            this.button12 = new System.Windows.Forms.Button();
+            this.button11 = new System.Windows.Forms.Button();
+            this.button10 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.button7 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
             this.timetable = new System.Windows.Forms.Button();
             this.VerticalMenu.SuspendLayout();
             this.INFO.SuspendLayout();
@@ -59,17 +61,19 @@
             this.VerticalMenu.BackColor = System.Drawing.Color.DeepSkyBlue;
             this.VerticalMenu.Controls.Add(this.INFO);
             this.VerticalMenu.Controls.Add(this.label1);
-            this.VerticalMenu.Controls.Add(this.button4);
             this.VerticalMenu.Controls.Add(this.timetable);
             this.VerticalMenu.Dock = System.Windows.Forms.DockStyle.Left;
             this.VerticalMenu.Location = new System.Drawing.Point(0, 0);
             this.VerticalMenu.Name = "VerticalMenu";
-            this.VerticalMenu.Size = new System.Drawing.Size(210, 615);
+            this.VerticalMenu.Size = new System.Drawing.Size(210, 700);
             this.VerticalMenu.TabIndex = 1;
             // 
             // INFO
             // 
             this.INFO.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.INFO.Controls.Add(this.button12);
+            this.INFO.Controls.Add(this.button11);
+            this.INFO.Controls.Add(this.button10);
             this.INFO.Controls.Add(this.button9);
             this.INFO.Controls.Add(this.button8);
             this.INFO.Controls.Add(this.pictureBox1);
@@ -77,7 +81,7 @@
             this.INFO.Controls.Add(this.button7);
             this.INFO.Controls.Add(this.button6);
             this.INFO.Controls.Add(this.button5);
-            this.INFO.Location = new System.Drawing.Point(0, 111);
+            this.INFO.Location = new System.Drawing.Point(0, 92);
             this.INFO.Name = "INFO";
             this.INFO.Size = new System.Drawing.Size(210, 42);
             this.INFO.TabIndex = 6;
@@ -99,7 +103,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(66, 9);
+            this.label1.Location = new System.Drawing.Point(66, 5);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(91, 30);
             this.label1.TabIndex = 4;
@@ -177,6 +181,54 @@
             this.VerticalMenuStatus.TabIndex = 2;
             this.VerticalMenuStatus.UseVisualStyleBackColor = true;
             this.VerticalMenuStatus.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // button12
+            // 
+            this.button12.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button12.FlatAppearance.BorderSize = 0;
+            this.button12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button12.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button12.Image = global::UniversityMain.Properties.Resources.Type;
+            this.button12.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button12.Location = new System.Drawing.Point(-2, 388);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(210, 42);
+            this.button12.TabIndex = 12;
+            this.button12.Text = "        Тип занятий";
+            this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
+            // 
+            // button11
+            // 
+            this.button11.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button11.FlatAppearance.BorderSize = 0;
+            this.button11.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button11.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button11.Image = global::UniversityMain.Properties.Resources.Week;
+            this.button11.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button11.Location = new System.Drawing.Point(-3, 340);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(210, 42);
+            this.button11.TabIndex = 11;
+            this.button11.Text = "        Дни недели";
+            this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.button11_Click);
+            // 
+            // button10
+            // 
+            this.button10.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button10.FlatAppearance.BorderSize = 0;
+            this.button10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button10.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button10.Image = global::UniversityMain.Properties.Resources.Position;
+            this.button10.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button10.Location = new System.Drawing.Point(-2, 292);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(210, 42);
+            this.button10.TabIndex = 10;
+            this.button10.Text = "        Должности";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
             // button9
             // 
@@ -271,21 +323,6 @@
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
-            // button4
-            // 
-            this.button4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.button4.FlatAppearance.BorderSize = 0;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button4.Image = global::UniversityMain.Properties.Resources.Help;
-            this.button4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button4.Location = new System.Drawing.Point(0, 573);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(210, 42);
-            this.button4.TabIndex = 3;
-            this.button4.Text = "         Помощь";
-            this.button4.UseVisualStyleBackColor = true;
-            // 
             // timetable
             // 
             this.timetable.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -294,7 +331,7 @@
             this.timetable.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.timetable.Image = ((System.Drawing.Image)(resources.GetObject("timetable.Image")));
             this.timetable.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.timetable.Location = new System.Drawing.Point(-1, 63);
+            this.timetable.Location = new System.Drawing.Point(0, 44);
             this.timetable.Name = "timetable";
             this.timetable.Size = new System.Drawing.Size(210, 42);
             this.timetable.TabIndex = 0;
@@ -306,7 +343,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.ClientSize = new System.Drawing.Size(1109, 615);
+            this.ClientSize = new System.Drawing.Size(1109, 700);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.VerticalMenu);
             this.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -337,7 +374,6 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Panel INFO;
@@ -345,5 +381,8 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.Button button11;
+        private System.Windows.Forms.Button button12;
     }
 }

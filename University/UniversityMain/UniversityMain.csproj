@@ -76,6 +76,12 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Positions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Positions.Designer.cs">
+      <DependentUpon>Positions.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SettingConection.cs">
@@ -96,6 +102,18 @@
     <Compile Include="Teachers.Designer.cs">
       <DependentUpon>Teachers.cs</DependentUpon>
     </Compile>
+    <Compile Include="TypeSubject.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TypeSubject.Designer.cs">
+      <DependentUpon>TypeSubject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WeekForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WeekForm.Designer.cs">
+      <DependentUpon>WeekForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Authorization.resx">
       <DependentUpon>Authorization.cs</DependentUpon>
     </EmbeddedResource>
@@ -110,6 +128,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Positions.resx">
+      <DependentUpon>Positions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -129,6 +150,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Teachers.resx">
       <DependentUpon>Teachers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TypeSubject.resx">
+      <DependentUpon>TypeSubject.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WeekForm.resx">
+      <DependentUpon>WeekForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -238,6 +265,24 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Discipline.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Position%2850%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Position.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Week %2850%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Week.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Type %2850%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Type.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

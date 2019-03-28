@@ -283,6 +283,26 @@ namespace UniversityMain.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Position {
+            get {
+                object obj = ResourceManager.GetObject("Position", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Position_50_ {
+            get {
+                object obj = ResourceManager.GetObject("Position_50_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Save {
             get {
                 object obj = ResourceManager.GetObject("Save", resourceCulture);
@@ -333,6 +353,26 @@ namespace UniversityMain.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Type {
+            get {
+                object obj = ResourceManager.GetObject("Type", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Type__50_ {
+            get {
+                object obj = ResourceManager.GetObject("Type__50_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap UP {
             get {
                 object obj = ResourceManager.GetObject("UP", resourceCulture);
@@ -346,6 +386,26 @@ namespace UniversityMain.Properties {
         internal static System.Drawing.Bitmap UserLogin {
             get {
                 object obj = ResourceManager.GetObject("UserLogin", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Week {
+            get {
+                object obj = ResourceManager.GetObject("Week", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Week__50_ {
+            get {
+                object obj = ResourceManager.GetObject("Week__50_", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
