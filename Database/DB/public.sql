@@ -12,7 +12,7 @@
  Target Server Version : 90612
  File Encoding         : 65001
 
- Date: 27/03/2019 19:08:12
+ Date: 28/03/2019 07:57:30
 */
 
 
@@ -374,63 +374,6 @@ CREATE TABLE "public"."week" (
 COMMENT ON COLUMN "public"."week"."TypeWeek" IS 'Тип недели (V - верхняя N - нижняя неделя)';
 
 -- ----------------------------
--- Function structure for GetAllDepartmentNames
--- ----------------------------
-DROP FUNCTION IF EXISTS "public"."GetAllDepartmentNames"("namefaculty" text);
-CREATE OR REPLACE FUNCTION "public"."GetAllDepartmentNames"("namefaculty" text)
-  RETURNS TABLE("Name_Department" text) AS $BODY$BEGIN
-				
-			RETURN QUERY	SELECT department."Name_Department" FROM (SELECT "ID_FACULTY" as "FacultyID" FROM faculty WHERE faculty."Name_Faculty"=namefaculty) as faculty_sel_name INNER JOIN department ON (faculty_sel_name."FacultyID"=department.id_faculty) INNER JOIN classroom on classroom."ID_CLASSROOM"=department.id_classrooms;
-END
-$BODY$
-  LANGUAGE plpgsql VOLATILE
-  COST 100
-  ROWS 1000;
-
--- ----------------------------
--- Function structure for GetAllSpeciality
--- ----------------------------
-DROP FUNCTION IF EXISTS "public"."GetAllSpeciality"("namefaculty" text, "NameDepartment" text, "startrow" int4, "countrow" int4);
-CREATE OR REPLACE FUNCTION "public"."GetAllSpeciality"("namefaculty" text, "NameDepartment" text, "startrow" int4, "countrow" int4)
-  RETURNS TABLE("Abbreviation_Specialty" text, "Cipher_Specialty" text, "Name_Specialty" text) AS $BODY$BEGIN
-				
-RETURN QUERY	SELECT specialty."Abbreviation_Specialty",specialty."Cipher_Specialty",specialty."Name_Specialty" FROM(SELECT department."ID_DEPARTMENT" FROM (SELECT faculty."ID_FACULTY" FROM faculty WHERE faculty."Name_Faculty"="namefaculty" LIMIT 1) as id_fac INNER JOIN department on department.id_faculty=id_fac."ID_FACULTY" WHERE department."Name_Department"="NameDepartment") as dep INNER JOIN specialty on specialty.id_department=dep."ID_DEPARTMENT" LIMIT countrow OFFSET startrow;
-
-END
-$BODY$
-  LANGUAGE plpgsql VOLATILE
-  COST 100
-  ROWS 1000;
-
--- ----------------------------
--- Function structure for GetAllSpecialityNames
--- ----------------------------
-DROP FUNCTION IF EXISTS "public"."GetAllSpecialityNames"("namefaculty" text, "namedepartment" text);
-CREATE OR REPLACE FUNCTION "public"."GetAllSpecialityNames"("namefaculty" text, "namedepartment" text)
-  RETURNS TABLE("Name_Specialty" text) AS $BODY$BEGIN
-				
-			RETURN QUERY	SELECT specialty."Abbreviation_Specialty" FROM(SELECT department."ID_DEPARTMENT" FROM (SELECT faculty."ID_FACULTY" FROM faculty WHERE faculty."Name_Faculty"=namefaculty LIMIT 1) as id_fac INNER JOIN department on department.id_faculty=id_fac."ID_FACULTY" WHERE department."Name_Department"=namedepartment) as dep INNER JOIN specialty on specialty.id_department=dep."ID_DEPARTMENT";
-END
-$BODY$
-  LANGUAGE plpgsql VOLATILE
-  COST 100
-  ROWS 1000;
-
--- ----------------------------
--- Function structure for GetDepartmentFull
--- ----------------------------
-DROP FUNCTION IF EXISTS "public"."GetDepartmentFull"("namefaculty" text, "startrow" int4, "countrow" int4);
-CREATE OR REPLACE FUNCTION "public"."GetDepartmentFull"("namefaculty" text, "startrow" int4, "countrow" int4)
-  RETURNS TABLE("Name_Department" text, "Logo_Department" text, "Housing" int4, "Num_Classroom" int4) AS $BODY$BEGIN
-				
-			RETURN QUERY	SELECT department."Name_Department",department."Logo_Department",classroom."Housing",classroom."Num_Classroom" FROM (SELECT "ID_FACULTY" as "FacultyID" FROM faculty WHERE faculty."Name_Faculty"=namefaculty) as faculty_sel_name INNER JOIN department ON (faculty_sel_name."FacultyID"=department.id_faculty) INNER JOIN classroom on classroom."ID_CLASSROOM"=department.id_classrooms LIMIT countrow OFFSET startrow;
-END
-$BODY$
-  LANGUAGE plpgsql VOLATILE
-  COST 100
-  ROWS 1000;
-
--- ----------------------------
 -- Function structure for classroom_add
 -- ----------------------------
 DROP FUNCTION IF EXISTS "public"."classroom_add"("housing" int4, "num_classroom" int4);
@@ -633,6 +576,63 @@ DROP FUNCTION IF EXISTS "public"."faculty_get_all"();
 CREATE OR REPLACE FUNCTION "public"."faculty_get_all"()
   RETURNS TABLE("id" int4, "name" text, "logo" text) AS $BODY$BEGIN
 	RETURN QUERY SELECT * FROM faculty;
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100
+  ROWS 1000;
+
+-- ----------------------------
+-- Function structure for getalldepartmentnames
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."getalldepartmentnames"("namefaculty" text);
+CREATE OR REPLACE FUNCTION "public"."getalldepartmentnames"("namefaculty" text)
+  RETURNS TABLE("Name_Department" text) AS $BODY$BEGIN
+				
+			RETURN QUERY	SELECT department."Name_Department" FROM (SELECT "ID_FACULTY" as "FacultyID" FROM faculty WHERE faculty."Name_Faculty"=namefaculty) as faculty_sel_name INNER JOIN department ON (faculty_sel_name."FacultyID"=department.id_faculty) INNER JOIN classroom on classroom."ID_CLASSROOM"=department.id_classrooms;
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100
+  ROWS 1000;
+
+-- ----------------------------
+-- Function structure for getallspeciality
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."getallspeciality"("namefaculty" text, "NameDepartment" text, "startrow" int4, "countrow" int4);
+CREATE OR REPLACE FUNCTION "public"."getallspeciality"("namefaculty" text, "NameDepartment" text, "startrow" int4, "countrow" int4)
+  RETURNS TABLE("Abbreviation_Specialty" text, "Cipher_Specialty" text, "Name_Specialty" text) AS $BODY$BEGIN
+				
+RETURN QUERY	SELECT specialty."Abbreviation_Specialty",specialty."Cipher_Specialty",specialty."Name_Specialty" FROM(SELECT department."ID_DEPARTMENT" FROM (SELECT faculty."ID_FACULTY" FROM faculty WHERE faculty."Name_Faculty"="namefaculty" LIMIT 1) as id_fac INNER JOIN department on department.id_faculty=id_fac."ID_FACULTY" WHERE department."Name_Department"="NameDepartment") as dep INNER JOIN specialty on specialty.id_department=dep."ID_DEPARTMENT" LIMIT countrow OFFSET startrow;
+
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100
+  ROWS 1000;
+
+-- ----------------------------
+-- Function structure for getallspecialitynames
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."getallspecialitynames"("namefaculty" text, "namedepartment" text);
+CREATE OR REPLACE FUNCTION "public"."getallspecialitynames"("namefaculty" text, "namedepartment" text)
+  RETURNS TABLE("Name_Specialty" text) AS $BODY$BEGIN
+				
+			RETURN QUERY	SELECT specialty."Abbreviation_Specialty" FROM(SELECT department."ID_DEPARTMENT" FROM (SELECT faculty."ID_FACULTY" FROM faculty WHERE faculty."Name_Faculty"=namefaculty LIMIT 1) as id_fac INNER JOIN department on department.id_faculty=id_fac."ID_FACULTY" WHERE department."Name_Department"=namedepartment) as dep INNER JOIN specialty on specialty.id_department=dep."ID_DEPARTMENT";
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100
+  ROWS 1000;
+
+-- ----------------------------
+-- Function structure for getdepartmentfull
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."getdepartmentfull"("namefaculty" text, "startrow" int4, "countrow" int4);
+CREATE OR REPLACE FUNCTION "public"."getdepartmentfull"("namefaculty" text, "startrow" int4, "countrow" int4)
+  RETURNS TABLE("Name_Department" text, "Logo_Department" text, "Housing" int4, "Num_Classroom" int4) AS $BODY$BEGIN
+				
+			RETURN QUERY	SELECT department."Name_Department",department."Logo_Department",classroom."Housing",classroom."Num_Classroom" FROM (SELECT "ID_FACULTY" as "FacultyID" FROM faculty WHERE faculty."Name_Faculty"=namefaculty) as faculty_sel_name INNER JOIN department ON (faculty_sel_name."FacultyID"=department.id_faculty) INNER JOIN classroom on classroom."ID_CLASSROOM"=department.id_classrooms LIMIT countrow OFFSET startrow;
 END
 $BODY$
   LANGUAGE plpgsql VOLATILE
