@@ -40,7 +40,7 @@ namespace Logics.MainTable
                 return false;
             }
         }
-        public bool GetSpeciality(string nameFaculty,int startRow,int countRow, out List<SpecialtyStructure> specialtyStructures)
+        public bool GetSpeciality(string nameFaculty,string department,int startRow,int countRow, out List<SpecialtyStructure> specialtyStructures)
         {
             specialtyStructures = new List<SpecialtyStructure>();
             if (_connectionDB == null) { exception = "Подключение не установленно"; return false; }
@@ -48,7 +48,7 @@ namespace Logics.MainTable
             {
                 var conn = new NpgsqlConnection(this._connectionDB.ConnectString);
                 conn.Open();
-                using (var cmd = new NpgsqlCommand($"SELECT * FROM getdepartmentfull({nameFaculty},{startRow},{countRow});", conn))
+                using (var cmd = new NpgsqlCommand($"SELECT * FROM getallspeciality('{nameFaculty}','{department}',{startRow},{countRow});", conn))
                 using (var reader = cmd.ExecuteReader())
                     while (reader.Read())
                     {
