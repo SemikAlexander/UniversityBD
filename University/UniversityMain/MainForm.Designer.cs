@@ -31,14 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.VerticalMenu = new System.Windows.Forms.Panel();
             this.INFO = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.VerticalMenuStatus = new System.Windows.Forms.Button();
+            this.button13 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button12 = new System.Windows.Forms.Button();
             this.button11 = new System.Windows.Forms.Button();
@@ -46,15 +39,23 @@
             this.button9 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.button7 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.timetable = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.VerticalMenuStatus = new System.Windows.Forms.Button();
             this.VerticalMenu.SuspendLayout();
             this.INFO.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // VerticalMenu
@@ -72,6 +73,7 @@
             // INFO
             // 
             this.INFO.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.INFO.Controls.Add(this.button13);
             this.INFO.Controls.Add(this.button4);
             this.INFO.Controls.Add(this.button12);
             this.INFO.Controls.Add(this.button11);
@@ -89,6 +91,130 @@
             this.INFO.TabIndex = 6;
             this.INFO.Click += new System.EventHandler(this.INFO_Click);
             // 
+            // button13
+            // 
+            this.button13.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button13.FlatAppearance.BorderSize = 0;
+            this.button13.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button13.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button13.Image = global::UniversityMain.Properties.Resources.Dep;
+            this.button13.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button13.Location = new System.Drawing.Point(-3, 196);
+            this.button13.Name = "button13";
+            this.button13.Size = new System.Drawing.Size(210, 42);
+            this.button13.TabIndex = 14;
+            this.button13.Text = "        Специальности";
+            this.button13.UseVisualStyleBackColor = true;
+            this.button13.Click += new System.EventHandler(this.button13_Click);
+            // 
+            // button4
+            // 
+            this.button4.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button4.FlatAppearance.BorderSize = 0;
+            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button4.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button4.Image = global::UniversityMain.Properties.Resources.Dep;
+            this.button4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button4.Location = new System.Drawing.Point(-3, 148);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(210, 42);
+            this.button4.TabIndex = 13;
+            this.button4.Text = "         Кафедры";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click_1);
+            // 
+            // button12
+            // 
+            this.button12.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button12.FlatAppearance.BorderSize = 0;
+            this.button12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button12.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button12.Image = global::UniversityMain.Properties.Resources.Type;
+            this.button12.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button12.Location = new System.Drawing.Point(-3, 484);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(210, 42);
+            this.button12.TabIndex = 12;
+            this.button12.Text = "        Тип занятий";
+            this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
+            // 
+            // button11
+            // 
+            this.button11.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button11.FlatAppearance.BorderSize = 0;
+            this.button11.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button11.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button11.Image = global::UniversityMain.Properties.Resources.Week;
+            this.button11.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button11.Location = new System.Drawing.Point(-3, 436);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(210, 42);
+            this.button11.TabIndex = 11;
+            this.button11.Text = "        Дни недели";
+            this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.button11_Click);
+            // 
+            // button10
+            // 
+            this.button10.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button10.FlatAppearance.BorderSize = 0;
+            this.button10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button10.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button10.Image = global::UniversityMain.Properties.Resources.Position;
+            this.button10.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button10.Location = new System.Drawing.Point(-3, 388);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(210, 42);
+            this.button10.TabIndex = 10;
+            this.button10.Text = "        Должности";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
+            // 
+            // button9
+            // 
+            this.button9.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button9.FlatAppearance.BorderSize = 0;
+            this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button9.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button9.Image = global::UniversityMain.Properties.Resources.Discipline;
+            this.button9.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button9.Location = new System.Drawing.Point(-3, 340);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(210, 42);
+            this.button9.TabIndex = 9;
+            this.button9.Text = "        Дисциплины";
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
+            // 
+            // button8
+            // 
+            this.button8.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button8.FlatAppearance.BorderSize = 0;
+            this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button8.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button8.Image = global::UniversityMain.Properties.Resources.Classroom;
+            this.button8.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button8.Location = new System.Drawing.Point(-3, 292);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(210, 42);
+            this.button8.TabIndex = 8;
+            this.button8.Text = "        Аудитории";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::UniversityMain.Properties.Resources.OpenDir;
+            this.pictureBox1.ImageLocation = "";
+            this.pictureBox1.Location = new System.Drawing.Point(3, 3);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(32, 32);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 7;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -101,6 +227,55 @@
             this.label2.Text = "Справочники";
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
+            // button7
+            // 
+            this.button7.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button7.FlatAppearance.BorderSize = 0;
+            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button7.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button7.Image = global::UniversityMain.Properties.Resources.Groups;
+            this.button7.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button7.Location = new System.Drawing.Point(-3, 244);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(210, 42);
+            this.button7.TabIndex = 5;
+            this.button7.Text = "        Группы";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // button6
+            // 
+            this.button6.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button6.FlatAppearance.BorderSize = 0;
+            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button6.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button6.Image = global::UniversityMain.Properties.Resources.Teacher;
+            this.button6.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button6.Location = new System.Drawing.Point(-1, 52);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(210, 42);
+            this.button6.TabIndex = 2;
+            this.button6.Text = "   Преподаватели";
+            this.button6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // button5
+            // 
+            this.button5.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button5.FlatAppearance.BorderSize = 0;
+            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button5.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button5.Image = global::UniversityMain.Properties.Resources.Faculty;
+            this.button5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button5.Location = new System.Drawing.Point(-3, 100);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(210, 42);
+            this.button5.TabIndex = 1;
+            this.button5.Text = "         Факультеты";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -110,6 +285,21 @@
             this.label1.Size = new System.Drawing.Size(91, 30);
             this.label1.TabIndex = 4;
             this.label1.Text = "МЕНЮ";
+            // 
+            // timetable
+            // 
+            this.timetable.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.timetable.FlatAppearance.BorderSize = 0;
+            this.timetable.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.timetable.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.timetable.Image = ((System.Drawing.Image)(resources.GetObject("timetable.Image")));
+            this.timetable.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.timetable.Location = new System.Drawing.Point(0, 44);
+            this.timetable.Name = "timetable";
+            this.timetable.Size = new System.Drawing.Size(210, 42);
+            this.timetable.TabIndex = 0;
+            this.timetable.Text = "         Расписание";
+            this.timetable.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
@@ -184,178 +374,6 @@
             this.VerticalMenuStatus.UseVisualStyleBackColor = true;
             this.VerticalMenuStatus.Click += new System.EventHandler(this.button4_Click);
             // 
-            // button4
-            // 
-            this.button4.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button4.FlatAppearance.BorderSize = 0;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button4.Image = global::UniversityMain.Properties.Resources.Dep;
-            this.button4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button4.Location = new System.Drawing.Point(-3, 148);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(210, 42);
-            this.button4.TabIndex = 13;
-            this.button4.Text = "         Кафедры";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click_1);
-            // 
-            // button12
-            // 
-            this.button12.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button12.FlatAppearance.BorderSize = 0;
-            this.button12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button12.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button12.Image = global::UniversityMain.Properties.Resources.Type;
-            this.button12.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button12.Location = new System.Drawing.Point(-3, 436);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(210, 42);
-            this.button12.TabIndex = 12;
-            this.button12.Text = "        Тип занятий";
-            this.button12.UseVisualStyleBackColor = true;
-            this.button12.Click += new System.EventHandler(this.button12_Click);
-            // 
-            // button11
-            // 
-            this.button11.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button11.FlatAppearance.BorderSize = 0;
-            this.button11.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button11.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button11.Image = global::UniversityMain.Properties.Resources.Week;
-            this.button11.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button11.Location = new System.Drawing.Point(-3, 388);
-            this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(210, 42);
-            this.button11.TabIndex = 11;
-            this.button11.Text = "        Дни недели";
-            this.button11.UseVisualStyleBackColor = true;
-            this.button11.Click += new System.EventHandler(this.button11_Click);
-            // 
-            // button10
-            // 
-            this.button10.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button10.FlatAppearance.BorderSize = 0;
-            this.button10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button10.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button10.Image = global::UniversityMain.Properties.Resources.Position;
-            this.button10.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button10.Location = new System.Drawing.Point(-3, 340);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(210, 42);
-            this.button10.TabIndex = 10;
-            this.button10.Text = "        Должности";
-            this.button10.UseVisualStyleBackColor = true;
-            this.button10.Click += new System.EventHandler(this.button10_Click);
-            // 
-            // button9
-            // 
-            this.button9.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button9.FlatAppearance.BorderSize = 0;
-            this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button9.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button9.Image = global::UniversityMain.Properties.Resources.Discipline;
-            this.button9.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button9.Location = new System.Drawing.Point(-2, 292);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(210, 42);
-            this.button9.TabIndex = 9;
-            this.button9.Text = "        Дисциплины";
-            this.button9.UseVisualStyleBackColor = true;
-            this.button9.Click += new System.EventHandler(this.button9_Click);
-            // 
-            // button8
-            // 
-            this.button8.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button8.FlatAppearance.BorderSize = 0;
-            this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button8.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button8.Image = global::UniversityMain.Properties.Resources.Classroom;
-            this.button8.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button8.Location = new System.Drawing.Point(-3, 244);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(210, 42);
-            this.button8.TabIndex = 8;
-            this.button8.Text = "        Аудитории";
-            this.button8.UseVisualStyleBackColor = true;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::UniversityMain.Properties.Resources.OpenDir;
-            this.pictureBox1.ImageLocation = "";
-            this.pictureBox1.Location = new System.Drawing.Point(3, 3);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 7;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
-            // 
-            // button7
-            // 
-            this.button7.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button7.FlatAppearance.BorderSize = 0;
-            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button7.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button7.Image = global::UniversityMain.Properties.Resources.Groups;
-            this.button7.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button7.Location = new System.Drawing.Point(-2, 196);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(210, 42);
-            this.button7.TabIndex = 5;
-            this.button7.Text = "        Группы";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
-            // 
-            // button6
-            // 
-            this.button6.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button6.FlatAppearance.BorderSize = 0;
-            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button6.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button6.Image = global::UniversityMain.Properties.Resources.Teacher;
-            this.button6.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button6.Location = new System.Drawing.Point(-1, 52);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(210, 42);
-            this.button6.TabIndex = 2;
-            this.button6.Text = "   Преподаватели";
-            this.button6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
-            // 
-            // button5
-            // 
-            this.button5.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button5.FlatAppearance.BorderSize = 0;
-            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button5.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button5.Image = global::UniversityMain.Properties.Resources.Faculty;
-            this.button5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button5.Location = new System.Drawing.Point(-3, 100);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(210, 42);
-            this.button5.TabIndex = 1;
-            this.button5.Text = "         Факультеты";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
-            // timetable
-            // 
-            this.timetable.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.timetable.FlatAppearance.BorderSize = 0;
-            this.timetable.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.timetable.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.timetable.Image = ((System.Drawing.Image)(resources.GetObject("timetable.Image")));
-            this.timetable.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.timetable.Location = new System.Drawing.Point(0, 44);
-            this.timetable.Name = "timetable";
-            this.timetable.Size = new System.Drawing.Size(210, 42);
-            this.timetable.TabIndex = 0;
-            this.timetable.Text = "         Расписание";
-            this.timetable.UseVisualStyleBackColor = true;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
@@ -374,9 +392,9 @@
             this.VerticalMenu.PerformLayout();
             this.INFO.ResumeLayout(false);
             this.INFO.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -403,5 +421,6 @@
         private System.Windows.Forms.Button button11;
         private System.Windows.Forms.Button button12;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button13;
     }
 }

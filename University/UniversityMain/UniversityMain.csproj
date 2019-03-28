@@ -102,6 +102,12 @@
     <Compile Include="ShowGroups.Designer.cs">
       <DependentUpon>ShowGroups.cs</DependentUpon>
     </Compile>
+    <Compile Include="Specialities.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Specialities.Designer.cs">
+      <DependentUpon>Specialities.cs</DependentUpon>
+    </Compile>
     <Compile Include="Teachers.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -156,6 +162,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ShowGroups.resx">
       <DependentUpon>ShowGroups.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Specialities.resx">
+      <DependentUpon>Specialities.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Teachers.resx">
       <DependentUpon>Teachers.cs</DependentUpon>

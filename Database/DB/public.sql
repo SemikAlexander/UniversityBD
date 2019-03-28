@@ -1,18 +1,18 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : 1
+ Source Server         : DataBase
  Source Server Type    : PostgreSQL
  Source Server Version : 90612
  Source Host           : localhost:5432
- Source Catalog        : db
+ Source Catalog        : Univer
  Source Schema         : public
 
  Target Server Type    : PostgreSQL
  Target Server Version : 90612
  File Encoding         : 65001
 
- Date: 28/03/2019 09:41:51
+ Date: 28/03/2019 20:27:54
 */
 
 
@@ -175,6 +175,8 @@ CREATE TABLE "public"."classroom" (
 INSERT INTO "public"."classroom" VALUES (2, 13, 12);
 INSERT INTO "public"."classroom" VALUES (3, 3213, 12312);
 INSERT INTO "public"."classroom" VALUES (4, 1, 2);
+INSERT INTO "public"."classroom" VALUES (8, 1, 5);
+INSERT INTO "public"."classroom" VALUES (9, 1, 6);
 
 -- ----------------------------
 -- Table structure for department
@@ -192,7 +194,67 @@ CREATE TABLE "public"."department" (
 -- ----------------------------
 -- Records of department
 -- ----------------------------
-INSERT INTO "public"."department" VALUES (4, 7, 'qe', '', 4);
+INSERT INTO "public"."department" VALUES (4, 7, 'Технологии и техники бурения скважин', '', 4);
+INSERT INTO "public"."department" VALUES (5, 7, 'Геоинформатики и геодезии', NULL, 3);
+INSERT INTO "public"."department" VALUES (7, 7, 'Геологии и разведки месторождений полезных ископаемых', NULL, 3);
+INSERT INTO "public"."department" VALUES (8, 7, 'Маркшейдерского дела', NULL, 3);
+INSERT INTO "public"."department" VALUES (9, 7, 'Русского языка', NULL, 3);
+INSERT INTO "public"."department" VALUES (10, 8, 'Охраны труда и аэрологии', NULL, 3);
+INSERT INTO "public"."department" VALUES (11, 8, 'Управления производством им. Ю. В. Бондаренко', NULL, 3);
+INSERT INTO "public"."department" VALUES (12, 8, 'Обогащения полезных ископаемых', NULL, 3);
+INSERT INTO "public"."department" VALUES (14, 8, 'Строительства зданий, подземных сооружений и геомеханики', NULL, 4);
+INSERT INTO "public"."department" VALUES (15, 8, 'Разработки месторождений полезных ископаемых', NULL, 4);
+INSERT INTO "public"."department" VALUES (16, 9, 'Механического оборудования заводов черной металлургии', NULL, 4);
+INSERT INTO "public"."department" VALUES (17, 9, 'Сопротивления материалов', NULL, 4);
+INSERT INTO "public"."department" VALUES (18, 9, 'Начертательной геометрии и инженерной графики', NULL, 4);
+INSERT INTO "public"."department" VALUES (19, 9, 'Транспортных систем и логистики имени И. Г. Штокмана', NULL, 4);
+INSERT INTO "public"."department" VALUES (20, 9, 'Горных машин', NULL, 4);
+INSERT INTO "public"."department" VALUES (22, 9, 'Теоретической механики имени Н. Г. Логвинова', NULL, 2);
+INSERT INTO "public"."department" VALUES (23, 9, 'Мехатронных систем машиностроительного оборудования', NULL, 2);
+INSERT INTO "public"."department" VALUES (25, 9, 'Основ проектирования машин (секция «Общеинженерные дисциплины», секция «Управление качеством»)', NULL, 2);
+INSERT INTO "public"."department" VALUES (26, 9, 'Энергомеханических систем', NULL, 2);
+INSERT INTO "public"."department" VALUES (27, 9, 'Технологии машиностроения', NULL, 3);
+INSERT INTO "public"."department" VALUES (31, 11, 'Физики', NULL, 3);
+INSERT INTO "public"."department" VALUES (33, 11, 'Рудотермических процессов и малоотходных технологий', NULL, 3);
+INSERT INTO "public"."department" VALUES (34, 11, 'Технической теплофизики', NULL, 2);
+INSERT INTO "public"."department" VALUES (35, 11, 'Обработки металлов давлением', NULL, 3);
+INSERT INTO "public"."department" VALUES (37, 11, 'Металлургии стали и сплавов', NULL, 3);
+INSERT INTO "public"."department" VALUES (38, 11, 'Промышленной теплоэнергетики', NULL, 3);
+INSERT INTO "public"."department" VALUES (39, 11, 'Физического материаловедения', NULL, 3);
+INSERT INTO "public"."department" VALUES (40, 12, 'Электроснабжения промышленных предприятий и городов', NULL, 3);
+INSERT INTO "public"."department" VALUES (41, 12, 'Электропривода и автоматизации промышленных установок', NULL, 2);
+INSERT INTO "public"."department" VALUES (42, 12, 'Электрических систем', NULL, 3);
+INSERT INTO "public"."department" VALUES (43, 12, 'Электромеханики и теоретических основ электротехники', NULL, 3);
+INSERT INTO "public"."department" VALUES (44, 12, 'Электрических станций', NULL, 3);
+INSERT INTO "public"."department" VALUES (45, 12, 'Технического иностранного языка', NULL, 3);
+INSERT INTO "public"."department" VALUES (46, 12, 'Систем программного управления и мехатроники', NULL, 3);
+INSERT INTO "public"."department" VALUES (47, 13, 'Автоматизированных систем управления', NULL, 4);
+INSERT INTO "public"."department" VALUES (49, 13, 'Компьютерной инженерии', NULL, 4);
+INSERT INTO "public"."department" VALUES (50, 13, 'Компьютерного моделирования и дизайна', NULL, 4);
+INSERT INTO "public"."department" VALUES (51, 13, 'Программной инженерии', NULL, 3);
+INSERT INTO "public"."department" VALUES (52, 13, 'Искусственного интеллекта и системного анализа', NULL, 3);
+INSERT INTO "public"."department" VALUES (53, 13, 'Прикладной математики', NULL, 3);
+INSERT INTO "public"."department" VALUES (54, 13, 'Экономической кибернетики', NULL, 3);
+INSERT INTO "public"."department" VALUES (57, 14, 'Высшей математики', NULL, 3);
+INSERT INTO "public"."department" VALUES (58, 14, 'Горной электротехники и автоматики', NULL, 3);
+INSERT INTO "public"."department" VALUES (59, 14, 'Электронной техники', NULL, 3);
+INSERT INTO "public"."department" VALUES (60, 14, 'Автоматики и телекоммуникаций', NULL, 3);
+INSERT INTO "public"."department" VALUES (61, 14, 'Радиотехники и защиты информации', NULL, 3);
+INSERT INTO "public"."department" VALUES (62, 14, 'Физического воспитания и спорта', NULL, 2);
+INSERT INTO "public"."department" VALUES (63, 15, 'Природоохранной деятельности', NULL, 2);
+INSERT INTO "public"."department" VALUES (64, 15, 'Физической и органической химии', NULL, 3);
+INSERT INTO "public"."department" VALUES (65, 15, 'Общей химии', NULL, 2);
+INSERT INTO "public"."department" VALUES (67, 15, 'Химической технологии топлива', NULL, 2);
+INSERT INTO "public"."department" VALUES (68, 15, 'Прикладной экологии и охраны окружающей среды', NULL, 2);
+INSERT INTO "public"."department" VALUES (69, 15, 'Машин и аппаратов химических производств', NULL, 2);
+INSERT INTO "public"."department" VALUES (70, 16, 'Международной экономики', NULL, 2);
+INSERT INTO "public"."department" VALUES (71, 16, 'Менеджмента и хозяйственного права', NULL, 2);
+INSERT INTO "public"."department" VALUES (72, 16, 'Экономики предприятия и инноватики', NULL, 2);
+INSERT INTO "public"."department" VALUES (73, 16, 'Экономической теории и государственного управления', NULL, 2);
+INSERT INTO "public"."department" VALUES (74, 16, 'Экономики и маркетинга', NULL, 2);
+INSERT INTO "public"."department" VALUES (75, 16, 'Финансов и экономической безопасности', NULL, 2);
+INSERT INTO "public"."department" VALUES (76, 16, 'Бухгалтерского учета и аудита', NULL, 2);
+INSERT INTO "public"."department" VALUES (77, 16, 'Управления бизнесом и персоналом', NULL, 2);
 
 -- ----------------------------
 -- Table structure for discipline
@@ -218,9 +280,21 @@ CREATE TABLE "public"."faculty" (
 -- ----------------------------
 -- Records of faculty
 -- ----------------------------
-INSERT INTO "public"."faculty" VALUES (7, 'qe', '');
-INSERT INTO "public"."faculty" VALUES (8, 'qeqe', '');
-INSERT INTO "public"."faculty" VALUES (9, '1', '');
+INSERT INTO "public"."faculty" VALUES (8, 'Горный', '');
+INSERT INTO "public"."faculty" VALUES (9, 'Инженерной механики и машиностроения
+', '');
+INSERT INTO "public"."faculty" VALUES (11, 'Металургии и теплоэнергетики
+', NULL);
+INSERT INTO "public"."faculty" VALUES (12, 'Электротехнический', NULL);
+INSERT INTO "public"."faculty" VALUES (13, 'Компьютерных наук и технологий
+', NULL);
+INSERT INTO "public"."faculty" VALUES (14, 'Компьютерных информационных технологий и автоматизации
+', NULL);
+INSERT INTO "public"."faculty" VALUES (15, 'Экологии и химической технологии
+', NULL);
+INSERT INTO "public"."faculty" VALUES (16, 'Инженерно-экономический
+', NULL);
+INSERT INTO "public"."faculty" VALUES (7, 'Горно-геологический', '');
 
 -- ----------------------------
 -- Table structure for groups
@@ -374,6 +448,17 @@ CREATE TABLE "public"."week" (
 COMMENT ON COLUMN "public"."week"."TypeWeek" IS 'Тип недели (V - верхняя N - нижняя неделя)';
 
 -- ----------------------------
+-- Records of week
+-- ----------------------------
+INSERT INTO "public"."week" VALUES (3, 'Понедельник', 'V');
+INSERT INTO "public"."week" VALUES (4, 'Вторник', 'V');
+INSERT INTO "public"."week" VALUES (5, 'Среда', 'V');
+INSERT INTO "public"."week" VALUES (6, 'Четверг', 'V');
+INSERT INTO "public"."week" VALUES (7, 'Пятница', 'V');
+INSERT INTO "public"."week" VALUES (8, 'Суббота', 'V');
+INSERT INTO "public"."week" VALUES (10, 'Воскресенье', 'V');
+
+-- ----------------------------
 -- Function structure for classroom_add
 -- ----------------------------
 DROP FUNCTION IF EXISTS "public"."classroom_add"("housing" int4, "num_classroom" int4);
@@ -413,6 +498,20 @@ CREATE OR REPLACE FUNCTION "public"."classroom_get_all"("start_row" int4, "count
   RETURNS TABLE("id" int4, "house" int4, "number_kab" int4) AS $BODY$
 	BEGIN
 	RETURN QUERY SELECT * FROM classroom WHERE "Housing"=number_korpus ORDER BY "ID_CLASSROOM" ASC LIMIT count_rows OFFSET start_row ;
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100
+  ROWS 1000;
+
+-- ----------------------------
+-- Function structure for classroom_get_class
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."classroom_get_class"("house" int4);
+CREATE OR REPLACE FUNCTION "public"."classroom_get_class"("house" int4)
+  RETURNS TABLE("class" int4) AS $BODY$BEGIN
+	-- Routine body goes here...
+	RETURN QUERY SELECT "Num_Classroom" FROM classroom WHERE "Housing"=house;
 END
 $BODY$
   LANGUAGE plpgsql VOLATILE
@@ -597,20 +696,6 @@ $BODY$
   ROWS 1000;
 
 -- ----------------------------
--- Function structure for getallgroupsnames
--- ----------------------------
-DROP FUNCTION IF EXISTS "public"."getallgroupsnames"("namefaculty" text, "namedepartment" text, "abbreviature" text);
-CREATE OR REPLACE FUNCTION "public"."getallgroupsnames"("namefaculty" text, "namedepartment" text, "abbreviature" text)
-  RETURNS TABLE("year" text, "sub_name" text) AS $BODY$BEGIN
-				
-			RETURN QUERY  SELECT "Year_Of_Entry","Sub_Name_Group" FROM	(SELECT specialty."ID_SPECIALTY" FROM(SELECT department."ID_DEPARTMENT" FROM (SELECT faculty."ID_FACULTY" FROM faculty WHERE faculty."Name_Faculty"=namefaculty LIMIT 1) as id_fac INNER JOIN department on department.id_faculty=id_fac."ID_FACULTY" WHERE department."Name_Department"=namedepartment) as dep INNER JOIN specialty on specialty.id_department=dep."ID_DEPARTMENT" WHERE specialty."Abbreviation_Specialty"=abbreviature) as spec INNER JOIN groups on groups.id_specialty=spec.ID_SPECIALTY;
-END
-$BODY$
-  LANGUAGE plpgsql VOLATILE
-  COST 100
-  ROWS 1000;
-
--- ----------------------------
 -- Function structure for getallspeciality
 -- ----------------------------
 DROP FUNCTION IF EXISTS "public"."getallspeciality"("namefaculty" text, "NameDepartment" text, "startrow" int4, "countrow" int4);
@@ -645,86 +730,12 @@ $BODY$
 DROP FUNCTION IF EXISTS "public"."getdepartmentfull"("namefaculty" text, "startrow" int4, "countrow" int4);
 CREATE OR REPLACE FUNCTION "public"."getdepartmentfull"("namefaculty" text, "startrow" int4, "countrow" int4)
   RETURNS TABLE("Name_Department" text, "Logo_Department" text, "Housing" int4, "Num_Classroom" int4) AS $BODY$BEGIN
-				
-			RETURN QUERY	SELECT department."Name_Department",department."Logo_Department",classroom."Housing",classroom."Num_Classroom" FROM (SELECT "ID_FACULTY" as "FacultyID" FROM faculty WHERE faculty."Name_Faculty"=namefaculty) as faculty_sel_name INNER JOIN department ON (faculty_sel_name."FacultyID"=department.id_faculty) INNER JOIN classroom on classroom."ID_CLASSROOM"=department.id_classrooms LIMIT countrow OFFSET startrow;
+			RETURN QUERY	SELECT department."Name_Department",department."Logo_Department",classroom."Housing",classroom."Num_Classroom" FROM (SELECT faculty."ID_FACULTY" FROM faculty WHERE faculty."Name_Faculty"=namefaculty) as faculty_sel_name INNER JOIN department ON faculty_sel_name."ID_FACULTY"=department.id_faculty INNER JOIN classroom on classroom."ID_CLASSROOM"=department.id_classrooms LIMIT countrow OFFSET startrow;
 END
 $BODY$
   LANGUAGE plpgsql VOLATILE
   COST 100
   ROWS 1000;
-
--- ----------------------------
--- Function structure for group_add
--- ----------------------------
-DROP FUNCTION IF EXISTS "public"."group_add"("namefaculty" text, "namedepartment" text, "namespecialty" text, "year_create" text, "subnamegroup" text);
-CREATE OR REPLACE FUNCTION "public"."group_add"("namefaculty" text, "namedepartment" text, "namespecialty" text, "year_create" text, "subnamegroup" text)
-  RETURNS "pg_catalog"."text" AS $BODY$
-	DECLARE
-	IDDEPARTMENT INTEGER :=0;
-	IDFACULTY INTEGER := 0;
-	IDSPECIALTY INTEGER := 0;
-	BEGIN 
-SELECT "ID_FACULTY" FROM faculty INTO IDFACULTY WHERE "Name_Faculty"=namefaculty LIMIT 1;
-IF NOT FOUND THEN
-    RETURN 'Факультет не найден';
-END IF;
-
-SELECT department."ID_DEPARTMENT" From department WHERE  department."Name_Department"=namedepartment and IDFACULTY=department.id_faculty LIMIT 1 INTO IDDEPARTMENT;
-IF NOT FOUND THEN
-    RETURN 'Кафедра не существует';
-END IF;
-
-SELECT "ID_SPECIALTY" From specialty WHERE specialty."Abbreviation_Specialty"=namespecialty and specialty.id_department=IDDEPARTMENT LIMIT 1 INTO IDSPECIALTY;
-IF NOT FOUND THEN
-    RETURN 'Специальность не существует';
-END IF;
-
-if EXISTS(SELECT * from groups WHERE groups."Sub_Name_Group"=subnamegroup and groups."Year_Of_Entry"=year_create AND groups.id_specialty= IDSPECIALTY) THEN
-	RETURN 'Группа существует';
-	end if;
-
-INSERT INTO groups(groups.id_specialty,groups."Year_Of_Entry",groups."Sub_Name_Group") VALUES (IDSPECIALTY,year_create,subnamegroup);
-
-
-RETURN 'Success';
-END
-$BODY$
-  LANGUAGE plpgsql VOLATILE
-  COST 100;
-
--- ----------------------------
--- Function structure for group_delete
--- ----------------------------
-DROP FUNCTION IF EXISTS "public"."group_delete"("namefaculty" text, "namedepartment" text, "namespecialty" text, "year_create" text, "subnamegroup" text);
-CREATE OR REPLACE FUNCTION "public"."group_delete"("namefaculty" text, "namedepartment" text, "namespecialty" text, "year_create" text, "subnamegroup" text)
-  RETURNS "pg_catalog"."text" AS $BODY$
-	DECLARE
-	IDDEPARTMENT INTEGER :=0;
-	IDFACULTY INTEGER := 0;
-	IDSPECIALTY INTEGER := 0;
-	BEGIN 
-SELECT "ID_FACULTY" FROM faculty INTO IDFACULTY WHERE "Name_Faculty"=namefaculty LIMIT 1;
-IF NOT FOUND THEN
-    RETURN 'Факультет не найден';
-END IF;
-
-SELECT department."ID_DEPARTMENT" From department WHERE  department."Name_Department"=namedepartment and IDFACULTY=department.id_faculty LIMIT 1 INTO IDDEPARTMENT;
-IF NOT FOUND THEN
-    RETURN 'Кафедра не существует';
-END IF;
-
-SELECT "ID_SPECIALTY" From specialty WHERE specialty."Abbreviation_Specialty"=namespecialty and specialty.id_department=IDDEPARTMENT LIMIT 1 INTO IDSPECIALTY;
-IF NOT FOUND THEN
-    RETURN 'Специальность не существует';
-END IF;
-
-DELETE FROM groups WHERE groups."Year_Of_Entry"=year_create and groups."Sub_Name_Group"=subnamegroup and groups.id_specialty=IDSPECIALTY;
-
-RETURN 'Success';
-END
-$BODY$
-  LANGUAGE plpgsql VOLATILE
-  COST 100;
 
 -- ----------------------------
 -- Function structure for position_add
@@ -793,7 +804,7 @@ IF NOT FOUND THEN
     RETURN 'Кафедра не существует';
 END IF;
 
-IF EXISTS(SELECT * From specialty WHERE specialty."Abbreviation_Specialty"=abbreviationspecialty or specialty."Cipher_Specialty"=cipherspecialty or specialty."Name_Specialty"=namespecialty and specialty.id_department=IDDEPARTMENT) THEN
+IF EXISTS(SELECT * From specialty WHERE specialty."Abbreviation_Specialty"=abbreviationspecialty or specialty."Cipher_Specialty"=cipherspecialty or specialty."Name_Specialty"=namespecialty or specialty.id_department=IDDEPARTMENT) THEN
     RETURN 'Специальность существует';
 END IF;
 INSERT INTO specialty ("Abbreviation_Specialty","Cipher_Specialty","Name_Specialty",id_department) VALUES(abbreviationspecialty,cipherspecialty,namespecialty,IDDEPARTMENT);
@@ -924,40 +935,40 @@ $BODY$
 -- ----------------------------
 ALTER SEQUENCE "public"."classroom_ID_CLASSROOM_seq"
 OWNED BY "public"."classroom"."ID_CLASSROOM";
-SELECT setval('"public"."classroom_ID_CLASSROOM_seq"', 5, true);
+SELECT setval('"public"."classroom_ID_CLASSROOM_seq"', 10, true);
 ALTER SEQUENCE "public"."department_ID_DEPARTMENT_seq"
 OWNED BY "public"."department"."ID_DEPARTMENT";
-SELECT setval('"public"."department_ID_DEPARTMENT_seq"', 5, true);
+SELECT setval('"public"."department_ID_DEPARTMENT_seq"', 78, true);
 ALTER SEQUENCE "public"."discipline_ID_DISCIPLINE_seq"
 OWNED BY "public"."discipline"."ID_DISCIPLINE";
-SELECT setval('"public"."discipline_ID_DISCIPLINE_seq"', 3, false);
+SELECT setval('"public"."discipline_ID_DISCIPLINE_seq"', 4, false);
 ALTER SEQUENCE "public"."faculty_ID_FACULTY_seq"
 OWNED BY "public"."faculty"."ID_FACULTY";
-SELECT setval('"public"."faculty_ID_FACULTY_seq"', 10, true);
+SELECT setval('"public"."faculty_ID_FACULTY_seq"', 17, true);
 ALTER SEQUENCE "public"."groups_ID_GROUP_seq"
 OWNED BY "public"."groups"."ID_GROUP";
-SELECT setval('"public"."groups_ID_GROUP_seq"', 3, false);
+SELECT setval('"public"."groups_ID_GROUP_seq"', 4, false);
 ALTER SEQUENCE "public"."position_ID_POSITION_seq"
 OWNED BY "public"."position"."ID_POSITION";
-SELECT setval('"public"."position_ID_POSITION_seq"', 3, true);
+SELECT setval('"public"."position_ID_POSITION_seq"', 12, true);
 ALTER SEQUENCE "public"."specialty_ID_SPECIALTY_seq"
 OWNED BY "public"."specialty"."ID_SPECIALTY";
-SELECT setval('"public"."specialty_ID_SPECIALTY_seq"', 3, true);
+SELECT setval('"public"."specialty_ID_SPECIALTY_seq"', 4, true);
 ALTER SEQUENCE "public"."stadyingPlan_ID_SETTING_seq"
 OWNED BY "public"."stadyingPlan"."ID_SETTING";
-SELECT setval('"public"."stadyingPlan_ID_SETTING_seq"', 3, false);
+SELECT setval('"public"."stadyingPlan_ID_SETTING_seq"', 4, false);
 ALTER SEQUENCE "public"."teachers_ID_TEACHER_seq"
 OWNED BY "public"."teachers"."ID_TEACHER";
-SELECT setval('"public"."teachers_ID_TEACHER_seq"', 3, false);
+SELECT setval('"public"."teachers_ID_TEACHER_seq"', 4, false);
 ALTER SEQUENCE "public"."timeTable_ID_seq"
 OWNED BY "public"."timeTable"."ID";
-SELECT setval('"public"."timeTable_ID_seq"', 3, false);
+SELECT setval('"public"."timeTable_ID_seq"', 4, false);
 ALTER SEQUENCE "public"."typeSubject_ID_SUBJECT_seq"
 OWNED BY "public"."typeSubject"."ID_SUBJECT";
-SELECT setval('"public"."typeSubject_ID_SUBJECT_seq"', 3, false);
+SELECT setval('"public"."typeSubject_ID_SUBJECT_seq"', 9, true);
 ALTER SEQUENCE "public"."week_ID_DAY_seq"
 OWNED BY "public"."week"."ID_DAY";
-SELECT setval('"public"."week_ID_DAY_seq"', 3, false);
+SELECT setval('"public"."week_ID_DAY_seq"', 11, true);
 
 -- ----------------------------
 -- Primary Key structure for table classroom
@@ -1022,62 +1033,62 @@ ALTER TABLE "public"."week" ADD CONSTRAINT "Week_pkey" PRIMARY KEY ("ID_DAY");
 -- ----------------------------
 -- Foreign Keys structure for table Spec_discipline
 -- ----------------------------
-ALTER TABLE "public"."Spec_discipline" ADD CONSTRAINT "fk_Spec_discipline_department_1" FOREIGN KEY ("id_department") REFERENCES "public"."department" ("ID_DEPARTMENT") ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE "public"."Spec_discipline" ADD CONSTRAINT "fk_Spec_discipline_discipline_1" FOREIGN KEY ("id_discipline") REFERENCES "public"."discipline" ("ID_DISCIPLINE") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."Spec_discipline" ADD CONSTRAINT "fk_Spec_discipline_department_1" FOREIGN KEY ("id_department") REFERENCES "department" ("ID_DEPARTMENT") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."Spec_discipline" ADD CONSTRAINT "fk_Spec_discipline_discipline_1" FOREIGN KEY ("id_discipline") REFERENCES "discipline" ("ID_DISCIPLINE") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- ----------------------------
 -- Foreign Keys structure for table department
 -- ----------------------------
-ALTER TABLE "public"."department" ADD CONSTRAINT "fk_department_classroom_1" FOREIGN KEY ("id_classrooms") REFERENCES "public"."classroom" ("ID_CLASSROOM") ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE "public"."department" ADD CONSTRAINT "fk_department_faculty_1" FOREIGN KEY ("id_faculty") REFERENCES "public"."faculty" ("ID_FACULTY") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."department" ADD CONSTRAINT "fk_department_classroom_1" FOREIGN KEY ("id_classrooms") REFERENCES "classroom" ("ID_CLASSROOM") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."department" ADD CONSTRAINT "fk_department_faculty_1" FOREIGN KEY ("id_faculty") REFERENCES "faculty" ("ID_FACULTY") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- ----------------------------
 -- Foreign Keys structure for table groups
 -- ----------------------------
-ALTER TABLE "public"."groups" ADD CONSTRAINT "fk_groups_specialty_1" FOREIGN KEY ("id_specialty") REFERENCES "public"."specialty" ("ID_SPECIALTY") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."groups" ADD CONSTRAINT "fk_groups_specialty_1" FOREIGN KEY ("id_specialty") REFERENCES "specialty" ("ID_SPECIALTY") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- ----------------------------
 -- Foreign Keys structure for table helpDiscip
 -- ----------------------------
-ALTER TABLE "public"."helpDiscip" ADD CONSTRAINT "fk_helpDiscip_discipline_1" FOREIGN KEY ("id_discipline") REFERENCES "public"."discipline" ("ID_DISCIPLINE") ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE "public"."helpDiscip" ADD CONSTRAINT "fk_helpDiscip_teachers_1" FOREIGN KEY ("id_teacher") REFERENCES "public"."teachers" ("ID_TEACHER") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."helpDiscip" ADD CONSTRAINT "fk_helpDiscip_discipline_1" FOREIGN KEY ("id_discipline") REFERENCES "discipline" ("ID_DISCIPLINE") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."helpDiscip" ADD CONSTRAINT "fk_helpDiscip_teachers_1" FOREIGN KEY ("id_teacher") REFERENCES "teachers" ("ID_TEACHER") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- ----------------------------
 -- Foreign Keys structure for table para
 -- ----------------------------
-ALTER TABLE "public"."para" ADD CONSTRAINT "fk_para_groups_1" FOREIGN KEY ("id_group") REFERENCES "public"."groups" ("ID_GROUP") ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE "public"."para" ADD CONSTRAINT "fk_para_timeTable_1" FOREIGN KEY ("id_lesson") REFERENCES "public"."timeTable" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."para" ADD CONSTRAINT "fk_para_groups_1" FOREIGN KEY ("id_group") REFERENCES "groups" ("ID_GROUP") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."para" ADD CONSTRAINT "fk_para_timeTable_1" FOREIGN KEY ("id_lesson") REFERENCES "timeTable" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- ----------------------------
 -- Foreign Keys structure for table specialty
 -- ----------------------------
-ALTER TABLE "public"."specialty" ADD CONSTRAINT "fk_specialty_department_1" FOREIGN KEY ("id_department") REFERENCES "public"."department" ("ID_DEPARTMENT") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."specialty" ADD CONSTRAINT "fk_specialty_department_1" FOREIGN KEY ("id_department") REFERENCES "department" ("ID_DEPARTMENT") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- ----------------------------
 -- Foreign Keys structure for table stadyingPlan
 -- ----------------------------
-ALTER TABLE "public"."stadyingPlan" ADD CONSTRAINT "fk_stadyingPlan_groups_1" FOREIGN KEY ("id_group") REFERENCES "public"."groups" ("ID_GROUP") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."stadyingPlan" ADD CONSTRAINT "fk_stadyingPlan_groups_1" FOREIGN KEY ("id_group") REFERENCES "groups" ("ID_GROUP") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- ----------------------------
 -- Foreign Keys structure for table subjectPay
 -- ----------------------------
-ALTER TABLE "public"."subjectPay" ADD CONSTRAINT "fk_subjectPay_teachers_1" FOREIGN KEY ("id_teacher") REFERENCES "public"."teachers" ("ID_TEACHER") ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE "public"."subjectPay" ADD CONSTRAINT "fk_subjectPay_timeTable_1" FOREIGN KEY ("id_subject") REFERENCES "public"."timeTable" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."subjectPay" ADD CONSTRAINT "fk_subjectPay_teachers_1" FOREIGN KEY ("id_teacher") REFERENCES "teachers" ("ID_TEACHER") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."subjectPay" ADD CONSTRAINT "fk_subjectPay_timeTable_1" FOREIGN KEY ("id_subject") REFERENCES "timeTable" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- ----------------------------
 -- Foreign Keys structure for table teachers
 -- ----------------------------
-ALTER TABLE "public"."teachers" ADD CONSTRAINT "fk_teachers_department_1" FOREIGN KEY ("id_department") REFERENCES "public"."department" ("ID_DEPARTMENT") ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE "public"."teachers" ADD CONSTRAINT "fk_teachers_position_1" FOREIGN KEY ("id_position") REFERENCES "public"."position" ("ID_POSITION") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."teachers" ADD CONSTRAINT "fk_teachers_department_1" FOREIGN KEY ("id_department") REFERENCES "department" ("ID_DEPARTMENT") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."teachers" ADD CONSTRAINT "fk_teachers_position_1" FOREIGN KEY ("id_position") REFERENCES "position" ("ID_POSITION") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- ----------------------------
 -- Foreign Keys structure for table timeTable
 -- ----------------------------
-ALTER TABLE "public"."timeTable" ADD CONSTRAINT "fk_timeTable_classroom_1" FOREIGN KEY ("id_classroom") REFERENCES "public"."classroom" ("ID_CLASSROOM") ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE "public"."timeTable" ADD CONSTRAINT "fk_timeTable_typeSubject_1" FOREIGN KEY ("id_type_week") REFERENCES "public"."typeSubject" ("ID_SUBJECT") ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE "public"."timeTable" ADD CONSTRAINT "fk_timeTable_week_1" FOREIGN KEY ("id_type_week") REFERENCES "public"."week" ("ID_DAY") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."timeTable" ADD CONSTRAINT "fk_timeTable_classroom_1" FOREIGN KEY ("id_classroom") REFERENCES "classroom" ("ID_CLASSROOM") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."timeTable" ADD CONSTRAINT "fk_timeTable_typeSubject_1" FOREIGN KEY ("id_type_week") REFERENCES "typeSubject" ("ID_SUBJECT") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."timeTable" ADD CONSTRAINT "fk_timeTable_week_1" FOREIGN KEY ("id_type_week") REFERENCES "week" ("ID_DAY") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- ----------------------------
 -- Foreign Keys structure for table transfers
 -- ----------------------------
-ALTER TABLE "public"."transfers" ADD CONSTRAINT "fk_transfers_timeTable_1" FOREIGN KEY ("id_lesson") REFERENCES "public"."timeTable" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."transfers" ADD CONSTRAINT "fk_transfers_timeTable_1" FOREIGN KEY ("id_lesson") REFERENCES "timeTable" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION;
