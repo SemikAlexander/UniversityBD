@@ -73,6 +73,7 @@
     <Compile Include="Functions\Converting\Base64.cs" />
     <Compile Include="Functions\Connection\ConnectionDB.cs" />
     <Compile Include="Login\Auth.cs" />
+    <Compile Include="MainTable\Speciality.cs" />
     <Compile Include="MainTable\Departments.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

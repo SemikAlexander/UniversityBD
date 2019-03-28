@@ -5,34 +5,31 @@ using System.Drawing;
 
 namespace Logics.MainTable
 {
-     public class Departments
+     public class Speciality
     {
-        public struct DepartmentsStructure
+        public struct SpecialtyStructure
         {
-            public string Name_Department;
-            public Image Logo_Department;
-            public int Housing;
-            public int Num_Classroom;
+            public string Abbreviation_Specialty, Cipher_Specialty, Name_Specialty;
         }
 
         #region Variable
         public string exception = "";
         private Functions.Connection.ConnectionDB _connectionDB = null;
         #endregion
-        public Departments(Functions.Connection.ConnectionDB connectionDB) => _connectionDB = connectionDB;
-        public bool GetAllDepartmentNames(string nameFaculty, out List<string> departments)
+        public Speciality(Functions.Connection.ConnectionDB connectionDB) => _connectionDB = connectionDB;
+        public bool GetAllSpecialityNames(string nameFaculty,string department, out List<string> specialiteNames)
         {
-            departments = new List<string>();
+            specialiteNames = new List<string>();
             if (_connectionDB == null) { exception = "Подключение не установленно"; return false; }
             try
             {
                 var conn = new NpgsqlConnection(this._connectionDB.ConnectString);
                 conn.Open();
-                using (var cmd = new NpgsqlCommand("SELECT * FROM getalldepartmentnames('"+ nameFaculty+"');", conn))
+                using (var cmd = new NpgsqlCommand($"SELECT * FROM getallspecialitynames('{nameFaculty}','{department}');", conn))
                 using (var reader = cmd.ExecuteReader())
                     while (reader.Read())
                     {
-                        departments.Add(reader.GetString(0));
+                        specialiteNames.Add(reader.GetString(0));
                     }
                 conn.Close();
                 return true;
@@ -43,9 +40,9 @@ namespace Logics.MainTable
                 return false;
             }
         }
-        public bool GetDepartments(string nameFaculty,int startRow,int countRow, out List<DepartmentsStructure> departments)
+        public bool GetSpeciality(string nameFaculty,int startRow,int countRow, out List<SpecialtyStructure> specialtyStructures)
         {
-            departments = new List<DepartmentsStructure>();
+            specialtyStructures = new List<SpecialtyStructure>();
             if (_connectionDB == null) { exception = "Подключение не установленно"; return false; }
             try
             {
@@ -55,24 +52,12 @@ namespace Logics.MainTable
                 using (var reader = cmd.ExecuteReader())
                     while (reader.Read())
                     {
-                        if (reader.GetString(1) != null)
-                            departments.Add(new DepartmentsStructure()
-                            {
-                                Name_Department = reader.GetString(0),
-                                Logo_Department = Functions.Converting.Base64.decodeImage(reader.GetString(1)),
-                                Housing = reader.GetInt32(2),
-                                Num_Classroom = reader.GetInt32(3)
-                            });
-                        else
+                        specialtyStructures.Add(new SpecialtyStructure()
                         {
-                            departments.Add(new DepartmentsStructure()
-                            {
-                                Name_Department = reader.GetString(0),
-                                Logo_Department = null,
-                                Housing = reader.GetInt32(2),
-                                Num_Classroom = reader.GetInt32(3)
-                            });
-                        }
+                            Abbreviation_Specialty = reader.GetString(0),
+                            Cipher_Specialty = reader.GetString(1),
+                            Name_Specialty = reader.GetString(2)
+                    });
                     }
                 conn.Close();
                 return true;
@@ -84,24 +69,14 @@ namespace Logics.MainTable
             }
         }
 
-        public bool AddDepartment(DepartmentsStructure departments,string faculty)
+        public bool Add(SpecialtyStructure specialtyStructure,string faculty,string department)
         {
             if (_connectionDB == null) { exception = "Подключение не установленно"; return false; }
             try
             {
                 var conn = new NpgsqlConnection(this._connectionDB.ConnectString);
                 conn.Open();
-                string sql = "";
-                if (departments.Logo_Department == null)
-                {
-                    sql = $"SELECT * from department_add('{faculty}','{null}','{departments.Name_Department}','{departments.Housing}','{departments.Num_Classroom}');";
-
-                }
-                else
-                {
-                    sql = $"SELECT * from department_add('{faculty}','{ Functions.Converting.Base64.encodeImage(departments.Logo_Department)}','{departments.Name_Department}','{departments.Housing}','{departments.Num_Classroom}');";
-
-                }
+                string sql =$"SELECT * from specialty_add('{faculty}','{department}','{specialtyStructure.Cipher_Specialty}','{specialtyStructure.Name_Specialty}','{specialtyStructure.Abbreviation_Specialty}');";
                 using (var cmd = new NpgsqlCommand(sql, conn))
                 using (var reader = cmd.ExecuteReader())
                     if (reader.Read())
@@ -117,7 +92,7 @@ namespace Logics.MainTable
                 return false;
             }
         }
-        public bool Delete(string department,string faculty)
+        public bool Delete(string department,string faculty,string abbreviature)
         {
             if (_connectionDB == null) { exception = "Подключение не установленно"; return false; }
             try
@@ -128,7 +103,7 @@ namespace Logics.MainTable
                 using (var cmd = new NpgsqlCommand())
                 {
                     cmd.Connection = conn;
-                    cmd.CommandText = $"SELECT * from department_delete('{faculty}','{department}');";
+                    cmd.CommandText = $"SELECT * from specialty_delete('{faculty}','{department}','{abbreviature}');";
                     using (var reader = cmd.ExecuteReader())
                         if (reader.Read())
                         {
