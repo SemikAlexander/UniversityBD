@@ -1,6 +1,6 @@
 ﻿namespace UniversityMain
 {
-    partial class FacultyForm
+    partial class Positions
     {
         /// <summary>
         /// Required designer variable.
@@ -33,27 +33,22 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.FacultyInfo = new System.Windows.Forms.DataGridView();
-            this.IDFaculty = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NameFaculty = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Logo = new System.Windows.Forms.DataGridViewImageColumn();
-            this.DeleteFaculty = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.EditFaculty = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.PositionInfo = new System.Windows.Forms.DataGridView();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.InputNameFaculty = new System.Windows.Forms.TextBox();
+            this.InputPosition = new System.Windows.Forms.TextBox();
             this.button4 = new System.Windows.Forms.Button();
-            this.LogoBox = new System.Windows.Forms.PictureBox();
-            this.button3 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.IDPosition = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NamePosition = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DeletePosition = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.EditPosition = new System.Windows.Forms.DataGridViewButtonColumn();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.FacultyInfo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PositionInfo)).BeginInit();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.LogoBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -66,36 +61,36 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(712, 44);
-            this.panel1.TabIndex = 1;
+            this.panel1.Size = new System.Drawing.Size(523, 44);
+            this.panel1.TabIndex = 4;
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(76, 10);
+            this.label4.Location = new System.Drawing.Point(77, 12);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(101, 21);
+            this.label4.Size = new System.Drawing.Size(98, 21);
             this.label4.TabIndex = 14;
-            this.label4.Text = "Факультеты";
+            this.label4.Text = "Должности";
             // 
             // panel2
             // 
             this.panel2.Controls.Add(this.button2);
             this.panel2.Controls.Add(this.button1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel2.Location = new System.Drawing.Point(639, 0);
+            this.panel2.Location = new System.Drawing.Point(450, 0);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(73, 44);
             this.panel2.TabIndex = 1;
             // 
-            // FacultyInfo
+            // PositionInfo
             // 
-            this.FacultyInfo.AllowUserToAddRows = false;
-            this.FacultyInfo.AllowUserToDeleteRows = false;
-            this.FacultyInfo.BackgroundColor = System.Drawing.Color.White;
-            this.FacultyInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.PositionInfo.AllowUserToAddRows = false;
+            this.PositionInfo.AllowUserToDeleteRows = false;
+            this.PositionInfo.BackgroundColor = System.Drawing.Color.White;
+            this.PositionInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -103,103 +98,51 @@
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.FacultyInfo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.FacultyInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.FacultyInfo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.IDFaculty,
-            this.NameFaculty,
-            this.Logo,
-            this.DeleteFaculty,
-            this.EditFaculty});
-            this.FacultyInfo.Location = new System.Drawing.Point(0, 42);
-            this.FacultyInfo.Name = "FacultyInfo";
-            this.FacultyInfo.ReadOnly = true;
+            this.PositionInfo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.PositionInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.PositionInfo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.IDPosition,
+            this.NamePosition,
+            this.DeletePosition,
+            this.EditPosition});
+            this.PositionInfo.Location = new System.Drawing.Point(0, 42);
+            this.PositionInfo.Name = "PositionInfo";
+            this.PositionInfo.ReadOnly = true;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.FacultyInfo.RowsDefaultCellStyle = dataGridViewCellStyle2;
-            this.FacultyInfo.Size = new System.Drawing.Size(713, 297);
-            this.FacultyInfo.TabIndex = 2;
-            this.FacultyInfo.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.FacultyInfo_CellContentClick);
-            // 
-            // IDFaculty
-            // 
-            this.IDFaculty.HeaderText = "ID";
-            this.IDFaculty.Name = "IDFaculty";
-            this.IDFaculty.ReadOnly = true;
-            this.IDFaculty.Visible = false;
-            // 
-            // NameFaculty
-            // 
-            this.NameFaculty.HeaderText = "Название";
-            this.NameFaculty.Name = "NameFaculty";
-            this.NameFaculty.ReadOnly = true;
-            this.NameFaculty.Width = 300;
-            // 
-            // Logo
-            // 
-            this.Logo.HeaderText = "Логотип";
-            this.Logo.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
-            this.Logo.Name = "Logo";
-            this.Logo.ReadOnly = true;
-            this.Logo.Width = 209;
-            // 
-            // DeleteFaculty
-            // 
-            this.DeleteFaculty.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.DeleteFaculty.HeaderText = "Удалить";
-            this.DeleteFaculty.Name = "DeleteFaculty";
-            this.DeleteFaculty.ReadOnly = true;
-            this.DeleteFaculty.Width = 80;
-            // 
-            // EditFaculty
-            // 
-            this.EditFaculty.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.EditFaculty.HeaderText = "Изменить";
-            this.EditFaculty.Name = "EditFaculty";
-            this.EditFaculty.ReadOnly = true;
-            this.EditFaculty.Width = 80;
+            this.PositionInfo.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            this.PositionInfo.Size = new System.Drawing.Size(523, 297);
+            this.PositionInfo.TabIndex = 5;
+            this.PositionInfo.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.PositionInfo_CellContentClick);
             // 
             // panel3
             // 
             this.panel3.Controls.Add(this.button4);
-            this.panel3.Controls.Add(this.LogoBox);
-            this.panel3.Controls.Add(this.button3);
-            this.panel3.Controls.Add(this.label2);
             this.panel3.Controls.Add(this.label1);
-            this.panel3.Controls.Add(this.InputNameFaculty);
+            this.panel3.Controls.Add(this.InputPosition);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(0, 336);
+            this.panel3.Location = new System.Drawing.Point(0, 350);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(712, 198);
-            this.panel3.TabIndex = 3;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(3, 51);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(69, 20);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "Логотип";
+            this.panel3.Size = new System.Drawing.Size(523, 48);
+            this.panel3.TabIndex = 6;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(3, 8);
+            this.label1.Location = new System.Drawing.Point(11, 11);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(80, 20);
-            this.label1.TabIndex = 6;
+            this.label1.TabIndex = 8;
             this.label1.Text = "Название";
             // 
-            // InputNameFaculty
+            // InputPosition
             // 
-            this.InputNameFaculty.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.InputNameFaculty.Location = new System.Drawing.Point(89, 5);
-            this.InputNameFaculty.Name = "InputNameFaculty";
-            this.InputNameFaculty.Size = new System.Drawing.Size(418, 26);
-            this.InputNameFaculty.TabIndex = 5;
+            this.InputPosition.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.InputPosition.Location = new System.Drawing.Point(97, 8);
+            this.InputPosition.Name = "InputPosition";
+            this.InputPosition.Size = new System.Drawing.Size(374, 26);
+            this.InputPosition.TabIndex = 7;
             // 
             // button4
             // 
@@ -207,37 +150,16 @@
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button4.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button4.Image = global::UniversityMain.Properties.Resources.OK;
-            this.button4.Location = new System.Drawing.Point(658, 148);
+            this.button4.Location = new System.Drawing.Point(480, 8);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(50, 46);
-            this.button4.TabIndex = 10;
+            this.button4.Size = new System.Drawing.Size(40, 26);
+            this.button4.TabIndex = 11;
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
-            // LogoBox
-            // 
-            this.LogoBox.Location = new System.Drawing.Point(316, 37);
-            this.LogoBox.Name = "LogoBox";
-            this.LogoBox.Size = new System.Drawing.Size(191, 158);
-            this.LogoBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.LogoBox.TabIndex = 9;
-            this.LogoBox.TabStop = false;
-            // 
-            // button3
-            // 
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button3.Image = global::UniversityMain.Properties.Resources.GetFile;
-            this.button3.Location = new System.Drawing.Point(89, 43);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(48, 39);
-            this.button3.TabIndex = 8;
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::UniversityMain.Properties.Resources.Faculty_50px_;
+            this.pictureBox1.Image = global::UniversityMain.Properties.Resources.Position_50_;
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(70, 44);
@@ -269,26 +191,55 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // FacultyForm
+            // IDPosition
+            // 
+            this.IDPosition.HeaderText = "ID";
+            this.IDPosition.Name = "IDPosition";
+            this.IDPosition.ReadOnly = true;
+            this.IDPosition.Visible = false;
+            // 
+            // NamePosition
+            // 
+            this.NamePosition.HeaderText = "Название";
+            this.NamePosition.Name = "NamePosition";
+            this.NamePosition.ReadOnly = true;
+            this.NamePosition.Width = 300;
+            // 
+            // DeletePosition
+            // 
+            this.DeletePosition.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.DeletePosition.HeaderText = "Удалить";
+            this.DeletePosition.Name = "DeletePosition";
+            this.DeletePosition.ReadOnly = true;
+            this.DeletePosition.Width = 80;
+            // 
+            // EditPosition
+            // 
+            this.EditPosition.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.EditPosition.HeaderText = "Изменить";
+            this.EditPosition.Name = "EditPosition";
+            this.EditPosition.ReadOnly = true;
+            this.EditPosition.Width = 80;
+            // 
+            // Positions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(712, 534);
+            this.ClientSize = new System.Drawing.Size(523, 398);
             this.Controls.Add(this.panel3);
-            this.Controls.Add(this.FacultyInfo);
+            this.Controls.Add(this.PositionInfo);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "FacultyForm";
+            this.Name = "Positions";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FacultyForm";
-            this.Load += new System.EventHandler(this.FacultyForm_Load);
+            this.Text = "Positions";
+            this.Load += new System.EventHandler(this.Positions_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.FacultyInfo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PositionInfo)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.LogoBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
@@ -297,23 +248,19 @@
         #endregion
 
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.DataGridView FacultyInfo;
+        private System.Windows.Forms.DataGridView PositionInfo;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox InputNameFaculty;
-        private System.Windows.Forms.PictureBox LogoBox;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IDFaculty;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NameFaculty;
-        private System.Windows.Forms.DataGridViewImageColumn Logo;
-        private System.Windows.Forms.DataGridViewButtonColumn DeleteFaculty;
-        private System.Windows.Forms.DataGridViewButtonColumn EditFaculty;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox InputPosition;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IDPosition;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NamePosition;
+        private System.Windows.Forms.DataGridViewButtonColumn DeletePosition;
+        private System.Windows.Forms.DataGridViewButtonColumn EditPosition;
     }
 }

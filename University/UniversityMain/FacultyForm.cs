@@ -111,14 +111,10 @@ namespace UniversityMain
         {
             var senderGrid = (DataGridView)sender;
 
-            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn & senderGrid.Columns[e.ColumnIndex].Name == "DeleteFaculty" & e.RowIndex >= 0)
             {
                 Logics.Books.Faculty.StructFaculty structFaculty;
                 structFaculty.id = (int)FacultyInfo.Rows[e.RowIndex].Cells[0].Value;
-                structFaculty.Name = FacultyInfo.Rows[e.RowIndex].Cells[1].Value.ToString();
-                InputNameFaculty.Text = structFaculty.Name;
-                structFaculty.logo = (Image)FacultyInfo.Rows[e.RowIndex].Cells[2].Value;
-                LogoBox.Image = structFaculty.logo;
                 Logics.Books.Faculty faculty = new Logics.Books.Faculty(connectionDB);
                 faculty.DeleteFaculty(structFaculty.id);
                 FacultyInfo.Rows.Clear();

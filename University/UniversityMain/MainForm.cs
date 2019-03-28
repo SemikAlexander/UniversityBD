@@ -97,7 +97,7 @@ namespace UniversityMain
         {
             if (INFO.Height == 42)
             {
-                INFO.Height = 298;
+                INFO.Height = 535;
                 pictureBox1.Image = Properties.Resources.CloseDir;
             }
             else
@@ -110,7 +110,7 @@ namespace UniversityMain
         {
             if (INFO.Height == 42)
             {
-                INFO.Height = 298;
+                INFO.Height = 535;
                 pictureBox1.Image = Properties.Resources.CloseDir;
             }
             else
@@ -123,7 +123,7 @@ namespace UniversityMain
         {
             if (INFO.Height == 42)
             {
-                INFO.Height = 298;
+                INFO.Height = 535;
                 pictureBox1.Image = Properties.Resources.CloseDir;
             }
             else
@@ -138,11 +138,36 @@ namespace UniversityMain
             Close();
         }
         #endregion
-
         private void button9_Click(object sender, EventArgs e)
         {
             Close();
             new Discipline(connectionDB).Show();          
         }
+        private void button10_Click(object sender, EventArgs e)
+        {
+            Close();
+            new Positions(connectionDB).Show();
+        }
+        private void button11_Click(object sender, EventArgs e)
+        {
+            Close();
+            new WeekForm(connectionDB).Show();
+        }
+        private void button12_Click(object sender, EventArgs e)
+        {
+            Close();
+            new TypeSubject(connectionDB).Show();
+        }
+        private void button4_Click_1(object sender, EventArgs e)
+        {
+            Close();
+            new Departments(connectionDB).Show();
+        }
+        private void button13_Click(object sender, EventArgs e)
+        {
+            Close();
+            new Specialities(connectionDB).Show();
+        }
+
     }
 }

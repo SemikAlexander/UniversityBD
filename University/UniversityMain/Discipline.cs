@@ -112,7 +112,6 @@ namespace UniversityMain
                     DisciplineInfo.Rows.Add(descipline.id, descipline.name);
             }
         }
-
         private void DepartmentBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             DisciplineInfo.Rows.Clear();
