@@ -18,7 +18,7 @@ namespace Logics.MainTable
         private Functions.Connection.ConnectionDB _connectionDB = null;
         #endregion
         public Teachers(Functions.Connection.ConnectionDB connectionDB) => _connectionDB = connectionDB;
-        public bool GeTeachers(string nameFaculty, string department, out List<TeachersStructure> specialtyStructures)
+        public bool GetTeachers(string nameFaculty, string department, out List<TeachersStructure> specialtyStructures)
         {
             specialtyStructures = new List<TeachersStructure>();
             if (_connectionDB == null) { exception = "Подключение не установленно"; return false; }
@@ -100,5 +100,87 @@ namespace Logics.MainTable
             }
         }
 
+
+        /************************************Дисциплины**************************************/
+        public bool GetTeacherDiscipline(string nameFaculty, string department,string nameTeacher, out List<Logics.Books.Discipline.StructDiscipline> specialtyStructures)
+        {
+            specialtyStructures = new List<Logics.Books.Discipline.StructDiscipline>();
+            if (_connectionDB == null) { exception = "Подключение не установленно"; return false; }
+            try
+            {
+                var conn = new NpgsqlConnection(this._connectionDB.ConnectString);
+                conn.Open();
+                using (var cmd = new NpgsqlCommand($"SELECT * FROM getteacherdiscipline('{nameFaculty}','{department},'{nameTeacher}');", conn))
+                using (var reader = cmd.ExecuteReader())
+                    while (reader.Read())
+                    {
+                        specialtyStructures.Add(new Logics.Books.Discipline.StructDiscipline()
+                        {
+                            id=reader.GetInt32(0),
+                            name=reader.GetString(1)
+                        });
+                    }
+                conn.Close();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                exception = ex.Message;
+                return false;
+            }
+        }
+        public bool DeleteTeacherAllDiscipline(string department, string faculty, string nameteacher)
+        {
+            if (_connectionDB == null) { exception = "Подключение не установленно"; return false; }
+            try
+            {
+                var conn = new NpgsqlConnection(this._connectionDB.ConnectString);
+                conn.Open();
+
+                using (var cmd = new NpgsqlCommand())
+                {
+                    cmd.Connection = conn;
+                    cmd.CommandText = $"SELECT * from teachersdelete_all_discipline('{faculty}','{department}','{nameteacher}');";
+                    using (var reader = cmd.ExecuteReader())
+                        if (reader.Read())
+                        {
+                            if (reader.GetString(0) == "Success") return true; else { exception = reader.GetString(0); return false; }
+                        }
+                }
+                conn.Close();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                exception = ex.Message;
+                return false;
+            }
+        }
+        public bool AddTeacherDiscipline(string department, string faculty, string nameteacher,string namediscipline)
+        {
+            if (_connectionDB == null) { exception = "Подключение не установленно"; return false; }
+            try
+            {
+                var conn = new NpgsqlConnection(this._connectionDB.ConnectString);
+                conn.Open();
+                using (var cmd = new NpgsqlCommand())
+                {
+                    cmd.Connection = conn;
+                    cmd.CommandText = $"SELECT * from teacher_add_discipline('{faculty}','{department}','{nameteacher}','{namediscipline}');";
+                    using (var reader = cmd.ExecuteReader())
+                        if (reader.Read())
+                        {
+                            if (reader.GetString(0) == "Success") return true; else { exception = reader.GetString(0); return false; }
+                        }
+                }
+                conn.Close();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                exception = ex.Message;
+                return false;
+            }
+        }
     }
 }

@@ -12,7 +12,7 @@
  Target Server Version : 90612
  File Encoding         : 65001
 
- Date: 31/03/2019 16:51:40
+ Date: 31/03/2019 17:20:59
 */
 
 
@@ -752,6 +752,20 @@ $BODY$
   ROWS 1000;
 
 -- ----------------------------
+-- Function structure for getteacherdiscipline
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."getteacherdiscipline"("facultet" text, "departm" text, "nameteacher" text);
+CREATE OR REPLACE FUNCTION "public"."getteacherdiscipline"("facultet" text, "departm" text, "nameteacher" text)
+  RETURNS TABLE("id_disc" int4, "namedisc" text) AS $BODY$BEGIN
+	RETURN query SELECT discipline."ID_DISCIPLINE",discipline."Name_Discipline" from (SELECT teachers."ID_TEACHER" from (SELECT department."ID_DEPARTMENT" FROM (SELECT "ID_FACULTY" FROM faculty WHERE "Name_Faculty"=facultet) as facul INNER JOIN department on department.id_faculty=facul."ID_FACULTY" WHERE department."Name_Department"=departm) as dep INNER JOIN teachers on teachers.id_department=dep."ID_DEPARTMENT" WHERE teachers."Name_Teacher"=nameteacher)as teach INNER JOIN "helpDiscip" on "helpDiscip".id_teacher=teach."ID_TEACHER" INNER JOIN discipline on "helpDiscip".id_discipline=discipline."ID_DISCIPLINE";
+
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100
+  ROWS 1000;
+
+-- ----------------------------
 -- Function structure for position_add
 -- ----------------------------
 DROP FUNCTION IF EXISTS "public"."position_add"("name_position" text);
@@ -854,6 +868,47 @@ $BODY$
   COST 100;
 
 -- ----------------------------
+-- Function structure for teacher_add_discipline
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."teacher_add_discipline"("namefaculty" text, "namedepartment" text, "nameteacher" text, "namediscplin" text);
+CREATE OR REPLACE FUNCTION "public"."teacher_add_discipline"("namefaculty" text, "namedepartment" text, "nameteacher" text, "namediscplin" text)
+  RETURNS "pg_catalog"."text" AS $BODY$
+	DECLARE
+	IDDEPARTMENT INTEGER :=0;
+	IDFACULTY INTEGER := 0;
+	IDPOSITION INTEGER := 0;
+	IDTeacher INTEGER:=0;
+	IDDISCIPLINE INTEGER:=0;
+	BEGIN 
+SELECT "ID_FACULTY" FROM faculty INTO IDFACULTY WHERE "Name_Faculty"=namefaculty LIMIT 1;
+IF NOT FOUND THEN
+    RETURN 'Факультет не найден';
+END IF;
+SELECT "ID_DEPARTMENT" From department WHERE  department."Name_Department"=namedepartment and IDFACULTY=department.id_faculty INTO IDDEPARTMENT;
+IF NOT FOUND THEN
+    RETURN 'Кафедра не найдена';
+END IF;
+	SELECT "ID_TEACHER" FROM teachers WHERE teachers."Name_Teacher"=nameteacher and teachers.id_department=IDDEPARTMENT INTO IDTeacher LIMIT 1;
+	IF NOT FOUND THEN
+    RETURN 'Преподователь не найден';
+END IF;
+	SELECT "ID_DISCIPLINE" FROM discipline WHERE discipline."Name_Discipline"=namediscplin INTO IDDISCIPLINE LIMIT 1;
+	IF NOT FOUND THEN
+    RETURN 'Дисциплина не найдена';
+END IF;
+	IF EXISTS(	SELECT * FROM "helpDiscip" WHERE "helpDiscip".id_teacher=IDTeacher and "helpDiscip".id_discipline=IDDISCIPLINE) THEN
+    RETURN 'Дисциплина уже была добавлена';
+END IF;
+	
+INSERT INTO "helpDiscip"("helpDiscip".id_discipline,"helpDiscip".id_teacher) VALUES (IDDISCIPLINE,IDTeacher);	
+	RETURN 'Success';
+	
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+-- ----------------------------
 -- Function structure for teachers_add
 -- ----------------------------
 DROP FUNCTION IF EXISTS "public"."teachers_add"("namefaculty" text, "namedepartment" text, "nameteacher" text, "emailteacher" text, "rateteacher" text, "hourlypayment" text, "nameposition" text);
@@ -909,6 +964,42 @@ IF NOT FOUND THEN
 END IF;
 	
 	DELETE FROM teachers WHERE teachers."Name_Teacher"=nameteacher and teachers.id_department=IDDEPARTMENT;
+	RETURN 'Success';
+	
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+-- ----------------------------
+-- Function structure for teachersdelete_all_discipline
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."teachersdelete_all_discipline"("namefaculty" text, "namedepartment" text, "nameteacher" text);
+CREATE OR REPLACE FUNCTION "public"."teachersdelete_all_discipline"("namefaculty" text, "namedepartment" text, "nameteacher" text)
+  RETURNS "pg_catalog"."text" AS $BODY$
+	DECLARE
+	IDDEPARTMENT INTEGER :=0;
+	IDFACULTY INTEGER := 0;
+	IDPOSITION INTEGER := 0;
+	IDTeacher INTEGER:=0;
+	BEGIN 
+SELECT "ID_FACULTY" FROM faculty INTO IDFACULTY WHERE "Name_Faculty"=namefaculty LIMIT 1;
+IF NOT FOUND THEN
+    RETURN 'Факультет не найден';
+END IF;
+
+SELECT "ID_DEPARTMENT" From department WHERE  department."Name_Department"=namedepartment and IDFACULTY=department.id_faculty INTO IDDEPARTMENT;
+IF NOT FOUND THEN
+    RETURN 'Кафедра не найдена';
+END IF;
+	
+	SELECT "ID_TEACHER" FROM teachers WHERE teachers."Name_Teacher"=nameteacher and teachers.id_department=IDDEPARTMENT INTO IDTeacher LIMIT 1;
+	IF NOT FOUND THEN
+    RETURN 'Преподователь не найден';
+END IF;
+	
+	DELETE FROM "helpDiscip" WHERE "helpDiscip".id_teacher=IDTeacher;
+	
 	RETURN 'Success';
 	
 END
