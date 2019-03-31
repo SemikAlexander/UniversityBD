@@ -1,7 +1,7 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : DataBase
+ Source Server         : 1
  Source Server Type    : PostgreSQL
  Source Server Version : 90612
  Source Host           : localhost:5432
@@ -12,7 +12,7 @@
  Target Server Version : 90612
  File Encoding         : 65001
 
- Date: 28/03/2019 20:27:54
+ Date: 31/03/2019 16:51:40
 */
 
 
@@ -556,7 +556,7 @@ END IF;
 IF EXISTS(SELECT * From department WHERE  department."Name_Department"=namedepartment and IDFACULTY=department.id_faculty) THEN
     RETURN 'Кафедра существует';
 END IF;
-			INSERT INTO department("Logo_Department","Name_Department",id_classrooms,id_faculty) VALUES(logo,NameFaculty,IDCLASSROOM,IDFACULTY);
+			INSERT INTO department("Logo_Department","Name_Department",id_classrooms,id_faculty) VALUES(logo,namedepartment,IDCLASSROOM,IDFACULTY);
 			RETURN 'Success';
 END
 $BODY$
@@ -725,6 +725,20 @@ $BODY$
   ROWS 1000;
 
 -- ----------------------------
+-- Function structure for getallteachers
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."getallteachers"("facultet" text, "departm" text);
+CREATE OR REPLACE FUNCTION "public"."getallteachers"("facultet" text, "departm" text)
+  RETURNS TABLE("nameteacher" text, "emaildata" text, "rating" float4, "hourlypayment" float4, "nameposition" text) AS $BODY$BEGIN
+	RETURN query SELECT teachers."Name_Teacher",teachers."Email",teachers."Rate",teachers."Hourly_Payment","position"."Name_Position" from (SELECT department."ID_DEPARTMENT" FROM (SELECT "ID_FACULTY" FROM faculty WHERE "Name_Faculty"=facultet) as facul INNER JOIN department on department.id_faculty=facul."ID_FACULTY" WHERE department."Name_Department"=departm) as dep INNER JOIN teachers on teachers.id_department=dep."ID_DEPARTMENT" INNER JOIN "position" on teachers.id_position="position"."ID_POSITION";
+
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100
+  ROWS 1000;
+
+-- ----------------------------
 -- Function structure for getdepartmentfull
 -- ----------------------------
 DROP FUNCTION IF EXISTS "public"."getdepartmentfull"("namefaculty" text, "startrow" int4, "countrow" int4);
@@ -840,6 +854,69 @@ $BODY$
   COST 100;
 
 -- ----------------------------
+-- Function structure for teachers_add
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."teachers_add"("namefaculty" text, "namedepartment" text, "nameteacher" text, "emailteacher" text, "rateteacher" text, "hourlypayment" text, "nameposition" text);
+CREATE OR REPLACE FUNCTION "public"."teachers_add"("namefaculty" text, "namedepartment" text, "nameteacher" text, "emailteacher" text, "rateteacher" text, "hourlypayment" text, "nameposition" text)
+  RETURNS "pg_catalog"."text" AS $BODY$
+	DECLARE
+	IDDEPARTMENT INTEGER :=0;
+	IDFACULTY INTEGER := 0;
+	IDPOSITION INTEGER := 0;
+	BEGIN 
+
+
+SELECT "ID_FACULTY" FROM faculty INTO IDFACULTY WHERE "Name_Faculty"=namefaculty LIMIT 1;
+IF NOT FOUND THEN
+    RETURN 'Факультет не найден';
+END IF;
+
+SELECT "ID_DEPARTMENT" From department WHERE  department."Name_Department"=namedepartment and IDFACULTY=department.id_faculty INTO IDDEPARTMENT;
+IF NOT FOUND THEN
+    RETURN 'Кафедра не найдена';
+END IF;
+SELECT "ID_POSITION" FROM "position" WHERE "Name_Position"=nameposition INTO IDPOSITION;
+IF NOT FOUND THEN
+    RETURN 'Должность не найдена';
+END IF;
+			
+			INSERT INTO teachers("Email","Hourly_Payment","Name_Teacher","Rate",id_department,id_position) VALUES(emailteacher,hourlypayment,nameteacher,rateteacher,IDDEPARTMENT,IDPOSITION);
+			RETURN 'Success';
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+-- ----------------------------
+-- Function structure for teachersdelete
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."teachersdelete"("namefaculty" text, "namedepartment" text, "nameteacher" text);
+CREATE OR REPLACE FUNCTION "public"."teachersdelete"("namefaculty" text, "namedepartment" text, "nameteacher" text)
+  RETURNS "pg_catalog"."text" AS $BODY$
+	DECLARE
+	IDDEPARTMENT INTEGER :=0;
+	IDFACULTY INTEGER := 0;
+	IDPOSITION INTEGER := 0;
+	BEGIN 
+SELECT "ID_FACULTY" FROM faculty INTO IDFACULTY WHERE "Name_Faculty"=namefaculty LIMIT 1;
+IF NOT FOUND THEN
+    RETURN 'Факультет не найден';
+END IF;
+
+SELECT "ID_DEPARTMENT" From department WHERE  department."Name_Department"=namedepartment and IDFACULTY=department.id_faculty INTO IDDEPARTMENT;
+IF NOT FOUND THEN
+    RETURN 'Кафедра не найдена';
+END IF;
+	
+	DELETE FROM teachers WHERE teachers."Name_Teacher"=nameteacher and teachers.id_department=IDDEPARTMENT;
+	RETURN 'Success';
+	
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+-- ----------------------------
 -- Function structure for type_subject_add
 -- ----------------------------
 DROP FUNCTION IF EXISTS "public"."type_subject_add"("name_subject" text);
@@ -935,40 +1012,40 @@ $BODY$
 -- ----------------------------
 ALTER SEQUENCE "public"."classroom_ID_CLASSROOM_seq"
 OWNED BY "public"."classroom"."ID_CLASSROOM";
-SELECT setval('"public"."classroom_ID_CLASSROOM_seq"', 10, true);
+SELECT setval('"public"."classroom_ID_CLASSROOM_seq"', 11, true);
 ALTER SEQUENCE "public"."department_ID_DEPARTMENT_seq"
 OWNED BY "public"."department"."ID_DEPARTMENT";
-SELECT setval('"public"."department_ID_DEPARTMENT_seq"', 78, true);
+SELECT setval('"public"."department_ID_DEPARTMENT_seq"', 79, true);
 ALTER SEQUENCE "public"."discipline_ID_DISCIPLINE_seq"
 OWNED BY "public"."discipline"."ID_DISCIPLINE";
-SELECT setval('"public"."discipline_ID_DISCIPLINE_seq"', 4, false);
+SELECT setval('"public"."discipline_ID_DISCIPLINE_seq"', 5, false);
 ALTER SEQUENCE "public"."faculty_ID_FACULTY_seq"
 OWNED BY "public"."faculty"."ID_FACULTY";
-SELECT setval('"public"."faculty_ID_FACULTY_seq"', 17, true);
+SELECT setval('"public"."faculty_ID_FACULTY_seq"', 18, true);
 ALTER SEQUENCE "public"."groups_ID_GROUP_seq"
 OWNED BY "public"."groups"."ID_GROUP";
-SELECT setval('"public"."groups_ID_GROUP_seq"', 4, false);
+SELECT setval('"public"."groups_ID_GROUP_seq"', 5, false);
 ALTER SEQUENCE "public"."position_ID_POSITION_seq"
 OWNED BY "public"."position"."ID_POSITION";
-SELECT setval('"public"."position_ID_POSITION_seq"', 12, true);
+SELECT setval('"public"."position_ID_POSITION_seq"', 13, true);
 ALTER SEQUENCE "public"."specialty_ID_SPECIALTY_seq"
 OWNED BY "public"."specialty"."ID_SPECIALTY";
-SELECT setval('"public"."specialty_ID_SPECIALTY_seq"', 4, true);
+SELECT setval('"public"."specialty_ID_SPECIALTY_seq"', 5, true);
 ALTER SEQUENCE "public"."stadyingPlan_ID_SETTING_seq"
 OWNED BY "public"."stadyingPlan"."ID_SETTING";
-SELECT setval('"public"."stadyingPlan_ID_SETTING_seq"', 4, false);
+SELECT setval('"public"."stadyingPlan_ID_SETTING_seq"', 5, false);
 ALTER SEQUENCE "public"."teachers_ID_TEACHER_seq"
 OWNED BY "public"."teachers"."ID_TEACHER";
-SELECT setval('"public"."teachers_ID_TEACHER_seq"', 4, false);
+SELECT setval('"public"."teachers_ID_TEACHER_seq"', 5, false);
 ALTER SEQUENCE "public"."timeTable_ID_seq"
 OWNED BY "public"."timeTable"."ID";
-SELECT setval('"public"."timeTable_ID_seq"', 4, false);
+SELECT setval('"public"."timeTable_ID_seq"', 5, false);
 ALTER SEQUENCE "public"."typeSubject_ID_SUBJECT_seq"
 OWNED BY "public"."typeSubject"."ID_SUBJECT";
-SELECT setval('"public"."typeSubject_ID_SUBJECT_seq"', 9, true);
+SELECT setval('"public"."typeSubject_ID_SUBJECT_seq"', 10, true);
 ALTER SEQUENCE "public"."week_ID_DAY_seq"
 OWNED BY "public"."week"."ID_DAY";
-SELECT setval('"public"."week_ID_DAY_seq"', 11, true);
+SELECT setval('"public"."week_ID_DAY_seq"', 12, true);
 
 -- ----------------------------
 -- Primary Key structure for table classroom
@@ -1033,62 +1110,62 @@ ALTER TABLE "public"."week" ADD CONSTRAINT "Week_pkey" PRIMARY KEY ("ID_DAY");
 -- ----------------------------
 -- Foreign Keys structure for table Spec_discipline
 -- ----------------------------
-ALTER TABLE "public"."Spec_discipline" ADD CONSTRAINT "fk_Spec_discipline_department_1" FOREIGN KEY ("id_department") REFERENCES "department" ("ID_DEPARTMENT") ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE "public"."Spec_discipline" ADD CONSTRAINT "fk_Spec_discipline_discipline_1" FOREIGN KEY ("id_discipline") REFERENCES "discipline" ("ID_DISCIPLINE") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."Spec_discipline" ADD CONSTRAINT "fk_Spec_discipline_department_1" FOREIGN KEY ("id_department") REFERENCES "public"."department" ("ID_DEPARTMENT") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."Spec_discipline" ADD CONSTRAINT "fk_Spec_discipline_discipline_1" FOREIGN KEY ("id_discipline") REFERENCES "public"."discipline" ("ID_DISCIPLINE") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- ----------------------------
 -- Foreign Keys structure for table department
 -- ----------------------------
-ALTER TABLE "public"."department" ADD CONSTRAINT "fk_department_classroom_1" FOREIGN KEY ("id_classrooms") REFERENCES "classroom" ("ID_CLASSROOM") ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE "public"."department" ADD CONSTRAINT "fk_department_faculty_1" FOREIGN KEY ("id_faculty") REFERENCES "faculty" ("ID_FACULTY") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."department" ADD CONSTRAINT "fk_department_classroom_1" FOREIGN KEY ("id_classrooms") REFERENCES "public"."classroom" ("ID_CLASSROOM") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."department" ADD CONSTRAINT "fk_department_faculty_1" FOREIGN KEY ("id_faculty") REFERENCES "public"."faculty" ("ID_FACULTY") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- ----------------------------
 -- Foreign Keys structure for table groups
 -- ----------------------------
-ALTER TABLE "public"."groups" ADD CONSTRAINT "fk_groups_specialty_1" FOREIGN KEY ("id_specialty") REFERENCES "specialty" ("ID_SPECIALTY") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."groups" ADD CONSTRAINT "fk_groups_specialty_1" FOREIGN KEY ("id_specialty") REFERENCES "public"."specialty" ("ID_SPECIALTY") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- ----------------------------
 -- Foreign Keys structure for table helpDiscip
 -- ----------------------------
-ALTER TABLE "public"."helpDiscip" ADD CONSTRAINT "fk_helpDiscip_discipline_1" FOREIGN KEY ("id_discipline") REFERENCES "discipline" ("ID_DISCIPLINE") ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE "public"."helpDiscip" ADD CONSTRAINT "fk_helpDiscip_teachers_1" FOREIGN KEY ("id_teacher") REFERENCES "teachers" ("ID_TEACHER") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."helpDiscip" ADD CONSTRAINT "fk_helpDiscip_discipline_1" FOREIGN KEY ("id_discipline") REFERENCES "public"."discipline" ("ID_DISCIPLINE") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."helpDiscip" ADD CONSTRAINT "fk_helpDiscip_teachers_1" FOREIGN KEY ("id_teacher") REFERENCES "public"."teachers" ("ID_TEACHER") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- ----------------------------
 -- Foreign Keys structure for table para
 -- ----------------------------
-ALTER TABLE "public"."para" ADD CONSTRAINT "fk_para_groups_1" FOREIGN KEY ("id_group") REFERENCES "groups" ("ID_GROUP") ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE "public"."para" ADD CONSTRAINT "fk_para_timeTable_1" FOREIGN KEY ("id_lesson") REFERENCES "timeTable" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."para" ADD CONSTRAINT "fk_para_groups_1" FOREIGN KEY ("id_group") REFERENCES "public"."groups" ("ID_GROUP") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."para" ADD CONSTRAINT "fk_para_timeTable_1" FOREIGN KEY ("id_lesson") REFERENCES "public"."timeTable" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- ----------------------------
 -- Foreign Keys structure for table specialty
 -- ----------------------------
-ALTER TABLE "public"."specialty" ADD CONSTRAINT "fk_specialty_department_1" FOREIGN KEY ("id_department") REFERENCES "department" ("ID_DEPARTMENT") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."specialty" ADD CONSTRAINT "fk_specialty_department_1" FOREIGN KEY ("id_department") REFERENCES "public"."department" ("ID_DEPARTMENT") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- ----------------------------
 -- Foreign Keys structure for table stadyingPlan
 -- ----------------------------
-ALTER TABLE "public"."stadyingPlan" ADD CONSTRAINT "fk_stadyingPlan_groups_1" FOREIGN KEY ("id_group") REFERENCES "groups" ("ID_GROUP") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."stadyingPlan" ADD CONSTRAINT "fk_stadyingPlan_groups_1" FOREIGN KEY ("id_group") REFERENCES "public"."groups" ("ID_GROUP") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- ----------------------------
 -- Foreign Keys structure for table subjectPay
 -- ----------------------------
-ALTER TABLE "public"."subjectPay" ADD CONSTRAINT "fk_subjectPay_teachers_1" FOREIGN KEY ("id_teacher") REFERENCES "teachers" ("ID_TEACHER") ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE "public"."subjectPay" ADD CONSTRAINT "fk_subjectPay_timeTable_1" FOREIGN KEY ("id_subject") REFERENCES "timeTable" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."subjectPay" ADD CONSTRAINT "fk_subjectPay_teachers_1" FOREIGN KEY ("id_teacher") REFERENCES "public"."teachers" ("ID_TEACHER") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."subjectPay" ADD CONSTRAINT "fk_subjectPay_timeTable_1" FOREIGN KEY ("id_subject") REFERENCES "public"."timeTable" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- ----------------------------
 -- Foreign Keys structure for table teachers
 -- ----------------------------
-ALTER TABLE "public"."teachers" ADD CONSTRAINT "fk_teachers_department_1" FOREIGN KEY ("id_department") REFERENCES "department" ("ID_DEPARTMENT") ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE "public"."teachers" ADD CONSTRAINT "fk_teachers_position_1" FOREIGN KEY ("id_position") REFERENCES "position" ("ID_POSITION") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."teachers" ADD CONSTRAINT "fk_teachers_department_1" FOREIGN KEY ("id_department") REFERENCES "public"."department" ("ID_DEPARTMENT") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."teachers" ADD CONSTRAINT "fk_teachers_position_1" FOREIGN KEY ("id_position") REFERENCES "public"."position" ("ID_POSITION") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- ----------------------------
 -- Foreign Keys structure for table timeTable
 -- ----------------------------
-ALTER TABLE "public"."timeTable" ADD CONSTRAINT "fk_timeTable_classroom_1" FOREIGN KEY ("id_classroom") REFERENCES "classroom" ("ID_CLASSROOM") ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE "public"."timeTable" ADD CONSTRAINT "fk_timeTable_typeSubject_1" FOREIGN KEY ("id_type_week") REFERENCES "typeSubject" ("ID_SUBJECT") ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE "public"."timeTable" ADD CONSTRAINT "fk_timeTable_week_1" FOREIGN KEY ("id_type_week") REFERENCES "week" ("ID_DAY") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."timeTable" ADD CONSTRAINT "fk_timeTable_classroom_1" FOREIGN KEY ("id_classroom") REFERENCES "public"."classroom" ("ID_CLASSROOM") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."timeTable" ADD CONSTRAINT "fk_timeTable_typeSubject_1" FOREIGN KEY ("id_type_week") REFERENCES "public"."typeSubject" ("ID_SUBJECT") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."timeTable" ADD CONSTRAINT "fk_timeTable_week_1" FOREIGN KEY ("id_type_week") REFERENCES "public"."week" ("ID_DAY") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- ----------------------------
 -- Foreign Keys structure for table transfers
 -- ----------------------------
-ALTER TABLE "public"."transfers" ADD CONSTRAINT "fk_transfers_timeTable_1" FOREIGN KEY ("id_lesson") REFERENCES "timeTable" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."transfers" ADD CONSTRAINT "fk_transfers_timeTable_1" FOREIGN KEY ("id_lesson") REFERENCES "public"."timeTable" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION;
