@@ -76,6 +76,7 @@
     <Compile Include="MainTable\Groups.cs" />
     <Compile Include="MainTable\Speciality.cs" />
     <Compile Include="MainTable\Departments.cs" />
+    <Compile Include="MainTable\Teachers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
