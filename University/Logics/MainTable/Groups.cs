@@ -130,6 +130,29 @@ namespace Logics.MainTable
                 return false;
             }
         }
+        public bool AddGroupPlan(string nameFaculty, string department, string specialABR, GroupsStructure groupsStructure, GroupPlan groupPlan)
+        {
+            if (_connectionDB == null) { exception = "Подключение не установленно"; return false; }
+            try
+            {
+                var conn = new NpgsqlConnection(this._connectionDB.ConnectString);
+                conn.Open();
+                using (var cmd = new NpgsqlCommand($"SELECT * FROM add_styding_plans('{nameFaculty}','{department}','{specialABR}','{groupsStructure.YearCreate}','{groupsStructure.Subname}','{groupPlan.startStudy}','{groupPlan.EndStudy}','{groupPlan.startSession}','{groupPlan.EndSession}');", conn))
+                using (var reader = cmd.ExecuteReader())
+                    if (reader.Read())
+                    {
+                        if (reader.GetString(0) == "Success") return true; else { exception = reader.GetString(0); return false; }
+                    }
+
+                conn.Close();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                exception = ex.Message;
+                return false;
+            }
+        }
 
     }
 }

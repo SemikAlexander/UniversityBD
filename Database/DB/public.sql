@@ -12,7 +12,7 @@
  Target Server Version : 90612
  File Encoding         : 65001
 
- Date: 01/04/2019 19:20:33
+ Date: 01/04/2019 19:58:30
 */
 
 
@@ -312,6 +312,7 @@ CREATE TABLE "public"."groups" (
 -- Records of groups
 -- ----------------------------
 INSERT INTO "public"."groups" VALUES (4, 2, 1234, 'выфв');
+INSERT INTO "public"."groups" VALUES (5, 2, 123, 'выф');
 
 -- ----------------------------
 -- Table structure for helpDiscip
@@ -462,6 +463,99 @@ INSERT INTO "public"."week" VALUES (6, 'Четверг', 'V');
 INSERT INTO "public"."week" VALUES (7, 'Пятница', 'V');
 INSERT INTO "public"."week" VALUES (8, 'Суббота', 'V');
 INSERT INTO "public"."week" VALUES (10, 'Воскресенье', 'V');
+
+-- ----------------------------
+-- Function structure for add_styding_plans
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."add_styding_plans"("namefaculty" text, "namedepartment" text, "spec" text, "year_gr" int4, "sub_gr" text, "startstudy" date, "endstudy" date, "startsession" date, "endsession" date);
+CREATE OR REPLACE FUNCTION "public"."add_styding_plans"("namefaculty" text, "namedepartment" text, "spec" text, "year_gr" int4, "sub_gr" text, "startstudy" date, "endstudy" date, "startsession" date, "endsession" date)
+  RETURNS "pg_catalog"."text" AS $BODY$
+	DECLARE
+	IDDEPARTMENT INTEGER :=0;
+	IDFACULTY INTEGER := 0;
+	IDSPEC INTEGER := 0;
+	IDGROUP INTEGER := 0;
+	BEGIN 
+SELECT "ID_FACULTY" FROM faculty INTO IDFACULTY WHERE "Name_Faculty"=namefaculty LIMIT 1;
+ IF not FOUND THEN
+ RETURN 'Факультет не найден';
+END IF;
+
+SELECT department."ID_DEPARTMENT" From department WHERE  department."Name_Department"=namedepartment and IDFACULTY=department.id_faculty LIMIT 1 INTO IDDEPARTMENT;
+IF NOT FOUND THEN
+    RETURN 'Кафедра не существует';
+END IF;
+
+SELECT specialty."ID_SPECIALTY" From specialty WHERE specialty."Abbreviation_Specialty"=abbreviationspecialty or specialty."Abbreviation_Specialty"=abbreviationspecialty INTO IDSPEC;
+IF NOT FOUND THEN
+    RETURN 'Специальность не существует';
+END IF;
+
+SELECT "ID_GROUP" FROM groups WHERE "Sub_Name_Group"=sub and groups.id_specialty=IDSPEC and "Year_Of_Entry"=yea INTO IDGROUP;
+IF NOT FOUND THEN
+	RETURN 'Группа не существует';
+END IF;
+
+IF EXISTS(SELECT * FROM "stadyingPlan" WHERE "DateStartStuding"=startstudy and "DateEndStuding"=endstudy and "DateStartSession"=startsession and "DateEndSession"=endsession ) THEN
+	RETURN 'Учебный план существует';
+END IF;
+INSERT INTO "stadyingPlan" ("DateEndSession","DateEndStuding","DateStartSession","DateStartStuding",id_group) VALUES (endsession,endstudy,startsession,startstudy,IDGROUP);
+RETURN 'Success';
+
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+-- ----------------------------
+-- Function structure for add_styding_plans
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."add_styding_plans"("namefaculty" text, "namedepartment" text, "spec" text, "year_gr" int4, "sub_gr" text);
+CREATE OR REPLACE FUNCTION "public"."add_styding_plans"("namefaculty" text, "namedepartment" text, "spec" text, "year_gr" int4, "sub_gr" text)
+  RETURNS "pg_catalog"."text" AS $BODY$
+	DECLARE
+	IDDEPARTMENT INTEGER :=0;
+	IDFACULTY INTEGER := 0;
+	IDSPEC INTEGER := 0;
+	IDGROUP INTEGER := 0;
+	BEGIN 
+SELECT "ID_FACULTY" FROM faculty INTO IDFACULTY WHERE "Name_Faculty"=namefaculty LIMIT 1;
+ IF not FOUND THEN
+ RETURN 'Факультет не найден';
+END IF;
+
+SELECT department."ID_DEPARTMENT" From department WHERE  department."Name_Department"=namedepartment and IDFACULTY=department.id_faculty LIMIT 1 INTO IDDEPARTMENT;
+IF NOT FOUND THEN
+    RETURN 'Кафедра не существует';
+END IF;
+
+SELECT specialty."ID_SPECIALTY" From specialty WHERE specialty."Abbreviation_Specialty"=abbreviationspecialty or specialty."Abbreviation_Specialty"=abbreviationspecialty INTO IDSPEC;
+IF NOT FOUND THEN
+    RETURN 'Специальность не существует';
+END IF;
+
+SELECT "ID_GROUP" FROM groups WHERE "Sub_Name_Group"=sub and groups.id_specialty=IDSPEC and "Year_Of_Entry"=yea INTO IDGROUP;
+IF NOT FOUND THEN
+	RETURN 'Группа не существует';
+END IF;
+
+SELECT "ID_GROUP" FROM groups WHERE "Sub_Name_Group"=sub and groups.id_specialty=IDSPEC and "Year_Of_Entry"=yea INTO IDGROUP;
+IF NOT FOUND THEN
+	RETURN 'Группа не существует';
+END IF;
+
+
+
+
+INSERT INTO groups (id_specialty,"Sub_Name_Group","Year_Of_Entry") VALUES (IDSPEC, sub,yea);
+
+
+RETURN 'Success';
+
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
 
 -- ----------------------------
 -- Function structure for classroom_add
@@ -849,7 +943,7 @@ IF NOT FOUND THEN
     RETURN 'Специальность не существует';
 END IF;
 
-If EXISTS(SELECT * FROM groups WHERE "Sub_Name_Group"=sub and groups.id_specialty=IDSPEC and "Year_Of_Entry"=yea) THEN
+If EXISTS(SELECT * FROM groups WHERE "Sub_Name_Group"=sub and id_specialty=IDSPEC and "Year_Of_Entry"=yea) THEN
 	RETURN 'Группа уже существует';
 END IF;
 
@@ -888,7 +982,7 @@ IF NOT FOUND THEN
 END IF;
 
 DELETE FROM groups WHERE groups."Sub_Name_Group"=sub and groups.id_specialty=IDSPEC and groups."Year_Of_Entry"=yea;
-
+RETURN 'Success';
 END
 $BODY$
   LANGUAGE plpgsql VOLATILE
@@ -1244,7 +1338,7 @@ OWNED BY "public"."faculty"."ID_FACULTY";
 SELECT setval('"public"."faculty_ID_FACULTY_seq"', 18, true);
 ALTER SEQUENCE "public"."groups_ID_GROUP_seq"
 OWNED BY "public"."groups"."ID_GROUP";
-SELECT setval('"public"."groups_ID_GROUP_seq"', 5, true);
+SELECT setval('"public"."groups_ID_GROUP_seq"', 6, true);
 ALTER SEQUENCE "public"."position_ID_POSITION_seq"
 OWNED BY "public"."position"."ID_POSITION";
 SELECT setval('"public"."position_ID_POSITION_seq"', 13, true);
