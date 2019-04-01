@@ -12,7 +12,7 @@
  Target Server Version : 90612
  File Encoding         : 65001
 
- Date: 01/04/2019 18:26:44
+ Date: 01/04/2019 18:53:33
 */
 
 
@@ -307,6 +307,11 @@ CREATE TABLE "public"."groups" (
   "Sub_Name_Group" text COLLATE "pg_catalog"."default" NOT NULL
 )
 ;
+
+-- ----------------------------
+-- Records of groups
+-- ----------------------------
+INSERT INTO "public"."groups" VALUES (4, 2, 1234, 'выфв');
 
 -- ----------------------------
 -- Table structure for helpDiscip
@@ -684,10 +689,10 @@ $BODY$
 -- ----------------------------
 -- Function structure for get_groups
 -- ----------------------------
-DROP FUNCTION IF EXISTS "public"."get_groups"("faculty" text, "depar" text, "spec" text);
-CREATE OR REPLACE FUNCTION "public"."get_groups"("faculty" text, "depar" text, "spec" text)
+DROP FUNCTION IF EXISTS "public"."get_groups"("namefaculty" text, "namedepartment" text, "spec" text);
+CREATE OR REPLACE FUNCTION "public"."get_groups"("namefaculty" text, "namedepartment" text, "spec" text)
   RETURNS TABLE("yea" int4, "sub" text) AS $BODY$BEGIN
-	RETURN query SELECT groups."Year_Of_Entry",groups."Sub_Name_Group" FROM (SELECT specialty."ID_SPECIALTY" FROM(SELECT department."ID_DEPARTMENT" FROM (SELECT faculty."ID_FACULTY" FROM faculty WHERE faculty."Name_Faculty"=namefaculty LIMIT 1) as id_fac INNER JOIN department on department.id_faculty=id_fac."ID_FACULTY" WHERE department."Name_Department"=namedepartment) as dep INNER JOIN specialty on specialty.id_department=dep."ID_DEPARTMENT" WHERE specialty."Abbreviation_Specialty"=specABR)as sp INNER JOIN groups on groups.id_specialty=sp."ID_SPECIALTY";
+	RETURN query SELECT groups."Year_Of_Entry",groups."Sub_Name_Group" FROM (SELECT specialty."ID_SPECIALTY" FROM(SELECT department."ID_DEPARTMENT" FROM (SELECT faculty."ID_FACULTY" FROM faculty WHERE faculty."Name_Faculty"=namefaculty LIMIT 1) as id_fac INNER JOIN department on department.id_faculty=id_fac."ID_FACULTY" WHERE department."Name_Department"=namedepartment) as dep INNER JOIN specialty on specialty.id_department=dep."ID_DEPARTMENT" WHERE specialty."Abbreviation_Specialty"=spec)as sp INNER JOIN groups on groups.id_specialty=sp."ID_SPECIALTY";
 
 END
 $BODY$
@@ -1225,7 +1230,7 @@ OWNED BY "public"."faculty"."ID_FACULTY";
 SELECT setval('"public"."faculty_ID_FACULTY_seq"', 18, true);
 ALTER SEQUENCE "public"."groups_ID_GROUP_seq"
 OWNED BY "public"."groups"."ID_GROUP";
-SELECT setval('"public"."groups_ID_GROUP_seq"', 5, false);
+SELECT setval('"public"."groups_ID_GROUP_seq"', 5, true);
 ALTER SEQUENCE "public"."position_ID_POSITION_seq"
 OWNED BY "public"."position"."ID_POSITION";
 SELECT setval('"public"."position_ID_POSITION_seq"', 13, true);
