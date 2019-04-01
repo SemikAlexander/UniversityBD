@@ -11,7 +11,10 @@ namespace Logics.MainTable
         {
             public int YearCreate;public string Subname;
         }
-
+        public struct GroupPlan
+        {
+            public DateTime startStudy, startSession, EndSession, EndStudy;
+        }
         #region Variable
         public string exception = "";
         private Functions.Connection.ConnectionDB _connectionDB = null;
@@ -87,6 +90,37 @@ namespace Logics.MainTable
                             if (reader.GetString(0) == "Success") return true; else { exception = reader.GetString(0); return false; }
                         }
                 }
+                conn.Close();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                exception = ex.Message;
+                return false;
+            }
+        }
+
+        /**************************/
+        public bool GetGroupPlan(string nameFaculty, string department, string specialABR, GroupsStructure groupsStructure, out List<GroupPlan> groupplan)
+        {
+            groupplan = new List<GroupPlan>();
+            if (_connectionDB == null) { exception = "Подключение не установленно"; return false; }
+            try
+            {
+                var conn = new NpgsqlConnection(this._connectionDB.ConnectString);
+                conn.Open();
+                using (var cmd = new NpgsqlCommand($"SELECT * FROM get_styding_plans('{nameFaculty}','{department}','{specialABR}','{groupsStructure.YearCreate}','{groupsStructure.Subname}');", conn))
+                using (var reader = cmd.ExecuteReader())
+                    while (reader.Read())
+                    {
+                        groupplan.Add(new GroupPlan()
+                        {
+                            startSession = reader.GetDateTime(2),
+                            EndSession = reader.GetDateTime(3),
+                            startStudy = reader.GetDateTime(0),
+                            EndStudy = reader.GetDateTime(1)
+                        });
+                    }
                 conn.Close();
                 return true;
             }

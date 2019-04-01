@@ -12,7 +12,7 @@
  Target Server Version : 90612
  File Encoding         : 65001
 
- Date: 01/04/2019 18:53:33
+ Date: 01/04/2019 19:20:33
 */
 
 
@@ -701,6 +701,20 @@ $BODY$
   ROWS 1000;
 
 -- ----------------------------
+-- Function structure for get_styding_plans
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."get_styding_plans"("namefaculty" text, "namedepartment" text, "spec" text, "year_gr" int4, "sub_gr" text);
+CREATE OR REPLACE FUNCTION "public"."get_styding_plans"("namefaculty" text, "namedepartment" text, "spec" text, "year_gr" int4, "sub_gr" text)
+  RETURNS TABLE("DateStartStuding" text, "DateEndStuding" text, "DateStartSession" text, "DateEndSession" text) AS $BODY$BEGIN
+	RETURN query SELECT "stadyingPlan"."DateStartStuding","stadyingPlan"."DateEndStuding","stadyingPlan"."DateStartSession","stadyingPlan"."DateEndSession" FROM(SELECT groups."ID_GROUP" FROM (SELECT specialty."ID_SPECIALTY" FROM(SELECT department."ID_DEPARTMENT" FROM (SELECT faculty."ID_FACULTY" FROM faculty WHERE faculty."Name_Faculty"=namefaculty LIMIT 1) as id_fac INNER JOIN department on department.id_faculty=id_fac."ID_FACULTY" WHERE department."Name_Department"=namedepartment) as dep INNER JOIN specialty on specialty.id_department=dep."ID_DEPARTMENT" WHERE specialty."Abbreviation_Specialty"=spec)as sp INNER JOIN groups on groups.id_specialty=sp."ID_SPECIALTY" WHERE groups."Sub_Name_Group"=sub and groups."Year_Of_Entry"=year_gr)as gr INNER JOIN "stadyingPlan" on "stadyingPlan".id_group=gr."ID_GROUP";
+
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100
+  ROWS 1000;
+
+-- ----------------------------
 -- Function structure for getalldepartmentnames
 -- ----------------------------
 DROP FUNCTION IF EXISTS "public"."getalldepartmentnames"("namefaculty" text);
@@ -835,11 +849,11 @@ IF NOT FOUND THEN
     RETURN 'Специальность не существует';
 END IF;
 
-If EXISTS(SELECT * FROM groups WHERE groups."Sub_Name_Group"=sub and groups.id_specialty=IDSPEC and groups."Year_Of_Entry"=yea) THEN
+If EXISTS(SELECT * FROM groups WHERE "Sub_Name_Group"=sub and groups.id_specialty=IDSPEC and "Year_Of_Entry"=yea) THEN
 	RETURN 'Группа уже существует';
 END IF;
 
-INSERT INTO groups (groups.id_specialty,groups."Sub_Name_Group",groups."Year_Of_Entry") VALUES (IDSPEC, sub,yea);
+INSERT INTO groups (id_specialty,"Sub_Name_Group","Year_Of_Entry") VALUES (IDSPEC, sub,yea);
 RETURN 'Success';
 
 END
