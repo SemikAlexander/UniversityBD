@@ -80,11 +80,13 @@ namespace UniversityMain
         private void button7_Click(object sender, EventArgs e)
         {
             /*Пока так. Как только будут готовы функции - изменю.*/
-            new ShowGroups().Show();
+            new ShowGroups(connectionDB).Show();
+            Close();
         }
         private void button6_Click(object sender, EventArgs e)
         {
             new Teachers(connectionDB).Show();
+            Close();
         }
         private void button4_Click(object sender, EventArgs e)
         {

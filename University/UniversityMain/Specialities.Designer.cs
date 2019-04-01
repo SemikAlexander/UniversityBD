@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Specialities));
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -57,7 +57,6 @@
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.NameSpecialities = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Dep = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Abbreviation = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cipher = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DeleteSpeciality = new System.Windows.Forms.DataGridViewButtonColumn();
@@ -78,7 +77,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1061, 44);
+            this.panel1.Size = new System.Drawing.Size(766, 44);
             this.panel1.TabIndex = 3;
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
             // 
@@ -107,7 +106,7 @@
             this.panel2.Controls.Add(this.button2);
             this.panel2.Controls.Add(this.button1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel2.Location = new System.Drawing.Point(988, 0);
+            this.panel2.Location = new System.Drawing.Point(693, 0);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(73, 44);
             this.panel2.TabIndex = 1;
@@ -142,18 +141,17 @@
             this.SpecialitiesInfo.AllowUserToDeleteRows = false;
             this.SpecialitiesInfo.BackgroundColor = System.Drawing.Color.White;
             this.SpecialitiesInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.SpecialitiesInfo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.SpecialitiesInfo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.SpecialitiesInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.SpecialitiesInfo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.NameSpecialities,
-            this.Dep,
             this.Abbreviation,
             this.Cipher,
             this.DeleteSpeciality,
@@ -161,10 +159,10 @@
             this.SpecialitiesInfo.Location = new System.Drawing.Point(2, 44);
             this.SpecialitiesInfo.Name = "SpecialitiesInfo";
             this.SpecialitiesInfo.ReadOnly = true;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.SpecialitiesInfo.RowsDefaultCellStyle = dataGridViewCellStyle2;
-            this.SpecialitiesInfo.Size = new System.Drawing.Size(1061, 297);
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.SpecialitiesInfo.RowsDefaultCellStyle = dataGridViewCellStyle6;
+            this.SpecialitiesInfo.Size = new System.Drawing.Size(766, 297);
             this.SpecialitiesInfo.TabIndex = 4;
             this.SpecialitiesInfo.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.SpecialitiesInfo_CellContentClick);
             // 
@@ -184,7 +182,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel3.Location = new System.Drawing.Point(0, 406);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1061, 215);
+            this.panel3.Size = new System.Drawing.Size(766, 215);
             this.panel3.TabIndex = 5;
             // 
             // button5
@@ -193,11 +191,12 @@
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button5.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button5.Image = global::UniversityMain.Properties.Resources.OK;
-            this.button5.Location = new System.Drawing.Point(1008, 166);
+            this.button5.Location = new System.Drawing.Point(712, 166);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(50, 46);
             this.button5.TabIndex = 17;
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // FacultyBox
             // 
@@ -207,6 +206,7 @@
             this.FacultyBox.Name = "FacultyBox";
             this.FacultyBox.Size = new System.Drawing.Size(418, 25);
             this.FacultyBox.TabIndex = 12;
+            this.FacultyBox.SelectedIndexChanged += new System.EventHandler(this.FacultyBox_SelectedIndexChanged);
             // 
             // label3
             // 
@@ -317,7 +317,7 @@
             this.DownButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.DownButton.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.DownButton.Image = ((System.Drawing.Image)(resources.GetObject("DownButton.Image")));
-            this.DownButton.Location = new System.Drawing.Point(1033, 344);
+            this.DownButton.Location = new System.Drawing.Point(738, 344);
             this.DownButton.Name = "DownButton";
             this.DownButton.Size = new System.Drawing.Size(24, 23);
             this.DownButton.TabIndex = 19;
@@ -329,7 +329,7 @@
             this.UpButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.UpButton.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.UpButton.Image = global::UniversityMain.Properties.Resources.UP;
-            this.UpButton.Location = new System.Drawing.Point(1003, 344);
+            this.UpButton.Location = new System.Drawing.Point(708, 344);
             this.UpButton.Name = "UpButton";
             this.UpButton.Size = new System.Drawing.Size(24, 23);
             this.UpButton.TabIndex = 18;
@@ -344,6 +344,7 @@
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(418, 25);
             this.comboBox2.TabIndex = 21;
+            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
             // 
             // label8
             // 
@@ -361,13 +362,6 @@
             this.NameSpecialities.Name = "NameSpecialities";
             this.NameSpecialities.ReadOnly = true;
             this.NameSpecialities.Width = 300;
-            // 
-            // Dep
-            // 
-            this.Dep.HeaderText = "Кафедра";
-            this.Dep.Name = "Dep";
-            this.Dep.ReadOnly = true;
-            this.Dep.Width = 300;
             // 
             // Abbreviation
             // 
@@ -403,7 +397,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1061, 621);
+            this.ClientSize = new System.Drawing.Size(766, 621);
             this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.DownButton);
@@ -458,7 +452,6 @@
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.DataGridViewTextBoxColumn NameSpecialities;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Dep;
         private System.Windows.Forms.DataGridViewTextBoxColumn Abbreviation;
         private System.Windows.Forms.DataGridViewTextBoxColumn Cipher;
         private System.Windows.Forms.DataGridViewButtonColumn DeleteSpeciality;

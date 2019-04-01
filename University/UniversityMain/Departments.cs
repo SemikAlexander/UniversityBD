@@ -69,7 +69,6 @@ namespace UniversityMain
             foreach (var dep in departmentsStructures)
                 DepartmentInfo.Rows.Add(dep.Name_Department, dep.Housing, dep.Num_Classroom);
         }
-
         private void panel1_MouseDown(object sender, MouseEventArgs e)
         {
             ReleaseCapture();
@@ -77,8 +76,15 @@ namespace UniversityMain
         }
         private void HousingBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Logics.Books.Classroom classroom = new Logics.Books.Classroom(connectionDB);
-            /*Ф-я вывода всех аудиторий*/
+            if (HousingBox.SelectedItem != null)
+            {
+                Logics.Books.Classroom classroom = new Logics.Books.Classroom(connectionDB);
+                List<int> classes = new List<int>();
+                ClassroomBox.Items.Clear();
+                classroom.GetAllClass(int.Parse(HousingBox.SelectedItem.ToString()), out classes);
+                foreach (var cl in classes)
+                    ClassroomBox.Items.Add(cl);
+            }
         }
         private void button5_Click(object sender, EventArgs e)
         {

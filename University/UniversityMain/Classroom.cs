@@ -102,7 +102,7 @@ namespace UniversityMain
         private void ClassroomInfo_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var senderGrid = (DataGridView)sender;
-            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn & senderGrid.Columns[e.ColumnIndex].Name == "DeleteH" && e.RowIndex >= 0)
             {
                 int ID_Delete = (int)ClassroomInfo.Rows[e.RowIndex].Cells[0].Value;
                 classroom.DeleteClass(ID_Delete);
