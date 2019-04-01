@@ -12,7 +12,7 @@
  Target Server Version : 90612
  File Encoding         : 65001
 
- Date: 01/04/2019 19:58:30
+ Date: 01/04/2019 20:15:48
 */
 
 
@@ -467,8 +467,8 @@ INSERT INTO "public"."week" VALUES (10, 'Воскресенье', 'V');
 -- ----------------------------
 -- Function structure for add_styding_plans
 -- ----------------------------
-DROP FUNCTION IF EXISTS "public"."add_styding_plans"("namefaculty" text, "namedepartment" text, "spec" text, "year_gr" int4, "sub_gr" text, "startstudy" date, "endstudy" date, "startsession" date, "endsession" date);
-CREATE OR REPLACE FUNCTION "public"."add_styding_plans"("namefaculty" text, "namedepartment" text, "spec" text, "year_gr" int4, "sub_gr" text, "startstudy" date, "endstudy" date, "startsession" date, "endsession" date)
+DROP FUNCTION IF EXISTS "public"."add_styding_plans"("namefaculty" text, "namedepartment" text, "spec" text, "year_gr" int4, "sub_gr" text, "startstuding" date, "endstuding" date, "startsession" date, "endsession" date);
+CREATE OR REPLACE FUNCTION "public"."add_styding_plans"("namefaculty" text, "namedepartment" text, "spec" text, "year_gr" int4, "sub_gr" text, "startstuding" date, "endstuding" date, "startsession" date, "endsession" date)
   RETURNS "pg_catalog"."text" AS $BODY$
 	DECLARE
 	IDDEPARTMENT INTEGER :=0;
@@ -496,58 +496,19 @@ IF NOT FOUND THEN
 	RETURN 'Группа не существует';
 END IF;
 
-IF EXISTS(SELECT * FROM "stadyingPlan" WHERE "DateStartStuding"=startstudy and "DateEndStuding"=endstudy and "DateStartSession"=startsession and "DateEndSession"=endsession ) THEN
-	RETURN 'Учебный план существует';
-END IF;
-INSERT INTO "stadyingPlan" ("DateEndSession","DateEndStuding","DateStartSession","DateStartStuding",id_group) VALUES (endsession,endstudy,startsession,startstudy,IDGROUP);
-RETURN 'Success';
-
-END
-$BODY$
-  LANGUAGE plpgsql VOLATILE
-  COST 100;
-
--- ----------------------------
--- Function structure for add_styding_plans
--- ----------------------------
-DROP FUNCTION IF EXISTS "public"."add_styding_plans"("namefaculty" text, "namedepartment" text, "spec" text, "year_gr" int4, "sub_gr" text);
-CREATE OR REPLACE FUNCTION "public"."add_styding_plans"("namefaculty" text, "namedepartment" text, "spec" text, "year_gr" int4, "sub_gr" text)
-  RETURNS "pg_catalog"."text" AS $BODY$
-	DECLARE
-	IDDEPARTMENT INTEGER :=0;
-	IDFACULTY INTEGER := 0;
-	IDSPEC INTEGER := 0;
-	IDGROUP INTEGER := 0;
-	BEGIN 
-SELECT "ID_FACULTY" FROM faculty INTO IDFACULTY WHERE "Name_Faculty"=namefaculty LIMIT 1;
- IF not FOUND THEN
- RETURN 'Факультет не найден';
+IF EXISTS (SELECT
+FROM
+"stadyingPlan"
+WHERE
+id_group=IDGROUP AND
+"DateStartStuding"=startstuding AND
+"DateEndStuding"=endstuding AND
+"DateStartSession"=startsession AND
+"DateEndSession" =endsession ) THEN
+	RETURN 'План уже существует';
 END IF;
 
-SELECT department."ID_DEPARTMENT" From department WHERE  department."Name_Department"=namedepartment and IDFACULTY=department.id_faculty LIMIT 1 INTO IDDEPARTMENT;
-IF NOT FOUND THEN
-    RETURN 'Кафедра не существует';
-END IF;
-
-SELECT specialty."ID_SPECIALTY" From specialty WHERE specialty."Abbreviation_Specialty"=abbreviationspecialty or specialty."Abbreviation_Specialty"=abbreviationspecialty INTO IDSPEC;
-IF NOT FOUND THEN
-    RETURN 'Специальность не существует';
-END IF;
-
-SELECT "ID_GROUP" FROM groups WHERE "Sub_Name_Group"=sub and groups.id_specialty=IDSPEC and "Year_Of_Entry"=yea INTO IDGROUP;
-IF NOT FOUND THEN
-	RETURN 'Группа не существует';
-END IF;
-
-SELECT "ID_GROUP" FROM groups WHERE "Sub_Name_Group"=sub and groups.id_specialty=IDSPEC and "Year_Of_Entry"=yea INTO IDGROUP;
-IF NOT FOUND THEN
-	RETURN 'Группа не существует';
-END IF;
-
-
-
-
-INSERT INTO groups (id_specialty,"Sub_Name_Group","Year_Of_Entry") VALUES (IDSPEC, sub,yea);
+INSERT INTO "stadyingPlan" (id_group,"DateStartStuding","DateEndStuding","DateStartSession","DateEndSession") VALUES (IDGROUP,startstuding, endstuding, startsession, endsession);
 
 
 RETURN 'Success';
@@ -630,6 +591,55 @@ $BODY$
   LANGUAGE plpgsql VOLATILE
   COST 100
   ROWS 1000;
+
+-- ----------------------------
+-- Function structure for del_styding_plans
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."del_styding_plans"("namefaculty" text, "namedepartment" text, "spec" text, "year_gr" int4, "sub_gr" text, "startstuding" date, "endstuding" date, "startsession" date, "endsession" date);
+CREATE OR REPLACE FUNCTION "public"."del_styding_plans"("namefaculty" text, "namedepartment" text, "spec" text, "year_gr" int4, "sub_gr" text, "startstuding" date, "endstuding" date, "startsession" date, "endsession" date)
+  RETURNS "pg_catalog"."text" AS $BODY$
+	DECLARE
+	IDDEPARTMENT INTEGER :=0;
+	IDFACULTY INTEGER := 0;
+	IDSPEC INTEGER := 0;
+	IDGROUP INTEGER := 0;
+	BEGIN 
+SELECT "ID_FACULTY" FROM faculty INTO IDFACULTY WHERE "Name_Faculty"=namefaculty LIMIT 1;
+ IF not FOUND THEN
+ RETURN 'Факультет не найден';
+END IF;
+
+SELECT department."ID_DEPARTMENT" From department WHERE  department."Name_Department"=namedepartment and IDFACULTY=department.id_faculty LIMIT 1 INTO IDDEPARTMENT;
+IF NOT FOUND THEN
+    RETURN 'Кафедра не существует';
+END IF;
+
+SELECT specialty."ID_SPECIALTY" From specialty WHERE specialty."Abbreviation_Specialty"=abbreviationspecialty or specialty."Abbreviation_Specialty"=abbreviationspecialty INTO IDSPEC;
+IF NOT FOUND THEN
+    RETURN 'Специальность не существует';
+END IF;
+
+SELECT "ID_GROUP" FROM groups WHERE "Sub_Name_Group"=sub and groups.id_specialty=IDSPEC and "Year_Of_Entry"=yea INTO IDGROUP;
+IF NOT FOUND THEN
+	RETURN 'Группа не существует';
+END IF;
+
+DELETE
+FROM
+"stadyingPlan"
+WHERE
+id_group=IDGROUP AND
+"DateStartStuding"=startstuding AND
+"DateEndStuding"=endstuding AND
+"DateStartSession"=startsession AND
+"DateEndSession" =endsession;
+
+RETURN 'Success';
+
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
 
 -- ----------------------------
 -- Function structure for department_add
