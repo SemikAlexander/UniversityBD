@@ -19,6 +19,7 @@ namespace UniversityMain
         private extern static void SendMessage(System.IntPtr hwnd, int wmsg, int wparam, int lparam);
         List<Logics.MainTable.Speciality.SpecialtyStructure> specialtyStructures = new List<Logics.MainTable.Speciality.SpecialtyStructure>();
         Logics.Functions.Connection.ConnectionDB connectionDB;
+        Logics.MainTable.Speciality.SpecialtyStructure structure;
         Logics.MainTable.Speciality speciality;
         int StartRow = 0;
         public Specialities(Logics.Functions.Connection.ConnectionDB connection)
@@ -34,7 +35,10 @@ namespace UniversityMain
             List<Logics.Books.Faculty.StructFaculty> structFaculties = new List<Logics.Books.Faculty.StructFaculty>();
             faculty.GetAllFaculty(out structFaculties);
             foreach (var fac in structFaculties)
+            {
+                comboBox1.Items.Add(fac.Name);
                 FacultyBox.Items.Add(fac.Name);
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -67,23 +71,78 @@ namespace UniversityMain
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SpecialitiesInfo.Rows.Clear();
-            speciality.GetSpeciality(comboBox1.SelectedItem.ToString(), comboBox2.SelectedItem.ToString(), StartRow, 20, out specialtyStructures);
-            foreach (var spec in specialtyStructures)
-                SpecialitiesInfo.Rows.Add(spec.Name_Specialty, spec.Abbreviation_Specialty, spec.Cipher_Specialty);
+            if (comboBox1.SelectedItem != null)
+            {
+                Logics.MainTable.Departments departments = new Logics.MainTable.Departments(connectionDB);
+                List<string> departments_name = new List<string>();
+                comboBox2.Items.Clear();
+                departments.GetAllDepartmentNames(comboBox1.SelectedItem.ToString(), out departments_name);
+                foreach (var d_n in departments_name)
+                    comboBox2.Items.Add(d_n);
+            }
         }
         private void SpecialitiesInfo_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var senderGrid = (DataGridView)sender;
             if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn & senderGrid.Columns[e.ColumnIndex].Name == "DeleteSpeciality" & e.RowIndex >= 0)
             {
-                //string DelDep = (string)DepartmentInfo.Rows[e.RowIndex].Cells[0].Value;
-                //string DelFac = OutputFacultyBox.SelectedItem.ToString();
-                //departments.Delete(DelDep, DelFac);
-                //DepartmentInfo.Rows.Clear();
-                //departments.GetDepartments(OutputFacultyBox.SelectedItem.ToString(), StartRow, 20, out departmentsStructures);
-                //foreach (var dep in departmentsStructures)
-                //    DepartmentInfo.Rows.Add(dep.Name_Department, dep.Housing, dep.Num_Classroom);
+                string DelDep = comboBox2.SelectedItem.ToString();
+                string DelFac = comboBox1.SelectedItem.ToString();
+                string DelAbrv= (string)SpecialitiesInfo.Rows[e.RowIndex].Cells[1].Value;
+                speciality.Delete(DelDep, DelFac, DelAbrv);
+                SpecialitiesInfo.Rows.Clear();
+                speciality.GetSpeciality(comboBox1.SelectedItem.ToString(), comboBox2.SelectedItem.ToString(), StartRow, 20, out specialtyStructures);
+                foreach (var spec in specialtyStructures)
+                    SpecialitiesInfo.Rows.Add(spec.Name_Specialty, spec.Abbreviation_Specialty, spec.Cipher_Specialty);
+            }
+        }
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox2.SelectedItem != null)
+            {
+                SpecialitiesInfo.Rows.Clear();
+                speciality.GetSpeciality(comboBox1.SelectedItem.ToString(), comboBox2.SelectedItem.ToString(), StartRow, 20, out specialtyStructures);
+                foreach (var spec in specialtyStructures)
+                    SpecialitiesInfo.Rows.Add(spec.Name_Specialty, spec.Abbreviation_Specialty, spec.Cipher_Specialty);
+            }
+        }
+
+        private void FacultyBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (FacultyBox.SelectedItem != null)
+            {
+                Logics.MainTable.Departments departments = new Logics.MainTable.Departments(connectionDB);
+                List<string> departments_name = new List<string>();
+                DepartmentBox.Items.Clear();
+                departments.GetAllDepartmentNames(comboBox1.SelectedItem.ToString(), out departments_name);
+                foreach (var d_n in departments_name)
+                    DepartmentBox.Items.Add(d_n);
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            if (InputNameSpeciality.Text.Trim(' ').Length != 0 & textBox1.Text.Trim(' ').Length != 0 & textBox2.Text.Trim(' ').Length != 0 & FacultyBox.SelectedItem!=null & DepartmentBox.SelectedItem != null)
+            {
+                structure.Name_Specialty = InputNameSpeciality.Text;
+                structure.Abbreviation_Specialty = textBox1.Text;
+                structure.Cipher_Specialty = textBox2.Text;
+                if (!speciality.Add(structure, FacultyBox.SelectedItem.ToString(), DepartmentBox.SelectedItem.ToString()))
+                {
+                    MessageBox.Show(speciality.exception, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                else
+                {
+                    SpecialitiesInfo.Rows.Clear();
+                    InputNameSpeciality.Clear();
+                    textBox1.Clear();
+                    textBox2.Clear();
+                    FacultyBox.SelectedItem = DepartmentBox.SelectedItem = null;
+                    speciality.GetSpeciality(comboBox1.SelectedItem.ToString(), comboBox2.SelectedItem.ToString(), StartRow, 20, out specialtyStructures);
+                    foreach (var spec in specialtyStructures)
+                        SpecialitiesInfo.Rows.Add(spec.Name_Specialty, spec.Abbreviation_Specialty, spec.Cipher_Specialty);
+                }
             }
         }
     }
