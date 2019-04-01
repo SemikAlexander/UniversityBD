@@ -12,7 +12,7 @@
  Target Server Version : 90612
  File Encoding         : 65001
 
- Date: 31/03/2019 17:20:59
+ Date: 01/04/2019 18:26:44
 */
 
 
@@ -304,7 +304,7 @@ CREATE TABLE "public"."groups" (
   "ID_GROUP" int4 NOT NULL DEFAULT nextval('"groups_ID_GROUP_seq"'::regclass),
   "id_specialty" int4 NOT NULL,
   "Year_Of_Entry" int4 NOT NULL,
-  "Sub_Name_Group" char(1) COLLATE "pg_catalog"."default" NOT NULL
+  "Sub_Name_Group" text COLLATE "pg_catalog"."default" NOT NULL
 )
 ;
 
@@ -682,6 +682,20 @@ $BODY$
   ROWS 1000;
 
 -- ----------------------------
+-- Function structure for get_groups
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."get_groups"("faculty" text, "depar" text, "spec" text);
+CREATE OR REPLACE FUNCTION "public"."get_groups"("faculty" text, "depar" text, "spec" text)
+  RETURNS TABLE("yea" int4, "sub" text) AS $BODY$BEGIN
+	RETURN query SELECT groups."Year_Of_Entry",groups."Sub_Name_Group" FROM (SELECT specialty."ID_SPECIALTY" FROM(SELECT department."ID_DEPARTMENT" FROM (SELECT faculty."ID_FACULTY" FROM faculty WHERE faculty."Name_Faculty"=namefaculty LIMIT 1) as id_fac INNER JOIN department on department.id_faculty=id_fac."ID_FACULTY" WHERE department."Name_Department"=namedepartment) as dep INNER JOIN specialty on specialty.id_department=dep."ID_DEPARTMENT" WHERE specialty."Abbreviation_Specialty"=specABR)as sp INNER JOIN groups on groups.id_specialty=sp."ID_SPECIALTY";
+
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100
+  ROWS 1000;
+
+-- ----------------------------
 -- Function structure for getalldepartmentnames
 -- ----------------------------
 DROP FUNCTION IF EXISTS "public"."getalldepartmentnames"("namefaculty" text);
@@ -764,6 +778,102 @@ $BODY$
   LANGUAGE plpgsql VOLATILE
   COST 100
   ROWS 1000;
+
+-- ----------------------------
+-- Function structure for gettimetable_basic
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."gettimetable_basic"("facult" text, "depar" text, "fio_teacher" text, "typeweek" bpchar);
+CREATE OR REPLACE FUNCTION "public"."gettimetable_basic"("facult" text, "depar" text, "fio_teacher" text, "typeweek" bpchar)
+  RETURNS TABLE("housing" int4, "numclass" int4, "num_lesson" int4, "namesubject" text, "nameday" text, "groups_year" int4, "groups_subname" text) AS $BODY$	
+	DECLARE 
+	DayName TEXT :='';
+	BEGIN
+	
+	
+	
+	
+	RETURN query SELECT * from (SELECT "timeTable"."Date","timeTable"."ID","timeTable"."Time","timeTable".id_classroom,"timeTable".num_lesson, "timeTable".type_subject,week."NameDay" from (SELECT teachers."ID_TEACHER" from (SELECT department."ID_DEPARTMENT" FROM (SELECT "ID_FACULTY" FROM faculty WHERE "Name_Faculty"=facultet) as facul INNER JOIN department on department.id_faculty=facul."ID_FACULTY" WHERE department."Name_Department"=departm) as dep INNER JOIN teachers on teachers.id_department=dep."ID_DEPARTMENT" WHERE teachers."Name_Teacher"=fio_teacher LIMIT 1) as teach INNER JOIN "subjectPay" on "subjectPay".id_teacher=teach."ID_TEACHER" INNER JOIN "timeTable" on "timeTable"."ID"="subjectPay".id_subject INNER JOIN week on week."ID_DAY"="timeTable".id_type_week WHERE week."TypeWeek"=typeweek) as ttw;
+
+	
+	
+
+	RETURN QUERY SELECT * FROM "timeTable";
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100
+  ROWS 1000;
+
+-- ----------------------------
+-- Function structure for group_add
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."group_add"("namefaculty" text, "namedepartment" text, "abbreviationspecialty" text, "yea" int4, "sub" text);
+CREATE OR REPLACE FUNCTION "public"."group_add"("namefaculty" text, "namedepartment" text, "abbreviationspecialty" text, "yea" int4, "sub" text)
+  RETURNS "pg_catalog"."text" AS $BODY$
+	DECLARE
+	IDDEPARTMENT INTEGER :=0;
+	IDFACULTY INTEGER := 0;
+	IDSPEC INTEGER := 0;
+	BEGIN 
+SELECT "ID_FACULTY" FROM faculty INTO IDFACULTY WHERE "Name_Faculty"=namefaculty LIMIT 1;
+ IF not FOUND THEN
+ RETURN 'Факультет не найден';
+END IF;
+
+SELECT department."ID_DEPARTMENT" From department WHERE  department."Name_Department"=namedepartment and IDFACULTY=department.id_faculty LIMIT 1 INTO IDDEPARTMENT;
+IF NOT FOUND THEN
+    RETURN 'Кафедра не существует';
+END IF;
+
+SELECT specialty."ID_SPECIALTY" From specialty WHERE specialty."Abbreviation_Specialty"=abbreviationspecialty or specialty."Abbreviation_Specialty"=abbreviationspecialty INTO IDSPEC;
+IF NOT FOUND THEN
+    RETURN 'Специальность не существует';
+END IF;
+
+If EXISTS(SELECT * FROM groups WHERE groups."Sub_Name_Group"=sub and groups.id_specialty=IDSPEC and groups."Year_Of_Entry"=yea) THEN
+	RETURN 'Группа уже существует';
+END IF;
+
+INSERT INTO groups (groups.id_specialty,groups."Sub_Name_Group",groups."Year_Of_Entry") VALUES (IDSPEC, sub,yea);
+RETURN 'Success';
+
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+-- ----------------------------
+-- Function structure for group_delete
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."group_delete"("namefaculty" text, "namedepartment" text, "abbreviationspecialty" text, "yea" int4, "sub" text);
+CREATE OR REPLACE FUNCTION "public"."group_delete"("namefaculty" text, "namedepartment" text, "abbreviationspecialty" text, "yea" int4, "sub" text)
+  RETURNS "pg_catalog"."text" AS $BODY$
+	DECLARE
+	IDDEPARTMENT INTEGER :=0;
+	IDFACULTY INTEGER := 0;
+	IDSPEC INTEGER := 0;
+	BEGIN 
+SELECT "ID_FACULTY" FROM faculty INTO IDFACULTY WHERE "Name_Faculty"=namefaculty LIMIT 1;
+ IF not FOUND THEN
+ RETURN 'Факультет не найден';
+END IF;
+
+SELECT department."ID_DEPARTMENT" From department WHERE  department."Name_Department"=namedepartment and IDFACULTY=department.id_faculty LIMIT 1 INTO IDDEPARTMENT;
+IF NOT FOUND THEN
+    RETURN 'Кафедра не существует';
+END IF;
+
+SELECT specialty."ID_SPECIALTY" From specialty WHERE specialty."Abbreviation_Specialty"=abbreviationspecialty or specialty."Abbreviation_Specialty"=abbreviationspecialty INTO IDSPEC;
+IF NOT FOUND THEN
+    RETURN 'Специальность не существует';
+END IF;
+
+DELETE FROM groups WHERE groups."Sub_Name_Group"=sub and groups.id_specialty=IDSPEC and groups."Year_Of_Entry"=yea;
+
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
 
 -- ----------------------------
 -- Function structure for position_add
