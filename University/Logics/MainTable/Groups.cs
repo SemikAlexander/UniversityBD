@@ -9,7 +9,7 @@ namespace Logics.MainTable
     {
         public struct GroupsStructure
         {
-            public string YearCreate, Subname;
+            public int YearCreate;public string Subname;
         }
 
         #region Variable
@@ -26,13 +26,13 @@ namespace Logics.MainTable
             {
                 var conn = new NpgsqlConnection(this._connectionDB.ConnectString);
                 conn.Open();
-                using (var cmd = new NpgsqlCommand($"SELECT * FROM getallgroupsnames('{nameFaculty}','{department}','{specialABR}');", conn))
+                using (var cmd = new NpgsqlCommand($"SELECT * FROM get_groups('{nameFaculty}','{department}','{specialABR}');", conn))
                 using (var reader = cmd.ExecuteReader())
                     while (reader.Read())
                     {
                         specialtyStructures.Add(new GroupsStructure()
                         {
-                            YearCreate = reader.GetString(0),
+                            YearCreate = reader.GetInt32(0),
                             Subname = reader.GetString(1)
                         });
                     }
@@ -46,14 +46,14 @@ namespace Logics.MainTable
             }
         }
 
-        public bool Add(GroupsStructure specialtyStructure,string faculty,string department,string special)
+        public bool Add(GroupsStructure groupStructure,string faculty,string department,string special)
         {
             if (_connectionDB == null) { exception = "Подключение не установленно"; return false; }
             try
             {
                 var conn = new NpgsqlConnection(this._connectionDB.ConnectString);
                 conn.Open();
-                string sql =$"SELECT * from group_add('{faculty}','{department}','{special}','{specialtyStructure.YearCreate}','{specialtyStructure.Subname}');";
+                string sql =$"SELECT * from group_add('{faculty}','{department}','{special}',{groupStructure.YearCreate},'{groupStructure.Subname}');";
                 using (var cmd = new NpgsqlCommand(sql, conn))
                 using (var reader = cmd.ExecuteReader())
                     if (reader.Read())
@@ -80,7 +80,7 @@ namespace Logics.MainTable
                 using (var cmd = new NpgsqlCommand())
                 {
                     cmd.Connection = conn;
-                    cmd.CommandText = $"SELECT * from group_delete('{faculty}','{department}','{abbreviature}','{groupsStructure.YearCreate}','{groupsStructure.Subname}');";
+                    cmd.CommandText = $"SELECT * from group_delete('{faculty}','{department}','{abbreviature}',{groupsStructure.YearCreate},'{groupsStructure.Subname}');";
                     using (var reader = cmd.ExecuteReader())
                         if (reader.Read())
                         {
