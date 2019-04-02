@@ -56,7 +56,7 @@ namespace Logics.MainTable
             {
                 var conn = new NpgsqlConnection(this._connectionDB.ConnectString);
                 conn.Open();
-                string sql = $"SELECT * from teachers_add('{faculty}','{department}','{specialtyStructure.nameteacher}','{specialtyStructure.emaildata}',{specialtyStructure.rating},{specialtyStructure.hourlypayment},{specialtyStructure.nameposition});";
+                string sql = $"SELECT * from teachers_add('{faculty}','{department}','{specialtyStructure.nameteacher}','{specialtyStructure.emaildata}',{specialtyStructure.rating},{specialtyStructure.hourlypayment},'{specialtyStructure.nameposition}');";
                 using (var cmd = new NpgsqlCommand(sql, conn))
                 using (var reader = cmd.ExecuteReader())
                     if (reader.Read())

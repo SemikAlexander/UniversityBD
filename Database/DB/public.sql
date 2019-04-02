@@ -12,7 +12,7 @@
  Target Server Version : 90612
  File Encoding         : 65001
 
- Date: 01/04/2019 20:15:48
+ Date: 02/04/2019 08:33:52
 */
 
 
@@ -345,6 +345,11 @@ CREATE TABLE "public"."position" (
 ;
 
 -- ----------------------------
+-- Records of position
+-- ----------------------------
+INSERT INTO "public"."position" VALUES (13, 'dsadsa');
+
+-- ----------------------------
 -- Table structure for specialty
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."specialty";
@@ -402,6 +407,12 @@ CREATE TABLE "public"."teachers" (
   "Hourly_Payment" float4 NOT NULL
 )
 ;
+
+-- ----------------------------
+-- Records of teachers
+-- ----------------------------
+INSERT INTO "public"."teachers" VALUES (4, 'sa', 13, 4, 'aaa', 21, 12);
+INSERT INTO "public"."teachers" VALUES (5, 'sa', 13, 4, 'aaa', 21, 12);
 
 -- ----------------------------
 -- Table structure for timeTable
@@ -1144,8 +1155,8 @@ $BODY$
 -- ----------------------------
 -- Function structure for teachers_add
 -- ----------------------------
-DROP FUNCTION IF EXISTS "public"."teachers_add"("namefaculty" text, "namedepartment" text, "nameteacher" text, "emailteacher" text, "rateteacher" text, "hourlypayment" text, "nameposition" text);
-CREATE OR REPLACE FUNCTION "public"."teachers_add"("namefaculty" text, "namedepartment" text, "nameteacher" text, "emailteacher" text, "rateteacher" text, "hourlypayment" text, "nameposition" text)
+DROP FUNCTION IF EXISTS "public"."teachers_add"("namefaculty" text, "namedepartment" text, "nameteacher" text, "emailteacher" text, "rateteacher" float8, "hourlypayment" float8, "nameposition" text);
+CREATE OR REPLACE FUNCTION "public"."teachers_add"("namefaculty" text, "namedepartment" text, "nameteacher" text, "emailteacher" text, "rateteacher" float8, "hourlypayment" float8, "nameposition" text)
   RETURNS "pg_catalog"."text" AS $BODY$
 	DECLARE
 	IDDEPARTMENT INTEGER :=0;
@@ -1351,7 +1362,7 @@ OWNED BY "public"."groups"."ID_GROUP";
 SELECT setval('"public"."groups_ID_GROUP_seq"', 6, true);
 ALTER SEQUENCE "public"."position_ID_POSITION_seq"
 OWNED BY "public"."position"."ID_POSITION";
-SELECT setval('"public"."position_ID_POSITION_seq"', 13, true);
+SELECT setval('"public"."position_ID_POSITION_seq"', 14, true);
 ALTER SEQUENCE "public"."specialty_ID_SPECIALTY_seq"
 OWNED BY "public"."specialty"."ID_SPECIALTY";
 SELECT setval('"public"."specialty_ID_SPECIALTY_seq"', 5, true);
@@ -1360,7 +1371,7 @@ OWNED BY "public"."stadyingPlan"."ID_SETTING";
 SELECT setval('"public"."stadyingPlan_ID_SETTING_seq"', 5, false);
 ALTER SEQUENCE "public"."teachers_ID_TEACHER_seq"
 OWNED BY "public"."teachers"."ID_TEACHER";
-SELECT setval('"public"."teachers_ID_TEACHER_seq"', 5, false);
+SELECT setval('"public"."teachers_ID_TEACHER_seq"', 6, true);
 ALTER SEQUENCE "public"."timeTable_ID_seq"
 OWNED BY "public"."timeTable"."ID";
 SELECT setval('"public"."timeTable_ID_seq"', 5, false);
