@@ -27,7 +27,6 @@ namespace UniversityMain
             connectionDB = connection;
             teachers = new Logics.MainTable.Teachers(connection);
         }
-
         #region Design
         private void button2_Click(object sender, EventArgs e)
         {
@@ -93,28 +92,37 @@ namespace UniversityMain
         {
             if(textBox3.Text.Length!=0 & InputRating.Text.Length!=0 & FacultyInputBox.SelectedItem!=null & DepartmentInputBox.SelectedItem!=null & textBox1.Text.Length!=0 & EmailTeacher.Text.Length!=0 & PositionBox.SelectedItem != null)
             {
-                structure.nameteacher = textBox1.Text;
-                structure.nameposition = PositionBox.SelectedItem.ToString();
-                structure.emaildata = EmailTeacher.Text;
-                structure.rating = float.Parse(InputRating.Text);
-                structure.hourlypayment = float.Parse(textBox3.Text);
-                if (teachers.Add(structure, FacultyInputBox.SelectedItem.ToString(), DepartmentInputBox.SelectedItem.ToString()))
+
+                if (IsValidEmail(EmailTeacher.Text))
                 {
-                    textBox3.Clear();
-                    InputRating.Clear();
-                    FacultyInputBox.SelectedItem = null;
-                    DepartmentInputBox.SelectedItem = null;
-                    textBox1.Clear();
-                    EmailTeacher.Clear();
-                    PositionBox.SelectedItem = null;
-                    TeacherInfo.Rows.Clear();
-                    teachers.GetTeachers(FacultyBox.SelectedItem.ToString(), DepartmentBox.SelectedItem.ToString(), out teachersStructures);
-                    foreach (var teach in teachersStructures)
-                        TeacherInfo.Rows.Add(teach.nameteacher, teach.nameposition, teach.emaildata);
+                    structure.nameteacher = textBox1.Text;
+                    structure.nameposition = PositionBox.SelectedItem.ToString();
+                    structure.emaildata = EmailTeacher.Text;
+                    structure.rating = float.Parse(InputRating.Text);
+                    structure.hourlypayment = float.Parse(textBox3.Text);
+                    if (teachers.Add(structure, FacultyInputBox.SelectedItem.ToString(), DepartmentInputBox.SelectedItem.ToString()))
+                    {
+                        textBox3.Clear();
+                        InputRating.Clear();
+                        FacultyInputBox.SelectedItem = null;
+                        DepartmentInputBox.SelectedItem = null;
+                        textBox1.Clear();
+                        EmailTeacher.Clear();
+                        PositionBox.SelectedItem = null;
+                        TeacherInfo.Rows.Clear();
+                        teachers.GetTeachers(FacultyBox.SelectedItem.ToString(), DepartmentBox.SelectedItem.ToString(), out teachersStructures);
+                        foreach (var teach in teachersStructures)
+                            TeacherInfo.Rows.Add(teach.nameteacher, teach.nameposition, teach.emaildata);
+                    }
+                    else
+                    {
+                        MessageBox.Show(teachers.exception, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
                 else
                 {
-                    MessageBox.Show(teachers.exception, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Email неверный!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
             }
@@ -131,12 +139,27 @@ namespace UniversityMain
         }
         private void FacultyInputBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DepartmentInputBox.Items.Clear();
-            Logics.MainTable.Departments departments = new Logics.MainTable.Departments(connectionDB);
-            List<string> departmentsName = new List<string>();
-            departments.GetAllDepartmentNames(FacultyInputBox.SelectedItem.ToString(), out departmentsName);
-            foreach (var dep in departmentsName)
-                DepartmentInputBox.Items.Add(dep);
+            if (FacultyInputBox.SelectedItem != null)
+            {
+                DepartmentInputBox.Items.Clear();
+                Logics.MainTable.Departments departments = new Logics.MainTable.Departments(connectionDB);
+                List<string> departmentsName = new List<string>();
+                departments.GetAllDepartmentNames(FacultyInputBox.SelectedItem.ToString(), out departmentsName);
+                foreach (var dep in departmentsName)
+                    DepartmentInputBox.Items.Add(dep);
+            }
+        }
+        bool IsValidEmail(string email)
+        {
+            try
+            {
+                var adress = new System.Net.Mail.MailAddress(email);
+                return adress.Address == email;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }
