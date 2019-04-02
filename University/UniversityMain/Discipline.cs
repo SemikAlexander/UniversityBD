@@ -87,7 +87,6 @@ namespace UniversityMain
                 }
                 else
                 {
-                    MessageBox.Show("Данные успешно добавлены!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     InputDiscipline.Clear();
                     DisciplineInfo.Rows.Clear();
                     discipline.GetAllDiscipline(FacultyBox.SelectedItem.ToString(), DepartmentBox.SelectedItem.ToString(), StartRow, 20, out structDisciplines);

@@ -16,8 +16,9 @@ namespace UniversityMain
         [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
         private extern static void ReleaseCapture();
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
-        private extern static void SendMessage(System.IntPtr hwnd, int wmsg, int wparam, int lparam);
+        private extern static void SendMessage(System.IntPtr hwnd, int wmsg, int wparam, int lparam);       
         Logics.MainTable.Teachers teachers;
+        public List<string> teacherDiscipline = new List<string>();
         Logics.Functions.Connection.ConnectionDB connectionDB;
         Logics.MainTable.Teachers.TeachersStructure structure;
         List<Logics.MainTable.Teachers.TeachersStructure> teachersStructures = new List<Logics.MainTable.Teachers.TeachersStructure>();
@@ -61,19 +62,25 @@ namespace UniversityMain
         }
         private void faculty_choise_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DepartmentBox.Items.Clear();
-            Logics.MainTable.Departments departments = new Logics.MainTable.Departments(connectionDB);
-            List<string> departmentsName = new List<string>();
-            departments.GetAllDepartmentNames(FacultyBox.SelectedItem.ToString(), out departmentsName);
-            foreach (var dep in departmentsName)
-                DepartmentBox.Items.Add(dep);
+            if (FacultyBox.SelectedItem != null)
+            {
+                DepartmentBox.Items.Clear();
+                Logics.MainTable.Departments departments = new Logics.MainTable.Departments(connectionDB);
+                List<string> departmentsName = new List<string>();
+                departments.GetAllDepartmentNames(FacultyBox.SelectedItem.ToString(), out departmentsName);
+                foreach (var dep in departmentsName)
+                    DepartmentBox.Items.Add(dep);
+            }
         }
         private void DepartmentBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            TeacherInfo.Rows.Clear();
-            teachers.GetTeachers(FacultyBox.SelectedItem.ToString(), DepartmentBox.SelectedItem.ToString(), out teachersStructures);
-            foreach (var teach in teachersStructures)
-                TeacherInfo.Rows.Add(teach.nameteacher, teach.nameposition, teach.emaildata);
+            if (DepartmentBox.SelectedItem != null)
+            {
+                TeacherInfo.Rows.Clear();
+                teachers.GetTeachers(FacultyBox.SelectedItem.ToString(), DepartmentBox.SelectedItem.ToString(), out teachersStructures);
+                foreach (var teach in teachersStructures)
+                    TeacherInfo.Rows.Add(teach.nameteacher, teach.nameposition, teach.emaildata);
+            }
         }
         private void TeacherInfo_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -110,9 +117,12 @@ namespace UniversityMain
                         EmailTeacher.Clear();
                         PositionBox.SelectedItem = null;
                         TeacherInfo.Rows.Clear();
-                        teachers.GetTeachers(FacultyBox.SelectedItem.ToString(), DepartmentBox.SelectedItem.ToString(), out teachersStructures);
-                        foreach (var teach in teachersStructures)
-                            TeacherInfo.Rows.Add(teach.nameteacher, teach.nameposition, teach.emaildata);
+                        if(FacultyBox.SelectedItem!=null & DepartmentBox.SelectedItem != null)
+                        {
+                            teachers.GetTeachers(FacultyBox.SelectedItem.ToString(), DepartmentBox.SelectedItem.ToString(), out teachersStructures);
+                            foreach (var teach in teachersStructures)
+                                TeacherInfo.Rows.Add(teach.nameteacher, teach.nameposition, teach.emaildata);
+                        }
                     }
                     else
                     {
@@ -159,6 +169,14 @@ namespace UniversityMain
             catch (Exception)
             {
                 return false;
+            }
+        }
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (FacultyInputBox.SelectedItem!=null & DepartmentInputBox.SelectedItem!=null)
+            {
+                ChoiseDiscipline choiseDiscipline = new ChoiseDiscipline(connectionDB, FacultyInputBox.SelectedItem.ToString(), DepartmentInputBox.SelectedItem.ToString());
+                choiseDiscipline.Show();
             }
         }
     }

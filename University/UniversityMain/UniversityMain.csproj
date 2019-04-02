@@ -52,6 +52,12 @@
     <Compile Include="Authorization.Designer.cs">
       <DependentUpon>Authorization.cs</DependentUpon>
     </Compile>
+    <Compile Include="ChoiseDiscipline.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChoiseDiscipline.Designer.cs">
+      <DependentUpon>ChoiseDiscipline.cs</DependentUpon>
+    </Compile>
     <Compile Include="Classroom.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -128,6 +134,9 @@
     </Compile>
     <EmbeddedResource Include="Authorization.resx">
       <DependentUpon>Authorization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChoiseDiscipline.resx">
+      <DependentUpon>ChoiseDiscipline.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Classroom.resx">
       <DependentUpon>Classroom.cs</DependentUpon>
