@@ -126,7 +126,7 @@
   <metadata name="Logo.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="DeleteFaculty.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="DeleteH.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="EditFaculty.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -136,7 +136,7 @@
   <data name="DownButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADr8AAA6/ATgFUyQAAAB6SURBVEhL7cy9CYAwEIbhYGXtBM7gFM7hJC7iHE7hDE5g
+        YQUAAAAJcEhZcwAADrwAAA68AZW8ckkAAAB6SURBVEhL7cy9CYAwEIbhYGXtBM7gFM7hJC7iHE7hDE5g
         bSX6vRBB5Ar/be6FB0JyueB53n81Mp/En8Ol0om1yMIsf06VyyDWwi1mmL1UKZNYi8EbM7eqxVoO3m6X
         SCv75dzx9kiZ9LIu58zdoxUyRpxfqYo877NCWACr+j7D+zrqFgAAAABJRU5ErkJggg==
 </value>

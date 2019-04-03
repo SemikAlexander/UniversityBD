@@ -32,30 +32,30 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Classroom));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label4 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.ClassroomInfo = new System.Windows.Forms.DataGridView();
-            this.IDFaculty = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NameFaculty = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Logo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DeleteFaculty = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.EditFaculty = new System.Windows.Forms.DataGridViewButtonColumn();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.button4 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.InputClassroom = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.InputHousing = new System.Windows.Forms.TextBox();
             this.UpButton = new System.Windows.Forms.Button();
             this.DownButton = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.IDFaculty = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NameFaculty = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Logo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DeleteH = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.EditFaculty = new System.Windows.Forms.DataGridViewButtonColumn();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ClassroomInfo)).BeginInit();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -70,6 +70,16 @@
             this.panel1.Size = new System.Drawing.Size(393, 44);
             this.panel1.TabIndex = 2;
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::UniversityMain.Properties.Resources.Classroom_50_;
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(70, 44);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 15;
+            this.pictureBox1.TabStop = false;
             // 
             // label4
             // 
@@ -91,6 +101,30 @@
             this.panel2.Size = new System.Drawing.Size(73, 44);
             this.panel2.TabIndex = 1;
             // 
+            // button2
+            // 
+            this.button2.FlatAppearance.BorderSize = 0;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.Image = global::UniversityMain.Properties.Resources.Minimize;
+            this.button2.Location = new System.Drawing.Point(3, 8);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(30, 28);
+            this.button2.TabIndex = 4;
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // button1
+            // 
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Image = global::UniversityMain.Properties.Resources.close;
+            this.button1.Location = new System.Drawing.Point(39, 8);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(30, 28);
+            this.button1.TabIndex = 3;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // ClassroomInfo
             // 
             this.ClassroomInfo.AllowUserToAddRows = false;
@@ -110,7 +144,7 @@
             this.IDFaculty,
             this.NameFaculty,
             this.Logo,
-            this.DeleteFaculty,
+            this.DeleteH,
             this.EditFaculty});
             this.ClassroomInfo.Location = new System.Drawing.Point(0, 42);
             this.ClassroomInfo.Name = "ClassroomInfo";
@@ -121,45 +155,6 @@
             this.ClassroomInfo.Size = new System.Drawing.Size(393, 297);
             this.ClassroomInfo.TabIndex = 3;
             this.ClassroomInfo.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ClassroomInfo_CellContentClick);
-            // 
-            // IDFaculty
-            // 
-            this.IDFaculty.HeaderText = "ID";
-            this.IDFaculty.Name = "IDFaculty";
-            this.IDFaculty.ReadOnly = true;
-            this.IDFaculty.Visible = false;
-            // 
-            // NameFaculty
-            // 
-            this.NameFaculty.HeaderText = "Корпус";
-            this.NameFaculty.Name = "NameFaculty";
-            this.NameFaculty.ReadOnly = true;
-            this.NameFaculty.Width = 90;
-            // 
-            // Logo
-            // 
-            this.Logo.HeaderText = "Аудитория";
-            this.Logo.Name = "Logo";
-            this.Logo.ReadOnly = true;
-            this.Logo.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Logo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Logo.Width = 90;
-            // 
-            // DeleteFaculty
-            // 
-            this.DeleteFaculty.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.DeleteFaculty.HeaderText = "Удалить";
-            this.DeleteFaculty.Name = "DeleteFaculty";
-            this.DeleteFaculty.ReadOnly = true;
-            this.DeleteFaculty.Width = 80;
-            // 
-            // EditFaculty
-            // 
-            this.EditFaculty.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.EditFaculty.HeaderText = "Изменить";
-            this.EditFaculty.Name = "EditFaculty";
-            this.EditFaculty.ReadOnly = true;
-            this.EditFaculty.Width = 80;
             // 
             // panel3
             // 
@@ -173,6 +168,19 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(393, 114);
             this.panel3.TabIndex = 4;
+            // 
+            // button4
+            // 
+            this.button4.FlatAppearance.BorderSize = 0;
+            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button4.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button4.Image = global::UniversityMain.Properties.Resources.OK;
+            this.button4.Location = new System.Drawing.Point(339, 65);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(50, 46);
+            this.button4.TabIndex = 11;
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // label2
             // 
@@ -236,52 +244,44 @@
             this.DownButton.UseVisualStyleBackColor = true;
             this.DownButton.Click += new System.EventHandler(this.DownButton_Click);
             // 
-            // button4
+            // IDFaculty
             // 
-            this.button4.FlatAppearance.BorderSize = 0;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button4.Image = global::UniversityMain.Properties.Resources.OK;
-            this.button4.Location = new System.Drawing.Point(339, 65);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(50, 46);
-            this.button4.TabIndex = 11;
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.IDFaculty.HeaderText = "ID";
+            this.IDFaculty.Name = "IDFaculty";
+            this.IDFaculty.ReadOnly = true;
+            this.IDFaculty.Visible = false;
             // 
-            // pictureBox1
+            // NameFaculty
             // 
-            this.pictureBox1.Image = global::UniversityMain.Properties.Resources.Classroom_50_;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(70, 44);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 15;
-            this.pictureBox1.TabStop = false;
+            this.NameFaculty.HeaderText = "Корпус";
+            this.NameFaculty.Name = "NameFaculty";
+            this.NameFaculty.ReadOnly = true;
+            this.NameFaculty.Width = 90;
             // 
-            // button2
+            // Logo
             // 
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Image = global::UniversityMain.Properties.Resources.Minimize;
-            this.button2.Location = new System.Drawing.Point(3, 8);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(30, 28);
-            this.button2.TabIndex = 4;
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.Logo.HeaderText = "Аудитория";
+            this.Logo.Name = "Logo";
+            this.Logo.ReadOnly = true;
+            this.Logo.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Logo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Logo.Width = 90;
             // 
-            // button1
+            // DeleteH
             // 
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Image = global::UniversityMain.Properties.Resources.close;
-            this.button1.Location = new System.Drawing.Point(39, 8);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(30, 28);
-            this.button1.TabIndex = 3;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.DeleteH.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.DeleteH.HeaderText = "Удалить";
+            this.DeleteH.Name = "DeleteH";
+            this.DeleteH.ReadOnly = true;
+            this.DeleteH.Width = 80;
+            // 
+            // EditFaculty
+            // 
+            this.EditFaculty.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.EditFaculty.HeaderText = "Изменить";
+            this.EditFaculty.Name = "EditFaculty";
+            this.EditFaculty.ReadOnly = true;
+            this.EditFaculty.Width = 80;
             // 
             // Classroom
             // 
@@ -301,11 +301,11 @@
             this.Load += new System.EventHandler(this.Classroom_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ClassroomInfo)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -319,11 +319,6 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.DataGridView ClassroomInfo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IDFaculty;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NameFaculty;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Logo;
-        private System.Windows.Forms.DataGridViewButtonColumn DeleteFaculty;
-        private System.Windows.Forms.DataGridViewButtonColumn EditFaculty;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox InputHousing;
@@ -332,5 +327,10 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button DownButton;
         private System.Windows.Forms.Button UpButton;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IDFaculty;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NameFaculty;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Logo;
+        private System.Windows.Forms.DataGridViewButtonColumn DeleteH;
+        private System.Windows.Forms.DataGridViewButtonColumn EditFaculty;
     }
 }

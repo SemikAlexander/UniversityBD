@@ -17,6 +17,7 @@ namespace UniversityMain
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
         private extern static void SendMessage(System.IntPtr hwnd, int wmsg, int wparam, int lparam);
         bool WindowMaximize = true;
+        int HeightPanel = 455;
         Logics.Functions.Connection.ConnectionDB connectionDB;
         public MainForm(Logics.Functions.Connection.ConnectionDB connection)
         {
@@ -80,11 +81,13 @@ namespace UniversityMain
         private void button7_Click(object sender, EventArgs e)
         {
             /*Пока так. Как только будут готовы функции - изменю.*/
-            new ShowGroups().Show();
+            new ShowGroups(connectionDB).Show();
+            Close();
         }
         private void button6_Click(object sender, EventArgs e)
         {
             new Teachers(connectionDB).Show();
+            Close();
         }
         private void button4_Click(object sender, EventArgs e)
         {
@@ -97,7 +100,7 @@ namespace UniversityMain
         {
             if (INFO.Height == 42)
             {
-                INFO.Height = 245;
+                INFO.Height = HeightPanel;
                 pictureBox1.Image = Properties.Resources.CloseDir;
             }
             else
@@ -110,7 +113,7 @@ namespace UniversityMain
         {
             if (INFO.Height == 42)
             {
-                INFO.Height = 245;
+                INFO.Height = HeightPanel;
                 pictureBox1.Image = Properties.Resources.CloseDir;
             }
             else
@@ -123,7 +126,7 @@ namespace UniversityMain
         {
             if (INFO.Height == 42)
             {
-                INFO.Height = 245;
+                INFO.Height = HeightPanel;
                 pictureBox1.Image = Properties.Resources.CloseDir;
             }
             else
@@ -138,5 +141,35 @@ namespace UniversityMain
             Close();
         }
         #endregion
+        private void button9_Click(object sender, EventArgs e)
+        {
+            Close();
+            new Discipline(connectionDB).Show();          
+        }
+        private void button10_Click(object sender, EventArgs e)
+        {
+            Close();
+            new Positions(connectionDB).Show();
+        }
+        private void button11_Click(object sender, EventArgs e)
+        {
+            Close();
+            new WeekForm(connectionDB).Show();
+        }
+        private void button12_Click(object sender, EventArgs e)
+        {
+            Close();
+            new TypeSubject(connectionDB).Show();
+        }
+        private void button4_Click_1(object sender, EventArgs e)
+        {
+            Close();
+            new Departments(connectionDB).Show();
+        }
+        private void button13_Click(object sender, EventArgs e)
+        {
+            Close();
+            new Specialities(connectionDB).Show();
+        }
     }
 }

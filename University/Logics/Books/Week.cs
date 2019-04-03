@@ -23,7 +23,7 @@ namespace Logics.Books
         #endregion
         public Week(Functions.Connection.ConnectionDB connectionDB) => _connectionDB = connectionDB;
         
-        public bool GetAllWeek(int start_row,int count_rows,out List<StructWeek> disciplines)
+        public bool GetAllWeek(out List<StructWeek> disciplines)
         {
             disciplines = new List<StructWeek>();
             if (_connectionDB == null) { exception = "Подключение не установленно"; return false; }

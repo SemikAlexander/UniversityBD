@@ -28,28 +28,49 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label4 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.DepartmentBox = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.faculty_choise = new System.Windows.Forms.ComboBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.FacultyBox = new System.Windows.Forms.ComboBox();
+            this.TeacherInfo = new System.Windows.Forms.DataGridView();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.button3 = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.EmailTeacher = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.FacultyInputBox = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.DepartmentInputBox = new System.Windows.Forms.ComboBox();
+            this.PositionBox = new System.Windows.Forms.ComboBox();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
+            this.InputRating = new System.Windows.Forms.TextBox();
             this.NameGroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.YearOfEntry = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.email = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GetDiscipline = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.DeleteTeacher = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.EditTeacher = new System.Windows.Forms.DataGridViewButtonColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TeacherInfo)).BeginInit();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -119,45 +140,26 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(719, 57);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(126, 20);
-            this.label3.TabIndex = 18;
-            this.label3.Text = "Специальность";
-            // 
-            // comboBox3
-            // 
-            this.comboBox3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboBox3.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(851, 57);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(244, 25);
-            this.comboBox3.TabIndex = 17;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(343, 57);
+            this.label2.Location = new System.Drawing.Point(424, 57);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(83, 20);
             this.label2.TabIndex = 16;
             this.label2.Text = "Кафедра";
             // 
-            // comboBox2
+            // DepartmentBox
             // 
-            this.comboBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboBox2.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(432, 57);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(281, 25);
-            this.comboBox2.TabIndex = 15;
+            this.DepartmentBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.DepartmentBox.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.DepartmentBox.FormattingEnabled = true;
+            this.DepartmentBox.Location = new System.Drawing.Point(513, 57);
+            this.DepartmentBox.Name = "DepartmentBox";
+            this.DepartmentBox.Size = new System.Drawing.Size(305, 25);
+            this.DepartmentBox.TabIndex = 15;
+            this.DepartmentBox.SelectedIndexChanged += new System.EventHandler(this.DepartmentBox_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -169,73 +171,314 @@
             this.label1.TabIndex = 14;
             this.label1.Text = "Факультет";
             // 
-            // faculty_choise
+            // FacultyBox
             // 
-            this.faculty_choise.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.faculty_choise.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.faculty_choise.FormattingEnabled = true;
-            this.faculty_choise.Location = new System.Drawing.Point(104, 57);
-            this.faculty_choise.Name = "faculty_choise";
-            this.faculty_choise.Size = new System.Drawing.Size(233, 25);
-            this.faculty_choise.TabIndex = 13;
-            this.faculty_choise.SelectedIndexChanged += new System.EventHandler(this.faculty_choise_SelectedIndexChanged);
+            this.FacultyBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.FacultyBox.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.FacultyBox.FormattingEnabled = true;
+            this.FacultyBox.Location = new System.Drawing.Point(104, 57);
+            this.FacultyBox.Name = "FacultyBox";
+            this.FacultyBox.Size = new System.Drawing.Size(305, 25);
+            this.FacultyBox.TabIndex = 13;
+            this.FacultyBox.SelectedIndexChanged += new System.EventHandler(this.faculty_choise_SelectedIndexChanged);
             // 
-            // dataGridView1
+            // TeacherInfo
             // 
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
-            this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
-            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.TeacherInfo.AllowUserToAddRows = false;
+            this.TeacherInfo.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.TeacherInfo.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.TeacherInfo.BackgroundColor = System.Drawing.Color.White;
+            this.TeacherInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.TeacherInfo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.TeacherInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.TeacherInfo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.NameGroup,
             this.YearOfEntry,
-            this.email});
-            this.dataGridView1.Location = new System.Drawing.Point(165, 102);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(792, 377);
-            this.dataGridView1.TabIndex = 12;
+            this.email,
+            this.GetDiscipline,
+            this.DeleteTeacher,
+            this.EditTeacher});
+            this.TeacherInfo.Location = new System.Drawing.Point(7, 88);
+            this.TeacherInfo.Name = "TeacherInfo";
+            this.TeacherInfo.ReadOnly = true;
+            this.TeacherInfo.Size = new System.Drawing.Size(1088, 267);
+            this.TeacherInfo.TabIndex = 12;
+            this.TeacherInfo.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.TeacherInfo_CellContentClick);
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.button3);
+            this.panel3.Controls.Add(this.label11);
+            this.panel3.Controls.Add(this.label10);
+            this.panel3.Controls.Add(this.textBox3);
+            this.panel3.Controls.Add(this.label3);
+            this.panel3.Controls.Add(this.EmailTeacher);
+            this.panel3.Controls.Add(this.label8);
+            this.panel3.Controls.Add(this.textBox1);
+            this.panel3.Controls.Add(this.label7);
+            this.panel3.Controls.Add(this.FacultyInputBox);
+            this.panel3.Controls.Add(this.label6);
+            this.panel3.Controls.Add(this.label5);
+            this.panel3.Controls.Add(this.DepartmentInputBox);
+            this.panel3.Controls.Add(this.PositionBox);
+            this.panel3.Controls.Add(this.button5);
+            this.panel3.Controls.Add(this.button4);
+            this.panel3.Controls.Add(this.label9);
+            this.panel3.Controls.Add(this.InputRating);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel3.Location = new System.Drawing.Point(0, 375);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(1107, 148);
+            this.panel3.TabIndex = 17;
+            // 
+            // button3
+            // 
+            this.button3.FlatAppearance.BorderSize = 0;
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button3.Image = global::UniversityMain.Properties.Resources.Discipline;
+            this.button3.Location = new System.Drawing.Point(417, 70);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(46, 34);
+            this.button3.TabIndex = 29;
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label11.Location = new System.Drawing.Point(306, 76);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(103, 20);
+            this.label11.TabIndex = 28;
+            this.label11.Text = "Дисциплины";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label10.Location = new System.Drawing.Point(698, 41);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(91, 20);
+            this.label10.TabIndex = 27;
+            this.label10.Text = "Почасовка";
+            // 
+            // textBox3
+            // 
+            this.textBox3.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox3.Location = new System.Drawing.Point(795, 41);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(190, 22);
+            this.textBox3.TabIndex = 26;
+            this.textBox3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox3_KeyPress);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.Location = new System.Drawing.Point(48, 36);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(46, 20);
+            this.label3.TabIndex = 25;
+            this.label3.Text = "Email";
+            // 
+            // EmailTeacher
+            // 
+            this.EmailTeacher.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.EmailTeacher.Location = new System.Drawing.Point(100, 36);
+            this.EmailTeacher.Name = "EmailTeacher";
+            this.EmailTeacher.Size = new System.Drawing.Size(190, 22);
+            this.EmailTeacher.TabIndex = 24;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label8.Location = new System.Drawing.Point(48, 8);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(46, 20);
+            this.label8.TabIndex = 23;
+            this.label8.Text = "ФИО";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox1.Location = new System.Drawing.Point(100, 8);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(190, 22);
+            this.textBox1.TabIndex = 22;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label7.Location = new System.Drawing.Point(324, 8);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(85, 20);
+            this.label7.TabIndex = 21;
+            this.label7.Text = "Факультет";
+            // 
+            // FacultyInputBox
+            // 
+            this.FacultyInputBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.FacultyInputBox.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.FacultyInputBox.FormattingEnabled = true;
+            this.FacultyInputBox.Location = new System.Drawing.Point(417, 8);
+            this.FacultyInputBox.Name = "FacultyInputBox";
+            this.FacultyInputBox.Size = new System.Drawing.Size(248, 25);
+            this.FacultyInputBox.TabIndex = 20;
+            this.FacultyInputBox.SelectedIndexChanged += new System.EventHandler(this.FacultyInputBox_SelectedIndexChanged);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label6.Location = new System.Drawing.Point(326, 39);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(83, 20);
+            this.label6.TabIndex = 14;
+            this.label6.Text = "Кафедра";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label5.Location = new System.Drawing.Point(3, 64);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(91, 20);
+            this.label5.TabIndex = 19;
+            this.label5.Text = "Должность";
+            // 
+            // DepartmentInputBox
+            // 
+            this.DepartmentInputBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.DepartmentInputBox.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.DepartmentInputBox.FormattingEnabled = true;
+            this.DepartmentInputBox.Location = new System.Drawing.Point(417, 39);
+            this.DepartmentInputBox.Name = "DepartmentInputBox";
+            this.DepartmentInputBox.Size = new System.Drawing.Size(248, 25);
+            this.DepartmentInputBox.TabIndex = 13;
+            // 
+            // PositionBox
+            // 
+            this.PositionBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.PositionBox.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.PositionBox.FormattingEnabled = true;
+            this.PositionBox.Location = new System.Drawing.Point(100, 64);
+            this.PositionBox.Name = "PositionBox";
+            this.PositionBox.Size = new System.Drawing.Size(190, 25);
+            this.PositionBox.TabIndex = 18;
+            // 
+            // button5
+            // 
+            this.button5.FlatAppearance.BorderSize = 0;
+            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button5.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button5.Image = global::UniversityMain.Properties.Resources.OK;
+            this.button5.Location = new System.Drawing.Point(1057, 102);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(50, 46);
+            this.button5.TabIndex = 17;
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // button4
+            // 
+            this.button4.FlatAppearance.BorderSize = 0;
+            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button4.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button4.Image = global::UniversityMain.Properties.Resources.OK;
+            this.button4.Location = new System.Drawing.Point(924, 193);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(50, 46);
+            this.button4.TabIndex = 10;
+            this.button4.UseVisualStyleBackColor = true;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label9.Location = new System.Drawing.Point(708, 13);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(81, 20);
+            this.label9.TabIndex = 6;
+            this.label9.Text = "Зарплата";
+            // 
+            // InputRating
+            // 
+            this.InputRating.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.InputRating.Location = new System.Drawing.Point(795, 13);
+            this.InputRating.Name = "InputRating";
+            this.InputRating.Size = new System.Drawing.Size(190, 22);
+            this.InputRating.TabIndex = 5;
+            this.InputRating.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.InputYearEntry_KeyPress);
             // 
             // NameGroup
             // 
             this.NameGroup.HeaderText = "Имя";
             this.NameGroup.Name = "NameGroup";
-            this.NameGroup.Width = 250;
+            this.NameGroup.ReadOnly = true;
+            this.NameGroup.Width = 300;
             // 
             // YearOfEntry
             // 
             this.YearOfEntry.HeaderText = "Должность";
             this.YearOfEntry.Name = "YearOfEntry";
+            this.YearOfEntry.ReadOnly = true;
             this.YearOfEntry.Width = 250;
             // 
             // email
             // 
             this.email.HeaderText = "Email";
             this.email.Name = "email";
-            this.email.Width = 250;
+            this.email.ReadOnly = true;
+            this.email.Width = 225;
+            // 
+            // GetDiscipline
+            // 
+            this.GetDiscipline.HeaderText = "Предметы";
+            this.GetDiscipline.Name = "GetDiscipline";
+            this.GetDiscipline.ReadOnly = true;
+            // 
+            // DeleteTeacher
+            // 
+            this.DeleteTeacher.HeaderText = "Удалить";
+            this.DeleteTeacher.Name = "DeleteTeacher";
+            this.DeleteTeacher.ReadOnly = true;
+            this.DeleteTeacher.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.DeleteTeacher.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.DeleteTeacher.Width = 80;
+            // 
+            // EditTeacher
+            // 
+            this.EditTeacher.HeaderText = "Изменить";
+            this.EditTeacher.Name = "EditTeacher";
+            this.EditTeacher.ReadOnly = true;
+            this.EditTeacher.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.EditTeacher.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.EditTeacher.Width = 80;
             // 
             // Teachers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1107, 491);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.comboBox3);
+            this.ClientSize = new System.Drawing.Size(1107, 523);
+            this.Controls.Add(this.panel3);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.comboBox2);
+            this.Controls.Add(this.DepartmentBox);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.faculty_choise);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.FacultyBox);
+            this.Controls.Add(this.TeacherInfo);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -248,7 +491,9 @@
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TeacherInfo)).EndInit();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -262,15 +507,35 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox comboBox3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox DepartmentBox;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox faculty_choise;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.ComboBox FacultyBox;
+        private System.Windows.Forms.DataGridView TeacherInfo;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ComboBox FacultyInputBox;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox DepartmentInputBox;
+        private System.Windows.Forms.ComboBox PositionBox;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox InputRating;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox EmailTeacher;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Label label11;
         private System.Windows.Forms.DataGridViewTextBoxColumn NameGroup;
         private System.Windows.Forms.DataGridViewTextBoxColumn YearOfEntry;
         private System.Windows.Forms.DataGridViewTextBoxColumn email;
+        private System.Windows.Forms.DataGridViewButtonColumn GetDiscipline;
+        private System.Windows.Forms.DataGridViewButtonColumn DeleteTeacher;
+        private System.Windows.Forms.DataGridViewButtonColumn EditTeacher;
     }
 }

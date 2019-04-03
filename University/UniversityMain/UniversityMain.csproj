@@ -52,11 +52,29 @@
     <Compile Include="Authorization.Designer.cs">
       <DependentUpon>Authorization.cs</DependentUpon>
     </Compile>
+    <Compile Include="ChoiseDiscipline.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChoiseDiscipline.Designer.cs">
+      <DependentUpon>ChoiseDiscipline.cs</DependentUpon>
+    </Compile>
     <Compile Include="Classroom.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Classroom.Designer.cs">
       <DependentUpon>Classroom.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Departments.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Departments.Designer.cs">
+      <DependentUpon>Departments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Discipline.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Discipline.Designer.cs">
+      <DependentUpon>Discipline.cs</DependentUpon>
     </Compile>
     <Compile Include="FacultyForm.cs">
       <SubType>Form</SubType>
@@ -69,6 +87,12 @@
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Positions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Positions.Designer.cs">
+      <DependentUpon>Positions.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -84,23 +108,59 @@
     <Compile Include="ShowGroups.Designer.cs">
       <DependentUpon>ShowGroups.cs</DependentUpon>
     </Compile>
+    <Compile Include="Specialities.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Specialities.Designer.cs">
+      <DependentUpon>Specialities.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StudyPlan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StudyPlan.Designer.cs">
+      <DependentUpon>StudyPlan.cs</DependentUpon>
+    </Compile>
     <Compile Include="Teachers.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Teachers.Designer.cs">
       <DependentUpon>Teachers.cs</DependentUpon>
     </Compile>
+    <Compile Include="TypeSubject.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TypeSubject.Designer.cs">
+      <DependentUpon>TypeSubject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WeekForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WeekForm.Designer.cs">
+      <DependentUpon>WeekForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Authorization.resx">
       <DependentUpon>Authorization.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ChoiseDiscipline.resx">
+      <DependentUpon>ChoiseDiscipline.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Classroom.resx">
       <DependentUpon>Classroom.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Departments.resx">
+      <DependentUpon>Departments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Discipline.resx">
+      <DependentUpon>Discipline.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FacultyForm.resx">
       <DependentUpon>FacultyForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Positions.resx">
+      <DependentUpon>Positions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -118,8 +178,20 @@
     <EmbeddedResource Include="ShowGroups.resx">
       <DependentUpon>ShowGroups.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Specialities.resx">
+      <DependentUpon>Specialities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StudyPlan.resx">
+      <DependentUpon>StudyPlan.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Teachers.resx">
       <DependentUpon>Teachers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TypeSubject.resx">
+      <DependentUpon>TypeSubject.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WeekForm.resx">
+      <DependentUpon>WeekForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -223,6 +295,45 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\UP.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Discipline%2850%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Discipline.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Position%2850%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Position.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Week %2850%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Week.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Type %2850%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Type.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Dep%2850%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Dep.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Speciality%2850%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Speciality.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Syllabus.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -28,7 +28,7 @@ namespace Logics.MainTable
             {
                 var conn = new NpgsqlConnection(this._connectionDB.ConnectString);
                 conn.Open();
-                using (var cmd = new NpgsqlCommand("SELECT * FROM GetAllDepartmentNames("+ nameFaculty+");", conn))
+                using (var cmd = new NpgsqlCommand("SELECT * FROM getalldepartmentnames('"+ nameFaculty+"');", conn))
                 using (var reader = cmd.ExecuteReader())
                     while (reader.Read())
                     {
@@ -51,11 +51,11 @@ namespace Logics.MainTable
             {
                 var conn = new NpgsqlConnection(this._connectionDB.ConnectString);
                 conn.Open();
-                using (var cmd = new NpgsqlCommand($"SELECT * FROM GetDepartmentFull({nameFaculty},{startRow},{countRow});", conn))
+                using (var cmd = new NpgsqlCommand($"SELECT * FROM getdepartmentfull('{nameFaculty}','{startRow}','{countRow}');", conn))
                 using (var reader = cmd.ExecuteReader())
                     while (reader.Read())
                     {
-                        if (reader.GetString(1) != null)
+                        if (reader.IsDBNull(1) == false && reader.GetString(1)!="")
                             departments.Add(new DepartmentsStructure()
                             {
                                 Name_Department = reader.GetString(0),
@@ -84,7 +84,7 @@ namespace Logics.MainTable
             }
         }
 
-        public bool AddDepartment(DepartmentsStructure departments)
+        public bool AddDepartment(DepartmentsStructure departments,string faculty)
         {
             if (_connectionDB == null) { exception = "Подключение не установленно"; return false; }
             try
@@ -94,12 +94,12 @@ namespace Logics.MainTable
                 string sql = "";
                 if (departments.Logo_Department == null)
                 {
-                    sql = $"SELECT * from department_add('{null}','{departments.Name_Department}','{departments.Housing}','{departments.Num_Classroom}');";
+                    sql = $"SELECT * from department_add('{faculty}','{null}','{departments.Name_Department}','{departments.Housing}','{departments.Num_Classroom}');";
 
                 }
                 else
                 {
-                    sql = $"SELECT * from department_add('{ Functions.Converting.Base64.encodeImage(departments.Logo_Department)}','{departments.Name_Department}','{departments.Housing}','{departments.Num_Classroom}');";
+                    sql = $"SELECT * from department_add('{faculty}','{ Functions.Converting.Base64.encodeImage(departments.Logo_Department)}','{departments.Name_Department}','{departments.Housing}','{departments.Num_Classroom}');";
 
                 }
                 using (var cmd = new NpgsqlCommand(sql, conn))
@@ -128,7 +128,7 @@ namespace Logics.MainTable
                 using (var cmd = new NpgsqlCommand())
                 {
                     cmd.Connection = conn;
-                    cmd.CommandText = $"SELECT * from department_delete({faculty},{department});";
+                    cmd.CommandText = $"SELECT * from department_delete('{faculty}','{department}');";
                     using (var reader = cmd.ExecuteReader())
                         if (reader.Read())
                         {
