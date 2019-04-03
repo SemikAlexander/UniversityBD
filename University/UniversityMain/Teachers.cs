@@ -19,6 +19,7 @@ namespace UniversityMain
         private extern static void SendMessage(System.IntPtr hwnd, int wmsg, int wparam, int lparam);       
         Logics.MainTable.Teachers teachers;
         public List<string> teacherDiscipline = new List<string>();
+        ChoiseDiscipline choiseDiscipline;
         Logics.Functions.Connection.ConnectionDB connectionDB;
         Logics.MainTable.Teachers.TeachersStructure structure;
         List<Logics.MainTable.Teachers.TeachersStructure> teachersStructures = new List<Logics.MainTable.Teachers.TeachersStructure>();
@@ -94,6 +95,14 @@ namespace UniversityMain
                 foreach (var teach in teachersStructures)
                     TeacherInfo.Rows.Add(teach.nameteacher, teach.nameposition, teach.emaildata);
             }
+            else if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn & senderGrid.Columns[e.ColumnIndex].Name == "GetDiscipline" && e.RowIndex >= 0)
+            {
+                if (FacultyBox.SelectedItem != null & DepartmentBox.SelectedItem != null)
+                {
+                    ChoiseDiscipline choiseDiscipline = new ChoiseDiscipline(connectionDB, FacultyBox.SelectedItem.ToString(), DepartmentBox.SelectedItem.ToString(), false, TeacherInfo.Rows[e.RowIndex].Cells[0].Value.ToString());
+                    choiseDiscipline.Show();
+                }
+            }
         }
         private void button5_Click(object sender, EventArgs e)
         {
@@ -109,6 +118,8 @@ namespace UniversityMain
                     structure.hourlypayment = float.Parse(textBox3.Text);
                     if (teachers.Add(structure, FacultyInputBox.SelectedItem.ToString(), DepartmentInputBox.SelectedItem.ToString()))
                     {
+                        foreach(var dis in choiseDiscipline.disciplineForTeacher)
+                            teachers.AddTeacherDiscipline(DepartmentInputBox.SelectedItem.ToString(), FacultyInputBox.SelectedItem.ToString(), textBox1.Text, dis);
                         textBox3.Clear();
                         InputRating.Clear();
                         FacultyInputBox.SelectedItem = null;
@@ -175,8 +186,8 @@ namespace UniversityMain
         {
             if (FacultyInputBox.SelectedItem!=null & DepartmentInputBox.SelectedItem!=null)
             {
-                ChoiseDiscipline choiseDiscipline = new ChoiseDiscipline(connectionDB, FacultyInputBox.SelectedItem.ToString(), DepartmentInputBox.SelectedItem.ToString());
-                choiseDiscipline.Show();
+                 choiseDiscipline = new ChoiseDiscipline(connectionDB, FacultyInputBox.SelectedItem.ToString(), DepartmentInputBox.SelectedItem.ToString(), true, null);
+                choiseDiscipline.ShowDialog();
             }
         }
     }

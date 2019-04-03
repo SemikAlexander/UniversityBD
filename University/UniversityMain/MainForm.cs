@@ -170,6 +170,5 @@ namespace UniversityMain
             Close();
             new Specialities(connectionDB).Show();
         }
-
     }
 }

@@ -16,26 +16,28 @@ namespace UniversityMain
         int StartRow = 0;
         Logics.Books.Discipline discipline;
         Logics.Functions.Connection.ConnectionDB connectionDB;
-        List<string> disciplineForTeacher = new List<string>();
+        public List<string> disciplineForTeacher = new List<string>();
         List<Logics.Books.Discipline.StructDiscipline> structDisciplines = new List<Logics.Books.Discipline.StructDiscipline>();
         [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
         private extern static void ReleaseCapture();
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
         private extern static void SendMessage(System.IntPtr hwnd, int wmsg, int wparam, int lparam);
-        string facultyName, departmentName;
-        public ChoiseDiscipline(Logics.Functions.Connection.ConnectionDB connection, string faculty, string department)
+        Logics.MainTable.Teachers teachers;
+        string facultyName, departmentName, Name;
+        bool addForm;
+        public ChoiseDiscipline(Logics.Functions.Connection.ConnectionDB connection, string faculty, string department, bool add, string NameTeacher)
         {
             InitializeComponent();
             facultyName = faculty;
             connectionDB = connection;
             departmentName = department;
             discipline = new Logics.Books.Discipline(connection);
+            addForm = add;
+            Name = NameTeacher;
+            teachers = new Logics.MainTable.Teachers(connection);
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            Teachers _teachers = new Teachers(connectionDB);
-            for(int i = 0; i < disciplineForTeacher.Count; i++)
-                _teachers.teacherDiscipline.Add(disciplineForTeacher[i]);
             Close();
         }
         private void UpButton_Click(object sender, EventArgs e)
@@ -88,9 +90,31 @@ namespace UniversityMain
         }
         private void ChoiseDiscipline_Load(object sender, EventArgs e)
         {
-            discipline.GetAllDiscipline(facultyName, departmentName, StartRow, 20, out structDisciplines);
-            foreach (var descipline in structDisciplines)
-                DisciplineInfo.Rows.Add(descipline.name);
+            if (addForm == true)
+            {
+                discipline.GetAllDiscipline(facultyName, departmentName, StartRow, 20, out structDisciplines);
+                foreach (var descipline in structDisciplines)
+                    DisciplineInfo.Rows.Add(descipline.name);
+            }
+            else
+            {
+                discipline.GetAllDiscipline(facultyName, departmentName, StartRow, 20, out structDisciplines);
+                foreach (var discipline in structDisciplines)
+                    DisciplineInfo.Rows.Add(discipline.name);
+                structDisciplines.Clear();
+                teachers.GetTeacherDiscipline(facultyName, departmentName, Name, out structDisciplines);
+                foreach(var discipline in structDisciplines)
+                {
+                    for(int i = 0; i < DisciplineInfo.Rows.Count; i++)
+                    {
+                        if (DisciplineInfo.Rows[i].Cells[1].Value == null & DisciplineInfo.Rows[i].Cells[0].Value.ToString() == discipline.name)
+                        {
+                            DisciplineInfo.Rows[i].Cells[1].Value = true;
+                            break;
+                        }
+                    }
+                }
+            }
         }
     }
 }
