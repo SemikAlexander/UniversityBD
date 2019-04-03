@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace UniversityMain
@@ -12,13 +13,19 @@ namespace UniversityMain
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
         private extern static void SendMessage(System.IntPtr hwnd, int wmsg, int wparam, int lparam);
         List<Logics.MainTable.Groups.GroupsStructure> groupsStructures = new List<Logics.MainTable.Groups.GroupsStructure>();
+        List<Logics.MainTable.Groups.GroupPlan> groupPlans = new List<Logics.MainTable.Groups.GroupPlan>();
         Logics.MainTable.Groups.GroupsStructure structure;
         Logics.Functions.Connection.ConnectionDB connectionDB;
+        Logics.MainTable.Speciality speciality;
+        List<string> specialityName = new List<string>();
         Logics.MainTable.Groups groups;
+        string pattern = @"([а-яА-Я]*).([1-9]*)([а-яА-Я]*)";
+        RegexOptions options = RegexOptions.Multiline;
         public ShowGroups(Logics.Functions.Connection.ConnectionDB connection)
         {
             connectionDB = connection;
             groups = new Logics.MainTable.Groups(connection);
+            speciality = new Logics.MainTable.Speciality(connectionDB);
             InitializeComponent();
         }
 
@@ -59,21 +66,20 @@ namespace UniversityMain
         private void DepartmentBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             SpecialityBox.Items.Clear();
-            Logics.MainTable.Speciality speciality = new Logics.MainTable.Speciality(connectionDB);
-            List<string> specialityName = new List<string>();
             speciality.GetAllSpecialityNames(FacultyBox.SelectedItem.ToString(), DepartmentBox.SelectedItem.ToString(), out specialityName);
             foreach (var spec in specialityName)
                 SpecialityBox.Items.Add(spec);
         }
-
         private void SpecialityBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             GroupsInfo.Rows.Clear();
             groups.GetGroups(FacultyBox.SelectedItem.ToString(), DepartmentBox.SelectedItem.ToString(), SpecialityBox.SelectedItem.ToString(), out groupsStructures);
             foreach (var gr in groupsStructures)
-                GroupsInfo.Rows.Add(gr.Subname, gr.YearCreate);
+            {
+                string year = Convert.ToString(gr.YearCreate);
+                GroupsInfo.Rows.Add(SpecialityBox.SelectedItem.ToString() + " " + year[year.Length - 2] + year[year.Length - 1] + " " + gr.Subname, gr.YearCreate);
+            }
         }
-
         private void button5_Click(object sender, EventArgs e)
         {
             if(InputYearEntry.Text.Length!=0 & textBox1.Text.Length!=0 & FacultyInputBox.SelectedItem!=null & DepartmentInputBox.SelectedItem!=null & SpecialityInputBox.SelectedItem != null)
@@ -116,7 +122,6 @@ namespace UniversityMain
             if ((e.KeyChar < 48 || e.KeyChar >= 58) && e.KeyChar != 8)
                 e.Handled = true;
         }
-
         private void GroupsInfo_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var senderGrid = (DataGridView)sender;
@@ -129,6 +134,16 @@ namespace UniversityMain
                 groups.GetGroups(FacultyBox.SelectedItem.ToString(), DepartmentBox.SelectedItem.ToString(), SpecialityBox.SelectedItem.ToString(), out groupsStructures);
                 foreach (var gr in groupsStructures)
                     GroupsInfo.Rows.Add(gr.Subname, gr.YearCreate);
+            }
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn & senderGrid.Columns[e.ColumnIndex].Name == "StadPlan" && e.RowIndex >= 0)
+            {
+                string[] abr = GroupsInfo.Rows[e.RowIndex].Cells[0].Value.ToString().Split(' ');
+                string ABR = abr[0];
+                structure.YearCreate = (int)GroupsInfo.Rows[e.RowIndex].Cells[1].Value;
+                structure.Subname = abr[2];
+                groups.GetGroupPlan(FacultyBox.SelectedItem.ToString(), DepartmentBox.SelectedItem.ToString(), ABR, structure, out groupPlans);
+                Close();
+                new StudyPlan(connectionDB, groupPlans, FacultyBox.SelectedItem.ToString(), DepartmentBox.SelectedItem.ToString(), ABR, structure.Subname, structure.YearCreate).Show();
             }
         }
         private void FacultyInputBox_SelectedIndexChanged(object sender, EventArgs e)

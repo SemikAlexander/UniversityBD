@@ -16,8 +16,10 @@ namespace UniversityMain
         [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
         private extern static void ReleaseCapture();
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
-        private extern static void SendMessage(System.IntPtr hwnd, int wmsg, int wparam, int lparam);
+        private extern static void SendMessage(System.IntPtr hwnd, int wmsg, int wparam, int lparam);       
         Logics.MainTable.Teachers teachers;
+        public List<string> teacherDiscipline = new List<string>();
+        ChoiseDiscipline choiseDiscipline;
         Logics.Functions.Connection.ConnectionDB connectionDB;
         Logics.MainTable.Teachers.TeachersStructure structure;
         List<Logics.MainTable.Teachers.TeachersStructure> teachersStructures = new List<Logics.MainTable.Teachers.TeachersStructure>();
@@ -27,7 +29,6 @@ namespace UniversityMain
             connectionDB = connection;
             teachers = new Logics.MainTable.Teachers(connection);
         }
-
         #region Design
         private void button2_Click(object sender, EventArgs e)
         {
@@ -62,19 +63,25 @@ namespace UniversityMain
         }
         private void faculty_choise_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DepartmentBox.Items.Clear();
-            Logics.MainTable.Departments departments = new Logics.MainTable.Departments(connectionDB);
-            List<string> departmentsName = new List<string>();
-            departments.GetAllDepartmentNames(FacultyBox.SelectedItem.ToString(), out departmentsName);
-            foreach (var dep in departmentsName)
-                DepartmentBox.Items.Add(dep);
+            if (FacultyBox.SelectedItem != null)
+            {
+                DepartmentBox.Items.Clear();
+                Logics.MainTable.Departments departments = new Logics.MainTable.Departments(connectionDB);
+                List<string> departmentsName = new List<string>();
+                departments.GetAllDepartmentNames(FacultyBox.SelectedItem.ToString(), out departmentsName);
+                foreach (var dep in departmentsName)
+                    DepartmentBox.Items.Add(dep);
+            }
         }
         private void DepartmentBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            TeacherInfo.Rows.Clear();
-            teachers.GetTeachers(FacultyBox.SelectedItem.ToString(), DepartmentBox.SelectedItem.ToString(), out teachersStructures);
-            foreach (var teach in teachersStructures)
-                TeacherInfo.Rows.Add(teach.nameteacher, teach.nameposition, teach.emaildata);
+            if (DepartmentBox.SelectedItem != null)
+            {
+                TeacherInfo.Rows.Clear();
+                teachers.GetTeachers(FacultyBox.SelectedItem.ToString(), DepartmentBox.SelectedItem.ToString(), out teachersStructures);
+                foreach (var teach in teachersStructures)
+                    TeacherInfo.Rows.Add(teach.nameteacher, teach.nameposition, teach.emaildata);
+            }
         }
         private void TeacherInfo_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -88,33 +95,63 @@ namespace UniversityMain
                 foreach (var teach in teachersStructures)
                     TeacherInfo.Rows.Add(teach.nameteacher, teach.nameposition, teach.emaildata);
             }
+            else if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn & senderGrid.Columns[e.ColumnIndex].Name == "GetDiscipline" && e.RowIndex >= 0)
+            {
+                if (FacultyBox.SelectedItem != null & DepartmentBox.SelectedItem != null)
+                {
+                    ChoiseDiscipline choiseDiscipline = new ChoiseDiscipline(connectionDB, FacultyBox.SelectedItem.ToString(), DepartmentBox.SelectedItem.ToString(), false, TeacherInfo.Rows[e.RowIndex].Cells[0].Value.ToString());
+                    choiseDiscipline.Show();
+                }
+            }
         }
         private void button5_Click(object sender, EventArgs e)
         {
             if(textBox3.Text.Length!=0 & InputRating.Text.Length!=0 & FacultyInputBox.SelectedItem!=null & DepartmentInputBox.SelectedItem!=null & textBox1.Text.Length!=0 & EmailTeacher.Text.Length!=0 & PositionBox.SelectedItem != null)
             {
-                structure.nameteacher = textBox1.Text;
-                structure.nameposition = PositionBox.SelectedItem.ToString();
-                structure.emaildata = EmailTeacher.Text;
-                structure.rating = float.Parse(InputRating.Text);
-                structure.hourlypayment = float.Parse(textBox3.Text);
-                if (teachers.Add(structure, FacultyInputBox.SelectedItem.ToString(), DepartmentInputBox.SelectedItem.ToString()))
+
+                if (IsValidEmail(EmailTeacher.Text))
                 {
-                    textBox3.Clear();
-                    InputRating.Clear();
-                    FacultyInputBox.SelectedItem = null;
-                    DepartmentInputBox.SelectedItem = null;
-                    textBox1.Clear();
-                    EmailTeacher.Clear();
-                    PositionBox.SelectedItem = null;
-                    TeacherInfo.Rows.Clear();
-                    teachers.GetTeachers(FacultyBox.SelectedItem.ToString(), DepartmentBox.SelectedItem.ToString(), out teachersStructures);
-                    foreach (var teach in teachersStructures)
-                        TeacherInfo.Rows.Add(teach.nameteacher, teach.nameposition, teach.emaildata);
+                    structure.nameteacher = textBox1.Text;
+                    structure.nameposition = PositionBox.SelectedItem.ToString();
+                    structure.emaildata = EmailTeacher.Text;
+                    structure.rating = float.Parse(InputRating.Text);
+                    structure.hourlypayment = float.Parse(textBox3.Text);
+                    if (teachers.Add(structure, FacultyInputBox.SelectedItem.ToString(), DepartmentInputBox.SelectedItem.ToString()))
+                    {
+                        if (choiseDiscipline.disciplineForTeacher.Count > 0)
+                        {
+                            foreach (var dis in choiseDiscipline.disciplineForTeacher)
+                                teachers.AddTeacherDiscipline(DepartmentInputBox.SelectedItem.ToString(), FacultyInputBox.SelectedItem.ToString(), textBox1.Text, dis);
+                            textBox3.Clear();
+                            InputRating.Clear();
+                            FacultyInputBox.SelectedItem = null;
+                            DepartmentInputBox.SelectedItem = null;
+                            textBox1.Clear();
+                            EmailTeacher.Clear();
+                            PositionBox.SelectedItem = null;
+                            TeacherInfo.Rows.Clear();
+                            if (FacultyBox.SelectedItem != null & DepartmentBox.SelectedItem != null)
+                            {
+                                teachers.GetTeachers(FacultyBox.SelectedItem.ToString(), DepartmentBox.SelectedItem.ToString(), out teachersStructures);
+                                foreach (var teach in teachersStructures)
+                                    TeacherInfo.Rows.Add(teach.nameteacher, teach.nameposition, teach.emaildata);
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Дисциплины не выбраны!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show(teachers.exception, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
                 else
                 {
-                    MessageBox.Show(teachers.exception, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Email неверный!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
             }
@@ -131,12 +168,35 @@ namespace UniversityMain
         }
         private void FacultyInputBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DepartmentInputBox.Items.Clear();
-            Logics.MainTable.Departments departments = new Logics.MainTable.Departments(connectionDB);
-            List<string> departmentsName = new List<string>();
-            departments.GetAllDepartmentNames(FacultyInputBox.SelectedItem.ToString(), out departmentsName);
-            foreach (var dep in departmentsName)
-                DepartmentInputBox.Items.Add(dep);
+            if (FacultyInputBox.SelectedItem != null)
+            {
+                DepartmentInputBox.Items.Clear();
+                Logics.MainTable.Departments departments = new Logics.MainTable.Departments(connectionDB);
+                List<string> departmentsName = new List<string>();
+                departments.GetAllDepartmentNames(FacultyInputBox.SelectedItem.ToString(), out departmentsName);
+                foreach (var dep in departmentsName)
+                    DepartmentInputBox.Items.Add(dep);
+            }
+        }
+        bool IsValidEmail(string email)
+        {
+            try
+            {
+                var adress = new System.Net.Mail.MailAddress(email);
+                return adress.Address == email;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (FacultyInputBox.SelectedItem!=null & DepartmentInputBox.SelectedItem!=null)
+            {
+                 choiseDiscipline = new ChoiseDiscipline(connectionDB, FacultyInputBox.SelectedItem.ToString(), DepartmentInputBox.SelectedItem.ToString(), true, null);
+                choiseDiscipline.ShowDialog();
+            }
         }
     }
 }

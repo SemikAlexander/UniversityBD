@@ -52,6 +52,12 @@
     <Compile Include="Authorization.Designer.cs">
       <DependentUpon>Authorization.cs</DependentUpon>
     </Compile>
+    <Compile Include="ChoiseDiscipline.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChoiseDiscipline.Designer.cs">
+      <DependentUpon>ChoiseDiscipline.cs</DependentUpon>
+    </Compile>
     <Compile Include="Classroom.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -108,6 +114,12 @@
     <Compile Include="Specialities.Designer.cs">
       <DependentUpon>Specialities.cs</DependentUpon>
     </Compile>
+    <Compile Include="StudyPlan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StudyPlan.Designer.cs">
+      <DependentUpon>StudyPlan.cs</DependentUpon>
+    </Compile>
     <Compile Include="Teachers.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -128,6 +140,9 @@
     </Compile>
     <EmbeddedResource Include="Authorization.resx">
       <DependentUpon>Authorization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChoiseDiscipline.resx">
+      <DependentUpon>ChoiseDiscipline.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Classroom.resx">
       <DependentUpon>Classroom.cs</DependentUpon>
@@ -165,6 +180,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Specialities.resx">
       <DependentUpon>Specialities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StudyPlan.resx">
+      <DependentUpon>StudyPlan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Teachers.resx">
       <DependentUpon>Teachers.cs</DependentUpon>
@@ -307,6 +325,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Dep.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Speciality%2850%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Speciality.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Syllabus.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

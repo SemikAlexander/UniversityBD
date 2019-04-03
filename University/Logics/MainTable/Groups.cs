@@ -9,7 +9,7 @@ namespace Logics.MainTable
     {
         public struct GroupsStructure
         {
-            public int YearCreate;public string Subname;
+            public int YearCreate; public string Subname;
         }
         public struct GroupPlan
         {
