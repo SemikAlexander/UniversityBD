@@ -17,6 +17,7 @@ namespace UniversityMain
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
         private extern static void SendMessage(System.IntPtr hwnd, int wmsg, int wparam, int lparam);
         bool WindowMaximize = true;
+        int HeightPanel = 455;
         Logics.Functions.Connection.ConnectionDB connectionDB;
         public MainForm(Logics.Functions.Connection.ConnectionDB connection)
         {
@@ -99,7 +100,7 @@ namespace UniversityMain
         {
             if (INFO.Height == 42)
             {
-                INFO.Height = 535;
+                INFO.Height = HeightPanel;
                 pictureBox1.Image = Properties.Resources.CloseDir;
             }
             else
@@ -112,7 +113,7 @@ namespace UniversityMain
         {
             if (INFO.Height == 42)
             {
-                INFO.Height = 535;
+                INFO.Height = HeightPanel;
                 pictureBox1.Image = Properties.Resources.CloseDir;
             }
             else
@@ -125,7 +126,7 @@ namespace UniversityMain
         {
             if (INFO.Height == 42)
             {
-                INFO.Height = 535;
+                INFO.Height = HeightPanel;
                 pictureBox1.Image = Properties.Resources.CloseDir;
             }
             else

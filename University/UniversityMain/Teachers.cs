@@ -118,21 +118,29 @@ namespace UniversityMain
                     structure.hourlypayment = float.Parse(textBox3.Text);
                     if (teachers.Add(structure, FacultyInputBox.SelectedItem.ToString(), DepartmentInputBox.SelectedItem.ToString()))
                     {
-                        foreach(var dis in choiseDiscipline.disciplineForTeacher)
-                            teachers.AddTeacherDiscipline(DepartmentInputBox.SelectedItem.ToString(), FacultyInputBox.SelectedItem.ToString(), textBox1.Text, dis);
-                        textBox3.Clear();
-                        InputRating.Clear();
-                        FacultyInputBox.SelectedItem = null;
-                        DepartmentInputBox.SelectedItem = null;
-                        textBox1.Clear();
-                        EmailTeacher.Clear();
-                        PositionBox.SelectedItem = null;
-                        TeacherInfo.Rows.Clear();
-                        if(FacultyBox.SelectedItem!=null & DepartmentBox.SelectedItem != null)
+                        if (choiseDiscipline.disciplineForTeacher.Count > 0)
                         {
-                            teachers.GetTeachers(FacultyBox.SelectedItem.ToString(), DepartmentBox.SelectedItem.ToString(), out teachersStructures);
-                            foreach (var teach in teachersStructures)
-                                TeacherInfo.Rows.Add(teach.nameteacher, teach.nameposition, teach.emaildata);
+                            foreach (var dis in choiseDiscipline.disciplineForTeacher)
+                                teachers.AddTeacherDiscipline(DepartmentInputBox.SelectedItem.ToString(), FacultyInputBox.SelectedItem.ToString(), textBox1.Text, dis);
+                            textBox3.Clear();
+                            InputRating.Clear();
+                            FacultyInputBox.SelectedItem = null;
+                            DepartmentInputBox.SelectedItem = null;
+                            textBox1.Clear();
+                            EmailTeacher.Clear();
+                            PositionBox.SelectedItem = null;
+                            TeacherInfo.Rows.Clear();
+                            if (FacultyBox.SelectedItem != null & DepartmentBox.SelectedItem != null)
+                            {
+                                teachers.GetTeachers(FacultyBox.SelectedItem.ToString(), DepartmentBox.SelectedItem.ToString(), out teachersStructures);
+                                foreach (var teach in teachersStructures)
+                                    TeacherInfo.Rows.Add(teach.nameteacher, teach.nameposition, teach.emaildata);
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Дисциплины не выбраны!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
                         }
                     }
                     else

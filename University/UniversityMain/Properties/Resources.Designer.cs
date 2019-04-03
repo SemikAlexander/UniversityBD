@@ -363,6 +363,16 @@ namespace UniversityMain.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Syllabus {
+            get {
+                object obj = ResourceManager.GetObject("Syllabus", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Teacher {
             get {
                 object obj = ResourceManager.GetObject("Teacher", resourceCulture);
