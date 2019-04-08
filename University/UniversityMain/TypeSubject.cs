@@ -20,6 +20,7 @@ namespace UniversityMain
         List<Logics.Books.TypeSubject.StructTypeSubject> structTypeSubjects = new List<Logics.Books.TypeSubject.StructTypeSubject>();
         Logics.Functions.Connection.ConnectionDB connectionDB;
         Logics.Books.TypeSubject type;
+        Logics.Books.TypeSubject.type_lesson type_Lesson;
         public TypeSubject(Logics.Functions.Connection.ConnectionDB connection)
         {
             connectionDB = connection;
@@ -72,9 +73,14 @@ namespace UniversityMain
         }
         private void button4_Click(object sender, EventArgs e)
         {
-            if(InputSubject.Text.Trim(' ').Length != 0)
+            if (InputSubject.Text.Trim(' ').Length != 0 & TypeSub.SelectedItem != null)
             {
-                if (!type.AddTypeSubject(InputSubject.Text))
+                switch (TypeSub.SelectedIndex)
+                {
+                    case 0: type_Lesson = Logics.Books.TypeSubject.type_lesson.Session; break;
+                    case 1: type_Lesson = Logics.Books.TypeSubject.type_lesson.Study; break;
+                }
+                if (!type.AddTypeSubject(InputSubject.Text, type_Lesson: type_Lesson))
                 {
                     MessageBox.Show(type.exception, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -84,6 +90,7 @@ namespace UniversityMain
                     InputSubject.Clear();
                     SubjectInfo.Rows.Clear();
                     structTypeSubjects.Clear();
+                    TypeSub.SelectedItem = null;
                     try
                     {
                         type.GetAllTypeSubjects(out structTypeSubjects);

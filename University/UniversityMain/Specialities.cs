@@ -106,7 +106,6 @@ namespace UniversityMain
                     SpecialitiesInfo.Rows.Add(spec.Name_Specialty, spec.Abbreviation_Specialty, spec.Cipher_Specialty);
             }
         }
-
         private void FacultyBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (FacultyBox.SelectedItem != null)
@@ -119,7 +118,6 @@ namespace UniversityMain
                     DepartmentBox.Items.Add(d_n);
             }
         }
-
         private void button5_Click(object sender, EventArgs e)
         {
             if (InputNameSpeciality.Text.Trim(' ').Length != 0 & textBox1.Text.Trim(' ').Length != 0 & textBox2.Text.Trim(' ').Length != 0 & FacultyBox.SelectedItem!=null & DepartmentBox.SelectedItem != null)
