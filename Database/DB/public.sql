@@ -12,7 +12,7 @@
  Target Server Version : 90612
  File Encoding         : 65001
 
- Date: 02/04/2019 08:33:52
+ Date: 04/04/2019 15:07:13
 */
 
 
@@ -159,6 +159,12 @@ CREATE TABLE "public"."Spec_discipline" (
 ;
 
 -- ----------------------------
+-- Records of Spec_discipline
+-- ----------------------------
+INSERT INTO "public"."Spec_discipline" VALUES (16, 49);
+INSERT INTO "public"."Spec_discipline" VALUES (17, 49);
+
+-- ----------------------------
 -- Table structure for classroom
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."classroom";
@@ -267,6 +273,12 @@ CREATE TABLE "public"."discipline" (
 ;
 
 -- ----------------------------
+-- Records of discipline
+-- ----------------------------
+INSERT INTO "public"."discipline" VALUES (16, 'dsa');
+INSERT INTO "public"."discipline" VALUES (17, 'asdsa');
+
+-- ----------------------------
 -- Table structure for faculty
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."faculty";
@@ -281,20 +293,14 @@ CREATE TABLE "public"."faculty" (
 -- Records of faculty
 -- ----------------------------
 INSERT INTO "public"."faculty" VALUES (8, 'Горный', '');
-INSERT INTO "public"."faculty" VALUES (9, 'Инженерной механики и машиностроения
-', '');
-INSERT INTO "public"."faculty" VALUES (11, 'Металургии и теплоэнергетики
-', NULL);
 INSERT INTO "public"."faculty" VALUES (12, 'Электротехнический', NULL);
-INSERT INTO "public"."faculty" VALUES (13, 'Компьютерных наук и технологий
-', NULL);
-INSERT INTO "public"."faculty" VALUES (14, 'Компьютерных информационных технологий и автоматизации
-', NULL);
-INSERT INTO "public"."faculty" VALUES (15, 'Экологии и химической технологии
-', NULL);
-INSERT INTO "public"."faculty" VALUES (16, 'Инженерно-экономический
-', NULL);
 INSERT INTO "public"."faculty" VALUES (7, 'Горно-геологический', '');
+INSERT INTO "public"."faculty" VALUES (13, 'Компьютерных наук и технологий', NULL);
+INSERT INTO "public"."faculty" VALUES (14, 'Компьютерных информационных технологий и автоматизации', NULL);
+INSERT INTO "public"."faculty" VALUES (15, 'Экологии и химической технологии', NULL);
+INSERT INTO "public"."faculty" VALUES (16, 'Инженерно-экономический', NULL);
+INSERT INTO "public"."faculty" VALUES (9, 'Инженерной механики и машиностроения', '');
+INSERT INTO "public"."faculty" VALUES (11, 'Металургии и теплоэнергетики', NULL);
 
 -- ----------------------------
 -- Table structure for groups
@@ -413,6 +419,7 @@ CREATE TABLE "public"."teachers" (
 -- ----------------------------
 INSERT INTO "public"."teachers" VALUES (4, 'sa', 13, 4, 'aaa', 21, 12);
 INSERT INTO "public"."teachers" VALUES (5, 'sa', 13, 4, 'aaa', 21, 12);
+INSERT INTO "public"."teachers" VALUES (7, 'Q', 13, 51, 'q@q.ru', 1, 1);
 
 -- ----------------------------
 -- Table structure for timeTable
@@ -447,10 +454,14 @@ CREATE TABLE "public"."transfers" (
 DROP TABLE IF EXISTS "public"."typeSubject";
 CREATE TABLE "public"."typeSubject" (
   "ID_SUBJECT" int4 NOT NULL DEFAULT nextval('"typeSubject_ID_SUBJECT_seq"'::regclass),
-  "Name_Subject" text COLLATE "pg_catalog"."default" NOT NULL
+  "Name_Subject" text COLLATE "pg_catalog"."default" NOT NULL,
+  "type_lesson" varchar(1) COLLATE "pg_catalog"."default" NOT NULL
 )
 ;
 COMMENT ON COLUMN "public"."typeSubject"."Name_Subject" IS 'Тип предмета (лекция, проработка, семинар, консультация, экзамен, зачёт)';
+COMMENT ON COLUMN "public"."typeSubject"."type_lesson" IS 'Тип предмета, к чему относится 
+Сессия - С
+Обучение - О ';
 
 -- ----------------------------
 -- Table structure for week
@@ -478,8 +489,8 @@ INSERT INTO "public"."week" VALUES (10, 'Воскресенье', 'V');
 -- ----------------------------
 -- Function structure for add_styding_plans
 -- ----------------------------
-DROP FUNCTION IF EXISTS "public"."add_styding_plans"("namefaculty" text, "namedepartment" text, "spec" text, "year_gr" int4, "sub_gr" text, "startstuding" date, "endstuding" date, "startsession" date, "endsession" date);
-CREATE OR REPLACE FUNCTION "public"."add_styding_plans"("namefaculty" text, "namedepartment" text, "spec" text, "year_gr" int4, "sub_gr" text, "startstuding" date, "endstuding" date, "startsession" date, "endsession" date)
+DROP FUNCTION IF EXISTS "public"."add_styding_plans"("namefaculty" text, "namedepar" text, "spec" text, "year_gr" int4, "sub_gr" text, "startstuding" date, "endstuding" date, "startsession" date, "endsession" date);
+CREATE OR REPLACE FUNCTION "public"."add_styding_plans"("namefaculty" text, "namedepar" text, "spec" text, "year_gr" int4, "sub_gr" text, "startstuding" date, "endstuding" date, "startsession" date, "endsession" date)
   RETURNS "pg_catalog"."text" AS $BODY$
 	DECLARE
 	IDDEPARTMENT INTEGER :=0;
@@ -492,17 +503,17 @@ SELECT "ID_FACULTY" FROM faculty INTO IDFACULTY WHERE "Name_Faculty"=namefaculty
  RETURN 'Факультет не найден';
 END IF;
 
-SELECT department."ID_DEPARTMENT" From department WHERE  department."Name_Department"=namedepartment and IDFACULTY=department.id_faculty LIMIT 1 INTO IDDEPARTMENT;
+SELECT department."ID_DEPARTMENT" From department WHERE  department."Name_Department"=namedepar and IDFACULTY=department.id_faculty LIMIT 1 INTO IDDEPARTMENT;
 IF NOT FOUND THEN
     RETURN 'Кафедра не существует';
 END IF;
 
-SELECT specialty."ID_SPECIALTY" From specialty WHERE specialty."Abbreviation_Specialty"=abbreviationspecialty or specialty."Abbreviation_Specialty"=abbreviationspecialty INTO IDSPEC;
+SELECT specialty."ID_SPECIALTY" From specialty WHERE specialty."Abbreviation_Specialty"=spec INTO IDSPEC;
 IF NOT FOUND THEN
     RETURN 'Специальность не существует';
 END IF;
 
-SELECT "ID_GROUP" FROM groups WHERE "Sub_Name_Group"=sub and groups.id_specialty=IDSPEC and "Year_Of_Entry"=yea INTO IDGROUP;
+SELECT "ID_GROUP" FROM groups WHERE "Sub_Name_Group"=sub_gr and groups.id_specialty=IDSPEC and "Year_Of_Entry"=year_gr INTO IDGROUP;
 IF NOT FOUND THEN
 	RETURN 'Группа не существует';
 END IF;
@@ -532,11 +543,11 @@ $BODY$
 -- ----------------------------
 -- Function structure for classroom_add
 -- ----------------------------
-DROP FUNCTION IF EXISTS "public"."classroom_add"("housing" int4, "num_classroom" int4);
-CREATE OR REPLACE FUNCTION "public"."classroom_add"("housing" int4, "num_classroom" int4)
+DROP FUNCTION IF EXISTS "public"."classroom_add"("housing" int4, "numclassroom" int4);
+CREATE OR REPLACE FUNCTION "public"."classroom_add"("housing" int4, "numclassroom" int4)
   RETURNS "pg_catalog"."text" AS $BODY$
 BEGIN
-	 	IF EXISTS(SELECT FROM "public".classroom WHERE "public".classroom."Housing"=Housing AND "public".classroom."Num_Classroom"=Num_Classroom) THEN
+	 	IF EXISTS(SELECT FROM "public".classroom WHERE "public".classroom."Housing"=Housing AND "public".classroom."Num_Classroom"=numclassroom) THEN
 		RETURN 'Запись существует';
 	ELSE
 		INSERT INTO classroom ("Housing","Num_Classroom") VALUES(Housing,Num_Classroom);	
@@ -606,8 +617,8 @@ $BODY$
 -- ----------------------------
 -- Function structure for del_styding_plans
 -- ----------------------------
-DROP FUNCTION IF EXISTS "public"."del_styding_plans"("namefaculty" text, "namedepartment" text, "spec" text, "year_gr" int4, "sub_gr" text, "startstuding" date, "endstuding" date, "startsession" date, "endsession" date);
-CREATE OR REPLACE FUNCTION "public"."del_styding_plans"("namefaculty" text, "namedepartment" text, "spec" text, "year_gr" int4, "sub_gr" text, "startstuding" date, "endstuding" date, "startsession" date, "endsession" date)
+DROP FUNCTION IF EXISTS "public"."del_styding_plans"("namefaculty" text, "namedepar" text, "spec" text, "year_gr" int4, "sub_gr" text, "startstuding" date, "endstuding" date, "startsession" date, "endsession" date);
+CREATE OR REPLACE FUNCTION "public"."del_styding_plans"("namefaculty" text, "namedepar" text, "spec" text, "year_gr" int4, "sub_gr" text, "startstuding" date, "endstuding" date, "startsession" date, "endsession" date)
   RETURNS "pg_catalog"."text" AS $BODY$
 	DECLARE
 	IDDEPARTMENT INTEGER :=0;
@@ -620,17 +631,17 @@ SELECT "ID_FACULTY" FROM faculty INTO IDFACULTY WHERE "Name_Faculty"=namefaculty
  RETURN 'Факультет не найден';
 END IF;
 
-SELECT department."ID_DEPARTMENT" From department WHERE  department."Name_Department"=namedepartment and IDFACULTY=department.id_faculty LIMIT 1 INTO IDDEPARTMENT;
+SELECT department."ID_DEPARTMENT" From department WHERE  department."Name_Department"=namedepar and IDFACULTY=department.id_faculty LIMIT 1 INTO IDDEPARTMENT;
 IF NOT FOUND THEN
     RETURN 'Кафедра не существует';
 END IF;
 
-SELECT specialty."ID_SPECIALTY" From specialty WHERE specialty."Abbreviation_Specialty"=abbreviationspecialty or specialty."Abbreviation_Specialty"=abbreviationspecialty INTO IDSPEC;
+SELECT specialty."ID_SPECIALTY" From specialty WHERE specialty."Abbreviation_Specialty"=spec  INTO IDSPEC;
 IF NOT FOUND THEN
     RETURN 'Специальность не существует';
 END IF;
 
-SELECT "ID_GROUP" FROM groups WHERE "Sub_Name_Group"=sub and groups.id_specialty=IDSPEC and "Year_Of_Entry"=yea INTO IDGROUP;
+SELECT "ID_GROUP" FROM groups WHERE "Sub_Name_Group"=sub_gr and groups.id_specialty=IDSPEC and "Year_Of_Entry"=year_gr INTO IDGROUP;
 IF NOT FOUND THEN
 	RETURN 'Группа не существует';
 END IF;
@@ -655,8 +666,8 @@ $BODY$
 -- ----------------------------
 -- Function structure for department_add
 -- ----------------------------
-DROP FUNCTION IF EXISTS "public"."department_add"("namefaculty" text, "logo" text, "namedepartment" text, "housingc" int4, "numclassroom" int4);
-CREATE OR REPLACE FUNCTION "public"."department_add"("namefaculty" text, "logo" text, "namedepartment" text, "housingc" int4, "numclassroom" int4)
+DROP FUNCTION IF EXISTS "public"."department_add"("namefaculty" text, "logo" text, "namedepar" text, "housingc" int4, "numclassroom" int4);
+CREATE OR REPLACE FUNCTION "public"."department_add"("namefaculty" text, "logo" text, "namedepar" text, "housingc" int4, "numclassroom" int4)
   RETURNS "pg_catalog"."text" AS $BODY$
 	DECLARE
 	IDCLASSROOM INTEGER :=0;
@@ -673,10 +684,10 @@ IF NOT FOUND THEN
     RETURN 'Класс не найден';
 END IF;
 
-IF EXISTS(SELECT * From department WHERE  department."Name_Department"=namedepartment and IDFACULTY=department.id_faculty) THEN
+IF EXISTS(SELECT * From department WHERE  department."Name_Department"=namedepar and IDFACULTY=department.id_faculty) THEN
     RETURN 'Кафедра существует';
 END IF;
-			INSERT INTO department("Logo_Department","Name_Department",id_classrooms,id_faculty) VALUES(logo,namedepartment,IDCLASSROOM,IDFACULTY);
+			INSERT INTO department("Logo_Department","Name_Department",id_classrooms,id_faculty) VALUES(logo,namedepar,IDCLASSROOM,IDFACULTY);
 			RETURN 'Success';
 END
 $BODY$
@@ -706,21 +717,21 @@ $BODY$
 -- ----------------------------
 -- Function structure for discipline_add
 -- ----------------------------
-DROP FUNCTION IF EXISTS "public"."discipline_add"("name_discipline" text, "namefacul" text, "NameDepartment" text);
-CREATE OR REPLACE FUNCTION "public"."discipline_add"("name_discipline" text, "namefacul" text, "NameDepartment" text)
+DROP FUNCTION IF EXISTS "public"."discipline_add"("name_discipline" text, "namefacul" text, "namedepar" text);
+CREATE OR REPLACE FUNCTION "public"."discipline_add"("name_discipline" text, "namefacul" text, "namedepar" text)
   RETURNS "pg_catalog"."text" AS $BODY$
 	DECLARE
-	id_dep INTEGER :=0;
 	id_disc INTEGER :=0;
 	BEGIN 
-	SELECT discipline."ID_DISCIPLINE", discipline."Name_Discipline" FROM(SELECT department."ID_DEPARTMENT" FROM (SELECT faculty."ID_FACULTY" FROM faculty WHERE faculty."Name_Faculty"=namefacul LIMIT 1) as id_fac INNER JOIN department on department.id_faculty=id_fac."ID_FACULTY" WHERE department."Name_Department"=NameDepartment INTO id_dep) as dep INNER JOIN  "Spec_discipline" on "Spec_discipline".id_department= dep."ID_DEPARTMENT" INNER JOIN discipline on discipline."ID_DISCIPLINE"="Spec_discipline".id_discipline WHERE discipline."Name_Discipline"=name_discipline;
-	IF FOUND THEN
+	
+	IF EXISTS(SELECT discipline."ID_DISCIPLINE", discipline."Name_Discipline" FROM(SELECT department."ID_DEPARTMENT" FROM (SELECT faculty."ID_FACULTY" FROM faculty WHERE faculty."Name_Faculty"=namefacul LIMIT 1) as id_fac INNER JOIN department on department.id_faculty=id_fac."ID_FACULTY" WHERE department."Name_Department"=namedepar) as dep INNER JOIN  "Spec_discipline" on "Spec_discipline".id_department= dep."ID_DEPARTMENT" INNER JOIN discipline on discipline."ID_DISCIPLINE"="Spec_discipline".id_discipline WHERE discipline."Name_Discipline"=name_discipline) THEN
 		RETURN 'Запись уже существует';
 	END IF;
-	INSERT INTO discipline(discipline."Name_Discipline") VALUES (name_discipline);
+
+	INSERT INTO discipline("Name_Discipline") VALUES (name_discipline);
 	  SELECT currval(pg_get_serial_sequence('discipline','ID_DISCIPLINE')) INTO id_disc;
 	
-		INSERT INTO "Spec_discipline" VALUES (id_disc,id_dep);
+		INSERT INTO "Spec_discipline" VALUES (id_disc,	(SELECT department."ID_DEPARTMENT" FROM (SELECT faculty."ID_FACULTY" FROM faculty WHERE faculty."Name_Faculty"=namefacul LIMIT 1) as id_fac INNER JOIN department on department.id_faculty=id_fac."ID_FACULTY" WHERE department."Name_Department"=namedepar));
 		RETURN 'Success';
 END
 $BODY$
@@ -745,10 +756,10 @@ $BODY$
 -- ----------------------------
 -- Function structure for discipline_get_all
 -- ----------------------------
-DROP FUNCTION IF EXISTS "public"."discipline_get_all"("namefaculty" text, "department" text, "start_row" int4, "count_rows" int4);
-CREATE OR REPLACE FUNCTION "public"."discipline_get_all"("namefaculty" text, "department" text, "start_row" int4, "count_rows" int4)
+DROP FUNCTION IF EXISTS "public"."discipline_get_all"("namefaculty" text, "depart" text, "start_row" int4, "count_rows" int4);
+CREATE OR REPLACE FUNCTION "public"."discipline_get_all"("namefaculty" text, "depart" text, "start_row" int4, "count_rows" int4)
   RETURNS TABLE("id" int4, "name" text) AS $BODY$BEGIN
-	RETURN QUERY SELECT discipline."ID_DISCIPLINE", discipline."Name_Discipline" FROM(SELECT department."ID_DEPARTMENT" FROM (SELECT faculty."ID_FACULTY" FROM faculty WHERE faculty."Name_Faculty"=namefaculty LIMIT 1) as id_fac INNER JOIN department on department.id_faculty=id_fac."ID_FACULTY" WHERE department."Name_Department"=department) as dep INNER JOIN  "Spec_discipline" on "Spec_discipline".id_department= dep."ID_DEPARTMENT" INNER JOIN discipline on discipline."ID_DISCIPLINE"="Spec_discipline".id_discipline LIMIT count_rows OFFSET start_row;
+	RETURN QUERY SELECT discipline."ID_DISCIPLINE", discipline."Name_Discipline" FROM(SELECT department."ID_DEPARTMENT" FROM (SELECT faculty."ID_FACULTY" FROM faculty WHERE faculty."Name_Faculty"=namefaculty LIMIT 1) as id_fac INNER JOIN department on department.id_faculty=id_fac."ID_FACULTY" WHERE department."Name_Department"=depart) as dep INNER JOIN  "Spec_discipline" on "Spec_discipline".id_department= dep."ID_DEPARTMENT" INNER JOIN discipline on discipline."ID_DISCIPLINE"="Spec_discipline".id_discipline LIMIT count_rows OFFSET start_row;
 
 END
 $BODY$
@@ -1271,6 +1282,25 @@ $BODY$
   COST 100;
 
 -- ----------------------------
+-- Function structure for type_subject_add
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."type_subject_add"("name_subject" text, "lesson" bpchar);
+CREATE OR REPLACE FUNCTION "public"."type_subject_add"("name_subject" text, "lesson" bpchar)
+  RETURNS "pg_catalog"."text" AS $BODY$
+	BEGIN 
+	IF EXISTS(SELECT * FROM "typeSubject" WHERE "Name_Subject"=name_subject and "type_lesson"=lesson) THEN
+		RETURN 'Запись существует';
+	ELSE
+		INSERT INTO "typeSubject"("Name_Subject", "type_lesson") VALUES(name_subject,lesson);	
+		RETURN 'Success';
+	END IF;
+
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+-- ----------------------------
 -- Function structure for type_subject_delete
 -- ----------------------------
 DROP FUNCTION IF EXISTS "public"."type_subject_delete"("id" int4);
@@ -1288,7 +1318,7 @@ $BODY$
 -- ----------------------------
 DROP FUNCTION IF EXISTS "public"."type_subject_get_all"();
 CREATE OR REPLACE FUNCTION "public"."type_subject_get_all"()
-  RETURNS TABLE("id" int4, "name" text) AS $BODY$BEGIN
+  RETURNS TABLE("id" int4, "name" text, "lesson" bpchar) AS $BODY$BEGIN
 	RETURN QUERY SELECT * FROM "typeSubject";
 END
 $BODY$
@@ -1347,40 +1377,40 @@ $BODY$
 -- ----------------------------
 ALTER SEQUENCE "public"."classroom_ID_CLASSROOM_seq"
 OWNED BY "public"."classroom"."ID_CLASSROOM";
-SELECT setval('"public"."classroom_ID_CLASSROOM_seq"', 11, true);
+SELECT setval('"public"."classroom_ID_CLASSROOM_seq"', 12, true);
 ALTER SEQUENCE "public"."department_ID_DEPARTMENT_seq"
 OWNED BY "public"."department"."ID_DEPARTMENT";
-SELECT setval('"public"."department_ID_DEPARTMENT_seq"', 79, true);
+SELECT setval('"public"."department_ID_DEPARTMENT_seq"', 80, true);
 ALTER SEQUENCE "public"."discipline_ID_DISCIPLINE_seq"
 OWNED BY "public"."discipline"."ID_DISCIPLINE";
-SELECT setval('"public"."discipline_ID_DISCIPLINE_seq"', 5, false);
+SELECT setval('"public"."discipline_ID_DISCIPLINE_seq"', 18, true);
 ALTER SEQUENCE "public"."faculty_ID_FACULTY_seq"
 OWNED BY "public"."faculty"."ID_FACULTY";
-SELECT setval('"public"."faculty_ID_FACULTY_seq"', 18, true);
+SELECT setval('"public"."faculty_ID_FACULTY_seq"', 19, true);
 ALTER SEQUENCE "public"."groups_ID_GROUP_seq"
 OWNED BY "public"."groups"."ID_GROUP";
-SELECT setval('"public"."groups_ID_GROUP_seq"', 6, true);
+SELECT setval('"public"."groups_ID_GROUP_seq"', 7, true);
 ALTER SEQUENCE "public"."position_ID_POSITION_seq"
 OWNED BY "public"."position"."ID_POSITION";
-SELECT setval('"public"."position_ID_POSITION_seq"', 14, true);
+SELECT setval('"public"."position_ID_POSITION_seq"', 15, true);
 ALTER SEQUENCE "public"."specialty_ID_SPECIALTY_seq"
 OWNED BY "public"."specialty"."ID_SPECIALTY";
-SELECT setval('"public"."specialty_ID_SPECIALTY_seq"', 5, true);
+SELECT setval('"public"."specialty_ID_SPECIALTY_seq"', 6, true);
 ALTER SEQUENCE "public"."stadyingPlan_ID_SETTING_seq"
 OWNED BY "public"."stadyingPlan"."ID_SETTING";
-SELECT setval('"public"."stadyingPlan_ID_SETTING_seq"', 5, false);
+SELECT setval('"public"."stadyingPlan_ID_SETTING_seq"', 6, false);
 ALTER SEQUENCE "public"."teachers_ID_TEACHER_seq"
 OWNED BY "public"."teachers"."ID_TEACHER";
-SELECT setval('"public"."teachers_ID_TEACHER_seq"', 6, true);
+SELECT setval('"public"."teachers_ID_TEACHER_seq"', 8, true);
 ALTER SEQUENCE "public"."timeTable_ID_seq"
 OWNED BY "public"."timeTable"."ID";
-SELECT setval('"public"."timeTable_ID_seq"', 5, false);
+SELECT setval('"public"."timeTable_ID_seq"', 6, false);
 ALTER SEQUENCE "public"."typeSubject_ID_SUBJECT_seq"
 OWNED BY "public"."typeSubject"."ID_SUBJECT";
-SELECT setval('"public"."typeSubject_ID_SUBJECT_seq"', 10, true);
+SELECT setval('"public"."typeSubject_ID_SUBJECT_seq"', 11, true);
 ALTER SEQUENCE "public"."week_ID_DAY_seq"
 OWNED BY "public"."week"."ID_DAY";
-SELECT setval('"public"."week_ID_DAY_seq"', 12, true);
+SELECT setval('"public"."week_ID_DAY_seq"', 13, true);
 
 -- ----------------------------
 -- Primary Key structure for table classroom
