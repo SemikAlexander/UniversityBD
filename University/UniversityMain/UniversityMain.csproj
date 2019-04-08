@@ -335,5 +335,8 @@
   <ItemGroup>
     <None Include="Resources\Syllabus.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TimeTable%2850%29.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
