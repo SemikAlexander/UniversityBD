@@ -23,6 +23,7 @@ namespace UniversityMain
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
         private extern static void SendMessage(System.IntPtr hwnd, int wmsg, int wparam, int lparam);
         Logics.MainTable.Teachers teachers;
+        Teachers teachersDisc;
         string facultyName, departmentName, Name;
         bool addForm;
         public ChoiseDiscipline(Logics.Functions.Connection.ConnectionDB connection, string faculty, string department, bool add, string NameTeacher)
@@ -35,9 +36,12 @@ namespace UniversityMain
             addForm = add;
             Name = NameTeacher;
             teachers = new Logics.MainTable.Teachers(connection);
+            teachersDisc = new Teachers(connection);
         }
         private void button1_Click(object sender, EventArgs e)
         {
+            foreach (var disc in disciplineForTeacher)
+                teachersDisc.teacherDiscipline.Add(disc);
             Close();
         }
         private void UpButton_Click(object sender, EventArgs e)

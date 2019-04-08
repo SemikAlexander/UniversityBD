@@ -106,12 +106,12 @@ namespace UniversityMain
         }
         private void button5_Click(object sender, EventArgs e)
         {
-            if(textBox3.Text.Length!=0 & InputRating.Text.Length!=0 & FacultyInputBox.SelectedItem!=null & DepartmentInputBox.SelectedItem!=null & textBox1.Text.Length!=0 & EmailTeacher.Text.Length!=0 & PositionBox.SelectedItem != null)
+            if(textBox3.Text.Length!=0 & InputRating.Text.Length!=0 & FacultyInputBox.SelectedItem!=null & DepartmentInputBox.SelectedItem!=null & NameTeacher.Text.Length!=0 & EmailTeacher.Text.Length!=0 & PositionBox.SelectedItem != null)
             {
 
                 if (IsValidEmail(EmailTeacher.Text))
                 {
-                    structure.nameteacher = textBox1.Text;
+                    structure.nameteacher = NameTeacher.Text;
                     structure.nameposition = PositionBox.SelectedItem.ToString();
                     structure.emaildata = EmailTeacher.Text;
                     structure.rating = float.Parse(InputRating.Text);
@@ -121,12 +121,12 @@ namespace UniversityMain
                         if (choiseDiscipline.disciplineForTeacher.Count > 0)
                         {
                             foreach (var dis in choiseDiscipline.disciplineForTeacher)
-                                teachers.AddTeacherDiscipline(DepartmentInputBox.SelectedItem.ToString(), FacultyInputBox.SelectedItem.ToString(), textBox1.Text, dis);
+                                teachers.AddTeacherDiscipline(DepartmentInputBox.SelectedItem.ToString(), FacultyInputBox.SelectedItem.ToString(), NameTeacher.Text, dis);
                             textBox3.Clear();
                             InputRating.Clear();
                             FacultyInputBox.SelectedItem = null;
                             DepartmentInputBox.SelectedItem = null;
-                            textBox1.Clear();
+                            NameTeacher.Clear();
                             EmailTeacher.Clear();
                             PositionBox.SelectedItem = null;
                             TeacherInfo.Rows.Clear();
@@ -192,9 +192,9 @@ namespace UniversityMain
         }
         private void button3_Click(object sender, EventArgs e)
         {
-            if (FacultyInputBox.SelectedItem!=null & DepartmentInputBox.SelectedItem!=null)
+            if (FacultyInputBox.SelectedItem != null & DepartmentInputBox.SelectedItem != null)
             {
-                 choiseDiscipline = new ChoiseDiscipline(connectionDB, FacultyInputBox.SelectedItem.ToString(), DepartmentInputBox.SelectedItem.ToString(), true, null);
+                choiseDiscipline = new ChoiseDiscipline(connectionDB, FacultyInputBox.SelectedItem.ToString(), DepartmentInputBox.SelectedItem.ToString(), true, NameTeacher.Text);
                 choiseDiscipline.ShowDialog();
             }
         }

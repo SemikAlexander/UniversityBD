@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.VerticalMenu = new System.Windows.Forms.Panel();
             this.INFO = new System.Windows.Forms.Panel();
@@ -35,6 +37,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.ParaInfo = new System.Windows.Forms.DataGridView();
+            this.Monday = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Tuesday = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Wednesday = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Thuesday = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Friday = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.button14 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
@@ -51,14 +60,11 @@
             this.button6 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.timetable = new System.Windows.Forms.Button();
-            this.DepBox = new System.Windows.Forms.ComboBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.FacultyBox = new System.Windows.Forms.ComboBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.VerticalMenu.SuspendLayout();
             this.INFO.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ParaInfo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -71,7 +77,7 @@
             this.VerticalMenu.Dock = System.Windows.Forms.DockStyle.Left;
             this.VerticalMenu.Location = new System.Drawing.Point(0, 0);
             this.VerticalMenu.Name = "VerticalMenu";
-            this.VerticalMenu.Size = new System.Drawing.Size(210, 547);
+            this.VerticalMenu.Size = new System.Drawing.Size(210, 570);
             this.VerticalMenu.TabIndex = 1;
             // 
             // INFO
@@ -126,7 +132,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(210, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(917, 44);
+            this.panel1.Size = new System.Drawing.Size(833, 44);
             this.panel1.TabIndex = 3;
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown_1);
             // 
@@ -136,10 +142,94 @@
             this.panel2.Controls.Add(this.button2);
             this.panel2.Controls.Add(this.button1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel2.Location = new System.Drawing.Point(807, 0);
+            this.panel2.Location = new System.Drawing.Point(723, 0);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(110, 44);
             this.panel2.TabIndex = 1;
+            // 
+            // ParaInfo
+            // 
+            this.ParaInfo.AllowUserToAddRows = false;
+            this.ParaInfo.AllowUserToDeleteRows = false;
+            this.ParaInfo.BackgroundColor = System.Drawing.Color.White;
+            this.ParaInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ParaInfo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.ParaInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.ParaInfo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Monday,
+            this.Tuesday,
+            this.Wednesday,
+            this.Thuesday,
+            this.Friday});
+            this.ParaInfo.Location = new System.Drawing.Point(216, 47);
+            this.ParaInfo.Name = "ParaInfo";
+            this.ParaInfo.ReadOnly = true;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ParaInfo.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            this.ParaInfo.Size = new System.Drawing.Size(820, 481);
+            this.ParaInfo.TabIndex = 5;
+            // 
+            // Monday
+            // 
+            this.Monday.HeaderText = "Понедельник";
+            this.Monday.Name = "Monday";
+            this.Monday.ReadOnly = true;
+            this.Monday.Width = 155;
+            // 
+            // Tuesday
+            // 
+            this.Tuesday.HeaderText = "Вторник";
+            this.Tuesday.Name = "Tuesday";
+            this.Tuesday.ReadOnly = true;
+            this.Tuesday.Width = 155;
+            // 
+            // Wednesday
+            // 
+            this.Wednesday.HeaderText = "Среда";
+            this.Wednesday.Name = "Wednesday";
+            this.Wednesday.ReadOnly = true;
+            this.Wednesday.Width = 155;
+            // 
+            // Thuesday
+            // 
+            this.Thuesday.HeaderText = "Четверг";
+            this.Thuesday.Name = "Thuesday";
+            this.Thuesday.ReadOnly = true;
+            this.Thuesday.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Thuesday.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Thuesday.Width = 155;
+            // 
+            // Friday
+            // 
+            this.Friday.HeaderText = "Пятница";
+            this.Friday.Name = "Friday";
+            this.Friday.ReadOnly = true;
+            this.Friday.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Friday.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Friday.Width = 155;
+            // 
+            // button14
+            // 
+            this.button14.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button14.FlatAppearance.BorderSize = 0;
+            this.button14.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button14.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button14.Image = global::UniversityMain.Properties.Resources.Settings;
+            this.button14.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button14.Location = new System.Drawing.Point(996, 534);
+            this.button14.Name = "button14";
+            this.button14.Size = new System.Drawing.Size(40, 35);
+            this.button14.TabIndex = 7;
+            this.button14.UseVisualStyleBackColor = true;
+            this.button14.Click += new System.EventHandler(this.Button14_Click);
             // 
             // button3
             // 
@@ -379,55 +469,14 @@
             this.timetable.Text = "       Переносы";
             this.timetable.UseVisualStyleBackColor = true;
             // 
-            // DepBox
-            // 
-            this.DepBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.DepBox.FormattingEnabled = true;
-            this.DepBox.Location = new System.Drawing.Point(729, 519);
-            this.DepBox.Name = "DepBox";
-            this.DepBox.Size = new System.Drawing.Size(342, 23);
-            this.DepBox.TabIndex = 25;
-            this.DepBox.SelectedIndexChanged += new System.EventHandler(this.DepBox_SelectedIndexChanged);
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label8.Location = new System.Drawing.Point(651, 520);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(72, 18);
-            this.label8.TabIndex = 24;
-            this.label8.Text = "Кафедра";
-            // 
-            // FacultyBox
-            // 
-            this.FacultyBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.FacultyBox.FormattingEnabled = true;
-            this.FacultyBox.Location = new System.Drawing.Point(303, 519);
-            this.FacultyBox.Name = "FacultyBox";
-            this.FacultyBox.Size = new System.Drawing.Size(342, 23);
-            this.FacultyBox.TabIndex = 23;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label7.Location = new System.Drawing.Point(214, 520);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(83, 18);
-            this.label7.TabIndex = 22;
-            this.label7.Text = "Факультет";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.ClientSize = new System.Drawing.Size(1127, 547);
-            this.Controls.Add(this.DepBox);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.FacultyBox);
-            this.Controls.Add(this.label7);
+            this.ClientSize = new System.Drawing.Size(1043, 570);
+            this.Controls.Add(this.button14);
+            this.Controls.Add(this.ParaInfo);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.VerticalMenu);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -436,16 +485,15 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MainForm";
-            this.Load += new System.EventHandler(this.MainForm_Load);
             this.VerticalMenu.ResumeLayout(false);
             this.VerticalMenu.PerformLayout();
             this.INFO.ResumeLayout(false);
             this.INFO.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ParaInfo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -472,9 +520,12 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button13;
         private System.Windows.Forms.Button timetable;
-        private System.Windows.Forms.ComboBox DepBox;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.ComboBox FacultyBox;
-        private System.Windows.Forms.Label label7;
+        public System.Windows.Forms.DataGridView ParaInfo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Monday;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Tuesday;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Wednesday;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Thuesday;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Friday;
+        private System.Windows.Forms.Button button14;
     }
 }

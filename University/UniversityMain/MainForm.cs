@@ -175,25 +175,9 @@ namespace UniversityMain
         {
 
         }
-        private void MainForm_Load(object sender, EventArgs e)
+        private void Button14_Click(object sender, EventArgs e)
         {
-            Logics.Books.Faculty faculty = new Logics.Books.Faculty(connectionDB);
-            List<Logics.Books.Faculty.StructFaculty> structFaculties = new List<Logics.Books.Faculty.StructFaculty>();
-            faculty.GetAllFaculty(out structFaculties);
-            foreach (var fac in structFaculties)
-                FacultyBox.Items.Add(fac.Name);
-        }
-        private void DepBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (FacultyBox.SelectedItem != null)
-            {
-                Logics.MainTable.Departments departments = new Logics.MainTable.Departments(connectionDB);
-                List<string> departments_name = new List<string>();
-                DepBox.Items.Clear();
-                departments.GetAllDepartmentNames(FacultyBox.SelectedItem.ToString(), out departments_name);
-                foreach (var d_n in departments_name)
-                    DepBox.Items.Add(d_n);
-            }
+            new ChoiseFaculty_Department_Teacher(connectionDB).ShowDialog();
         }
     }
 }
