@@ -88,6 +88,7 @@ namespace UniversityMain
                 structure.Subname = textBox1.Text;
                 if (groups.Add(structure, FacultyInputBox.SelectedItem.ToString(), DepartmentInputBox.SelectedItem.ToString(), SpecialityInputBox.SelectedItem.ToString()))
                 {
+                    string year = InputYearEntry.Text;
                     FacultyInputBox.SelectedItem = null;
                     DepartmentInputBox.SelectedItem = null;
                     SpecialityInputBox.SelectedItem = null;
@@ -96,7 +97,7 @@ namespace UniversityMain
                     GroupsInfo.Rows.Clear();
                     groups.GetGroups(FacultyBox.SelectedItem.ToString(), DepartmentBox.SelectedItem.ToString(), SpecialityBox.SelectedItem.ToString(), out groupsStructures);
                     foreach (var gr in groupsStructures)
-                        GroupsInfo.Rows.Add(gr.Subname, gr.YearCreate);
+                        GroupsInfo.Rows.Add(gr.Subname + year[year.Length - 2] + year[year.Length - 1], gr.YearCreate);
                 }
                 else
                 {

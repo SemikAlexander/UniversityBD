@@ -72,7 +72,6 @@ namespace UniversityMain
             ReleaseCapture();
             SendMessage(Handle, 0x112, 0xf012, 0);
         }
-
         private void DisciplineInfo_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
             var senderGrid = (DataGridView)sender;

@@ -12,7 +12,7 @@
  Target Server Version : 90612
  File Encoding         : 65001
 
- Date: 08/04/2019 11:29:23
+ Date: 09/04/2019 09:42:55
 */
 
 
@@ -163,6 +163,22 @@ CREATE TABLE "public"."Spec_discipline" (
 -- ----------------------------
 INSERT INTO "public"."Spec_discipline" VALUES (16, 49);
 INSERT INTO "public"."Spec_discipline" VALUES (17, 49);
+INSERT INTO "public"."Spec_discipline" VALUES (19, 51);
+INSERT INTO "public"."Spec_discipline" VALUES (20, 51);
+INSERT INTO "public"."Spec_discipline" VALUES (21, 51);
+INSERT INTO "public"."Spec_discipline" VALUES (22, 51);
+INSERT INTO "public"."Spec_discipline" VALUES (23, 51);
+INSERT INTO "public"."Spec_discipline" VALUES (24, 51);
+INSERT INTO "public"."Spec_discipline" VALUES (25, 51);
+INSERT INTO "public"."Spec_discipline" VALUES (26, 51);
+INSERT INTO "public"."Spec_discipline" VALUES (27, 51);
+INSERT INTO "public"."Spec_discipline" VALUES (28, 51);
+INSERT INTO "public"."Spec_discipline" VALUES (29, 51);
+INSERT INTO "public"."Spec_discipline" VALUES (30, 51);
+INSERT INTO "public"."Spec_discipline" VALUES (31, 51);
+INSERT INTO "public"."Spec_discipline" VALUES (32, 51);
+INSERT INTO "public"."Spec_discipline" VALUES (33, 51);
+INSERT INTO "public"."Spec_discipline" VALUES (34, 51);
 
 -- ----------------------------
 -- Table structure for classroom
@@ -234,7 +250,6 @@ INSERT INTO "public"."department" VALUES (43, 12, 'Электромеханик�
 INSERT INTO "public"."department" VALUES (44, 12, 'Электрических станций', NULL, 3);
 INSERT INTO "public"."department" VALUES (45, 12, 'Технического иностранного языка', NULL, 3);
 INSERT INTO "public"."department" VALUES (46, 12, 'Систем программного управления и мехатроники', NULL, 3);
-INSERT INTO "public"."department" VALUES (47, 13, 'Автоматизированных систем управления', NULL, 4);
 INSERT INTO "public"."department" VALUES (49, 13, 'Компьютерной инженерии', NULL, 4);
 INSERT INTO "public"."department" VALUES (50, 13, 'Компьютерного моделирования и дизайна', NULL, 4);
 INSERT INTO "public"."department" VALUES (51, 13, 'Программной инженерии', NULL, 3);
@@ -277,6 +292,22 @@ CREATE TABLE "public"."discipline" (
 -- ----------------------------
 INSERT INTO "public"."discipline" VALUES (16, 'dsa');
 INSERT INTO "public"."discipline" VALUES (17, 'asdsa');
+INSERT INTO "public"."discipline" VALUES (19, 'Численное моделирование');
+INSERT INTO "public"."discipline" VALUES (20, 'Управление технологическими процессами');
+INSERT INTO "public"."discipline" VALUES (21, 'Автоматизация программирования');
+INSERT INTO "public"."discipline" VALUES (22, 'Веб-программирование');
+INSERT INTO "public"."discipline" VALUES (23, 'Программирование мобильных систем');
+INSERT INTO "public"."discipline" VALUES (24, 'Теория операционных систем');
+INSERT INTO "public"."discipline" VALUES (25, 'Компьютерные сети');
+INSERT INTO "public"."discipline" VALUES (26, 'Протоколы компьютерных сетей');
+INSERT INTO "public"."discipline" VALUES (27, 'Теория защиты программных систем');
+INSERT INTO "public"."discipline" VALUES (28, 'Администрирование компьютерных сетей');
+INSERT INTO "public"."discipline" VALUES (29, 'Системное администрирование');
+INSERT INTO "public"."discipline" VALUES (30, 'Информационная безопасность');
+INSERT INTO "public"."discipline" VALUES (31, 'Основы систем компьютерного обучения');
+INSERT INTO "public"."discipline" VALUES (32, 'Математический анализ');
+INSERT INTO "public"."discipline" VALUES (33, 'Теория вероятностей');
+INSERT INTO "public"."discipline" VALUES (34, 'Математическая статистика');
 
 -- ----------------------------
 -- Table structure for faculty
@@ -315,6 +346,11 @@ CREATE TABLE "public"."groups" (
 ;
 
 -- ----------------------------
+-- Records of groups
+-- ----------------------------
+INSERT INTO "public"."groups" VALUES (12, 12, 2016, 'ПИ');
+
+-- ----------------------------
 -- Table structure for helpDiscip
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."helpDiscip";
@@ -323,6 +359,21 @@ CREATE TABLE "public"."helpDiscip" (
   "id_discipline" int4 NOT NULL
 )
 ;
+
+-- ----------------------------
+-- Records of helpDiscip
+-- ----------------------------
+INSERT INTO "public"."helpDiscip" VALUES (15, 24);
+INSERT INTO "public"."helpDiscip" VALUES (15, 25);
+INSERT INTO "public"."helpDiscip" VALUES (15, 26);
+INSERT INTO "public"."helpDiscip" VALUES (15, 27);
+INSERT INTO "public"."helpDiscip" VALUES (15, 28);
+INSERT INTO "public"."helpDiscip" VALUES (15, 31);
+INSERT INTO "public"."helpDiscip" VALUES (15, 30);
+INSERT INTO "public"."helpDiscip" VALUES (15, 29);
+INSERT INTO "public"."helpDiscip" VALUES (16, 32);
+INSERT INTO "public"."helpDiscip" VALUES (16, 33);
+INSERT INTO "public"."helpDiscip" VALUES (16, 34);
 
 -- ----------------------------
 -- Table structure for para
@@ -347,7 +398,11 @@ CREATE TABLE "public"."position" (
 -- ----------------------------
 -- Records of position
 -- ----------------------------
-INSERT INTO "public"."position" VALUES (13, 'dsadsa');
+INSERT INTO "public"."position" VALUES (16, 'Аспирант');
+INSERT INTO "public"."position" VALUES (17, 'Ассистент');
+INSERT INTO "public"."position" VALUES (18, 'Доцент');
+INSERT INTO "public"."position" VALUES (19, 'Профессор');
+INSERT INTO "public"."position" VALUES (20, 'Старший преподаватель');
 
 -- ----------------------------
 -- Table structure for specialty
@@ -361,6 +416,13 @@ CREATE TABLE "public"."specialty" (
   "Abbreviation_Specialty" text COLLATE "pg_catalog"."default" NOT NULL
 )
 ;
+
+-- ----------------------------
+-- Records of specialty
+-- ----------------------------
+INSERT INTO "public"."specialty" VALUES (12, 51, '09.03.04', 'Инженерия программного обеспечения', 'ПИ');
+INSERT INTO "public"."specialty" VALUES (13, 51, '09.03.04', 'Технологии программного обеспечения интеллектуальных систем', 'ПОИС');
+INSERT INTO "public"."specialty" VALUES (14, 53, '09.03.03', 'Информатика в интеллектуальных системах', 'ИИС');
 
 -- ----------------------------
 -- Table structure for stadyingPlan
@@ -406,9 +468,8 @@ CREATE TABLE "public"."teachers" (
 -- ----------------------------
 -- Records of teachers
 -- ----------------------------
-INSERT INTO "public"."teachers" VALUES (4, 'sa', 13, 4, 'aaa', 21, 12);
-INSERT INTO "public"."teachers" VALUES (5, 'sa', 13, 4, 'aaa', 21, 12);
-INSERT INTO "public"."teachers" VALUES (7, 'Q', 13, 51, 'q@q.ru', 1, 1);
+INSERT INTO "public"."teachers" VALUES (15, 'Чернышова Алла Викторовна', 20, 51, 'chernyshova.alla@rambler.ru', 1, 1);
+INSERT INTO "public"."teachers" VALUES (16, 'Скворцов Анатолий Ефремович', 20, 51, 'a.e.skvorcov@mail.ru', 1, 1);
 
 -- ----------------------------
 -- Table structure for timeTable
@@ -1140,11 +1201,11 @@ END IF;
 	IF NOT FOUND THEN
     RETURN 'Дисциплина не найдена';
 END IF;
-	IF EXISTS(	SELECT * FROM "helpDiscip" WHERE "helpDiscip".id_teacher=IDTeacher and "helpDiscip".id_discipline=IDDISCIPLINE) THEN
+	IF EXISTS(	SELECT * FROM "helpDiscip" WHERE id_teacher=IDTeacher and id_discipline=IDDISCIPLINE) THEN
     RETURN 'Дисциплина уже была добавлена';
 END IF;
 	
-INSERT INTO "helpDiscip"("helpDiscip".id_discipline,"helpDiscip".id_teacher) VALUES (IDDISCIPLINE,IDTeacher);	
+INSERT INTO "helpDiscip"(id_discipline,id_teacher) VALUES (IDDISCIPLINE,IDTeacher);	
 	RETURN 'Success';
 	
 END
@@ -1353,25 +1414,25 @@ OWNED BY "public"."department"."ID_DEPARTMENT";
 SELECT setval('"public"."department_ID_DEPARTMENT_seq"', 81, true);
 ALTER SEQUENCE "public"."discipline_ID_DISCIPLINE_seq"
 OWNED BY "public"."discipline"."ID_DISCIPLINE";
-SELECT setval('"public"."discipline_ID_DISCIPLINE_seq"', 19, true);
+SELECT setval('"public"."discipline_ID_DISCIPLINE_seq"', 35, true);
 ALTER SEQUENCE "public"."faculty_ID_FACULTY_seq"
 OWNED BY "public"."faculty"."ID_FACULTY";
 SELECT setval('"public"."faculty_ID_FACULTY_seq"', 20, true);
 ALTER SEQUENCE "public"."groups_ID_GROUP_seq"
 OWNED BY "public"."groups"."ID_GROUP";
-SELECT setval('"public"."groups_ID_GROUP_seq"', 8, true);
+SELECT setval('"public"."groups_ID_GROUP_seq"', 13, true);
 ALTER SEQUENCE "public"."position_ID_POSITION_seq"
 OWNED BY "public"."position"."ID_POSITION";
-SELECT setval('"public"."position_ID_POSITION_seq"', 16, true);
+SELECT setval('"public"."position_ID_POSITION_seq"', 21, true);
 ALTER SEQUENCE "public"."specialty_ID_SPECIALTY_seq"
 OWNED BY "public"."specialty"."ID_SPECIALTY";
-SELECT setval('"public"."specialty_ID_SPECIALTY_seq"', 12, true);
+SELECT setval('"public"."specialty_ID_SPECIALTY_seq"', 15, true);
 ALTER SEQUENCE "public"."stadyingPlan_ID_SETTING_seq"
 OWNED BY "public"."stadyingPlan"."ID_SETTING";
 SELECT setval('"public"."stadyingPlan_ID_SETTING_seq"', 7, false);
 ALTER SEQUENCE "public"."teachers_ID_TEACHER_seq"
 OWNED BY "public"."teachers"."ID_TEACHER";
-SELECT setval('"public"."teachers_ID_TEACHER_seq"', 9, true);
+SELECT setval('"public"."teachers_ID_TEACHER_seq"', 17, true);
 ALTER SEQUENCE "public"."timeTable_ID_seq"
 OWNED BY "public"."timeTable"."ID";
 SELECT setval('"public"."timeTable_ID_seq"', 7, false);
