@@ -111,19 +111,19 @@ namespace UniversityMain
                     DisciplineInfo.Rows.Add(descipline.id, descipline.name);
             }
         }
-        private void DepartmentBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void DepartmentBox_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             DisciplineInfo.Rows.Clear();
             discipline.GetAllDiscipline(FacultyBox.SelectedItem.ToString(), DepartmentBox.SelectedItem.ToString(), StartRow, 20, out structDisciplines);
             foreach (var descipline in structDisciplines)
                 DisciplineInfo.Rows.Add(descipline.id, descipline.name);
         }
-        private void FacultyBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void FacultyBox_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             Logics.MainTable.Departments departments = new Logics.MainTable.Departments(connectionDB);
             List<string> nameDepartments = new List<string>();
             departments.GetAllDepartmentNames(FacultyBox.SelectedItem.ToString(), out nameDepartments);
-            foreach(var dep in nameDepartments)
+            foreach (var dep in nameDepartments)
                 DepartmentBox.Items.Add(dep);
         }
     }
