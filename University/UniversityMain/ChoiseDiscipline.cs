@@ -40,8 +40,7 @@ namespace UniversityMain
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            foreach (var disc in disciplineForTeacher)
-                teachersDisc.teacherDiscipline.Add(disc);
+            teachersDisc.GetArrayFromChoiseDiscipline(disciplineForTeacher);
             Close();
         }
         private void UpButton_Click(object sender, EventArgs e)

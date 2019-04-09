@@ -198,5 +198,10 @@ namespace UniversityMain
                 choiseDiscipline.ShowDialog();
             }
         }
+        public void GetArrayFromChoiseDiscipline(List<string> SetTeacherDiscipline)
+        {
+            foreach (var disc in SetTeacherDiscipline)
+                teacherDiscipline.Add(disc);
+        }
     }
 }
