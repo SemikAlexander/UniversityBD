@@ -12,7 +12,7 @@
  Target Server Version : 90612
  File Encoding         : 65001
 
- Date: 09/04/2019 21:11:13
+ Date: 09/04/2019 21:48:16
 */
 
 
@@ -333,6 +333,12 @@ CREATE TABLE "public"."groups" (
 ;
 
 -- ----------------------------
+-- Records of groups
+-- ----------------------------
+INSERT INTO "public"."groups" VALUES (32, 15, 2016, 'а');
+INSERT INTO "public"."groups" VALUES (36, 15, 2015, 'б');
+
+-- ----------------------------
 -- Table structure for helpDiscip
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."helpDiscip";
@@ -409,6 +415,13 @@ CREATE TABLE "public"."specialty" (
 ;
 
 -- ----------------------------
+-- Records of specialty
+-- ----------------------------
+INSERT INTO "public"."specialty" VALUES (15, 84, '09.03.04', 'Программная инженерия', 'ПИ');
+INSERT INTO "public"."specialty" VALUES (16, 84, '09.03.04', 'Технологии программного обеспечения интеллектуальных систем', 'ПОИС');
+INSERT INTO "public"."specialty" VALUES (17, 86, '01.03.04', 'Прикладная математика', 'ПМ');
+
+-- ----------------------------
 -- Table structure for stadyingPlan
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."stadyingPlan";
@@ -421,6 +434,11 @@ CREATE TABLE "public"."stadyingPlan" (
   "DateEndSession" date NOT NULL
 )
 ;
+
+-- ----------------------------
+-- Records of stadyingPlan
+-- ----------------------------
+INSERT INTO "public"."stadyingPlan" VALUES (14, 32, '2018-09-01', '2019-05-24', '2019-06-01', '2019-06-28');
 
 -- ----------------------------
 -- Table structure for subjectPay
@@ -503,6 +521,16 @@ COMMENT ON COLUMN "public"."typeSubject"."type_lesson" IS 'Тип предмет
 Обучение - О ';
 
 -- ----------------------------
+-- Records of typeSubject
+-- ----------------------------
+INSERT INTO "public"."typeSubject" VALUES (14, 'Консультация', 'S');
+INSERT INTO "public"."typeSubject" VALUES (15, 'Экзамен', 'S');
+INSERT INTO "public"."typeSubject" VALUES (16, 'Зачёт', 'O');
+INSERT INTO "public"."typeSubject" VALUES (17, 'Лекция', 'O');
+INSERT INTO "public"."typeSubject" VALUES (18, 'Проработка', 'O');
+INSERT INTO "public"."typeSubject" VALUES (20, 'Семинар', 'O');
+
+-- ----------------------------
 -- Table structure for week
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."week";
@@ -524,6 +552,13 @@ INSERT INTO "public"."week" VALUES (6, 'Четверг', 'V');
 INSERT INTO "public"."week" VALUES (7, 'Пятница', 'V');
 INSERT INTO "public"."week" VALUES (8, 'Суббота', 'V');
 INSERT INTO "public"."week" VALUES (10, 'Воскресенье', 'V');
+INSERT INTO "public"."week" VALUES (14, 'Понедельник', 'N');
+INSERT INTO "public"."week" VALUES (16, 'Вторник', 'N');
+INSERT INTO "public"."week" VALUES (17, 'Среда', 'N');
+INSERT INTO "public"."week" VALUES (18, 'Четверг', 'N');
+INSERT INTO "public"."week" VALUES (19, 'Пятница', 'N');
+INSERT INTO "public"."week" VALUES (20, 'Суббота', 'N');
+INSERT INTO "public"."week" VALUES (22, 'Воскресенье', 'N');
 
 -- ----------------------------
 -- Function structure for add_styding_plans
@@ -1409,16 +1444,16 @@ OWNED BY "public"."faculty"."ID_FACULTY";
 SELECT setval('"public"."faculty_ID_FACULTY_seq"', 21, true);
 ALTER SEQUENCE "public"."groups_ID_GROUP_seq"
 OWNED BY "public"."groups"."ID_GROUP";
-SELECT setval('"public"."groups_ID_GROUP_seq"', 18, true);
+SELECT setval('"public"."groups_ID_GROUP_seq"', 37, true);
 ALTER SEQUENCE "public"."position_ID_POSITION_seq"
 OWNED BY "public"."position"."ID_POSITION";
 SELECT setval('"public"."position_ID_POSITION_seq"', 21, true);
 ALTER SEQUENCE "public"."specialty_ID_SPECIALTY_seq"
 OWNED BY "public"."specialty"."ID_SPECIALTY";
-SELECT setval('"public"."specialty_ID_SPECIALTY_seq"', 15, true);
+SELECT setval('"public"."specialty_ID_SPECIALTY_seq"', 18, true);
 ALTER SEQUENCE "public"."stadyingPlan_ID_SETTING_seq"
 OWNED BY "public"."stadyingPlan"."ID_SETTING";
-SELECT setval('"public"."stadyingPlan_ID_SETTING_seq"', 13, true);
+SELECT setval('"public"."stadyingPlan_ID_SETTING_seq"', 15, true);
 ALTER SEQUENCE "public"."teachers_ID_TEACHER_seq"
 OWNED BY "public"."teachers"."ID_TEACHER";
 SELECT setval('"public"."teachers_ID_TEACHER_seq"', 24, true);
@@ -1427,10 +1462,10 @@ OWNED BY "public"."timeTable"."ID";
 SELECT setval('"public"."timeTable_ID_seq"', 7, false);
 ALTER SEQUENCE "public"."typeSubject_ID_SUBJECT_seq"
 OWNED BY "public"."typeSubject"."ID_SUBJECT";
-SELECT setval('"public"."typeSubject_ID_SUBJECT_seq"', 14, true);
+SELECT setval('"public"."typeSubject_ID_SUBJECT_seq"', 21, true);
 ALTER SEQUENCE "public"."week_ID_DAY_seq"
 OWNED BY "public"."week"."ID_DAY";
-SELECT setval('"public"."week_ID_DAY_seq"', 14, true);
+SELECT setval('"public"."week_ID_DAY_seq"', 23, true);
 
 -- ----------------------------
 -- Primary Key structure for table classroom
