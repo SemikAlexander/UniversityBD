@@ -19,8 +19,6 @@ namespace UniversityMain
         Logics.MainTable.Speciality speciality;
         List<string> specialityName = new List<string>();
         Logics.MainTable.Groups groups;
-        string pattern = @"([а-яА-Я]*).([1-9]*)([а-яА-Я]*)";
-        RegexOptions options = RegexOptions.Multiline;
         public ShowGroups(Logics.Functions.Connection.ConnectionDB connection)
         {
             connectionDB = connection;
@@ -28,7 +26,6 @@ namespace UniversityMain
             speciality = new Logics.MainTable.Speciality(connectionDB);
             InitializeComponent();
         }
-
         private void button1_Click(object sender, EventArgs e)
         {
             Close();
@@ -88,7 +85,7 @@ namespace UniversityMain
                 structure.Subname = textBox1.Text;
                 if (groups.Add(structure, FacultyInputBox.SelectedItem.ToString(), DepartmentInputBox.SelectedItem.ToString(), SpecialityInputBox.SelectedItem.ToString()))
                 {
-                    string year = InputYearEntry.Text;
+                    string year = InputYearEntry.Text, spec = SpecialityInputBox.SelectedItem.ToString();
                     FacultyInputBox.SelectedItem = null;
                     DepartmentInputBox.SelectedItem = null;
                     SpecialityInputBox.SelectedItem = null;
@@ -97,7 +94,7 @@ namespace UniversityMain
                     GroupsInfo.Rows.Clear();
                     groups.GetGroups(FacultyBox.SelectedItem.ToString(), DepartmentBox.SelectedItem.ToString(), SpecialityBox.SelectedItem.ToString(), out groupsStructures);
                     foreach (var gr in groupsStructures)
-                        GroupsInfo.Rows.Add(gr.Subname + year[year.Length - 2] + year[year.Length - 1], gr.YearCreate);
+                        GroupsInfo.Rows.Add(spec + " " + year[year.Length - 2] + year[year.Length - 1] + " " + gr.Subname, gr.YearCreate);
                 }
                 else
                 {
@@ -128,7 +125,7 @@ namespace UniversityMain
             var senderGrid = (DataGridView)sender;
             if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn & senderGrid.Columns[e.ColumnIndex].Name == "DeleteGroup" && e.RowIndex >= 0)
             {
-                structure.Subname = (string)GroupsInfo.Rows[e.RowIndex].Cells[0].Value;
+                structure.Subname = Convert.ToString(GroupsInfo.Rows[e.RowIndex].Cells[0].Value.ToString()[GroupsInfo.Rows[e.RowIndex].Cells[0].Value.ToString().Length - 1]);
                 structure.YearCreate = (int)GroupsInfo.Rows[e.RowIndex].Cells[1].Value;
                 groups.Delete(DepartmentBox.SelectedItem.ToString(), FacultyBox.SelectedItem.ToString(), SpecialityBox.SelectedItem.ToString(), structure);
                 GroupsInfo.Rows.Clear();

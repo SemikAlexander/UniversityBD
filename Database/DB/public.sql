@@ -12,7 +12,7 @@
  Target Server Version : 90612
  File Encoding         : 65001
 
- Date: 09/04/2019 09:42:55
+ Date: 09/04/2019 10:33:55
 */
 
 
@@ -348,7 +348,8 @@ CREATE TABLE "public"."groups" (
 -- ----------------------------
 -- Records of groups
 -- ----------------------------
-INSERT INTO "public"."groups" VALUES (12, 12, 2016, 'ПИ');
+INSERT INTO "public"."groups" VALUES (16, 12, 2016, 'а');
+INSERT INTO "public"."groups" VALUES (17, 12, 2016, 'б');
 
 -- ----------------------------
 -- Table structure for helpDiscip
@@ -879,10 +880,10 @@ $BODY$
 -- ----------------------------
 -- Function structure for get_styding_plans
 -- ----------------------------
-DROP FUNCTION IF EXISTS "public"."get_styding_plans"("namefaculty" text, "namedepartment" text, "spec" text, "year_gr" int4, "sub_gr" text);
-CREATE OR REPLACE FUNCTION "public"."get_styding_plans"("namefaculty" text, "namedepartment" text, "spec" text, "year_gr" int4, "sub_gr" text)
-  RETURNS TABLE("DateStartStuding" text, "DateEndStuding" text, "DateStartSession" text, "DateEndSession" text) AS $BODY$BEGIN
-	RETURN query SELECT "stadyingPlan"."DateStartStuding","stadyingPlan"."DateEndStuding","stadyingPlan"."DateStartSession","stadyingPlan"."DateEndSession" FROM(SELECT groups."ID_GROUP" FROM (SELECT specialty."ID_SPECIALTY" FROM(SELECT department."ID_DEPARTMENT" FROM (SELECT faculty."ID_FACULTY" FROM faculty WHERE faculty."Name_Faculty"=namefaculty LIMIT 1) as id_fac INNER JOIN department on department.id_faculty=id_fac."ID_FACULTY" WHERE department."Name_Department"=namedepartment) as dep INNER JOIN specialty on specialty.id_department=dep."ID_DEPARTMENT" WHERE specialty."Abbreviation_Specialty"=spec)as sp INNER JOIN groups on groups.id_specialty=sp."ID_SPECIALTY" WHERE groups."Sub_Name_Group"=sub and groups."Year_Of_Entry"=year_gr)as gr INNER JOIN "stadyingPlan" on "stadyingPlan".id_group=gr."ID_GROUP";
+DROP FUNCTION IF EXISTS "public"."get_styding_plans"("namefaculty" text, "namedepar" text, "spec" text, "year_gr" int4, "sub_gr" text);
+CREATE OR REPLACE FUNCTION "public"."get_styding_plans"("namefaculty" text, "namedepar" text, "spec" text, "year_gr" int4, "sub_gr" text)
+  RETURNS TABLE("DateStartStuding" date, "DateEndStuding" date, "DateStartSession" date, "DateEndSession" date) AS $BODY$BEGIN
+	RETURN query SELECT "stadyingPlan"."DateStartStuding","stadyingPlan"."DateEndStuding","stadyingPlan"."DateStartSession","stadyingPlan"."DateEndSession" FROM(SELECT groups."ID_GROUP" FROM (SELECT specialty."ID_SPECIALTY" FROM(SELECT department."ID_DEPARTMENT" FROM (SELECT faculty."ID_FACULTY" FROM faculty WHERE faculty."Name_Faculty"=namefaculty LIMIT 1) as id_fac INNER JOIN department on department.id_faculty=id_fac."ID_FACULTY" WHERE department."Name_Department"=namedepar) as dep INNER JOIN specialty on specialty.id_department=dep."ID_DEPARTMENT" WHERE specialty."Abbreviation_Specialty"=spec)as sp INNER JOIN groups on groups.id_specialty=sp."ID_SPECIALTY" WHERE groups."Sub_Name_Group"=sub_gr and groups."Year_Of_Entry"=year_gr)as gr INNER JOIN "stadyingPlan" on "stadyingPlan".id_group=gr."ID_GROUP";
 
 END
 $BODY$
@@ -1420,7 +1421,7 @@ OWNED BY "public"."faculty"."ID_FACULTY";
 SELECT setval('"public"."faculty_ID_FACULTY_seq"', 20, true);
 ALTER SEQUENCE "public"."groups_ID_GROUP_seq"
 OWNED BY "public"."groups"."ID_GROUP";
-SELECT setval('"public"."groups_ID_GROUP_seq"', 13, true);
+SELECT setval('"public"."groups_ID_GROUP_seq"', 18, true);
 ALTER SEQUENCE "public"."position_ID_POSITION_seq"
 OWNED BY "public"."position"."ID_POSITION";
 SELECT setval('"public"."position_ID_POSITION_seq"', 21, true);
@@ -1429,7 +1430,7 @@ OWNED BY "public"."specialty"."ID_SPECIALTY";
 SELECT setval('"public"."specialty_ID_SPECIALTY_seq"', 15, true);
 ALTER SEQUENCE "public"."stadyingPlan_ID_SETTING_seq"
 OWNED BY "public"."stadyingPlan"."ID_SETTING";
-SELECT setval('"public"."stadyingPlan_ID_SETTING_seq"', 7, false);
+SELECT setval('"public"."stadyingPlan_ID_SETTING_seq"', 13, true);
 ALTER SEQUENCE "public"."teachers_ID_TEACHER_seq"
 OWNED BY "public"."teachers"."ID_TEACHER";
 SELECT setval('"public"."teachers_ID_TEACHER_seq"', 17, true);

@@ -53,7 +53,6 @@ namespace UniversityMain
         {
             WindowState = FormWindowState.Minimized;
         }
-
         private void PlanStadInfo_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var senderGrid = (DataGridView)sender;
@@ -72,7 +71,6 @@ namespace UniversityMain
                     PlanStadInfo.Rows.Add(gp.startStudy.ToString("d"), gp.EndStudy.ToString("d"), gp.startSession.ToString("d"), gp.EndSession.ToString("d"));
             }
         }
-
         private void panel1_MouseDown(object sender, MouseEventArgs e)
         {
             ReleaseCapture();
