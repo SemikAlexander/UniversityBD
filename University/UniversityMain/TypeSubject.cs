@@ -90,7 +90,6 @@ namespace UniversityMain
                     InputSubject.Clear();
                     SubjectInfo.Rows.Clear();
                     structTypeSubjects.Clear();
-                    TypeSub.SelectedItem = null;
                     try
                     {
                         type.GetAllTypeSubjects(out structTypeSubjects);
