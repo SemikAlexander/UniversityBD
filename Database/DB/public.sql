@@ -12,7 +12,7 @@
  Target Server Version : 90612
  File Encoding         : 65001
 
- Date: 09/04/2019 10:33:55
+ Date: 09/04/2019 20:31:34
 */
 
 
@@ -159,28 +159,6 @@ CREATE TABLE "public"."Spec_discipline" (
 ;
 
 -- ----------------------------
--- Records of Spec_discipline
--- ----------------------------
-INSERT INTO "public"."Spec_discipline" VALUES (16, 49);
-INSERT INTO "public"."Spec_discipline" VALUES (17, 49);
-INSERT INTO "public"."Spec_discipline" VALUES (19, 51);
-INSERT INTO "public"."Spec_discipline" VALUES (20, 51);
-INSERT INTO "public"."Spec_discipline" VALUES (21, 51);
-INSERT INTO "public"."Spec_discipline" VALUES (22, 51);
-INSERT INTO "public"."Spec_discipline" VALUES (23, 51);
-INSERT INTO "public"."Spec_discipline" VALUES (24, 51);
-INSERT INTO "public"."Spec_discipline" VALUES (25, 51);
-INSERT INTO "public"."Spec_discipline" VALUES (26, 51);
-INSERT INTO "public"."Spec_discipline" VALUES (27, 51);
-INSERT INTO "public"."Spec_discipline" VALUES (28, 51);
-INSERT INTO "public"."Spec_discipline" VALUES (29, 51);
-INSERT INTO "public"."Spec_discipline" VALUES (30, 51);
-INSERT INTO "public"."Spec_discipline" VALUES (31, 51);
-INSERT INTO "public"."Spec_discipline" VALUES (32, 51);
-INSERT INTO "public"."Spec_discipline" VALUES (33, 51);
-INSERT INTO "public"."Spec_discipline" VALUES (34, 51);
-
--- ----------------------------
 -- Table structure for classroom
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."classroom";
@@ -190,15 +168,6 @@ CREATE TABLE "public"."classroom" (
   "Num_Classroom" int4 NOT NULL
 )
 ;
-
--- ----------------------------
--- Records of classroom
--- ----------------------------
-INSERT INTO "public"."classroom" VALUES (2, 13, 12);
-INSERT INTO "public"."classroom" VALUES (3, 3213, 12312);
-INSERT INTO "public"."classroom" VALUES (4, 1, 2);
-INSERT INTO "public"."classroom" VALUES (8, 1, 5);
-INSERT INTO "public"."classroom" VALUES (9, 1, 6);
 
 -- ----------------------------
 -- Table structure for department
@@ -212,70 +181,6 @@ CREATE TABLE "public"."department" (
   "id_classrooms" int4 NOT NULL
 )
 ;
-
--- ----------------------------
--- Records of department
--- ----------------------------
-INSERT INTO "public"."department" VALUES (4, 7, 'Технологии и техники бурения скважин', '', 4);
-INSERT INTO "public"."department" VALUES (5, 7, 'Геоинформатики и геодезии', NULL, 3);
-INSERT INTO "public"."department" VALUES (7, 7, 'Геологии и разведки месторождений полезных ископаемых', NULL, 3);
-INSERT INTO "public"."department" VALUES (8, 7, 'Маркшейдерского дела', NULL, 3);
-INSERT INTO "public"."department" VALUES (9, 7, 'Русского языка', NULL, 3);
-INSERT INTO "public"."department" VALUES (10, 8, 'Охраны труда и аэрологии', NULL, 3);
-INSERT INTO "public"."department" VALUES (11, 8, 'Управления производством им. Ю. В. Бондаренко', NULL, 3);
-INSERT INTO "public"."department" VALUES (12, 8, 'Обогащения полезных ископаемых', NULL, 3);
-INSERT INTO "public"."department" VALUES (14, 8, 'Строительства зданий, подземных сооружений и геомеханики', NULL, 4);
-INSERT INTO "public"."department" VALUES (15, 8, 'Разработки месторождений полезных ископаемых', NULL, 4);
-INSERT INTO "public"."department" VALUES (16, 9, 'Механического оборудования заводов черной металлургии', NULL, 4);
-INSERT INTO "public"."department" VALUES (17, 9, 'Сопротивления материалов', NULL, 4);
-INSERT INTO "public"."department" VALUES (18, 9, 'Начертательной геометрии и инженерной графики', NULL, 4);
-INSERT INTO "public"."department" VALUES (19, 9, 'Транспортных систем и логистики имени И. Г. Штокмана', NULL, 4);
-INSERT INTO "public"."department" VALUES (20, 9, 'Горных машин', NULL, 4);
-INSERT INTO "public"."department" VALUES (22, 9, 'Теоретической механики имени Н. Г. Логвинова', NULL, 2);
-INSERT INTO "public"."department" VALUES (23, 9, 'Мехатронных систем машиностроительного оборудования', NULL, 2);
-INSERT INTO "public"."department" VALUES (25, 9, 'Основ проектирования машин (секция «Общеинженерные дисциплины», секция «Управление качеством»)', NULL, 2);
-INSERT INTO "public"."department" VALUES (26, 9, 'Энергомеханических систем', NULL, 2);
-INSERT INTO "public"."department" VALUES (27, 9, 'Технологии машиностроения', NULL, 3);
-INSERT INTO "public"."department" VALUES (31, 11, 'Физики', NULL, 3);
-INSERT INTO "public"."department" VALUES (33, 11, 'Рудотермических процессов и малоотходных технологий', NULL, 3);
-INSERT INTO "public"."department" VALUES (34, 11, 'Технической теплофизики', NULL, 2);
-INSERT INTO "public"."department" VALUES (35, 11, 'Обработки металлов давлением', NULL, 3);
-INSERT INTO "public"."department" VALUES (37, 11, 'Металлургии стали и сплавов', NULL, 3);
-INSERT INTO "public"."department" VALUES (38, 11, 'Промышленной теплоэнергетики', NULL, 3);
-INSERT INTO "public"."department" VALUES (39, 11, 'Физического материаловедения', NULL, 3);
-INSERT INTO "public"."department" VALUES (40, 12, 'Электроснабжения промышленных предприятий и городов', NULL, 3);
-INSERT INTO "public"."department" VALUES (41, 12, 'Электропривода и автоматизации промышленных установок', NULL, 2);
-INSERT INTO "public"."department" VALUES (42, 12, 'Электрических систем', NULL, 3);
-INSERT INTO "public"."department" VALUES (43, 12, 'Электромеханики и теоретических основ электротехники', NULL, 3);
-INSERT INTO "public"."department" VALUES (44, 12, 'Электрических станций', NULL, 3);
-INSERT INTO "public"."department" VALUES (45, 12, 'Технического иностранного языка', NULL, 3);
-INSERT INTO "public"."department" VALUES (46, 12, 'Систем программного управления и мехатроники', NULL, 3);
-INSERT INTO "public"."department" VALUES (49, 13, 'Компьютерной инженерии', NULL, 4);
-INSERT INTO "public"."department" VALUES (50, 13, 'Компьютерного моделирования и дизайна', NULL, 4);
-INSERT INTO "public"."department" VALUES (51, 13, 'Программной инженерии', NULL, 3);
-INSERT INTO "public"."department" VALUES (52, 13, 'Искусственного интеллекта и системного анализа', NULL, 3);
-INSERT INTO "public"."department" VALUES (53, 13, 'Прикладной математики', NULL, 3);
-INSERT INTO "public"."department" VALUES (54, 13, 'Экономической кибернетики', NULL, 3);
-INSERT INTO "public"."department" VALUES (57, 14, 'Высшей математики', NULL, 3);
-INSERT INTO "public"."department" VALUES (58, 14, 'Горной электротехники и автоматики', NULL, 3);
-INSERT INTO "public"."department" VALUES (59, 14, 'Электронной техники', NULL, 3);
-INSERT INTO "public"."department" VALUES (60, 14, 'Автоматики и телекоммуникаций', NULL, 3);
-INSERT INTO "public"."department" VALUES (61, 14, 'Радиотехники и защиты информации', NULL, 3);
-INSERT INTO "public"."department" VALUES (62, 14, 'Физического воспитания и спорта', NULL, 2);
-INSERT INTO "public"."department" VALUES (63, 15, 'Природоохранной деятельности', NULL, 2);
-INSERT INTO "public"."department" VALUES (64, 15, 'Физической и органической химии', NULL, 3);
-INSERT INTO "public"."department" VALUES (65, 15, 'Общей химии', NULL, 2);
-INSERT INTO "public"."department" VALUES (67, 15, 'Химической технологии топлива', NULL, 2);
-INSERT INTO "public"."department" VALUES (68, 15, 'Прикладной экологии и охраны окружающей среды', NULL, 2);
-INSERT INTO "public"."department" VALUES (69, 15, 'Машин и аппаратов химических производств', NULL, 2);
-INSERT INTO "public"."department" VALUES (70, 16, 'Международной экономики', NULL, 2);
-INSERT INTO "public"."department" VALUES (71, 16, 'Менеджмента и хозяйственного права', NULL, 2);
-INSERT INTO "public"."department" VALUES (72, 16, 'Экономики предприятия и инноватики', NULL, 2);
-INSERT INTO "public"."department" VALUES (73, 16, 'Экономической теории и государственного управления', NULL, 2);
-INSERT INTO "public"."department" VALUES (74, 16, 'Экономики и маркетинга', NULL, 2);
-INSERT INTO "public"."department" VALUES (75, 16, 'Финансов и экономической безопасности', NULL, 2);
-INSERT INTO "public"."department" VALUES (76, 16, 'Бухгалтерского учета и аудита', NULL, 2);
-INSERT INTO "public"."department" VALUES (77, 16, 'Управления бизнесом и персоналом', NULL, 2);
 
 -- ----------------------------
 -- Table structure for discipline
@@ -346,12 +251,6 @@ CREATE TABLE "public"."groups" (
 ;
 
 -- ----------------------------
--- Records of groups
--- ----------------------------
-INSERT INTO "public"."groups" VALUES (16, 12, 2016, 'а');
-INSERT INTO "public"."groups" VALUES (17, 12, 2016, 'б');
-
--- ----------------------------
 -- Table structure for helpDiscip
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."helpDiscip";
@@ -360,21 +259,6 @@ CREATE TABLE "public"."helpDiscip" (
   "id_discipline" int4 NOT NULL
 )
 ;
-
--- ----------------------------
--- Records of helpDiscip
--- ----------------------------
-INSERT INTO "public"."helpDiscip" VALUES (15, 24);
-INSERT INTO "public"."helpDiscip" VALUES (15, 25);
-INSERT INTO "public"."helpDiscip" VALUES (15, 26);
-INSERT INTO "public"."helpDiscip" VALUES (15, 27);
-INSERT INTO "public"."helpDiscip" VALUES (15, 28);
-INSERT INTO "public"."helpDiscip" VALUES (15, 31);
-INSERT INTO "public"."helpDiscip" VALUES (15, 30);
-INSERT INTO "public"."helpDiscip" VALUES (15, 29);
-INSERT INTO "public"."helpDiscip" VALUES (16, 32);
-INSERT INTO "public"."helpDiscip" VALUES (16, 33);
-INSERT INTO "public"."helpDiscip" VALUES (16, 34);
 
 -- ----------------------------
 -- Table structure for para
@@ -419,13 +303,6 @@ CREATE TABLE "public"."specialty" (
 ;
 
 -- ----------------------------
--- Records of specialty
--- ----------------------------
-INSERT INTO "public"."specialty" VALUES (12, 51, '09.03.04', 'Инженерия программного обеспечения', 'ПИ');
-INSERT INTO "public"."specialty" VALUES (13, 51, '09.03.04', 'Технологии программного обеспечения интеллектуальных систем', 'ПОИС');
-INSERT INTO "public"."specialty" VALUES (14, 53, '09.03.03', 'Информатика в интеллектуальных системах', 'ИИС');
-
--- ----------------------------
 -- Table structure for stadyingPlan
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."stadyingPlan";
@@ -465,12 +342,6 @@ CREATE TABLE "public"."teachers" (
   "Hourly_Payment" float4 NOT NULL
 )
 ;
-
--- ----------------------------
--- Records of teachers
--- ----------------------------
-INSERT INTO "public"."teachers" VALUES (15, 'Чернышова Алла Викторовна', 20, 51, 'chernyshova.alla@rambler.ru', 1, 1);
-INSERT INTO "public"."teachers" VALUES (16, 'Скворцов Анатолий Ефремович', 20, 51, 'a.e.skvorcov@mail.ru', 1, 1);
 
 -- ----------------------------
 -- Table structure for timeTable
@@ -598,10 +469,10 @@ DROP FUNCTION IF EXISTS "public"."classroom_add"("housing" int4, "numclassroom" 
 CREATE OR REPLACE FUNCTION "public"."classroom_add"("housing" int4, "numclassroom" int4)
   RETURNS "pg_catalog"."text" AS $BODY$
 BEGIN
-	 	IF EXISTS(SELECT FROM "public".classroom WHERE "public".classroom."Housing"=Housing AND "public".classroom."Num_Classroom"=numclassroom) THEN
+	 	IF EXISTS(SELECT FROM "public".classroom WHERE "public".classroom."Housing"=housing AND "public".classroom."Num_Classroom"=numclassroom) THEN
 		RETURN 'Запись существует';
 	ELSE
-		INSERT INTO classroom ("Housing","Num_Classroom") VALUES(Housing,Num_Classroom);	
+		INSERT INTO classroom ("Housing","Num_Classroom") VALUES(housing,numclassroom);	
 		RETURN 'Success';
 	END IF;
 END
@@ -1409,7 +1280,7 @@ $BODY$
 -- ----------------------------
 ALTER SEQUENCE "public"."classroom_ID_CLASSROOM_seq"
 OWNED BY "public"."classroom"."ID_CLASSROOM";
-SELECT setval('"public"."classroom_ID_CLASSROOM_seq"', 13, true);
+SELECT setval('"public"."classroom_ID_CLASSROOM_seq"', 14, true);
 ALTER SEQUENCE "public"."department_ID_DEPARTMENT_seq"
 OWNED BY "public"."department"."ID_DEPARTMENT";
 SELECT setval('"public"."department_ID_DEPARTMENT_seq"', 81, true);
