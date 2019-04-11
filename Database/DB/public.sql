@@ -12,7 +12,7 @@
  Target Server Version : 90612
  File Encoding         : 65001
 
- Date: 11/04/2019 18:09:47
+ Date: 11/04/2019 18:14:05
 */
 
 
@@ -1102,8 +1102,11 @@ SELECT specialty."ID_SPECIALTY" From specialty WHERE specialty."Abbreviation_Spe
 IF NOT FOUND THEN
     RETURN 'Специальность не существует';
 END IF;
-
+if sub!='' then
 DELETE FROM groups WHERE groups."Sub_Name_Group"=sub and groups.id_specialty=IDSPEC and groups."Year_Of_Entry"=yea;
+else 
+DELETE FROM groups WHERE groups.id_specialty=IDSPEC and groups."Year_Of_Entry"=yea;
+END IF;
 RETURN 'Success';
 END
 $BODY$
