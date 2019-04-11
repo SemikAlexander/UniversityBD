@@ -175,9 +175,23 @@ namespace UniversityMain
         {
 
         }
-        private void Button14_Click(object sender, EventArgs e)
+        private void Button14_Click_1(object sender, EventArgs e)
         {
+            Close();
             new ChoiseFaculty_Department_Teacher(connectionDB).ShowDialog();
+        }     
+        private void Button15_Click(object sender, EventArgs e)
+        {
+            Close();
+            new AddPara(connectionDB).Show();
+        }
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            /*Проверка права доступа к некоторым функциям*/
+        }
+        public void SetTimeTableForTeacher(string NameTeacher)
+        {
+
         }
     }
 }
