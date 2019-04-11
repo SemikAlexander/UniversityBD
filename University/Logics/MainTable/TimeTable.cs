@@ -21,7 +21,7 @@ namespace Logics.MainTable
         }
         public struct GROUPSTRUCT
         {
-            public Groups.GroupsStructure groupsStructure;
+            public int YearCreate; public string Subname;
             public string faculty, department, name_speciality;
 
         }
@@ -70,7 +70,12 @@ namespace Logics.MainTable
                 return false;
             }
         }
-
+        
+        /// <summary>
+        /// ID у type_subject, week, discipline
+        /// </summary>
+        /// <param name="timeTableStructure"></param>
+        /// <returns></returns>
         public bool Add(TimeTableStructure timeTableStructure)
         {
             if (_connectionDB == null) { exception = "Подключение не установленно"; return false; }
@@ -79,7 +84,7 @@ namespace Logics.MainTable
                 var conn = new NpgsqlConnection(this._connectionDB.ConnectString);
                 conn.Open();
                 int id_para_new = 0;
-                string sql = $"SELECT * FROM timeTable_add('{timeTableStructure.date}', '{timeTableStructure.time}', {timeTableStructure.classroom.id}, {timeTableStructure.week.id}, {timeTableStructure.num_para}, {timeTableStructure.typeSubject.id},{timeTableStructure.Discipline.id});";
+                string sql = $"SELECT * FROM timeTable_add('{timeTableStructure.date}', '{timeTableStructure.time}', {timeTableStructure.classroom.Housing}, {timeTableStructure.classroom.Number_Class},{timeTableStructure.week.id}, {timeTableStructure.num_para}, {timeTableStructure.typeSubject.id},{timeTableStructure.Discipline.id});";
                 using (var cmd = new NpgsqlCommand(sql, conn))
                 using (var reader = cmd.ExecuteReader())
                     if (reader.Read())
@@ -88,7 +93,7 @@ namespace Logics.MainTable
                     }
                 foreach (var q in timeTableStructure.groupsStructures)
                 {
-                    sql = $"SELECT * FROM timeTable_group_add('{q.faculty}','{q.department}','{q.name_speciality}','{q.groupsStructure.Subname}',{q.groupsStructure.YearCreate},{id_para_new});";
+                    sql = $"SELECT * FROM timeTable_group_add('{q.faculty}','{q.department}','{q.name_speciality}','{q.Subname}',{q.YearCreate},{id_para_new});";
                     using (var cmd = new NpgsqlCommand(sql, conn))
                     using (var reader = cmd.ExecuteReader())
                         if (reader.Read())
