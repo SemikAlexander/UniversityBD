@@ -12,7 +12,7 @@
  Target Server Version : 90612
  File Encoding         : 65001
 
- Date: 11/04/2019 12:45:36
+ Date: 11/04/2019 18:09:47
 */
 
 
@@ -1355,15 +1355,17 @@ $BODY$
 -- ----------------------------
 -- Function structure for timeTable_add
 -- ----------------------------
-DROP FUNCTION IF EXISTS "public"."timeTable_add"("_Date" date, "_Time" time, "_id_classroom" int4, "_id_type_week" int4, "_num_lesson" int4, "_type_subject" int4, "_id_discipline" int4);
-CREATE OR REPLACE FUNCTION "public"."timeTable_add"("_Date" date, "_Time" time, "_id_classroom" int4, "_id_type_week" int4, "_num_lesson" int4, "_type_subject" int4, "_id_discipline" int4)
+DROP FUNCTION IF EXISTS "public"."timeTable_add"("_Date" date, "_Time" time, "classroom_house" int4, "classroom_class" int4, "_id_type_week" int4, "_num_lesson" int4, "_type_subject" int4, "_id_discipline" int4);
+CREATE OR REPLACE FUNCTION "public"."timeTable_add"("_Date" date, "_Time" time, "classroom_house" int4, "classroom_class" int4, "_id_type_week" int4, "_num_lesson" int4, "_type_subject" int4, "_id_discipline" int4)
   RETURNS "pg_catalog"."int4" AS $BODY$
 	DECLARE
-	IDWeek INTEGER :=0;
-	IDSubject INTEGER := 0;
 	IDCLASS INTEGER := 0;
 	BEGIN 
 
+	SELECT "ID_CLASSROOM" FROM classroom WHERE classroom."Housing"=classroom_house and classroom."Num_Classroom"=classroom_class INTO IDCLASS;
+	if not FOUND THEN 
+	RETURN -1;
+	end if;
 	INSERT into "timeTable"("Date","Time",id_classroom,id_type_week,num_lesson,type_subject,id_discipline) VALUES (_Date,_Time,_id_classroom,_id_type_week,_num_lesson,_type_subject,_id_discipline) RETURNING "ID";
 END
 $BODY$
