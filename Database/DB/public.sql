@@ -1,7 +1,7 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : PGSQL
+ Source Server         : 1
  Source Server Type    : PostgreSQL
  Source Server Version : 90612
  Source Host           : localhost:5432
@@ -12,7 +12,7 @@
  Target Server Version : 90612
  File Encoding         : 65001
 
- Date: 09/04/2019 21:48:16
+ Date: 11/04/2019 12:45:36
 */
 
 
@@ -489,7 +489,8 @@ CREATE TABLE "public"."timeTable" (
   "type_subject" int4 NOT NULL,
   "id_type_week" int4 NOT NULL,
   "Date" date,
-  "Time" time(6)
+  "Time" time(6),
+  "id_discipline" int4 NOT NULL
 )
 ;
 
@@ -615,6 +616,19 @@ $BODY$
   COST 100;
 
 -- ----------------------------
+-- Function structure for add_transfer
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."add_transfer"("id_tm" int4, "datefrom" date, "dateto" date, "numless" int4);
+CREATE OR REPLACE FUNCTION "public"."add_transfer"("id_tm" int4, "datefrom" date, "dateto" date, "numless" int4)
+  RETURNS "pg_catalog"."void" AS $BODY$BEGIN
+
+	INSERT INTO transfers(date_from,date_to,id_lesson,num_lesson_to) VALUES(datefrom,dateto,id_tm,numless);
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+-- ----------------------------
 -- Function structure for classroom_add
 -- ----------------------------
 DROP FUNCTION IF EXISTS "public"."classroom_add"("housing" int4, "numclassroom" int4);
@@ -732,6 +746,19 @@ id_group=IDGROUP AND
 
 RETURN 'Success';
 
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+-- ----------------------------
+-- Function structure for delete_transfer
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."delete_transfer"("id_tm" int4, "datefrom" date, "dateto" date, "numless" int4);
+CREATE OR REPLACE FUNCTION "public"."delete_transfer"("id_tm" int4, "datefrom" date, "dateto" date, "numless" int4)
+  RETURNS "pg_catalog"."void" AS $BODY$BEGIN
+
+	DELETE from transfers WHERE date_from=datefrom and date_to=dateto and id_lesson=id_tm and num_lesson_to=numless;
 END
 $BODY$
   LANGUAGE plpgsql VOLATILE
@@ -915,6 +942,20 @@ $BODY$
   ROWS 1000;
 
 -- ----------------------------
+-- Function structure for get_transfers
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."get_transfers"("id_tm" int4);
+CREATE OR REPLACE FUNCTION "public"."get_transfers"("id_tm" int4)
+  RETURNS TABLE("datefrom" date, "dateto" date, "numless" int4) AS $BODY$BEGIN
+
+	RETURN query SELECT date_from,date_to,num_lesson_to FROM transfers WHERE id_lesson=id_tm;
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100
+  ROWS 1000;
+
+-- ----------------------------
 -- Function structure for getalldepartmentnames
 -- ----------------------------
 DROP FUNCTION IF EXISTS "public"."getalldepartmentnames"("namefaculty" text);
@@ -992,31 +1033,6 @@ CREATE OR REPLACE FUNCTION "public"."getteacherdiscipline"("facultet" text, "dep
   RETURNS TABLE("id_disc" int4, "namedisc" text) AS $BODY$BEGIN
 	RETURN query SELECT discipline."ID_DISCIPLINE",discipline."Name_Discipline" from (SELECT teachers."ID_TEACHER" from (SELECT department."ID_DEPARTMENT" FROM (SELECT "ID_FACULTY" FROM faculty WHERE "Name_Faculty"=facultet) as facul INNER JOIN department on department.id_faculty=facul."ID_FACULTY" WHERE department."Name_Department"=departm) as dep INNER JOIN teachers on teachers.id_department=dep."ID_DEPARTMENT" WHERE teachers."Name_Teacher"=nameteacher)as teach INNER JOIN "helpDiscip" on "helpDiscip".id_teacher=teach."ID_TEACHER" INNER JOIN discipline on "helpDiscip".id_discipline=discipline."ID_DISCIPLINE";
 
-END
-$BODY$
-  LANGUAGE plpgsql VOLATILE
-  COST 100
-  ROWS 1000;
-
--- ----------------------------
--- Function structure for gettimetable_basic
--- ----------------------------
-DROP FUNCTION IF EXISTS "public"."gettimetable_basic"("facult" text, "depar" text, "fio_teacher" text, "typeweek" bpchar);
-CREATE OR REPLACE FUNCTION "public"."gettimetable_basic"("facult" text, "depar" text, "fio_teacher" text, "typeweek" bpchar)
-  RETURNS TABLE("housing" int4, "numclass" int4, "num_lesson" int4, "namesubject" text, "nameday" text, "groups_year" int4, "groups_subname" text) AS $BODY$	
-	DECLARE 
-	DayName TEXT :='';
-	BEGIN
-	
-	
-	
-	
-	RETURN query SELECT * from (SELECT "timeTable"."Date","timeTable"."ID","timeTable"."Time","timeTable".id_classroom,"timeTable".num_lesson, "timeTable".type_subject,week."NameDay" from (SELECT teachers."ID_TEACHER" from (SELECT department."ID_DEPARTMENT" FROM (SELECT "ID_FACULTY" FROM faculty WHERE "Name_Faculty"=facultet) as facul INNER JOIN department on department.id_faculty=facul."ID_FACULTY" WHERE department."Name_Department"=departm) as dep INNER JOIN teachers on teachers.id_department=dep."ID_DEPARTMENT" WHERE teachers."Name_Teacher"=fio_teacher LIMIT 1) as teach INNER JOIN "subjectPay" on "subjectPay".id_teacher=teach."ID_TEACHER" INNER JOIN "timeTable" on "timeTable"."ID"="subjectPay".id_subject INNER JOIN week on week."ID_DAY"="timeTable".id_type_week WHERE week."TypeWeek"=typeweek) as ttw;
-
-	
-	
-
-	RETURN QUERY SELECT * FROM "timeTable";
 END
 $BODY$
   LANGUAGE plpgsql VOLATILE
@@ -1337,6 +1353,112 @@ $BODY$
   COST 100;
 
 -- ----------------------------
+-- Function structure for timeTable_add
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."timeTable_add"("_Date" date, "_Time" time, "_id_classroom" int4, "_id_type_week" int4, "_num_lesson" int4, "_type_subject" int4, "_id_discipline" int4);
+CREATE OR REPLACE FUNCTION "public"."timeTable_add"("_Date" date, "_Time" time, "_id_classroom" int4, "_id_type_week" int4, "_num_lesson" int4, "_type_subject" int4, "_id_discipline" int4)
+  RETURNS "pg_catalog"."int4" AS $BODY$
+	DECLARE
+	IDWeek INTEGER :=0;
+	IDSubject INTEGER := 0;
+	IDCLASS INTEGER := 0;
+	BEGIN 
+
+	INSERT into "timeTable"("Date","Time",id_classroom,id_type_week,num_lesson,type_subject,id_discipline) VALUES (_Date,_Time,_id_classroom,_id_type_week,_num_lesson,_type_subject,_id_discipline) RETURNING "ID";
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+-- ----------------------------
+-- Function structure for timeTable_group_add
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."timeTable_group_add"("namefaculty" text, "namedepart" text, "name_spec" text, "subname" text, "yea" int4, "id_time_table_para" int4);
+CREATE OR REPLACE FUNCTION "public"."timeTable_group_add"("namefaculty" text, "namedepart" text, "name_spec" text, "subname" text, "yea" int4, "id_time_table_para" int4)
+  RETURNS "pg_catalog"."text" AS $BODY$
+	DECLARE
+	IDDEPARTMENT INTEGER :=0;
+	IDFACULTY INTEGER := 0;
+	IDSPECIALTY INTEGER := 0;
+	IDGroup INTEGER := 0;
+
+	BEGIN 
+
+
+SELECT "ID_FACULTY" FROM faculty INTO IDFACULTY WHERE "Name_Faculty"=namefaculty LIMIT 1;
+IF NOT FOUND THEN
+    RETURN 'Факультет не найден';
+END IF;
+
+SELECT "ID_DEPARTMENT" From department WHERE  "Name_Department"=namedepart and IDFACULTY=department.id_faculty INTO IDDEPARTMENT;
+IF NOT FOUND THEN
+    RETURN 'Кафедра не найдена';
+END IF;
+
+SELECT "ID_SPECIALTY" From specialty WHERE  "Abbreviation_Specialty"=name_spec and id_department=IDDEPARTMENT INTO IDSPECIALTY;
+IF NOT FOUND THEN
+    RETURN 'Специальность не найдена';
+END IF;
+SELECT "ID_GROUP" From groups WHERE "Sub_Name_Group"=subname and "Year_Of_Entry"=yea and id_specialty=IDSPECIALTY INTO IDGroup;
+IF NOT FOUND THEN
+    RETURN 'Специальность не найдена';
+END IF;
+INSERT into para(para.id_group, para.id_lesson) VALUES(IDGroup,id_time_table_para);
+RETURN 'Success';
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+-- ----------------------------
+-- Function structure for timeTable_teachers_add
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."timeTable_teachers_add"("namefaculty" text, "namedepart" text, "nameteacher" text, "type_oplat" int4, "id_time_table_para" int4);
+CREATE OR REPLACE FUNCTION "public"."timeTable_teachers_add"("namefaculty" text, "namedepart" text, "nameteacher" text, "type_oplat" int4, "id_time_table_para" int4)
+  RETURNS "pg_catalog"."text" AS $BODY$
+	DECLARE
+	IDDEPARTMENT INTEGER :=0;
+	IDFACULTY INTEGER := 0;
+	IDTEACHER INTEGER := 0;
+	BEGIN 
+
+
+SELECT "ID_FACULTY" FROM faculty INTO IDFACULTY WHERE "Name_Faculty"=namefaculty LIMIT 1;
+IF NOT FOUND THEN
+    RETURN 'Факультет не найден';
+END IF;
+
+SELECT "ID_DEPARTMENT" From department WHERE  "Name_Department"=namedepart and IDFACULTY=department.id_faculty INTO IDDEPARTMENT;
+IF NOT FOUND THEN
+    RETURN 'Кафедра не найдена';
+END IF;
+
+SELECT "ID_TEACHER" From teachers WHERE  teachers."Name_Teacher"=nameteacher and teachers.id_department=IDDEPARTMENT INTO IDTEACHER;
+IF NOT FOUND THEN
+    RETURN 'Преподователь не найден';
+END IF;
+INSERT into "subjectPay" (id_subject,id_teacher,type_pay) VALUES (id_time_table_para,IDTEACHER,type_oplat);
+RETURN 'Success';
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+-- ----------------------------
+-- Function structure for timetable_delete
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."timetable_delete"("id_t" int4);
+CREATE OR REPLACE FUNCTION "public"."timetable_delete"("id_t" int4)
+  RETURNS "pg_catalog"."int4" AS $BODY$
+	BEGIN 
+
+	DELETE FROM "timeTable" WHERE "ID"=id_t;
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+-- ----------------------------
 -- Function structure for type_subject_add
 -- ----------------------------
 DROP FUNCTION IF EXISTS "public"."type_subject_add"("name_subject" text, "lesson" varchar);
@@ -1432,40 +1554,40 @@ $BODY$
 -- ----------------------------
 ALTER SEQUENCE "public"."classroom_ID_CLASSROOM_seq"
 OWNED BY "public"."classroom"."ID_CLASSROOM";
-SELECT setval('"public"."classroom_ID_CLASSROOM_seq"', 40, true);
+SELECT setval('"public"."classroom_ID_CLASSROOM_seq"', 41, true);
 ALTER SEQUENCE "public"."department_ID_DEPARTMENT_seq"
 OWNED BY "public"."department"."ID_DEPARTMENT";
-SELECT setval('"public"."department_ID_DEPARTMENT_seq"', 88, true);
+SELECT setval('"public"."department_ID_DEPARTMENT_seq"', 89, true);
 ALTER SEQUENCE "public"."discipline_ID_DISCIPLINE_seq"
 OWNED BY "public"."discipline"."ID_DISCIPLINE";
-SELECT setval('"public"."discipline_ID_DISCIPLINE_seq"', 56, true);
+SELECT setval('"public"."discipline_ID_DISCIPLINE_seq"', 57, true);
 ALTER SEQUENCE "public"."faculty_ID_FACULTY_seq"
 OWNED BY "public"."faculty"."ID_FACULTY";
-SELECT setval('"public"."faculty_ID_FACULTY_seq"', 21, true);
+SELECT setval('"public"."faculty_ID_FACULTY_seq"', 22, true);
 ALTER SEQUENCE "public"."groups_ID_GROUP_seq"
 OWNED BY "public"."groups"."ID_GROUP";
-SELECT setval('"public"."groups_ID_GROUP_seq"', 37, true);
+SELECT setval('"public"."groups_ID_GROUP_seq"', 38, true);
 ALTER SEQUENCE "public"."position_ID_POSITION_seq"
 OWNED BY "public"."position"."ID_POSITION";
-SELECT setval('"public"."position_ID_POSITION_seq"', 21, true);
+SELECT setval('"public"."position_ID_POSITION_seq"', 22, true);
 ALTER SEQUENCE "public"."specialty_ID_SPECIALTY_seq"
 OWNED BY "public"."specialty"."ID_SPECIALTY";
-SELECT setval('"public"."specialty_ID_SPECIALTY_seq"', 18, true);
+SELECT setval('"public"."specialty_ID_SPECIALTY_seq"', 19, true);
 ALTER SEQUENCE "public"."stadyingPlan_ID_SETTING_seq"
 OWNED BY "public"."stadyingPlan"."ID_SETTING";
-SELECT setval('"public"."stadyingPlan_ID_SETTING_seq"', 15, true);
+SELECT setval('"public"."stadyingPlan_ID_SETTING_seq"', 16, true);
 ALTER SEQUENCE "public"."teachers_ID_TEACHER_seq"
 OWNED BY "public"."teachers"."ID_TEACHER";
-SELECT setval('"public"."teachers_ID_TEACHER_seq"', 24, true);
+SELECT setval('"public"."teachers_ID_TEACHER_seq"', 25, true);
 ALTER SEQUENCE "public"."timeTable_ID_seq"
 OWNED BY "public"."timeTable"."ID";
-SELECT setval('"public"."timeTable_ID_seq"', 7, false);
+SELECT setval('"public"."timeTable_ID_seq"', 8, false);
 ALTER SEQUENCE "public"."typeSubject_ID_SUBJECT_seq"
 OWNED BY "public"."typeSubject"."ID_SUBJECT";
-SELECT setval('"public"."typeSubject_ID_SUBJECT_seq"', 21, true);
+SELECT setval('"public"."typeSubject_ID_SUBJECT_seq"', 22, true);
 ALTER SEQUENCE "public"."week_ID_DAY_seq"
 OWNED BY "public"."week"."ID_DAY";
-SELECT setval('"public"."week_ID_DAY_seq"', 23, true);
+SELECT setval('"public"."week_ID_DAY_seq"', 24, true);
 
 -- ----------------------------
 -- Primary Key structure for table classroom
@@ -1530,62 +1652,63 @@ ALTER TABLE "public"."week" ADD CONSTRAINT "Week_pkey" PRIMARY KEY ("ID_DAY");
 -- ----------------------------
 -- Foreign Keys structure for table Spec_discipline
 -- ----------------------------
-ALTER TABLE "public"."Spec_discipline" ADD CONSTRAINT "fk_Spec_discipline_department_1" FOREIGN KEY ("id_department") REFERENCES "department" ("ID_DEPARTMENT") ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE "public"."Spec_discipline" ADD CONSTRAINT "fk_Spec_discipline_discipline_1" FOREIGN KEY ("id_discipline") REFERENCES "discipline" ("ID_DISCIPLINE") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "public"."Spec_discipline" ADD CONSTRAINT "fk_Spec_discipline_department_1" FOREIGN KEY ("id_department") REFERENCES "public"."department" ("ID_DEPARTMENT") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "public"."Spec_discipline" ADD CONSTRAINT "fk_Spec_discipline_discipline_1" FOREIGN KEY ("id_discipline") REFERENCES "public"."discipline" ("ID_DISCIPLINE") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- ----------------------------
 -- Foreign Keys structure for table department
 -- ----------------------------
-ALTER TABLE "public"."department" ADD CONSTRAINT "fk_department_classroom_1" FOREIGN KEY ("id_classrooms") REFERENCES "classroom" ("ID_CLASSROOM") ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE "public"."department" ADD CONSTRAINT "fk_department_faculty_1" FOREIGN KEY ("id_faculty") REFERENCES "faculty" ("ID_FACULTY") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "public"."department" ADD CONSTRAINT "fk_department_classroom_1" FOREIGN KEY ("id_classrooms") REFERENCES "public"."classroom" ("ID_CLASSROOM") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "public"."department" ADD CONSTRAINT "fk_department_faculty_1" FOREIGN KEY ("id_faculty") REFERENCES "public"."faculty" ("ID_FACULTY") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- ----------------------------
 -- Foreign Keys structure for table groups
 -- ----------------------------
-ALTER TABLE "public"."groups" ADD CONSTRAINT "fk_groups_specialty_1" FOREIGN KEY ("id_specialty") REFERENCES "specialty" ("ID_SPECIALTY") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "public"."groups" ADD CONSTRAINT "fk_groups_specialty_1" FOREIGN KEY ("id_specialty") REFERENCES "public"."specialty" ("ID_SPECIALTY") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- ----------------------------
 -- Foreign Keys structure for table helpDiscip
 -- ----------------------------
-ALTER TABLE "public"."helpDiscip" ADD CONSTRAINT "fk_helpDiscip_discipline_1" FOREIGN KEY ("id_discipline") REFERENCES "discipline" ("ID_DISCIPLINE") ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE "public"."helpDiscip" ADD CONSTRAINT "fk_helpDiscip_teachers_1" FOREIGN KEY ("id_teacher") REFERENCES "teachers" ("ID_TEACHER") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "public"."helpDiscip" ADD CONSTRAINT "fk_helpDiscip_discipline_1" FOREIGN KEY ("id_discipline") REFERENCES "public"."discipline" ("ID_DISCIPLINE") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "public"."helpDiscip" ADD CONSTRAINT "fk_helpDiscip_teachers_1" FOREIGN KEY ("id_teacher") REFERENCES "public"."teachers" ("ID_TEACHER") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- ----------------------------
 -- Foreign Keys structure for table para
 -- ----------------------------
-ALTER TABLE "public"."para" ADD CONSTRAINT "fk_para_groups_1" FOREIGN KEY ("id_group") REFERENCES "groups" ("ID_GROUP") ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE "public"."para" ADD CONSTRAINT "fk_para_timeTable_1" FOREIGN KEY ("id_lesson") REFERENCES "timeTable" ("ID") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "public"."para" ADD CONSTRAINT "fk_para_groups_1" FOREIGN KEY ("id_group") REFERENCES "public"."groups" ("ID_GROUP") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "public"."para" ADD CONSTRAINT "fk_para_timeTable_1" FOREIGN KEY ("id_lesson") REFERENCES "public"."timeTable" ("ID") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- ----------------------------
 -- Foreign Keys structure for table specialty
 -- ----------------------------
-ALTER TABLE "public"."specialty" ADD CONSTRAINT "fk_specialty_department_1" FOREIGN KEY ("id_department") REFERENCES "department" ("ID_DEPARTMENT") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "public"."specialty" ADD CONSTRAINT "fk_specialty_department_1" FOREIGN KEY ("id_department") REFERENCES "public"."department" ("ID_DEPARTMENT") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- ----------------------------
 -- Foreign Keys structure for table stadyingPlan
 -- ----------------------------
-ALTER TABLE "public"."stadyingPlan" ADD CONSTRAINT "fk_stadyingPlan_groups_1" FOREIGN KEY ("id_group") REFERENCES "groups" ("ID_GROUP") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "public"."stadyingPlan" ADD CONSTRAINT "fk_stadyingPlan_groups_1" FOREIGN KEY ("id_group") REFERENCES "public"."groups" ("ID_GROUP") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- ----------------------------
 -- Foreign Keys structure for table subjectPay
 -- ----------------------------
-ALTER TABLE "public"."subjectPay" ADD CONSTRAINT "fk_subjectPay_teachers_1" FOREIGN KEY ("id_teacher") REFERENCES "teachers" ("ID_TEACHER") ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE "public"."subjectPay" ADD CONSTRAINT "fk_subjectPay_timeTable_1" FOREIGN KEY ("id_subject") REFERENCES "timeTable" ("ID") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "public"."subjectPay" ADD CONSTRAINT "fk_subjectPay_teachers_1" FOREIGN KEY ("id_teacher") REFERENCES "public"."teachers" ("ID_TEACHER") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "public"."subjectPay" ADD CONSTRAINT "fk_subjectPay_timeTable_1" FOREIGN KEY ("id_subject") REFERENCES "public"."timeTable" ("ID") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- ----------------------------
 -- Foreign Keys structure for table teachers
 -- ----------------------------
-ALTER TABLE "public"."teachers" ADD CONSTRAINT "fk_teachers_department_1" FOREIGN KEY ("id_department") REFERENCES "department" ("ID_DEPARTMENT") ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE "public"."teachers" ADD CONSTRAINT "fk_teachers_position_1" FOREIGN KEY ("id_position") REFERENCES "position" ("ID_POSITION") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "public"."teachers" ADD CONSTRAINT "fk_teachers_department_1" FOREIGN KEY ("id_department") REFERENCES "public"."department" ("ID_DEPARTMENT") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "public"."teachers" ADD CONSTRAINT "fk_teachers_position_1" FOREIGN KEY ("id_position") REFERENCES "public"."position" ("ID_POSITION") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- ----------------------------
 -- Foreign Keys structure for table timeTable
 -- ----------------------------
-ALTER TABLE "public"."timeTable" ADD CONSTRAINT "fk_timeTable_classroom_1" FOREIGN KEY ("id_classroom") REFERENCES "classroom" ("ID_CLASSROOM") ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE "public"."timeTable" ADD CONSTRAINT "fk_timeTable_typeSubject_1" FOREIGN KEY ("id_type_week") REFERENCES "typeSubject" ("ID_SUBJECT") ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE "public"."timeTable" ADD CONSTRAINT "fk_timeTable_week_1" FOREIGN KEY ("id_type_week") REFERENCES "week" ("ID_DAY") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "public"."timeTable" ADD CONSTRAINT "fk_timeTable_classroom_1" FOREIGN KEY ("id_classroom") REFERENCES "public"."classroom" ("ID_CLASSROOM") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "public"."timeTable" ADD CONSTRAINT "fk_timeTable_discipline_1" FOREIGN KEY ("id_discipline") REFERENCES "public"."discipline" ("ID_DISCIPLINE") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."timeTable" ADD CONSTRAINT "fk_timeTable_typeSubject_1" FOREIGN KEY ("id_type_week") REFERENCES "public"."typeSubject" ("ID_SUBJECT") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "public"."timeTable" ADD CONSTRAINT "fk_timeTable_week_1" FOREIGN KEY ("id_type_week") REFERENCES "public"."week" ("ID_DAY") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- ----------------------------
 -- Foreign Keys structure for table transfers
 -- ----------------------------
-ALTER TABLE "public"."transfers" ADD CONSTRAINT "fk_transfers_timeTable_1" FOREIGN KEY ("id_lesson") REFERENCES "timeTable" ("ID") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "public"."transfers" ADD CONSTRAINT "fk_transfers_timeTable_1" FOREIGN KEY ("id_lesson") REFERENCES "public"."timeTable" ("ID") ON DELETE CASCADE ON UPDATE CASCADE;

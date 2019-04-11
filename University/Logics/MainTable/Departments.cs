@@ -106,7 +106,7 @@ namespace Logics.MainTable
                 using (var reader = cmd.ExecuteReader())
                     if (reader.Read())
                     {
-                        if (reader.GetString(0) == "Success") return true; else { exception = reader.GetString(0); return false; }
+                        if (reader.GetString(0) != "Success") { exception = reader.GetString(0); conn.Close(); return false; }
                     }
                 conn.Close();
                 return true;
@@ -132,7 +132,7 @@ namespace Logics.MainTable
                     using (var reader = cmd.ExecuteReader())
                         if (reader.Read())
                         {
-                            if (reader.GetString(0) == "Success") return true; else { exception = reader.GetString(0); return false; }
+                            if (reader.GetString(0) != "Success") { exception = reader.GetString(0); conn.Close(); return false; }
                         }
                 }
                 conn.Close();
