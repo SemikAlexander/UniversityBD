@@ -27,6 +27,7 @@ namespace Logics.MainTable
         }
         public struct TimeTableStructure
         {
+            public int id;
             public List<GROUPSTRUCT> groupsStructures; //массив групп на эту пару
             public List<type_opl_teacher> teachersStructures; //информация о каждом преподе
             public int num_para; //номер пары
@@ -92,7 +93,7 @@ namespace Logics.MainTable
                     using (var reader = cmd.ExecuteReader())
                         if (reader.Read())
                         {
-                            if (reader.GetString(0) != "Success") { exception = reader.GetString(0); return false; }
+                            if (reader.GetString(0) != "Success") { exception = reader.GetString(0); conn.Close(); return false; }
                         }
                 }
                 foreach (var q in timeTableStructure.teachersStructures)
@@ -102,7 +103,7 @@ namespace Logics.MainTable
                     using (var reader = cmd.ExecuteReader())
                         if (reader.Read())
                         {
-                            if (reader.GetString(0) != "Success") { exception = reader.GetString(0); return false; }
+                            if (reader.GetString(0) != "Success") { exception = reader.GetString(0); conn.Close(); return false; }
                         }
                 }
                 conn.Close();
@@ -129,7 +130,7 @@ namespace Logics.MainTable
                     using (var reader = cmd.ExecuteReader())
                         if (reader.Read())
                         {
-                            if (reader.GetString(0) == "Success") return true; else { exception = reader.GetString(0); return false; }
+                            if (reader.GetString(0) != "Success") { exception = reader.GetString(0); conn.Close(); return false; }
                         }
                 }
                 conn.Close();
