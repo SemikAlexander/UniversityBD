@@ -84,7 +84,7 @@ namespace Logics.MainTable
                 var conn = new NpgsqlConnection(this._connectionDB.ConnectString);
                 conn.Open();
                 int id_para_new = 0;
-                string sql = $"SELECT * FROM timeTable_add('{timeTableStructure.date}', '{timeTableStructure.time}', {timeTableStructure.classroom.Housing}, {timeTableStructure.classroom.Number_Class},{timeTableStructure.week.id}, {timeTableStructure.num_para}, {timeTableStructure.typeSubject.id},{timeTableStructure.Discipline.id});";
+                string sql = $"SELECT * FROM timetable_add('{timeTableStructure.date}', '{timeTableStructure.time}', {timeTableStructure.classroom.Housing}, {timeTableStructure.classroom.Number_Class},{timeTableStructure.week.id}, {timeTableStructure.num_para}, {timeTableStructure.typeSubject.id},{timeTableStructure.Discipline.id});";
                 using (var cmd = new NpgsqlCommand(sql, conn))
                 using (var reader = cmd.ExecuteReader())
                     if (reader.Read())

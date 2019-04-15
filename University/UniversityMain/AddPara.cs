@@ -18,7 +18,7 @@ namespace UniversityMain
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
         private extern static void SendMessage(System.IntPtr hwnd, int wmsg, int wparam, int lparam);
         public List<string> TeacherForLesson = new List<string>();
-        ComboBox combo;
+        bool ChoiseTypePayForTeacher = false;
         #region Classes
         Logics.Functions.Connection.ConnectionDB connectionDB;
         Logics.MainTable.Teachers teachers;
@@ -29,8 +29,10 @@ namespace UniversityMain
         Logics.MainTable.Speciality speciality;
         Logics.MainTable.Groups groups;
         Logics.Books.Discipline discipline;
+        Logics.Books.Classroom classroom;
         #endregion
         #region Arrays
+        List<int> classes = new List<int>();
         List<Logics.MainTable.Teachers.TeachersStructure> teachersStructure = new List<Logics.MainTable.Teachers.TeachersStructure>();
         List<Logics.Books.Week.StructWeek> structWeeks = new List<Logics.Books.Week.StructWeek>();
         List<Logics.Books.TypeSubject.StructTypeSubject> structTypeSubjects = new List<Logics.Books.TypeSubject.StructTypeSubject>();
@@ -39,15 +41,20 @@ namespace UniversityMain
         List<Logics.MainTable.TimeTable.GROUPSTRUCT> arrayGroupsStruct = new List<Logics.MainTable.TimeTable.GROUPSTRUCT>();
         List<Logics.MainTable.Groups.GroupsStructure> groupsStructures = new List<Logics.MainTable.Groups.GroupsStructure>();
         List<Logics.Books.Discipline.StructDiscipline> structDiscipline = new List<Logics.Books.Discipline.StructDiscipline>();
+        List<Logics.Books.Classroom.StructClassroom> ClassRoomInHousing = new List<Logics.Books.Classroom.StructClassroom>();
         #endregion
         #region Structures
         Logics.MainTable.TimeTable.type_opl_teacher type_Opl;
         Logics.MainTable.TimeTable.TimeTableStructure tableStructure;
         Logics.MainTable.TimeTable.GROUPSTRUCT groupsStruct;
-        Logics.Books.Classroom.StructClassroom structClassroom;      
+        Logics.Books.Classroom.StructClassroom structClassroom;
+        Logics.Books.Week.StructWeek structWeek;
+        Logics.Books.TypeSubject.StructTypeSubject structTypeSubject;
+        Logics.Books.Discipline.StructDiscipline structDisciplineForAddPara;
         #endregion
         public AddPara(Logics.Functions.Connection.ConnectionDB connection)
         {
+            classroom = new Logics.Books.Classroom(connection);
             discipline = new Logics.Books.Discipline(connection);
             groups = new Logics.MainTable.Groups(connection);
             speciality = new Logics.MainTable.Speciality(connection);
@@ -86,11 +93,9 @@ namespace UniversityMain
             foreach (var fac in structFaculties)
             {
                 FacultyBox.Items.Add(fac.Name);
-                FacultyBox2.Items.Add(fac.Name);
-                FacultyForDisciplineBox.Items.Add(fac.Name);
+                FacultyGroupBox.Items.Add(fac.Name);
             }
             typeSubject.GetAllTypeSubjects(out structTypeSubjects);
-            List<Logics.Books.Faculty.StructFaculty> structFACULTY = new List<Logics.Books.Faculty.StructFaculty>();
         }
         private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -101,11 +106,38 @@ namespace UniversityMain
                     foreach(var strWeek in structWeeks)
                         if (strWeek.type == Logics.Books.Week.Type_Week.Top)
                             WeekDayBox.Items.Add(strWeek.name_day);
+                    structWeek.type = Logics.Books.Week.Type_Week.Top;
                     break;
                 case 1:
                     foreach (var strWeek in structWeeks)
                         if (strWeek.type == Logics.Books.Week.Type_Week.Bottom)
                             WeekDayBox.Items.Add(strWeek.name_day);
+                    structWeek.type = Logics.Books.Week.Type_Week.Bottom;
+                    break;
+            }
+        }
+        private void WeekDayBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            structWeek.name_day = WeekDayBox.SelectedItem.ToString();
+            switch (TypeWeekBox.SelectedIndex)
+            {
+                case 0:
+                    foreach (var strWeek in structWeeks)
+                        if (strWeek.type == Logics.Books.Week.Type_Week.Top)
+                            if (WeekDayBox.SelectedItem.ToString() == strWeek.name_day)
+                            {
+                                structWeek.id = strWeek.id;
+                                break;
+                            }
+                    break;
+                case 1:
+                    foreach (var strWeek in structWeeks)
+                        if (strWeek.type == Logics.Books.Week.Type_Week.Bottom)
+                            if (WeekDayBox.SelectedItem.ToString() == strWeek.name_day)
+                            {
+                                structWeek.id = strWeek.id;
+                                break;
+                            }
                     break;
             }
         }
@@ -116,13 +148,22 @@ namespace UniversityMain
             departments.GetAllDepartmentNames(FacultyBox.SelectedItem.ToString(), out nameDepartments);
             foreach (var dep in nameDepartments)
                 DepartmentBox.Items.Add(dep);
+            type_Opl.faculty = FacultyBox.SelectedItem.ToString();
         }
         private void DepartmentBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             TeacherInfo.Rows.Clear();
+            type_Opl.department = DepartmentBox.SelectedItem.ToString();
             teachers.GetTeachers(FacultyBox.SelectedItem.ToString(), DepartmentBox.SelectedItem.ToString(), out teachersStructure);
             foreach (var teach in teachersStructure)
                 TeacherInfo.Rows.Add(teach.nameteacher);
+        }
+        private void DisciplineBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            structDisciplineForAddPara.name = DisciplineBox.SelectedItem.ToString();
+            foreach (var S_D in structDiscipline)
+                if (S_D.name == structDisciplineForAddPara.name)
+                    structDisciplineForAddPara.id = S_D.id;
         }
         private void TeacherInfo_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -133,17 +174,19 @@ namespace UniversityMain
                 {
                     TeacherInfo.CurrentRow.Cells[1].Value = false;
                     TeacherInfo.CurrentRow.Cells[1].Value = null;
-                    type_Opl.name_teacher = "";
-                    type_Opl.faculty = "";
-                    type_Opl.department = "";
                     TeacherInfo.CurrentRow.Cells[2].Value = null;
+                    type_Opl.name_teacher = "";
+                    DisciplineBox.SelectedItem = null;
+                    DisciplineBox.Items.Clear();
+
                 }
                 else if (TeacherInfo.CurrentRow.Cells[1].Value == null)
                 {
-                    TeacherInfo.CurrentRow.Cells[1].Value = true;
-                    type_Opl.name_teacher = TeacherInfo.Rows[e.RowIndex].Cells[0].Value.ToString();
-                    type_Opl.faculty = FacultyBox.SelectedItem.ToString();
-                    type_Opl.department = DepartmentBox.SelectedItem.ToString();
+                    if (TeacherInfo.CurrentRow.Cells[2].Value == null | TeacherInfo.CurrentRow.Cells[3].Value == null)
+                    {
+                        TeacherInfo.CurrentRow.Cells[1].Value = true;
+                        type_Opl.name_teacher = TeacherInfo.Rows[e.RowIndex].Cells[0].Value.ToString();
+                    }
                 }
             }
             if (senderGrid.Columns[e.ColumnIndex] is DataGridViewCheckBoxColumn & senderGrid.Columns[e.ColumnIndex].Name == "Pochasovka" && e.RowIndex >= 0)
@@ -154,24 +197,24 @@ namespace UniversityMain
                     {
                         TeacherInfo.CurrentRow.Cells[2].Value = false;
                         TeacherInfo.CurrentRow.Cells[2].Value = null;
+                        ChoiseTypePayForTeacher = false;
+                        type_Opl.type_Oplaty_Teacher = 0;
                     }
-                    else if (TeacherInfo.CurrentRow.Cells[2].Value == null)
+                    else if (TeacherInfo.CurrentRow.Cells[2].Value == null & TeacherInfo.CurrentRow.Cells[1].Value != null && (bool)TeacherInfo.CurrentRow.Cells[1].Value == true)
                     {
                         TeacherInfo.CurrentRow.Cells[2].Value = true;
                         type_Opl.type_Oplaty_Teacher = Logics.MainTable.TimeTable.type_oplaty_teacher.Pochasovka;
-                        array_type_Opl.Add(type_Opl);
                         TeacherInfo.CurrentRow.Cells[3].Value = false;
                         TeacherInfo.CurrentRow.Cells[3].Value = null;
+                        ChoiseTypePayForTeacher = true;
                     }
                 }
                 else
                 {
-                    TeacherInfo.CurrentRow.Cells[1].Value = false;
-                    TeacherInfo.CurrentRow.Cells[1].Value = null;
-                    TeacherInfo.CurrentRow.Cells[2].Value = false;
-                    TeacherInfo.CurrentRow.Cells[2].Value = null;
-                    TeacherInfo.CurrentRow.Cells[3].Value = false;
-                    TeacherInfo.CurrentRow.Cells[3].Value = null;
+                    TeacherInfo.Rows.Clear();
+                    teachers.GetTeachers(FacultyBox.SelectedItem.ToString(), DepartmentBox.SelectedItem.ToString(), out teachersStructure);
+                    foreach (var teach in teachersStructure)
+                        TeacherInfo.Rows.Add(teach.nameteacher);
                 }
             }
             if (senderGrid.Columns[e.ColumnIndex] is DataGridViewCheckBoxColumn & senderGrid.Columns[e.ColumnIndex].Name == "Stavka" && e.RowIndex >= 0)
@@ -182,24 +225,24 @@ namespace UniversityMain
                     {
                         TeacherInfo.CurrentRow.Cells[3].Value = false;
                         TeacherInfo.CurrentRow.Cells[3].Value = null;
+                        type_Opl.type_Oplaty_Teacher = 0;
+                        ChoiseTypePayForTeacher = false;
                     }
-                    else if (TeacherInfo.CurrentRow.Cells[3].Value == null)
+                    else if (TeacherInfo.CurrentRow.Cells[3].Value == null & TeacherInfo.CurrentRow.Cells[1].Value != null && (bool)TeacherInfo.CurrentRow.Cells[1].Value == true)
                     {
                         TeacherInfo.CurrentRow.Cells[3].Value = true;
                         type_Opl.type_Oplaty_Teacher = Logics.MainTable.TimeTable.type_oplaty_teacher.Stavka;
-                        array_type_Opl.Add(type_Opl);
                         TeacherInfo.CurrentRow.Cells[2].Value = false;
                         TeacherInfo.CurrentRow.Cells[2].Value = null;
+                        ChoiseTypePayForTeacher = true;
                     }
                 }
                 else
                 {
-                    TeacherInfo.CurrentRow.Cells[1].Value = false;
-                    TeacherInfo.CurrentRow.Cells[1].Value = null;
-                    TeacherInfo.CurrentRow.Cells[2].Value = false;
-                    TeacherInfo.CurrentRow.Cells[2].Value = null;
-                    TeacherInfo.CurrentRow.Cells[3].Value = false;
-                    TeacherInfo.CurrentRow.Cells[3].Value = null;
+                    TeacherInfo.Rows.Clear();
+                    teachers.GetTeachers(FacultyBox.SelectedItem.ToString(), DepartmentBox.SelectedItem.ToString(), out teachersStructure);
+                    foreach (var teach in teachersStructure)
+                        TeacherInfo.Rows.Add(teach.nameteacher);
                 }
             }
         }
@@ -209,62 +252,74 @@ namespace UniversityMain
             switch (TypeLessonsBox.SelectedIndex)
             {
                 case 0:
+                    structTypeSubject.typelesson = Logics.Books.TypeSubject.type_lesson.Session;
+                    TimeSessionPanel.Visible = true;
                     foreach (var tSub in structTypeSubjects)
-                        if (tSub.typelesson == Logics.Books.TypeSubject.type_lesson.Session)
-                        {
+                        if (tSub.typelesson == structTypeSubject.typelesson)
                             TypeSubjectBox.Items.Add(tSub.name);
-                        }
                     break;
                 case 1:
+                    structTypeSubject.typelesson = Logics.Books.TypeSubject.type_lesson.Study;
+                    TimeSessionPanel.Visible = false;
                     foreach (var tSub in structTypeSubjects)
-                        if (tSub.typelesson == Logics.Books.TypeSubject.type_lesson.Study)
-                        {
+                        if (tSub.typelesson == structTypeSubject.typelesson)
                             TypeSubjectBox.Items.Add(tSub.name);
-                        }
                     break;
             }
         }
-        private void Button3_Click(object sender, EventArgs e)
+        private void TypeSubjectBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            structTypeSubject.name = TypeSubjectBox.SelectedItem.ToString();
+            foreach (var TypeSub in structTypeSubjects)
+                if (TypeSub.typelesson == structTypeSubject.typelesson)
+                    if (TypeSub.name == structTypeSubject.name)
+                        structTypeSubject.id = TypeSub.id;
         }
         private void HousingBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (HousingBox.SelectedItem != null)
             {
-                Logics.Books.Classroom classroom = new Logics.Books.Classroom(connectionDB);
-                List<int> classes = new List<int>();
                 ClassRoomBox.Items.Clear();
                 classroom.GetAllClass(int.Parse(HousingBox.SelectedItem.ToString()), out classes);
+                structClassroom.Housing = Convert.ToInt32(HousingBox.SelectedItem.ToString());
                 foreach (var cl in classes)
                     ClassRoomBox.Items.Add(cl);
             }
         }
+        private void ClassRoomBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            classroom.GetAllClassroom(structClassroom.Housing, 0, 1000, out ClassRoomInHousing);
+            structClassroom.Number_Class = Convert.ToInt32(ClassRoomBox.SelectedItem.ToString());
+            foreach (var LessonClass in ClassRoomInHousing)
+                if (LessonClass.Number_Class == structClassroom.Number_Class)
+                    structClassroom.id = LessonClass.id;
+
+        }
         private void FacultyBox2_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            DepartmentBox2.Items.Clear();
+            DepartmentGroupBox.Items.Clear();
             Logics.MainTable.Departments departments = new Logics.MainTable.Departments(connectionDB);
             List<string> departmentsName = new List<string>();
-            departments.GetAllDepartmentNames(FacultyBox2.SelectedItem.ToString(), out departmentsName);
+            departments.GetAllDepartmentNames(FacultyGroupBox.SelectedItem.ToString(), out departmentsName);
             foreach (var dep in departmentsName)
-                DepartmentBox2.Items.Add(dep);
+                DepartmentGroupBox.Items.Add(dep);
         }
         private void DepartmentBox2_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            SpecialityBox.Items.Clear();
+            SpecialityGroupBox.Items.Clear();
             List<string> specialityName = new List<string>();
-            speciality.GetAllSpecialityNames(FacultyBox2.SelectedItem.ToString(), DepartmentBox2.SelectedItem.ToString(), out specialityName);
+            speciality.GetAllSpecialityNames(FacultyGroupBox.SelectedItem.ToString(), DepartmentGroupBox.SelectedItem.ToString(), out specialityName);
             foreach (var spec in specialityName)
-                SpecialityBox.Items.Add(spec);
+                SpecialityGroupBox.Items.Add(spec);
         }
         private void SpecialityBox_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             GroupsInfo.Rows.Clear();
-            groups.GetGroups(FacultyBox2.SelectedItem.ToString(), DepartmentBox2.SelectedItem.ToString(), SpecialityBox.SelectedItem.ToString(), out groupsStructures);
+            groups.GetGroups(FacultyGroupBox.SelectedItem.ToString(), DepartmentGroupBox.SelectedItem.ToString(), SpecialityGroupBox.SelectedItem.ToString(), out groupsStructures);
             foreach (var gr in groupsStructures)
             {
                 string year = Convert.ToString(gr.YearCreate);
-                GroupsInfo.Rows.Add(SpecialityBox.SelectedItem.ToString() + " " + year[year.Length - 2] + year[year.Length - 1] + " " + gr.Subname, gr.YearCreate);
+                GroupsInfo.Rows.Add(SpecialityGroupBox.SelectedItem.ToString() + " " + year[year.Length - 2] + year[year.Length - 1] + " " + gr.Subname, gr.YearCreate);
             }
         }
         private void GroupsInfo_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -276,28 +331,73 @@ namespace UniversityMain
                 {
                     GroupsInfo.CurrentRow.Cells[2].Value = false;
                     GroupsInfo.CurrentRow.Cells[2].Value = null;
-                    TeacherForLesson.Remove(GroupsInfo.Rows[e.RowIndex].Cells[0].Value.ToString());
                 }
                 else if (GroupsInfo.CurrentRow.Cells[2].Value == null)
                 {
                     GroupsInfo.CurrentRow.Cells[2].Value = true;
-                    TeacherForLesson.Add(GroupsInfo.Rows[e.RowIndex].Cells[0].Value.ToString());
+                    groupsStruct.faculty = FacultyGroupBox.SelectedItem.ToString();
+                    groupsStruct.department = DepartmentGroupBox.SelectedItem.ToString();
+                    groupsStruct.name_speciality = SpecialityGroupBox.SelectedItem.ToString();
+                    groupsStruct.YearCreate = Convert.ToInt32(GroupsInfo.Rows[e.RowIndex].Cells[1].Value.ToString());
+                    groupsStruct.Subname = Convert.ToString(GroupsInfo.Rows[e.RowIndex].Cells[0].Value.ToString()[GroupsInfo.Rows[e.RowIndex].Cells[0].Value.ToString().Length - 1]);
+                    arrayGroupsStruct.Add(groupsStruct);
                 }
             }
         }
-        private void DepartmentForDisciplineBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void Button4_Click(object sender, EventArgs e)
         {
-            discipline.GetAllDiscipline(FacultyForDisciplineBox.SelectedItem.ToString(), DepartmentForDisciplineBox.SelectedItem.ToString(), 0, 20, out structDiscipline);
-            foreach (var discipline in structDiscipline)
-                DisciplineBox.Items.Add(discipline.name);
+            if(type_Opl.name_teacher!="" & type_Opl.faculty!="" & type_Opl.department!="" & ChoiseTypePayForTeacher != false)
+            {
+                DisciplineBox.Items.Clear();                
+                teachers.GetTeacherDiscipline(type_Opl.faculty, type_Opl.department, type_Opl.name_teacher, out structDiscipline);
+                foreach (var discip in structDiscipline)
+                    DisciplineBox.Items.Add(discip.name);
+                AddLessonsInTimeTable.Visible = true;
+                tableStructure.teachersStructures = array_type_Opl;
+            }
         }
-        private void FacultyForDisciplineBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void AddLessonsInTimeTable_Click(object sender, EventArgs e)
         {
-            Logics.MainTable.Departments departments = new Logics.MainTable.Departments(connectionDB);
-            List<string> nameDepartments = new List<string>();
-            departments.GetAllDepartmentNames(FacultyForDisciplineBox.SelectedItem.ToString(), out nameDepartments);
-            foreach (var dep in nameDepartments)
-                DepartmentForDisciplineBox.Items.Add(dep);
+            if(DisciplineBox.SelectedItem!=null & TypeLessonsBox.SelectedItem!=null & TypeSubjectBox.SelectedItem != null & TypeWeekBox.SelectedItem != null & WeekDayBox.SelectedItem != null & HousingBox.SelectedItem != null & ClassRoomBox.SelectedItem != null)
+            {
+                if(structTypeSubject.typelesson == Logics.Books.TypeSubject.type_lesson.Session)
+                {
+                    TimeSpan timeDifferent = StopSomithing.Value.TimeOfDay - StartSomething.Value.TimeOfDay;
+                    if (timeDifferent.Hours > 0)
+                    {
+                        tableStructure.num_para = Convert.ToInt32(NumPara.Value);
+                        tableStructure.time = StartSomething.Value.TimeOfDay;
+                        tableStructure.date = DateSomething.Value.Date;
+                        tableStructure.typeSubject = structTypeSubject;
+                        tableStructure.week = structWeek;
+                        tableStructure.Discipline = structDisciplineForAddPara;
+                        AddGroupInTimeTable.Visible = true;
+                    }
+                }
+                else
+                {
+                    tableStructure.num_para = Convert.ToInt32(NumPara.Value);
+                    tableStructure.typeSubject = structTypeSubject;
+                    tableStructure.week = structWeek;
+                    tableStructure.Discipline = structDisciplineForAddPara;
+                    tableStructure.classroom = structClassroom;
+                    AddGroupInTimeTable.Visible = true;
+                }
+            }
         }
+        private void AddGroupInTimeTable_Click(object sender, EventArgs e)
+        {
+            if (arrayGroupsStruct.Count != 0)
+            {
+                tableStructure.groupsStructures = arrayGroupsStruct;
+                AddParaInTimeTable.Visible = true;
+            }
+        }
+        private void Button3_Click(object sender, EventArgs e)
+        {
+            array_type_Opl.Add(type_Opl);
+            tableStructure.teachersStructures = array_type_Opl;
+            timeTable.Add(tableStructure);
+        }      
     }
 }

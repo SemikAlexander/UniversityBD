@@ -359,5 +359,14 @@
   <ItemGroup>
     <None Include="Resources\AddTimeTable.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AddTeacher.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AddGroup.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AddLesson.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
