@@ -54,20 +54,25 @@
             this.button1 = new System.Windows.Forms.Button();
             this.VerticalMenuStatus = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.button14 = new System.Windows.Forms.Button();
+            this.panel5 = new System.Windows.Forms.Panel();
             this.ParaInfo = new System.Windows.Forms.DataGridView();
             this.Monday = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Tuesday = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Wednesday = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Thuesday = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Friday = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.button15 = new System.Windows.Forms.Button();
+            this.button14 = new System.Windows.Forms.Button();
             this.VerticalMenu.SuspendLayout();
             this.INFO.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ParaInfo)).BeginInit();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // VerticalMenu
@@ -389,27 +394,22 @@
             // 
             // panel3
             // 
-            this.panel3.Controls.Add(this.button14);
-            this.panel3.Controls.Add(this.ParaInfo);
+            this.panel3.Controls.Add(this.panel5);
+            this.panel3.Controls.Add(this.panel4);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(210, 44);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(833, 526);
             this.panel3.TabIndex = 4;
             // 
-            // button14
+            // panel5
             // 
-            this.button14.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button14.FlatAppearance.BorderSize = 0;
-            this.button14.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button14.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button14.Image = global::UniversityMain.Properties.Resources.Settings;
-            this.button14.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button14.Location = new System.Drawing.Point(786, 489);
-            this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(40, 35);
-            this.button14.TabIndex = 9;
-            this.button14.UseVisualStyleBackColor = true;
+            this.panel5.Controls.Add(this.ParaInfo);
+            this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel5.Location = new System.Drawing.Point(0, 0);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(833, 489);
+            this.panel5.TabIndex = 11;
             // 
             // ParaInfo
             // 
@@ -432,14 +432,15 @@
             this.Wednesday,
             this.Thuesday,
             this.Friday});
-            this.ParaInfo.Location = new System.Drawing.Point(6, 2);
+            this.ParaInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ParaInfo.Location = new System.Drawing.Point(0, 0);
             this.ParaInfo.Name = "ParaInfo";
             this.ParaInfo.ReadOnly = true;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.ParaInfo.RowsDefaultCellStyle = dataGridViewCellStyle2;
-            this.ParaInfo.Size = new System.Drawing.Size(820, 481);
-            this.ParaInfo.TabIndex = 8;
+            this.ParaInfo.Size = new System.Drawing.Size(833, 489);
+            this.ParaInfo.TabIndex = 9;
             // 
             // Monday
             // 
@@ -480,6 +481,48 @@
             this.Friday.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.Friday.Width = 155;
             // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.button15);
+            this.panel4.Controls.Add(this.button14);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel4.Location = new System.Drawing.Point(0, 489);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(833, 37);
+            this.panel4.TabIndex = 10;
+            // 
+            // button15
+            // 
+            this.button15.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button15.Dock = System.Windows.Forms.DockStyle.Right;
+            this.button15.FlatAppearance.BorderSize = 0;
+            this.button15.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button15.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button15.Image = global::UniversityMain.Properties.Resources.AddTimeTable;
+            this.button15.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button15.Location = new System.Drawing.Point(753, 0);
+            this.button15.Name = "button15";
+            this.button15.Size = new System.Drawing.Size(40, 37);
+            this.button15.TabIndex = 10;
+            this.button15.UseVisualStyleBackColor = true;
+            this.button15.Click += new System.EventHandler(this.Button15_Click);
+            // 
+            // button14
+            // 
+            this.button14.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button14.Dock = System.Windows.Forms.DockStyle.Right;
+            this.button14.FlatAppearance.BorderSize = 0;
+            this.button14.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button14.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button14.Image = global::UniversityMain.Properties.Resources.Settings;
+            this.button14.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button14.Location = new System.Drawing.Point(793, 0);
+            this.button14.Name = "button14";
+            this.button14.Size = new System.Drawing.Size(40, 37);
+            this.button14.TabIndex = 9;
+            this.button14.UseVisualStyleBackColor = true;
+            this.button14.Click += new System.EventHandler(this.Button14_Click_1);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -495,6 +538,7 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MainForm";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.VerticalMenu.ResumeLayout(false);
             this.VerticalMenu.PerformLayout();
             this.INFO.ResumeLayout(false);
@@ -503,7 +547,9 @@
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
+            this.panel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ParaInfo)).EndInit();
+            this.panel4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -533,11 +579,14 @@
         private System.Windows.Forms.Button timetable;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Button button14;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Panel panel5;
         public System.Windows.Forms.DataGridView ParaInfo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Monday;
         private System.Windows.Forms.DataGridViewTextBoxColumn Tuesday;
         private System.Windows.Forms.DataGridViewTextBoxColumn Wednesday;
         private System.Windows.Forms.DataGridViewTextBoxColumn Thuesday;
         private System.Windows.Forms.DataGridViewTextBoxColumn Friday;
+        private System.Windows.Forms.Button button15;
     }
 }

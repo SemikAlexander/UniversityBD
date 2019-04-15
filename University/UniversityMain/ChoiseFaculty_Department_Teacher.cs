@@ -30,16 +30,10 @@ namespace UniversityMain
             connectionDB = connection;
             InitializeComponent();
         }
-
-        private void Button2_Click(object sender, EventArgs e)
-        {
-            WindowState = FormWindowState.Minimized;
-        }
         private void Button1_Click(object sender, EventArgs e)
         {
             Close();
         }
-
         private void FacultyBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (FacultyBox.SelectedItem != null)
@@ -60,7 +54,10 @@ namespace UniversityMain
                 mainForm.ParaInfo.Rows.Clear();
                 teachers.GetTeachers(FacultyBox.SelectedItem.ToString(), DepartmentBox.SelectedItem.ToString(), out teachersStructures);
                 foreach (var teach in teachersStructures)
+                {
+                    TeacherBox.Items.Add(teach.nameteacher);
                     mainForm.ParaInfo.Rows.Add(teach.nameteacher, teach.nameposition, teach.emaildata);
+                }
             }
         }
         private void TeacherBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -73,9 +70,7 @@ namespace UniversityMain
             List<Logics.Books.Faculty.StructFaculty> structFaculties = new List<Logics.Books.Faculty.StructFaculty>();
             faculty.GetAllFaculty(out structFaculties);
             foreach (var fac in structFaculties)
-            {
                 FacultyBox.Items.Add(fac.Name);
-            }
         }
         private void Panel1_MouseDown(object sender, MouseEventArgs e)
         {
