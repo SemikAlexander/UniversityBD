@@ -12,7 +12,7 @@
  Target Server Version : 90612
  File Encoding         : 65001
 
- Date: 17/04/2019 00:13:53
+ Date: 17/04/2019 00:17:08
 */
 
 
@@ -1445,7 +1445,6 @@ CREATE TEMP TABLE seltm as (
 		INNER JOIN groups on groups."ID_GROUP"=para.id_group 
 		INNER JOIN specialty on groups.id_specialty=specialty."ID_SPECIALTY"
 		INNER JOIN "stadyingPlan" on groups."ID_GROUP" = "stadyingPlan".id_group
-		WHERE "stadyingPlan"."DateEndSession">now() and "stadyingPlan"."DateStartStuding"<now()
 );
 CREATE TEMP TABLE res as (
 		SELECT finish_timetable."ID", finish_timetable."Date", finish_timetable."Time", finish_timetable."num_lesson", finish_timetable."NameDay",finish_timetable."Sub_Name_Group",finish_timetable."Year_Of_Entry",classroom."Housing",classroom."Num_Classroom","typeSubject"."Name_Subject","typeSubject".type_lesson,finish_timetable."Abbreviation_Specialty"
