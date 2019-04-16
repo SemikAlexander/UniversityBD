@@ -12,7 +12,7 @@
  Target Server Version : 90612
  File Encoding         : 65001
 
- Date: 16/04/2019 15:19:06
+ Date: 16/04/2019 21:37:20
 */
 
 
@@ -383,6 +383,13 @@ CREATE TABLE "public"."para" (
 ;
 
 -- ----------------------------
+-- Records of para
+-- ----------------------------
+INSERT INTO "public"."para" VALUES (32, 17);
+INSERT INTO "public"."para" VALUES (32, 18);
+INSERT INTO "public"."para" VALUES (36, 18);
+
+-- ----------------------------
 -- Table structure for position
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."position";
@@ -453,6 +460,11 @@ CREATE TABLE "public"."subjectPay" (
 COMMENT ON COLUMN "public"."subjectPay"."type_pay" IS '0 - ставка, 1 -почасовка, 2 - замена';
 
 -- ----------------------------
+-- Records of subjectPay
+-- ----------------------------
+INSERT INTO "public"."subjectPay" VALUES (17, 1, 18);
+
+-- ----------------------------
 -- Table structure for teachers
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."teachers";
@@ -498,6 +510,11 @@ CREATE TABLE "public"."timeTable" (
 -- Records of timeTable
 -- ----------------------------
 INSERT INTO "public"."timeTable" VALUES (12, 14, 1, 14, 3, '2019-04-16', '12:50:31', 19);
+INSERT INTO "public"."timeTable" VALUES (14, 16, 1, 17, 3, NULL, NULL, 35);
+INSERT INTO "public"."timeTable" VALUES (15, 17, 1, 17, 3, '2019-04-16', '21:28:40.920912', 35);
+INSERT INTO "public"."timeTable" VALUES (16, 17, 1, 17, 3, '2019-04-16', '21:28:40.920912', 35);
+INSERT INTO "public"."timeTable" VALUES (17, 14, 1, 17, 14, '2019-04-16', '21:32:07.001098', 35);
+INSERT INTO "public"."timeTable" VALUES (18, 37, 1, 17, 4, '2019-04-16', '21:35:42.948955', 35);
 
 -- ----------------------------
 -- Table structure for transfers
@@ -1429,7 +1446,7 @@ SELECT "ID_GROUP" From groups WHERE "Sub_Name_Group"=subname and "Year_Of_Entry"
 IF NOT FOUND THEN
     RETURN 'Специальность не найдена';
 END IF;
-INSERT into para(para.id_group, para.id_lesson) VALUES(IDGroup,id_time_table_para);
+INSERT into para(id_group, id_lesson) VALUES(IDGroup,id_time_table_para);
 RETURN 'Success';
 END
 $BODY$
@@ -1593,7 +1610,7 @@ OWNED BY "public"."teachers"."ID_TEACHER";
 SELECT setval('"public"."teachers_ID_TEACHER_seq"', 26, true);
 ALTER SEQUENCE "public"."timeTable_ID_seq"
 OWNED BY "public"."timeTable"."ID";
-SELECT setval('"public"."timeTable_ID_seq"', 14, true);
+SELECT setval('"public"."timeTable_ID_seq"', 19, true);
 ALTER SEQUENCE "public"."typeSubject_ID_SUBJECT_seq"
 OWNED BY "public"."typeSubject"."ID_SUBJECT";
 SELECT setval('"public"."typeSubject_ID_SUBJECT_seq"', 23, true);
