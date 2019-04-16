@@ -28,11 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -52,6 +53,13 @@
             this.Pochasovka = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Stavka = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.TimeSessionPanel = new System.Windows.Forms.Panel();
+            this.label17 = new System.Windows.Forms.Label();
+            this.DateSomething = new System.Windows.Forms.DateTimePicker();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.StopSomithing = new System.Windows.Forms.DateTimePicker();
+            this.StartSomething = new System.Windows.Forms.DateTimePicker();
             this.AddLessonsInTimeTable = new System.Windows.Forms.Button();
             this.DisciplineBox = new System.Windows.Forms.ComboBox();
             this.ClassRoomBox = new System.Windows.Forms.ComboBox();
@@ -82,13 +90,7 @@
             this.YearOfEntry = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GroupOnLesson = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.AddParaInTimeTable = new System.Windows.Forms.Button();
-            this.TimeSessionPanel = new System.Windows.Forms.Panel();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.StopSomithing = new System.Windows.Forms.DateTimePicker();
-            this.StartSomething = new System.Windows.Forms.DateTimePicker();
-            this.DateSomething = new System.Windows.Forms.DateTimePicker();
-            this.label17 = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -96,10 +98,10 @@
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TeacherInfo)).BeginInit();
             this.tabPage3.SuspendLayout();
+            this.TimeSessionPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumPara)).BeginInit();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GroupsInfo)).BeginInit();
-            this.TimeSessionPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -206,6 +208,7 @@
             this.AddTeacherInTimeTable.Name = "AddTeacherInTimeTable";
             this.AddTeacherInTimeTable.Size = new System.Drawing.Size(40, 40);
             this.AddTeacherInTimeTable.TabIndex = 24;
+            this.toolTip1.SetToolTip(this.AddTeacherInTimeTable, "Добавить информацию о преподавателе");
             this.AddTeacherInTimeTable.UseVisualStyleBackColor = true;
             this.AddTeacherInTimeTable.Click += new System.EventHandler(this.Button4_Click);
             // 
@@ -257,14 +260,14 @@
             this.TeacherInfo.AllowUserToDeleteRows = false;
             this.TeacherInfo.BackgroundColor = System.Drawing.Color.White;
             this.TeacherInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.TeacherInfo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.TeacherInfo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.TeacherInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.TeacherInfo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.NameTeacher,
@@ -273,9 +276,9 @@
             this.Stavka});
             this.TeacherInfo.Location = new System.Drawing.Point(99, 6);
             this.TeacherInfo.Name = "TeacherInfo";
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.TeacherInfo.RowsDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.TeacherInfo.RowsDefaultCellStyle = dataGridViewCellStyle10;
             this.TeacherInfo.Size = new System.Drawing.Size(590, 297);
             this.TeacherInfo.TabIndex = 6;
             this.TeacherInfo.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.TeacherInfo_CellContentClick);
@@ -334,6 +337,70 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Занятие";
             // 
+            // TimeSessionPanel
+            // 
+            this.TimeSessionPanel.Controls.Add(this.label17);
+            this.TimeSessionPanel.Controls.Add(this.DateSomething);
+            this.TimeSessionPanel.Controls.Add(this.label16);
+            this.TimeSessionPanel.Controls.Add(this.label15);
+            this.TimeSessionPanel.Controls.Add(this.StopSomithing);
+            this.TimeSessionPanel.Controls.Add(this.StartSomething);
+            this.TimeSessionPanel.Location = new System.Drawing.Point(458, 6);
+            this.TimeSessionPanel.Name = "TimeSessionPanel";
+            this.TimeSessionPanel.Size = new System.Drawing.Size(322, 61);
+            this.TimeSessionPanel.TabIndex = 30;
+            this.TimeSessionPanel.Visible = false;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(20, 5);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(40, 16);
+            this.label17.TabIndex = 39;
+            this.label17.Text = "Дата";
+            // 
+            // DateSomething
+            // 
+            this.DateSomething.Location = new System.Drawing.Point(66, 2);
+            this.DateSomething.Name = "DateSomething";
+            this.DateSomething.Size = new System.Drawing.Size(250, 22);
+            this.DateSomething.TabIndex = 38;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(176, 35);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(48, 16);
+            this.label16.TabIndex = 37;
+            this.label16.Text = "Конец";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(2, 35);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(58, 16);
+            this.label15.TabIndex = 36;
+            this.label15.Text = "Начало";
+            // 
+            // StopSomithing
+            // 
+            this.StopSomithing.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.StopSomithing.Location = new System.Drawing.Point(230, 32);
+            this.StopSomithing.Name = "StopSomithing";
+            this.StopSomithing.Size = new System.Drawing.Size(86, 22);
+            this.StopSomithing.TabIndex = 35;
+            // 
+            // StartSomething
+            // 
+            this.StartSomething.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.StartSomething.Location = new System.Drawing.Point(66, 32);
+            this.StartSomething.Name = "StartSomething";
+            this.StartSomething.Size = new System.Drawing.Size(86, 22);
+            this.StartSomething.TabIndex = 34;
+            // 
             // AddLessonsInTimeTable
             // 
             this.AddLessonsInTimeTable.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -342,6 +409,7 @@
             this.AddLessonsInTimeTable.Name = "AddLessonsInTimeTable";
             this.AddLessonsInTimeTable.Size = new System.Drawing.Size(40, 40);
             this.AddLessonsInTimeTable.TabIndex = 29;
+            this.toolTip1.SetToolTip(this.AddLessonsInTimeTable, "Добавить информацию о паре");
             this.AddLessonsInTimeTable.UseVisualStyleBackColor = true;
             this.AddLessonsInTimeTable.Visible = false;
             this.AddLessonsInTimeTable.Click += new System.EventHandler(this.AddLessonsInTimeTable_Click);
@@ -544,6 +612,7 @@
             this.AddGroupInTimeTable.Name = "AddGroupInTimeTable";
             this.AddGroupInTimeTable.Size = new System.Drawing.Size(40, 40);
             this.AddGroupInTimeTable.TabIndex = 25;
+            this.toolTip1.SetToolTip(this.AddGroupInTimeTable, "Добавить информацию о группах");
             this.AddGroupInTimeTable.UseVisualStyleBackColor = true;
             this.AddGroupInTimeTable.Visible = false;
             this.AddGroupInTimeTable.Click += new System.EventHandler(this.AddGroupInTimeTable_Click);
@@ -615,20 +684,20 @@
             // 
             this.GroupsInfo.AllowUserToAddRows = false;
             this.GroupsInfo.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.GroupsInfo.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.GroupsInfo.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
             this.GroupsInfo.BackgroundColor = System.Drawing.Color.White;
             this.GroupsInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle9.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.GroupsInfo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.GroupsInfo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.GroupsInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.GroupsInfo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.NameGroup,
@@ -637,8 +706,8 @@
             this.GroupsInfo.Location = new System.Drawing.Point(62, 0);
             this.GroupsInfo.Name = "GroupsInfo";
             this.GroupsInfo.ReadOnly = true;
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.GroupsInfo.RowsDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.GroupsInfo.RowsDefaultCellStyle = dataGridViewCellStyle8;
             this.GroupsInfo.Size = new System.Drawing.Size(656, 285);
             this.GroupsInfo.TabIndex = 18;
             this.GroupsInfo.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GroupsInfo_CellContentClick);
@@ -679,70 +748,6 @@
             this.AddParaInTimeTable.Visible = false;
             this.AddParaInTimeTable.Click += new System.EventHandler(this.Button3_Click);
             // 
-            // TimeSessionPanel
-            // 
-            this.TimeSessionPanel.Controls.Add(this.label17);
-            this.TimeSessionPanel.Controls.Add(this.DateSomething);
-            this.TimeSessionPanel.Controls.Add(this.label16);
-            this.TimeSessionPanel.Controls.Add(this.label15);
-            this.TimeSessionPanel.Controls.Add(this.StopSomithing);
-            this.TimeSessionPanel.Controls.Add(this.StartSomething);
-            this.TimeSessionPanel.Location = new System.Drawing.Point(458, 6);
-            this.TimeSessionPanel.Name = "TimeSessionPanel";
-            this.TimeSessionPanel.Size = new System.Drawing.Size(322, 61);
-            this.TimeSessionPanel.TabIndex = 30;
-            this.TimeSessionPanel.Visible = false;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(176, 35);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(48, 16);
-            this.label16.TabIndex = 37;
-            this.label16.Text = "Конец";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(2, 35);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(58, 16);
-            this.label15.TabIndex = 36;
-            this.label15.Text = "Начало";
-            // 
-            // StopSomithing
-            // 
-            this.StopSomithing.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.StopSomithing.Location = new System.Drawing.Point(230, 32);
-            this.StopSomithing.Name = "StopSomithing";
-            this.StopSomithing.Size = new System.Drawing.Size(86, 22);
-            this.StopSomithing.TabIndex = 35;
-            // 
-            // StartSomething
-            // 
-            this.StartSomething.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.StartSomething.Location = new System.Drawing.Point(66, 32);
-            this.StartSomething.Name = "StartSomething";
-            this.StartSomething.Size = new System.Drawing.Size(86, 22);
-            this.StartSomething.TabIndex = 34;
-            // 
-            // DateSomething
-            // 
-            this.DateSomething.Location = new System.Drawing.Point(66, 2);
-            this.DateSomething.Name = "DateSomething";
-            this.DateSomething.Size = new System.Drawing.Size(250, 22);
-            this.DateSomething.TabIndex = 38;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(20, 5);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(40, 16);
-            this.label17.TabIndex = 39;
-            this.label17.Text = "Дата";
-            // 
             // AddPara
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -765,12 +770,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.TeacherInfo)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            this.TimeSessionPanel.ResumeLayout(false);
+            this.TimeSessionPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumPara)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GroupsInfo)).EndInit();
-            this.TimeSessionPanel.ResumeLayout(false);
-            this.TimeSessionPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -833,5 +838,6 @@
         private System.Windows.Forms.DateTimePicker StartSomething;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.DateTimePicker DateSomething;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

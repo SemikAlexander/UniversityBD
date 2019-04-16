@@ -204,6 +204,7 @@ namespace UniversityMain
                     {
                         TeacherInfo.CurrentRow.Cells[2].Value = true;
                         type_Opl.type_Oplaty_Teacher = Logics.MainTable.TimeTable.type_oplaty_teacher.Pochasovka;
+                        array_type_Opl.Add(type_Opl);
                         TeacherInfo.CurrentRow.Cells[3].Value = false;
                         TeacherInfo.CurrentRow.Cells[3].Value = null;
                         ChoiseTypePayForTeacher = true;
@@ -232,6 +233,7 @@ namespace UniversityMain
                     {
                         TeacherInfo.CurrentRow.Cells[3].Value = true;
                         type_Opl.type_Oplaty_Teacher = Logics.MainTable.TimeTable.type_oplaty_teacher.Stavka;
+                        array_type_Opl.Add(type_Opl);
                         TeacherInfo.CurrentRow.Cells[2].Value = false;
                         TeacherInfo.CurrentRow.Cells[2].Value = null;
                         ChoiseTypePayForTeacher = true;
@@ -395,9 +397,10 @@ namespace UniversityMain
         }
         private void Button3_Click(object sender, EventArgs e)
         {
-            array_type_Opl.Add(type_Opl);
+            
             tableStructure.teachersStructures = array_type_Opl;
             timeTable.Add(tableStructure);
+            tableStructure.teachersStructures.Clear();
         }      
     }
 }
