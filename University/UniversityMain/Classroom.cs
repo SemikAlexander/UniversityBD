@@ -65,7 +65,6 @@ namespace UniversityMain
                 }
                 else
                 {
-                    MessageBox.Show("Данные успешно добавлены!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     ClassroomInfo.Rows.Clear();
                     InputClassroom.Clear();
                     InputHousing.Clear();
@@ -79,7 +78,6 @@ namespace UniversityMain
                             ClassroomInfo.Rows.Add(structClassrooms[j].id, structClassrooms[j].Housing, structClassrooms[j].Number_Class);
                     }
                 }
-
             }
             else
             {

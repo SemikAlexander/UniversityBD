@@ -45,7 +45,7 @@
             this.SpecialityBox = new System.Windows.Forms.ComboBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label8 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.SubName = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.SpecialityInputBox = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -95,10 +95,10 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label4.Location = new System.Drawing.Point(76, 10);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(67, 21);
+            this.label4.Size = new System.Drawing.Size(63, 20);
             this.label4.TabIndex = 12;
             this.label4.Text = "Группы";
             // 
@@ -139,70 +139,70 @@
             // FacultyBox
             // 
             this.FacultyBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.FacultyBox.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.FacultyBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.FacultyBox.FormattingEnabled = true;
             this.FacultyBox.Location = new System.Drawing.Point(90, 64);
             this.FacultyBox.Name = "FacultyBox";
-            this.FacultyBox.Size = new System.Drawing.Size(190, 24);
+            this.FacultyBox.Size = new System.Drawing.Size(190, 21);
             this.FacultyBox.TabIndex = 6;
             this.FacultyBox.SelectedIndexChanged += new System.EventHandler(this.FacultyBox_SelectedIndexChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.Location = new System.Drawing.Point(12, 66);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(72, 17);
+            this.label1.Size = new System.Drawing.Size(79, 16);
             this.label1.TabIndex = 7;
             this.label1.Text = "Факультет";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label2.Location = new System.Drawing.Point(286, 66);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(73, 17);
+            this.label2.Size = new System.Drawing.Size(67, 16);
             this.label2.TabIndex = 9;
             this.label2.Text = "Кафедра";
             // 
             // DepartmentBox
             // 
             this.DepartmentBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.DepartmentBox.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.DepartmentBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.DepartmentBox.FormattingEnabled = true;
             this.DepartmentBox.Location = new System.Drawing.Point(365, 64);
             this.DepartmentBox.Name = "DepartmentBox";
-            this.DepartmentBox.Size = new System.Drawing.Size(193, 24);
+            this.DepartmentBox.Size = new System.Drawing.Size(193, 21);
             this.DepartmentBox.TabIndex = 8;
             this.DepartmentBox.SelectedIndexChanged += new System.EventHandler(this.DepartmentBox_SelectedIndexChanged);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label3.Location = new System.Drawing.Point(564, 66);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(109, 17);
+            this.label3.Size = new System.Drawing.Size(109, 16);
             this.label3.TabIndex = 11;
             this.label3.Text = "Специальность";
             // 
             // SpecialityBox
             // 
             this.SpecialityBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SpecialityBox.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.SpecialityBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.SpecialityBox.FormattingEnabled = true;
             this.SpecialityBox.Location = new System.Drawing.Point(679, 64);
             this.SpecialityBox.Name = "SpecialityBox";
-            this.SpecialityBox.Size = new System.Drawing.Size(193, 24);
+            this.SpecialityBox.Size = new System.Drawing.Size(193, 21);
             this.SpecialityBox.TabIndex = 10;
             this.SpecialityBox.SelectedIndexChanged += new System.EventHandler(this.SpecialityBox_SelectedIndexChanged);
             // 
             // panel3
             // 
             this.panel3.Controls.Add(this.label8);
-            this.panel3.Controls.Add(this.textBox1);
+            this.panel3.Controls.Add(this.SubName);
             this.panel3.Controls.Add(this.label7);
             this.panel3.Controls.Add(this.SpecialityInputBox);
             this.panel3.Controls.Add(this.label6);
@@ -214,7 +214,7 @@
             this.panel3.Controls.Add(this.label9);
             this.panel3.Controls.Add(this.InputYearEntry);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.panel3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.panel3.Location = new System.Drawing.Point(0, 389);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(884, 115);
@@ -223,80 +223,80 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label8.Location = new System.Drawing.Point(442, 34);
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label8.Location = new System.Drawing.Point(467, 35);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(104, 17);
+            this.label8.Size = new System.Drawing.Size(80, 16);
             this.label8.TabIndex = 23;
-            this.label8.Text = "Аббревиатура";
+            this.label8.Text = "Подгруппа";
             // 
-            // textBox1
+            // SubName
             // 
-            this.textBox1.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox1.Location = new System.Drawing.Point(568, 34);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(190, 21);
-            this.textBox1.TabIndex = 22;
+            this.SubName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.SubName.Location = new System.Drawing.Point(568, 34);
+            this.SubName.Name = "SubName";
+            this.SubName.Size = new System.Drawing.Size(190, 20);
+            this.SubName.TabIndex = 22;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label7.Location = new System.Drawing.Point(3, 68);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(109, 17);
+            this.label7.Size = new System.Drawing.Size(109, 16);
             this.label7.TabIndex = 21;
             this.label7.Text = "Специальность";
             // 
             // SpecialityInputBox
             // 
             this.SpecialityInputBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SpecialityInputBox.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.SpecialityInputBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.SpecialityInputBox.FormattingEnabled = true;
             this.SpecialityInputBox.Location = new System.Drawing.Point(135, 68);
             this.SpecialityInputBox.Name = "SpecialityInputBox";
-            this.SpecialityInputBox.Size = new System.Drawing.Size(248, 24);
+            this.SpecialityInputBox.Size = new System.Drawing.Size(248, 21);
             this.SpecialityInputBox.TabIndex = 20;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label6.Location = new System.Drawing.Point(44, 37);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(73, 17);
+            this.label6.Size = new System.Drawing.Size(67, 16);
             this.label6.TabIndex = 14;
             this.label6.Text = "Кафедра";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label5.Location = new System.Drawing.Point(44, 6);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(72, 17);
+            this.label5.Size = new System.Drawing.Size(79, 16);
             this.label5.TabIndex = 19;
             this.label5.Text = "Факультет";
             // 
             // DepartmentInputBox
             // 
             this.DepartmentInputBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.DepartmentInputBox.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.DepartmentInputBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.DepartmentInputBox.FormattingEnabled = true;
             this.DepartmentInputBox.Location = new System.Drawing.Point(135, 37);
             this.DepartmentInputBox.Name = "DepartmentInputBox";
-            this.DepartmentInputBox.Size = new System.Drawing.Size(248, 24);
+            this.DepartmentInputBox.Size = new System.Drawing.Size(248, 21);
             this.DepartmentInputBox.TabIndex = 13;
             this.DepartmentInputBox.SelectedIndexChanged += new System.EventHandler(this.DepartmentInputBox_SelectedIndexChanged);
             // 
             // FacultyInputBox
             // 
             this.FacultyInputBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.FacultyInputBox.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.FacultyInputBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.FacultyInputBox.FormattingEnabled = true;
             this.FacultyInputBox.Location = new System.Drawing.Point(135, 6);
             this.FacultyInputBox.Name = "FacultyInputBox";
-            this.FacultyInputBox.Size = new System.Drawing.Size(248, 24);
+            this.FacultyInputBox.Size = new System.Drawing.Size(248, 21);
             this.FacultyInputBox.TabIndex = 18;
             this.FacultyInputBox.SelectedIndexChanged += new System.EventHandler(this.FacultyInputBox_SelectedIndexChanged);
             // 
@@ -304,7 +304,7 @@
             // 
             this.button5.FlatAppearance.BorderSize = 0;
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button5.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button5.Image = global::UniversityMain.Properties.Resources.OK;
             this.button5.Location = new System.Drawing.Point(831, 66);
             this.button5.Name = "button5";
@@ -317,7 +317,7 @@
             // 
             this.button4.FlatAppearance.BorderSize = 0;
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button4.Image = global::UniversityMain.Properties.Resources.OK;
             this.button4.Location = new System.Drawing.Point(924, 193);
             this.button4.Name = "button4";
@@ -328,19 +328,19 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label9.Location = new System.Drawing.Point(428, 6);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(116, 17);
+            this.label9.Size = new System.Drawing.Size(119, 16);
             this.label9.TabIndex = 6;
             this.label9.Text = "Год поступления";
             // 
             // InputYearEntry
             // 
-            this.InputYearEntry.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.InputYearEntry.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.InputYearEntry.Location = new System.Drawing.Point(568, 6);
             this.InputYearEntry.Name = "InputYearEntry";
-            this.InputYearEntry.Size = new System.Drawing.Size(190, 21);
+            this.InputYearEntry.Size = new System.Drawing.Size(190, 20);
             this.InputYearEntry.TabIndex = 5;
             this.InputYearEntry.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.InputYearEntry_KeyPress);
             // 
@@ -350,13 +350,13 @@
             this.GroupsInfo.AllowUserToDeleteRows = false;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.GroupsInfo.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.GroupsInfo.BackgroundColor = System.Drawing.Color.White;
             this.GroupsInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -421,7 +421,7 @@
             // 
             // ShowGroups
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 504);
             this.Controls.Add(this.panel3);
@@ -433,7 +433,7 @@
             this.Controls.Add(this.FacultyBox);
             this.Controls.Add(this.GroupsInfo);
             this.Controls.Add(this.panel1);
-            this.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "ShowGroups";
@@ -475,7 +475,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox DepartmentInputBox;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox SubName;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox SpecialityInputBox;
         private System.Windows.Forms.DataGridView GroupsInfo;

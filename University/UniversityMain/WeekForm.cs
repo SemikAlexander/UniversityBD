@@ -79,7 +79,6 @@ namespace UniversityMain
                 }
                 else
                 {
-                    MessageBox.Show("Данные успешно добавлены!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     InputWeek.Clear();
                     WeekBox.SelectedItem = null;
                     WeekInfo.Rows.Clear();

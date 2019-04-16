@@ -19,8 +19,6 @@ namespace UniversityMain
         Logics.MainTable.Speciality speciality;
         List<string> specialityName = new List<string>();
         Logics.MainTable.Groups groups;
-        string pattern = @"([а-яА-Я]*).([1-9]*)([а-яА-Я]*)";
-        RegexOptions options = RegexOptions.Multiline;
         public ShowGroups(Logics.Functions.Connection.ConnectionDB connection)
         {
             connectionDB = connection;
@@ -28,7 +26,6 @@ namespace UniversityMain
             speciality = new Logics.MainTable.Speciality(connectionDB);
             InitializeComponent();
         }
-
         private void button1_Click(object sender, EventArgs e)
         {
             Close();
@@ -82,21 +79,22 @@ namespace UniversityMain
         }
         private void button5_Click(object sender, EventArgs e)
         {
-            if(InputYearEntry.Text.Length!=0 & textBox1.Text.Length!=0 & FacultyInputBox.SelectedItem!=null & DepartmentInputBox.SelectedItem!=null & SpecialityInputBox.SelectedItem != null)
+            if(InputYearEntry.Text.Length!=0 & FacultyInputBox.SelectedItem!=null & DepartmentInputBox.SelectedItem!=null & SpecialityInputBox.SelectedItem != null)
             {
                 structure.YearCreate = int.Parse(InputYearEntry.Text);
-                structure.Subname = textBox1.Text;
+                structure.Subname = SubName.Text;
                 if (groups.Add(structure, FacultyInputBox.SelectedItem.ToString(), DepartmentInputBox.SelectedItem.ToString(), SpecialityInputBox.SelectedItem.ToString()))
                 {
+                    string year = InputYearEntry.Text, spec = SpecialityInputBox.SelectedItem.ToString();
                     FacultyInputBox.SelectedItem = null;
                     DepartmentInputBox.SelectedItem = null;
                     SpecialityInputBox.SelectedItem = null;
                     InputYearEntry.Clear();
-                    textBox1.Clear();
+                    SubName.Clear();
                     GroupsInfo.Rows.Clear();
                     groups.GetGroups(FacultyBox.SelectedItem.ToString(), DepartmentBox.SelectedItem.ToString(), SpecialityBox.SelectedItem.ToString(), out groupsStructures);
                     foreach (var gr in groupsStructures)
-                        GroupsInfo.Rows.Add(gr.Subname, gr.YearCreate);
+                        GroupsInfo.Rows.Add(SpecialityBox.SelectedItem.ToString() + " " + Convert.ToString(gr.YearCreate)[gr.YearCreate.ToString().Length-2] + Convert.ToString(gr.YearCreate)[gr.YearCreate.ToString().Length - 1] + " " + gr.Subname, gr.YearCreate);
                 }
                 else
                 {
@@ -127,13 +125,21 @@ namespace UniversityMain
             var senderGrid = (DataGridView)sender;
             if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn & senderGrid.Columns[e.ColumnIndex].Name == "DeleteGroup" && e.RowIndex >= 0)
             {
-                structure.Subname = (string)GroupsInfo.Rows[e.RowIndex].Cells[0].Value;
+                try
+                {
+                    structure.Subname = Convert.ToString(GroupsInfo.Rows[e.RowIndex].Cells[0].Value.ToString()[GroupsInfo.Rows[e.RowIndex].Cells[0].Value.ToString().Length - 1]);
+                }
+                catch (Exception)
+                {
+                    structure.Subname = "";
+                }
                 structure.YearCreate = (int)GroupsInfo.Rows[e.RowIndex].Cells[1].Value;
+                string year = GroupsInfo.Rows[e.RowIndex].Cells[1].Value.ToString();
                 groups.Delete(DepartmentBox.SelectedItem.ToString(), FacultyBox.SelectedItem.ToString(), SpecialityBox.SelectedItem.ToString(), structure);
                 GroupsInfo.Rows.Clear();
                 groups.GetGroups(FacultyBox.SelectedItem.ToString(), DepartmentBox.SelectedItem.ToString(), SpecialityBox.SelectedItem.ToString(), out groupsStructures);
                 foreach (var gr in groupsStructures)
-                    GroupsInfo.Rows.Add(gr.Subname, gr.YearCreate);
+                    GroupsInfo.Rows.Add(SpecialityBox.SelectedItem.ToString() + " " + Convert.ToString(gr.YearCreate)[gr.YearCreate.ToString().Length - 2] + Convert.ToString(gr.YearCreate)[gr.YearCreate.ToString().Length - 1] + " " + gr.Subname, gr.YearCreate);
             }
             if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn & senderGrid.Columns[e.ColumnIndex].Name == "StadPlan" && e.RowIndex >= 0)
             {
