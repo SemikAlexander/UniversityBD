@@ -17,7 +17,7 @@ namespace UniversityMain
         private extern static void ReleaseCapture();
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
         private extern static void SendMessage(System.IntPtr hwnd, int wmsg, int wparam, int lparam);
-        public List<string> TeacherForLesson = new List<string>();
+        public List<string> NameTeacherForPara = new List<string>();
         bool ChoiseTypePayForTeacher = false;
         #region Classes
         Logics.Functions.Connection.ConnectionDB connectionDB;
@@ -175,6 +175,7 @@ namespace UniversityMain
                     TeacherInfo.CurrentRow.Cells[1].Value = false;
                     TeacherInfo.CurrentRow.Cells[1].Value = null;
                     TeacherInfo.CurrentRow.Cells[2].Value = null;
+                    array_type_Opl.Remove(type_Opl);
                     type_Opl.name_teacher = "";
                     DisciplineBox.SelectedItem = null;
                     DisciplineBox.Items.Clear();
@@ -350,10 +351,13 @@ namespace UniversityMain
         {
             if(type_Opl.name_teacher!="" & type_Opl.faculty!="" & type_Opl.department!="" & ChoiseTypePayForTeacher != false)
             {
-                DisciplineBox.Items.Clear();                
-                teachers.GetTeacherDiscipline(type_Opl.faculty, type_Opl.department, type_Opl.name_teacher, out structDiscipline);
-                foreach (var discip in structDiscipline)
-                    DisciplineBox.Items.Add(discip.name);
+                DisciplineBox.Items.Clear();
+                foreach (var GetParaForTeacher in array_type_Opl)
+                {
+                    teachers.GetTeacherDiscipline(GetParaForTeacher.faculty, GetParaForTeacher.department, GetParaForTeacher.name_teacher, out structDiscipline); /*Изменить! Большее количество преподов*/
+                    foreach (var discip in structDiscipline)
+                        DisciplineBox.Items.Add(discip.name);
+                }
                 AddLessonsInTimeTable.Visible = true;
                 tableStructure.teachersStructures = array_type_Opl;
             }
@@ -373,6 +377,7 @@ namespace UniversityMain
                         tableStructure.typeSubject = structTypeSubject;
                         tableStructure.week = structWeek;
                         tableStructure.Discipline = structDisciplineForAddPara;
+                        tableStructure.classroom = structClassroom;
                         AddGroupInTimeTable.Visible = true;
                     }
                 }
