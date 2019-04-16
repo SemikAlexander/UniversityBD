@@ -177,7 +177,6 @@ namespace UniversityMain
         }
         private void Button14_Click_1(object sender, EventArgs e)
         {
-            Close();
             new ChoiseFaculty_Department_Teacher(connectionDB).ShowDialog();
         }     
         private void Button15_Click(object sender, EventArgs e)
