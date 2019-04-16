@@ -87,7 +87,7 @@ namespace Logics.MainTable
                 if (timeTableStructure.typeSubject.typelesson==Books.TypeSubject.type_lesson.Session)
                     sql = $"SELECT * FROM timetable_add('{timeTableStructure.date.Day+"-"+ timeTableStructure.date.Month+"-"+ timeTableStructure.date.Year}', '{timeTableStructure.time}', {timeTableStructure.classroom.Housing}, {timeTableStructure.classroom.Number_Class},{timeTableStructure.week.id}, {timeTableStructure.num_para}, {timeTableStructure.typeSubject.id},{timeTableStructure.Discipline.id});";
                 else
-                    sql = $"SELECT * FROM timetable_add(null, null, {timeTableStructure.classroom.Housing}, {timeTableStructure.classroom.Number_Class},{timeTableStructure.week.id}, {timeTableStructure.num_para}, {timeTableStructure.typeSubject.id},{timeTableStructure.Discipline.id});";
+                    sql = $"SELECT * FROM timetable_add('{NpgsqlTypes.NpgsqlDate.Now}', '{NpgsqlTypes.NpgsqlTimeSpan.Parse(DateTime.Now.TimeOfDay.ToString())}', {timeTableStructure.classroom.Housing}, {timeTableStructure.classroom.Number_Class},{timeTableStructure.week.id}, {timeTableStructure.num_para}, {timeTableStructure.typeSubject.id},{timeTableStructure.Discipline.id});";
 
                 using (var cmd = new NpgsqlCommand(sql, conn))
                 using (var reader = cmd.ExecuteReader())
@@ -108,7 +108,7 @@ namespace Logics.MainTable
                 }
                 foreach (var q in timeTableStructure.teachersStructures)
                 {
-                    sql = $"SELECT * FROM timetable_teachers_add('{q.faculty}','{q.department}','{q.name_teacher}','{q.type_Oplaty_Teacher}',{id_para_new});";
+                    sql = $"SELECT * FROM timetable_teachers_add('{q.faculty}','{q.department}','{q.name_teacher}','{(int)q.type_Oplaty_Teacher}',{id_para_new});";
                     using (var cmd = new NpgsqlCommand(sql, conn))
                     using (var reader = cmd.ExecuteReader())
                         if (reader.Read())
