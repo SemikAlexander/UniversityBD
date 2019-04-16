@@ -12,7 +12,7 @@
  Target Server Version : 90612
  File Encoding         : 65001
 
- Date: 16/04/2019 21:37:20
+ Date: 16/04/2019 23:15:18
 */
 
 
@@ -388,6 +388,7 @@ CREATE TABLE "public"."para" (
 INSERT INTO "public"."para" VALUES (32, 17);
 INSERT INTO "public"."para" VALUES (32, 18);
 INSERT INTO "public"."para" VALUES (36, 18);
+INSERT INTO "public"."para" VALUES (32, 20);
 
 -- ----------------------------
 -- Table structure for position
@@ -463,6 +464,7 @@ COMMENT ON COLUMN "public"."subjectPay"."type_pay" IS '0 - ставка, 1 -по
 -- Records of subjectPay
 -- ----------------------------
 INSERT INTO "public"."subjectPay" VALUES (17, 1, 18);
+INSERT INTO "public"."subjectPay" VALUES (17, 1, 20);
 
 -- ----------------------------
 -- Table structure for teachers
@@ -515,6 +517,7 @@ INSERT INTO "public"."timeTable" VALUES (15, 17, 1, 17, 3, '2019-04-16', '21:28:
 INSERT INTO "public"."timeTable" VALUES (16, 17, 1, 17, 3, '2019-04-16', '21:28:40.920912', 35);
 INSERT INTO "public"."timeTable" VALUES (17, 14, 1, 17, 14, '2019-04-16', '21:32:07.001098', 35);
 INSERT INTO "public"."timeTable" VALUES (18, 37, 1, 17, 4, '2019-04-16', '21:35:42.948955', 35);
+INSERT INTO "public"."timeTable" VALUES (20, 16, 1, 17, 14, '2019-04-16', '22:03:11.268964', 35);
 
 -- ----------------------------
 -- Table structure for transfers
@@ -1414,6 +1417,49 @@ $BODY$
   COST 100;
 
 -- ----------------------------
+-- Function structure for timetable_get
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."timetable_get"("facult" text, "depar" text, "fio" text, "type_week_char" varchar);
+CREATE OR REPLACE FUNCTION "public"."timetable_get"("facult" text, "depar" text, "fio" text, "type_week_char" varchar)
+  RETURNS TABLE("ID" int4, "Date" date, "Time" time, "num_lesson" int4, "NameDay" text, "Sub_Name_Group" text, "Year_Of_Entry" int4, "Housing" int4, "Num_Classroom" int4, "Name_Subject" text, "type_lesson" varchar, "Abbreviation_Specialty" text) AS $BODY$BEGIN
+	
+
+CREATE TEMPORARY TABLE seltm as (
+		SELECT ttw."Date",ttw."ID",ttw."Time",ttw.num_lesson, ttw.type_subject,ttw."NameDay",ttw.id_classroom, groups."Sub_Name_Group",groups."Year_Of_Entry","stadyingPlan"."DateStartStuding","stadyingPlan"."DateEndStuding","stadyingPlan"."DateStartSession","stadyingPlan"."DateEndSession",specialty."Abbreviation_Specialty" from 
+			(
+				SELECT "timeTable"."Date","timeTable"."ID","timeTable"."Time","timeTable".id_classroom,"timeTable".num_lesson, "timeTable".type_subject,week."NameDay" from (
+						SELECT teachers."ID_TEACHER" from (
+								SELECT department."ID_DEPARTMENT" FROM (
+										SELECT "ID_FACULTY" FROM faculty WHERE "Name_Faculty"=facult
+								) as facul 
+								INNER JOIN department on department.id_faculty=facul."ID_FACULTY" WHERE department."Name_Department"=depar) as dep
+						INNER JOIN teachers on teachers.id_department=dep."ID_DEPARTMENT" WHERE teachers."Name_Teacher"=fio LIMIT 1) as teach
+								INNER JOIN "subjectPay" on "subjectPay".id_teacher=teach."ID_TEACHER" INNER JOIN "timeTable" on "timeTable"."ID"="subjectPay".id_subject INNER JOIN week on week."ID_DAY"="timeTable".id_type_week WHERE week."TypeWeek"=type_week_char) as ttw 
+		INNER JOIN para on para.id_lesson=ttw."ID" 
+		INNER JOIN groups on groups."ID_GROUP"=para.id_group 
+		INNER JOIN specialty on groups.id_specialty=specialty."ID_SPECIALTY"
+		INNER JOIN "stadyingPlan" on groups."ID_GROUP" = "stadyingPlan".id_group
+		WHERE "stadyingPlan"."DateEndSession">now() and "stadyingPlan"."DateStartStuding"<now()
+);
+RETURN 	query SELECT finish_timetable."ID", finish_timetable."Date", finish_timetable."Time", finish_timetable."num_lesson", finish_timetable."NameDay",finish_timetable."Sub_Name_Group",finish_timetable."Year_Of_Entry",classroom."Housing",classroom."Num_Classroom","typeSubject"."Name_Subject","typeSubject".type_lesson,finish_timetable."Abbreviation_Specialty"
+from(
+		SELECT * from seltm WHERE "DateStartStuding"<now() and "DateEndStuding">now() 
+		UNION ALL 
+		SELECT * from seltm WHERE "DateStartSession"<now() and "DateEndSession">now()
+		)as finish_timetable
+INNER JOIN classroom on classroom."ID_CLASSROOM"=finish_timetable."id_classroom" 
+INNER JOIN "typeSubject" on finish_timetable.type_subject = "typeSubject"."ID_SUBJECT";
+
+	
+
+	
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100
+  ROWS 1000;
+
+-- ----------------------------
 -- Function structure for timetable_group_add
 -- ----------------------------
 DROP FUNCTION IF EXISTS "public"."timetable_group_add"("namefaculty" text, "namedepart" text, "name_spec" text, "subname" text, "yea" int4, "id_time_table_para" int4);
@@ -1583,40 +1629,40 @@ $BODY$
 -- ----------------------------
 ALTER SEQUENCE "public"."classroom_ID_CLASSROOM_seq"
 OWNED BY "public"."classroom"."ID_CLASSROOM";
-SELECT setval('"public"."classroom_ID_CLASSROOM_seq"', 42, true);
+SELECT setval('"public"."classroom_ID_CLASSROOM_seq"', 43, true);
 ALTER SEQUENCE "public"."department_ID_DEPARTMENT_seq"
 OWNED BY "public"."department"."ID_DEPARTMENT";
-SELECT setval('"public"."department_ID_DEPARTMENT_seq"', 90, true);
+SELECT setval('"public"."department_ID_DEPARTMENT_seq"', 91, true);
 ALTER SEQUENCE "public"."discipline_ID_DISCIPLINE_seq"
 OWNED BY "public"."discipline"."ID_DISCIPLINE";
-SELECT setval('"public"."discipline_ID_DISCIPLINE_seq"', 58, true);
+SELECT setval('"public"."discipline_ID_DISCIPLINE_seq"', 59, true);
 ALTER SEQUENCE "public"."faculty_ID_FACULTY_seq"
 OWNED BY "public"."faculty"."ID_FACULTY";
-SELECT setval('"public"."faculty_ID_FACULTY_seq"', 23, true);
+SELECT setval('"public"."faculty_ID_FACULTY_seq"', 24, true);
 ALTER SEQUENCE "public"."groups_ID_GROUP_seq"
 OWNED BY "public"."groups"."ID_GROUP";
-SELECT setval('"public"."groups_ID_GROUP_seq"', 39, true);
+SELECT setval('"public"."groups_ID_GROUP_seq"', 40, true);
 ALTER SEQUENCE "public"."position_ID_POSITION_seq"
 OWNED BY "public"."position"."ID_POSITION";
-SELECT setval('"public"."position_ID_POSITION_seq"', 23, true);
+SELECT setval('"public"."position_ID_POSITION_seq"', 24, true);
 ALTER SEQUENCE "public"."specialty_ID_SPECIALTY_seq"
 OWNED BY "public"."specialty"."ID_SPECIALTY";
-SELECT setval('"public"."specialty_ID_SPECIALTY_seq"', 20, true);
+SELECT setval('"public"."specialty_ID_SPECIALTY_seq"', 21, true);
 ALTER SEQUENCE "public"."stadyingPlan_ID_SETTING_seq"
 OWNED BY "public"."stadyingPlan"."ID_SETTING";
-SELECT setval('"public"."stadyingPlan_ID_SETTING_seq"', 17, true);
+SELECT setval('"public"."stadyingPlan_ID_SETTING_seq"', 18, true);
 ALTER SEQUENCE "public"."teachers_ID_TEACHER_seq"
 OWNED BY "public"."teachers"."ID_TEACHER";
-SELECT setval('"public"."teachers_ID_TEACHER_seq"', 26, true);
+SELECT setval('"public"."teachers_ID_TEACHER_seq"', 27, true);
 ALTER SEQUENCE "public"."timeTable_ID_seq"
 OWNED BY "public"."timeTable"."ID";
-SELECT setval('"public"."timeTable_ID_seq"', 19, true);
+SELECT setval('"public"."timeTable_ID_seq"', 21, true);
 ALTER SEQUENCE "public"."typeSubject_ID_SUBJECT_seq"
 OWNED BY "public"."typeSubject"."ID_SUBJECT";
-SELECT setval('"public"."typeSubject_ID_SUBJECT_seq"', 23, true);
+SELECT setval('"public"."typeSubject_ID_SUBJECT_seq"', 24, true);
 ALTER SEQUENCE "public"."week_ID_DAY_seq"
 OWNED BY "public"."week"."ID_DAY";
-SELECT setval('"public"."week_ID_DAY_seq"', 25, true);
+SELECT setval('"public"."week_ID_DAY_seq"', 26, true);
 
 -- ----------------------------
 -- Primary Key structure for table classroom
