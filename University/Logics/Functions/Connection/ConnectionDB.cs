@@ -75,7 +75,7 @@ namespace Logics.Functions.Connection
             delete_transfer,
             add_transfer,
             get_transfers,
-            get_timetable
+            timetable_get
         };
         /// <summary>
         /// доступ, который есть у пользователя
@@ -310,7 +310,7 @@ namespace Logics.Functions.Connection
                         Accesses.Add(function_access.delete_transfer);
                         Accesses.Add(function_access.add_transfer);
                         Accesses.Add(function_access.get_transfers);
-                        Accesses.Add(function_access.get_timetable);
+                        Accesses.Add(function_access.timetable_get);
                         return true;
                     }
             }
@@ -364,7 +364,7 @@ namespace Logics.Functions.Connection
                         Accesses.Add(function_access.delete_transfer);
                         Accesses.Add(function_access.add_transfer);
                         Accesses.Add(function_access.get_transfers);
-                        Accesses.Add(function_access.get_timetable);
+                        Accesses.Add(function_access.timetable_get);
                         return true;
                     }
             }
@@ -410,7 +410,7 @@ namespace Logics.Functions.Connection
                         Accesses.Add(function_access.delete_transfer);
                         Accesses.Add(function_access.add_transfer);
                         Accesses.Add(function_access.get_transfers);
-                        Accesses.Add(function_access.get_timetable);
+                        Accesses.Add(function_access.timetable_get);
                         return true;
                     }
             }
@@ -441,7 +441,7 @@ namespace Logics.Functions.Connection
                         Accesses.Add(function_access.type_subject_get_all);
                         Accesses.Add(function_access.week_get_all);
                         Accesses.Add(function_access.get_transfers);
-                        Accesses.Add(function_access.get_timetable);
+                        Accesses.Add(function_access.timetable_get);
                         return true;
                     }
             }
@@ -503,7 +503,7 @@ namespace Logics.Functions.Connection
                         Accesses.Add(function_access.delete_transfer);
                         Accesses.Add(function_access.add_transfer);
                         Accesses.Add(function_access.get_transfers);
-                        Accesses.Add(function_access.get_timetable);
+                        Accesses.Add(function_access.timetable_get);
                         return true;
                     }
             }

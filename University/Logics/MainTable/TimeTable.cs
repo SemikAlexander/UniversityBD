@@ -44,7 +44,7 @@ namespace Logics.MainTable
         private Functions.Connection.ConnectionDB _connectionDB = null;
         #endregion
         public TimeTable(Functions.Connection.ConnectionDB connectionDB) => _connectionDB = connectionDB;
-        public bool GetTimeTable(string nameFaculty, string department, out List<TimeTableStructure> specialtyStructures)
+        public bool GetTimeTable(string nameFaculty, string department,string teacherFIO,Logics.Books.Week.Type_Week type_Week, out List<TimeTableStructure> specialtyStructures)
         {
             specialtyStructures = new List<TimeTableStructure>();
             if (_connectionDB == null) { exception = "Подключение не установленно"; return false; }
@@ -52,13 +52,24 @@ namespace Logics.MainTable
             {
                 var conn = new NpgsqlConnection(this._connectionDB.ConnectString);
                 conn.Open();
-                using (var cmd = new NpgsqlCommand($"SELECT * FROM getallteachers('{nameFaculty}','{department}');", conn))
+                using (var cmd = new NpgsqlCommand($"SELECT * FROM timetable_get('{nameFaculty}','{department}','{teacherFIO}',{((type_Week== Logics.Books.Week.Type_Week.Top)?'V' : 'N')});", conn))
                 using (var reader = cmd.ExecuteReader())
                     while (reader.Read())
                     {
+                        var _groupsStructures = new List<GROUPSTRUCT>();
+                            _groupsStructures.Add(new GROUPSTRUCT() { Subname = reader.GetString(5), YearCreate = reader.GetInt32(6), name_speciality = reader.GetString(11) });
+
                         specialtyStructures.Add(new TimeTableStructure()
                         {
-                           
+                            id = reader.GetInt32(0),
+                            date = reader.GetDateTime(1),
+                            time = reader.GetTimeSpan(2),
+                            num_para = reader.GetInt32(3),
+                            week = new Books.Week.StructWeek { name_day = reader.GetString(4), type = type_Week },
+                            groupsStructures = _groupsStructures,
+                            classroom = new Books.Classroom.StructClassroom { Housing=reader.GetInt32(7),Number_Class=reader.GetInt32(8)},
+                            typeSubject=new Books.TypeSubject.StructTypeSubject { name=reader.GetString(9),typelesson=((reader.GetChar(10)=='O')?Books.TypeSubject.type_lesson.Study : Books.TypeSubject.type_lesson.Session)}
+                            
                         });
                     }
                 conn.Close();
@@ -153,6 +164,6 @@ namespace Logics.MainTable
             }
         }
 
-
+        
     }
 }
