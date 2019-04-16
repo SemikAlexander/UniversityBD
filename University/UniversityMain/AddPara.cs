@@ -398,6 +398,7 @@ namespace UniversityMain
             array_type_Opl.Add(type_Opl);
             tableStructure.teachersStructures = array_type_Opl;
             timeTable.Add(tableStructure);
+            tableStructure.teachersStructures.Clear();
         }      
     }
 }
