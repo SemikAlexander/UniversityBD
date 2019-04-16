@@ -27,7 +27,7 @@ namespace Logics.Login
                 {
                     var conn = new NpgsqlConnection(config.ConnectString);
                     conn.Open();
-                    //дописать код для проверки прав доступа
+                    //if (!config.get_access(conn)) return false;
                     conn.Close();
                     return true;
                 }
