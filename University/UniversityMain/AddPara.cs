@@ -41,6 +41,7 @@ namespace UniversityMain
         List<Logics.MainTable.TimeTable.GROUPSTRUCT> arrayGroupsStruct = new List<Logics.MainTable.TimeTable.GROUPSTRUCT>();
         List<Logics.MainTable.Groups.GroupsStructure> groupsStructures = new List<Logics.MainTable.Groups.GroupsStructure>();
         List<Logics.Books.Discipline.StructDiscipline> structDiscipline = new List<Logics.Books.Discipline.StructDiscipline>();
+        List<Logics.Books.Discipline.StructDiscipline> structDisciplineForGetID = new List<Logics.Books.Discipline.StructDiscipline>();
         List<Logics.Books.Classroom.StructClassroom> ClassRoomInHousing = new List<Logics.Books.Classroom.StructClassroom>();
         #endregion
         #region Structures
@@ -161,9 +162,13 @@ namespace UniversityMain
         private void DisciplineBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             structDisciplineForAddPara.name = DisciplineBox.SelectedItem.ToString();
-            foreach (var S_D in structDiscipline)
+            discipline.GetAllDiscipline(type_Opl.faculty, type_Opl.department, 0, 100, out structDisciplineForGetID);
+            foreach (var S_D in structDisciplineForGetID)
                 if (S_D.name == structDisciplineForAddPara.name)
+                {
                     structDisciplineForAddPara.id = S_D.id;
+                    break;
+                }
         }
         private void TeacherInfo_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -404,7 +409,15 @@ namespace UniversityMain
         {
             
             tableStructure.teachersStructures = array_type_Opl;
-            timeTable.Add(tableStructure);
+            if (timeTable.Add(tableStructure))
+            {
+
+            }
+            else
+            {
+                MessageBox.Show(timeTable.exception, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             tableStructure.teachersStructures.Clear();
         }      
     }
