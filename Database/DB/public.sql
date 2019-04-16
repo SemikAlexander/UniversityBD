@@ -12,7 +12,7 @@
  Target Server Version : 90612
  File Encoding         : 65001
 
- Date: 11/04/2019 18:14:05
+ Date: 16/04/2019 15:19:06
 */
 
 
@@ -493,6 +493,11 @@ CREATE TABLE "public"."timeTable" (
   "id_discipline" int4 NOT NULL
 )
 ;
+
+-- ----------------------------
+-- Records of timeTable
+-- ----------------------------
+INSERT INTO "public"."timeTable" VALUES (12, 14, 1, 14, 3, '2019-04-16', '12:50:31', 19);
 
 -- ----------------------------
 -- Table structure for transfers
@@ -1356,30 +1361,46 @@ $BODY$
   COST 100;
 
 -- ----------------------------
--- Function structure for timeTable_add
+-- Function structure for timetable_add
 -- ----------------------------
-DROP FUNCTION IF EXISTS "public"."timeTable_add"("_Date" date, "_Time" time, "classroom_house" int4, "classroom_class" int4, "_id_type_week" int4, "_num_lesson" int4, "_type_subject" int4, "_id_discipline" int4);
-CREATE OR REPLACE FUNCTION "public"."timeTable_add"("_Date" date, "_Time" time, "classroom_house" int4, "classroom_class" int4, "_id_type_week" int4, "_num_lesson" int4, "_type_subject" int4, "_id_discipline" int4)
+DROP FUNCTION IF EXISTS "public"."timetable_add"("_date" date, "_time" time, "classroom_house" int4, "classroom_class" int4, "_id_type_week" int4, "_num_lesson" int4, "_type_subject" int4, "_id_discipline" int4);
+CREATE OR REPLACE FUNCTION "public"."timetable_add"("_date" date, "_time" time, "classroom_house" int4, "classroom_class" int4, "_id_type_week" int4, "_num_lesson" int4, "_type_subject" int4, "_id_discipline" int4)
   RETURNS "pg_catalog"."int4" AS $BODY$
 	DECLARE
 	IDCLASS INTEGER := 0;
+	var integer:=0;
 	BEGIN 
 
 	SELECT "ID_CLASSROOM" FROM classroom WHERE classroom."Housing"=classroom_house and classroom."Num_Classroom"=classroom_class INTO IDCLASS;
 	if not FOUND THEN 
 	RETURN -1;
 	end if;
-	INSERT into "timeTable"("Date","Time",id_classroom,id_type_week,num_lesson,type_subject,id_discipline) VALUES (_Date,_Time,_id_classroom,_id_type_week,_num_lesson,_type_subject,_id_discipline) RETURNING "ID";
+	 INSERT into "timeTable"("Date","Time",id_classroom,"id_type_week",num_lesson,type_subject,id_discipline) VALUES (_date,_time,IDCLASS,_id_type_week,_num_lesson,_type_subject,_id_discipline) RETURNING "timeTable"."ID" INTO var;
+	 RETURN var;
 END
 $BODY$
   LANGUAGE plpgsql VOLATILE
   COST 100;
 
 -- ----------------------------
--- Function structure for timeTable_group_add
+-- Function structure for timetable_delete
 -- ----------------------------
-DROP FUNCTION IF EXISTS "public"."timeTable_group_add"("namefaculty" text, "namedepart" text, "name_spec" text, "subname" text, "yea" int4, "id_time_table_para" int4);
-CREATE OR REPLACE FUNCTION "public"."timeTable_group_add"("namefaculty" text, "namedepart" text, "name_spec" text, "subname" text, "yea" int4, "id_time_table_para" int4)
+DROP FUNCTION IF EXISTS "public"."timetable_delete"("id_t" int4);
+CREATE OR REPLACE FUNCTION "public"."timetable_delete"("id_t" int4)
+  RETURNS "pg_catalog"."int4" AS $BODY$
+	BEGIN 
+
+	DELETE FROM "timeTable" WHERE "ID"=id_t;
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+-- ----------------------------
+-- Function structure for timetable_group_add
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."timetable_group_add"("namefaculty" text, "namedepart" text, "name_spec" text, "subname" text, "yea" int4, "id_time_table_para" int4);
+CREATE OR REPLACE FUNCTION "public"."timetable_group_add"("namefaculty" text, "namedepart" text, "name_spec" text, "subname" text, "yea" int4, "id_time_table_para" int4)
   RETURNS "pg_catalog"."text" AS $BODY$
 	DECLARE
 	IDDEPARTMENT INTEGER :=0;
@@ -1416,10 +1437,10 @@ $BODY$
   COST 100;
 
 -- ----------------------------
--- Function structure for timeTable_teachers_add
+-- Function structure for timetable_teachers_add
 -- ----------------------------
-DROP FUNCTION IF EXISTS "public"."timeTable_teachers_add"("namefaculty" text, "namedepart" text, "nameteacher" text, "type_oplat" int4, "id_time_table_para" int4);
-CREATE OR REPLACE FUNCTION "public"."timeTable_teachers_add"("namefaculty" text, "namedepart" text, "nameteacher" text, "type_oplat" int4, "id_time_table_para" int4)
+DROP FUNCTION IF EXISTS "public"."timetable_teachers_add"("namefaculty" text, "namedepart" text, "nameteacher" text, "type_oplat" int4, "id_time_table_para" int4);
+CREATE OR REPLACE FUNCTION "public"."timetable_teachers_add"("namefaculty" text, "namedepart" text, "nameteacher" text, "type_oplat" int4, "id_time_table_para" int4)
   RETURNS "pg_catalog"."text" AS $BODY$
 	DECLARE
 	IDDEPARTMENT INTEGER :=0;
@@ -1444,20 +1465,6 @@ IF NOT FOUND THEN
 END IF;
 INSERT into "subjectPay" (id_subject,id_teacher,type_pay) VALUES (id_time_table_para,IDTEACHER,type_oplat);
 RETURN 'Success';
-END
-$BODY$
-  LANGUAGE plpgsql VOLATILE
-  COST 100;
-
--- ----------------------------
--- Function structure for timetable_delete
--- ----------------------------
-DROP FUNCTION IF EXISTS "public"."timetable_delete"("id_t" int4);
-CREATE OR REPLACE FUNCTION "public"."timetable_delete"("id_t" int4)
-  RETURNS "pg_catalog"."int4" AS $BODY$
-	BEGIN 
-
-	DELETE FROM "timeTable" WHERE "ID"=id_t;
 END
 $BODY$
   LANGUAGE plpgsql VOLATILE
@@ -1559,40 +1566,40 @@ $BODY$
 -- ----------------------------
 ALTER SEQUENCE "public"."classroom_ID_CLASSROOM_seq"
 OWNED BY "public"."classroom"."ID_CLASSROOM";
-SELECT setval('"public"."classroom_ID_CLASSROOM_seq"', 41, true);
+SELECT setval('"public"."classroom_ID_CLASSROOM_seq"', 42, true);
 ALTER SEQUENCE "public"."department_ID_DEPARTMENT_seq"
 OWNED BY "public"."department"."ID_DEPARTMENT";
-SELECT setval('"public"."department_ID_DEPARTMENT_seq"', 89, true);
+SELECT setval('"public"."department_ID_DEPARTMENT_seq"', 90, true);
 ALTER SEQUENCE "public"."discipline_ID_DISCIPLINE_seq"
 OWNED BY "public"."discipline"."ID_DISCIPLINE";
-SELECT setval('"public"."discipline_ID_DISCIPLINE_seq"', 57, true);
+SELECT setval('"public"."discipline_ID_DISCIPLINE_seq"', 58, true);
 ALTER SEQUENCE "public"."faculty_ID_FACULTY_seq"
 OWNED BY "public"."faculty"."ID_FACULTY";
-SELECT setval('"public"."faculty_ID_FACULTY_seq"', 22, true);
+SELECT setval('"public"."faculty_ID_FACULTY_seq"', 23, true);
 ALTER SEQUENCE "public"."groups_ID_GROUP_seq"
 OWNED BY "public"."groups"."ID_GROUP";
-SELECT setval('"public"."groups_ID_GROUP_seq"', 38, true);
+SELECT setval('"public"."groups_ID_GROUP_seq"', 39, true);
 ALTER SEQUENCE "public"."position_ID_POSITION_seq"
 OWNED BY "public"."position"."ID_POSITION";
-SELECT setval('"public"."position_ID_POSITION_seq"', 22, true);
+SELECT setval('"public"."position_ID_POSITION_seq"', 23, true);
 ALTER SEQUENCE "public"."specialty_ID_SPECIALTY_seq"
 OWNED BY "public"."specialty"."ID_SPECIALTY";
-SELECT setval('"public"."specialty_ID_SPECIALTY_seq"', 19, true);
+SELECT setval('"public"."specialty_ID_SPECIALTY_seq"', 20, true);
 ALTER SEQUENCE "public"."stadyingPlan_ID_SETTING_seq"
 OWNED BY "public"."stadyingPlan"."ID_SETTING";
-SELECT setval('"public"."stadyingPlan_ID_SETTING_seq"', 16, true);
+SELECT setval('"public"."stadyingPlan_ID_SETTING_seq"', 17, true);
 ALTER SEQUENCE "public"."teachers_ID_TEACHER_seq"
 OWNED BY "public"."teachers"."ID_TEACHER";
-SELECT setval('"public"."teachers_ID_TEACHER_seq"', 25, true);
+SELECT setval('"public"."teachers_ID_TEACHER_seq"', 26, true);
 ALTER SEQUENCE "public"."timeTable_ID_seq"
 OWNED BY "public"."timeTable"."ID";
-SELECT setval('"public"."timeTable_ID_seq"', 8, false);
+SELECT setval('"public"."timeTable_ID_seq"', 14, true);
 ALTER SEQUENCE "public"."typeSubject_ID_SUBJECT_seq"
 OWNED BY "public"."typeSubject"."ID_SUBJECT";
-SELECT setval('"public"."typeSubject_ID_SUBJECT_seq"', 22, true);
+SELECT setval('"public"."typeSubject_ID_SUBJECT_seq"', 23, true);
 ALTER SEQUENCE "public"."week_ID_DAY_seq"
 OWNED BY "public"."week"."ID_DAY";
-SELECT setval('"public"."week_ID_DAY_seq"', 24, true);
+SELECT setval('"public"."week_ID_DAY_seq"', 25, true);
 
 -- ----------------------------
 -- Primary Key structure for table classroom
@@ -1710,7 +1717,7 @@ ALTER TABLE "public"."teachers" ADD CONSTRAINT "fk_teachers_position_1" FOREIGN 
 -- ----------------------------
 ALTER TABLE "public"."timeTable" ADD CONSTRAINT "fk_timeTable_classroom_1" FOREIGN KEY ("id_classroom") REFERENCES "public"."classroom" ("ID_CLASSROOM") ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE "public"."timeTable" ADD CONSTRAINT "fk_timeTable_discipline_1" FOREIGN KEY ("id_discipline") REFERENCES "public"."discipline" ("ID_DISCIPLINE") ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE "public"."timeTable" ADD CONSTRAINT "fk_timeTable_typeSubject_1" FOREIGN KEY ("id_type_week") REFERENCES "public"."typeSubject" ("ID_SUBJECT") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "public"."timeTable" ADD CONSTRAINT "fk_timeTable_typeSubject_1" FOREIGN KEY ("type_subject") REFERENCES "public"."typeSubject" ("ID_SUBJECT") ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE "public"."timeTable" ADD CONSTRAINT "fk_timeTable_week_1" FOREIGN KEY ("id_type_week") REFERENCES "public"."week" ("ID_DAY") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- ----------------------------

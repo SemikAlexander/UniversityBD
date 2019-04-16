@@ -83,17 +83,22 @@ namespace Logics.MainTable
             {
                 var conn = new NpgsqlConnection(this._connectionDB.ConnectString);
                 conn.Open();
-                int id_para_new = 0;
-                string sql = $"SELECT * FROM timetable_add('{timeTableStructure.date}', '{timeTableStructure.time}', {timeTableStructure.classroom.Housing}, {timeTableStructure.classroom.Number_Class},{timeTableStructure.week.id}, {timeTableStructure.num_para}, {timeTableStructure.typeSubject.id},{timeTableStructure.Discipline.id});";
+                int id_para_new = 0; string sql = "";
+                if (timeTableStructure.typeSubject.typelesson==Books.TypeSubject.type_lesson.Session)
+                    sql = $"SELECT * FROM timetable_add('{timeTableStructure.date.Day+"-"+ timeTableStructure.date.Month+"-"+ timeTableStructure.date.Year}', '{timeTableStructure.time}', {timeTableStructure.classroom.Housing}, {timeTableStructure.classroom.Number_Class},{timeTableStructure.week.id}, {timeTableStructure.num_para}, {timeTableStructure.typeSubject.id},{timeTableStructure.Discipline.id});";
+                else
+                    sql = $"SELECT * FROM timetable_add(null, null, {timeTableStructure.classroom.Housing}, {timeTableStructure.classroom.Number_Class},{timeTableStructure.week.id}, {timeTableStructure.num_para}, {timeTableStructure.typeSubject.id},{timeTableStructure.Discipline.id});";
+
                 using (var cmd = new NpgsqlCommand(sql, conn))
                 using (var reader = cmd.ExecuteReader())
                     if (reader.Read())
                     {
                         id_para_new = reader.GetInt32(0);
+                        if (id_para_new < 0) return false;
                     }
                 foreach (var q in timeTableStructure.groupsStructures)
                 {
-                    sql = $"SELECT * FROM timeTable_group_add('{q.faculty}','{q.department}','{q.name_speciality}','{q.Subname}',{q.YearCreate},{id_para_new});";
+                    sql = $"SELECT * FROM timetable_group_add('{q.faculty}','{q.department}','{q.name_speciality}','{q.Subname}',{q.YearCreate},{id_para_new});";
                     using (var cmd = new NpgsqlCommand(sql, conn))
                     using (var reader = cmd.ExecuteReader())
                         if (reader.Read())
@@ -103,7 +108,7 @@ namespace Logics.MainTable
                 }
                 foreach (var q in timeTableStructure.teachersStructures)
                 {
-                    sql = $"SELECT * FROM timeTable_teachers_add('{q.faculty}','{q.department}','{q.name_teacher}','{q.type_Oplaty_Teacher}',{id_para_new});";
+                    sql = $"SELECT * FROM timetable_teachers_add('{q.faculty}','{q.department}','{q.name_teacher}','{q.type_Oplaty_Teacher}',{id_para_new});";
                     using (var cmd = new NpgsqlCommand(sql, conn))
                     using (var reader = cmd.ExecuteReader())
                         if (reader.Read())
