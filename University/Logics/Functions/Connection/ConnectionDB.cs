@@ -28,54 +28,55 @@ namespace Logics.Functions.Connection
         /// </summary>
         public enum function_access
         {
-            classroom_delete,
-            classroom_get_all,
             classroom_get_class,
             classroom_get_housing,
-            add_styding_plans,
-            classroom_add,
-            del_styding_plans,
-            department_add,
-            department_delete,
-            discipline_add,
-            discipline_delete,
+            add_transfer,
+            faculty_get_all,
+            delete_transfer,
             discipline_get_all,
             faculty_add,
             faculty_delete,
-            faculty_get_all,
-            get_groups,
-            get_styding_plans,
-            getalldepartmentnames,
-            getallspeciality,
+            department_add,
+            department_delete,
+            discipline_delete,
             getallspecialitynames,
+            getteacherdiscipline,
+            getalldepartmentnames,
             getallteachers,
             getdepartmentfull,
-            getteacherdiscipline,
-            group_add,
-            group_delete,
             position_add,
             position_delete,
+            group_delete,
             position_get_all,
             specialty_add,
             specialty_delete,
-            teacher_add_discipline,
-            teachers_add,
-            teachersdelete,
-            teachersdelete_all_discipline,
+            timetable_add,
+            type_subject_get_all,
             type_subject_add,
             type_subject_delete,
-            type_subject_get_all,
+            teachersdelete,
+            timetable_delete,
+            timetable_teachers_add,
+            add_styding_plans,
+            classroom_add,
+            classroom_delete,
+            classroom_get_all,
+            discipline_add,
+            get_groups,
+            group_add,
             week_add,
             week_delete,
+            del_styding_plans,
+            timetable_group_add,
             week_get_all,
-            timeTable_teachers_add,
-            timeTable_group_add,
-            timeTable_add,
-            timetable_delete,
-            delete_transfer,
-            add_transfer,
-            get_transfers,
-            timetable_get
+            get_styding_plans,
+            getallspeciality,
+            teachers_add,
+            teacher_add_discipline,
+            teachersdelete_all_discipline,
+            timetable_get,
+            get_transfers
+
         };
         /// <summary>
         /// доступ, который есть у пользователя
@@ -263,54 +264,55 @@ namespace Logics.Functions.Connection
                 using (var reader = cmd.ExecuteReader())
                     if (reader.Read())
                     {
-                        Accesses.Add(function_access.classroom_delete);
-                        Accesses.Add(function_access.classroom_get_all);
                         Accesses.Add(function_access.classroom_get_class);
                         Accesses.Add(function_access.classroom_get_housing);
-                        Accesses.Add(function_access.add_styding_plans);
-                        Accesses.Add(function_access.classroom_add);
-                        Accesses.Add(function_access.del_styding_plans);
-                        Accesses.Add(function_access.department_add);
-                        Accesses.Add(function_access.department_delete);
-                        Accesses.Add(function_access.discipline_add);
-                        Accesses.Add(function_access.discipline_delete);
+                        Accesses.Add(function_access.add_transfer);
+                        Accesses.Add(function_access.faculty_get_all);
+                        Accesses.Add(function_access.delete_transfer);
                         Accesses.Add(function_access.discipline_get_all);
                         Accesses.Add(function_access.faculty_add);
                         Accesses.Add(function_access.faculty_delete);
-                        Accesses.Add(function_access.faculty_get_all);
-                        Accesses.Add(function_access.get_groups);
-                        Accesses.Add(function_access.get_styding_plans);
-                        Accesses.Add(function_access.getalldepartmentnames);
-                        Accesses.Add(function_access.getallspeciality);
+                        Accesses.Add(function_access.department_add);
+                        Accesses.Add(function_access.department_delete);
+                        Accesses.Add(function_access.discipline_delete);
                         Accesses.Add(function_access.getallspecialitynames);
+                        Accesses.Add(function_access.getteacherdiscipline);
+                        Accesses.Add(function_access.getalldepartmentnames);
                         Accesses.Add(function_access.getallteachers);
                         Accesses.Add(function_access.getdepartmentfull);
-                        Accesses.Add(function_access.getteacherdiscipline);
-                        Accesses.Add(function_access.group_add);
-                        Accesses.Add(function_access.group_delete);
                         Accesses.Add(function_access.position_add);
                         Accesses.Add(function_access.position_delete);
+                        Accesses.Add(function_access.group_delete);
                         Accesses.Add(function_access.position_get_all);
                         Accesses.Add(function_access.specialty_add);
                         Accesses.Add(function_access.specialty_delete);
-                        Accesses.Add(function_access.teacher_add_discipline);
-                        Accesses.Add(function_access.teachers_add);
-                        Accesses.Add(function_access.teachersdelete);
-                        Accesses.Add(function_access.teachersdelete_all_discipline);
+                        Accesses.Add(function_access.timetable_add);
+                        Accesses.Add(function_access.type_subject_get_all);
                         Accesses.Add(function_access.type_subject_add);
                         Accesses.Add(function_access.type_subject_delete);
-                        Accesses.Add(function_access.type_subject_get_all);
+                        Accesses.Add(function_access.teachersdelete);
+                        Accesses.Add(function_access.timetable_delete);
+                        Accesses.Add(function_access.timetable_teachers_add);
+                        Accesses.Add(function_access.add_styding_plans);
+                        Accesses.Add(function_access.classroom_add);
+                        Accesses.Add(function_access.classroom_delete);
+                        Accesses.Add(function_access.classroom_get_all);
+                        Accesses.Add(function_access.discipline_add);
+                        Accesses.Add(function_access.get_groups);
+                        Accesses.Add(function_access.group_add);
                         Accesses.Add(function_access.week_add);
                         Accesses.Add(function_access.week_delete);
+                        Accesses.Add(function_access.del_styding_plans);
+                        Accesses.Add(function_access.timetable_group_add);
                         Accesses.Add(function_access.week_get_all);
-                        Accesses.Add(function_access.timeTable_teachers_add);
-                        Accesses.Add(function_access.timeTable_group_add);
-                        Accesses.Add(function_access.timeTable_add);
-                        Accesses.Add(function_access.timetable_delete);
-                        Accesses.Add(function_access.delete_transfer);
-                        Accesses.Add(function_access.add_transfer);
-                        Accesses.Add(function_access.get_transfers);
+                        Accesses.Add(function_access.get_styding_plans);
+                        Accesses.Add(function_access.getallspeciality);
+                        Accesses.Add(function_access.teachers_add);
+                        Accesses.Add(function_access.teacher_add_discipline);
+                        Accesses.Add(function_access.teachersdelete_all_discipline);
                         Accesses.Add(function_access.timetable_get);
+                        Accesses.Add(function_access.get_transfers);
+
                         return true;
                     }
             }
@@ -321,50 +323,11 @@ namespace Logics.Functions.Connection
             #region AdminFaculty
             try
             {
-                using (var cmd = new NpgsqlCommand("SET ROLE AdminVuz", conn))
+                using (var cmd = new NpgsqlCommand("SET ROLE adminfaculty", conn))
                 using (var reader = cmd.ExecuteReader())
                     if (reader.Read())
                     {
-                        Accesses.Add(function_access.classroom_get_all);
-                        Accesses.Add(function_access.classroom_get_class);
-                        Accesses.Add(function_access.classroom_get_housing);
-                        Accesses.Add(function_access.add_styding_plans);
-                        Accesses.Add(function_access.del_styding_plans);
-                        Accesses.Add(function_access.department_add);
-                        Accesses.Add(function_access.department_delete);
-                        Accesses.Add(function_access.discipline_add);
-                        Accesses.Add(function_access.discipline_delete);
-                        Accesses.Add(function_access.discipline_get_all);
-                        Accesses.Add(function_access.faculty_get_all);
-                        Accesses.Add(function_access.get_groups);
-                        Accesses.Add(function_access.get_styding_plans);
-                        Accesses.Add(function_access.getalldepartmentnames);
-                        Accesses.Add(function_access.getallspeciality);
-                        Accesses.Add(function_access.getallspecialitynames);
-                        Accesses.Add(function_access.getallteachers);
-                        Accesses.Add(function_access.getdepartmentfull);
-                        Accesses.Add(function_access.getteacherdiscipline);
-                        Accesses.Add(function_access.group_add);
-                        Accesses.Add(function_access.group_delete);
-                        Accesses.Add(function_access.position_get_all);
-                        Accesses.Add(function_access.specialty_add);
-                        Accesses.Add(function_access.specialty_delete);
-                        Accesses.Add(function_access.teacher_add_discipline);
-                        Accesses.Add(function_access.teachers_add);
-                        Accesses.Add(function_access.teachersdelete);
-                        Accesses.Add(function_access.teachersdelete_all_discipline);
-                        Accesses.Add(function_access.type_subject_add);
-                        Accesses.Add(function_access.type_subject_delete);
-                        Accesses.Add(function_access.type_subject_get_all);
-                        Accesses.Add(function_access.week_get_all);
-                        Accesses.Add(function_access.timeTable_teachers_add);
-                        Accesses.Add(function_access.timeTable_group_add);
-                        Accesses.Add(function_access.timeTable_add);
-                        Accesses.Add(function_access.timetable_delete);
-                        Accesses.Add(function_access.delete_transfer);
-                        Accesses.Add(function_access.add_transfer);
-                        Accesses.Add(function_access.get_transfers);
-                        Accesses.Add(function_access.timetable_get);
+                       
                         return true;
                     }
             }
@@ -375,42 +338,11 @@ namespace Logics.Functions.Connection
             #region AdminKafedra
             try
             {
-                using (var cmd = new NpgsqlCommand("SET ROLE AdminVuz", conn))
+                using (var cmd = new NpgsqlCommand("SET ROLE adminkafedra", conn))
                 using (var reader = cmd.ExecuteReader())
                     if (reader.Read())
                     {
-                        Accesses.Add(function_access.classroom_get_all);
-                        Accesses.Add(function_access.classroom_get_class);
-                        Accesses.Add(function_access.classroom_get_housing);
-                        Accesses.Add(function_access.discipline_get_all);
-                        Accesses.Add(function_access.faculty_get_all);
-                        Accesses.Add(function_access.get_groups);
-                        Accesses.Add(function_access.get_styding_plans);
-                        Accesses.Add(function_access.getalldepartmentnames);
-                        Accesses.Add(function_access.getallspeciality);
-                        Accesses.Add(function_access.getallspecialitynames);
-                        Accesses.Add(function_access.getallteachers);
-                        Accesses.Add(function_access.getdepartmentfull);
-                        Accesses.Add(function_access.getteacherdiscipline);
-                        Accesses.Add(function_access.group_add);
-                        Accesses.Add(function_access.group_delete);
-                        Accesses.Add(function_access.position_get_all);
-                        Accesses.Add(function_access.specialty_add);
-                        Accesses.Add(function_access.specialty_delete);
-                        Accesses.Add(function_access.teacher_add_discipline);
-                        Accesses.Add(function_access.teachers_add);
-                        Accesses.Add(function_access.teachersdelete);
-                        Accesses.Add(function_access.teachersdelete_all_discipline);
-                        Accesses.Add(function_access.type_subject_get_all);
-                        Accesses.Add(function_access.week_get_all);
-                        Accesses.Add(function_access.timeTable_teachers_add);
-                        Accesses.Add(function_access.timeTable_group_add);
-                        Accesses.Add(function_access.timeTable_add);
-                        Accesses.Add(function_access.timetable_delete);
-                        Accesses.Add(function_access.delete_transfer);
-                        Accesses.Add(function_access.add_transfer);
-                        Accesses.Add(function_access.get_transfers);
-                        Accesses.Add(function_access.timetable_get);
+                        
                         return true;
                     }
             }
@@ -421,27 +353,11 @@ namespace Logics.Functions.Connection
             #region Teachers
             try
             {
-                using (var cmd = new NpgsqlCommand("SET ROLE AdminVuz", conn))
+                using (var cmd = new NpgsqlCommand("SET ROLE teachers", conn))
                 using (var reader = cmd.ExecuteReader())
                     if (reader.Read())
                     {
-                        Accesses.Add(function_access.classroom_get_class);
-                        Accesses.Add(function_access.classroom_get_housing);
-                        Accesses.Add(function_access.discipline_get_all);
-                        Accesses.Add(function_access.faculty_get_all);
-                        Accesses.Add(function_access.get_groups);
-                        Accesses.Add(function_access.get_styding_plans);
-                        Accesses.Add(function_access.getalldepartmentnames);
-                        Accesses.Add(function_access.getallspeciality);
-                        Accesses.Add(function_access.getallspecialitynames);
-                        Accesses.Add(function_access.getallteachers);
-                        Accesses.Add(function_access.getdepartmentfull);
-                        Accesses.Add(function_access.getteacherdiscipline);
-                        Accesses.Add(function_access.position_get_all);
-                        Accesses.Add(function_access.type_subject_get_all);
-                        Accesses.Add(function_access.week_get_all);
-                        Accesses.Add(function_access.get_transfers);
-                        Accesses.Add(function_access.timetable_get);
+                       
                         return true;
                     }
             }
@@ -452,58 +368,11 @@ namespace Logics.Functions.Connection
             #region AdminSpravochnik
             try
             {
-                using (var cmd = new NpgsqlCommand("SET ROLE AdminSpravochnik", conn))
+                using (var cmd = new NpgsqlCommand("SET ROLE adminspravochnik", conn))
                 using (var reader = cmd.ExecuteReader())
                     if (reader.Read())
                     {
-                        Accesses.Add(function_access.classroom_delete);
-                        Accesses.Add(function_access.classroom_get_all);
-                        Accesses.Add(function_access.classroom_get_class);
-                        Accesses.Add(function_access.classroom_get_housing);
-                        Accesses.Add(function_access.add_styding_plans);
-                        Accesses.Add(function_access.classroom_add);
-                        Accesses.Add(function_access.del_styding_plans);
-                        Accesses.Add(function_access.department_add);
-                        Accesses.Add(function_access.department_delete);
-                        Accesses.Add(function_access.discipline_add);
-                        Accesses.Add(function_access.discipline_delete);
-                        Accesses.Add(function_access.discipline_get_all);
-                        Accesses.Add(function_access.faculty_add);
-                        Accesses.Add(function_access.faculty_delete);
-                        Accesses.Add(function_access.faculty_get_all);
-                        Accesses.Add(function_access.get_groups);
-                        Accesses.Add(function_access.get_styding_plans);
-                        Accesses.Add(function_access.getalldepartmentnames);
-                        Accesses.Add(function_access.getallspeciality);
-                        Accesses.Add(function_access.getallspecialitynames);
-                        Accesses.Add(function_access.getallteachers);
-                        Accesses.Add(function_access.getdepartmentfull);
-                        Accesses.Add(function_access.getteacherdiscipline);
-                        Accesses.Add(function_access.group_add);
-                        Accesses.Add(function_access.group_delete);
-                        Accesses.Add(function_access.position_add);
-                        Accesses.Add(function_access.position_delete);
-                        Accesses.Add(function_access.position_get_all);
-                        Accesses.Add(function_access.specialty_add);
-                        Accesses.Add(function_access.specialty_delete);
-                        Accesses.Add(function_access.teacher_add_discipline);
-                        Accesses.Add(function_access.teachers_add);
-                        Accesses.Add(function_access.teachersdelete);
-                        Accesses.Add(function_access.teachersdelete_all_discipline);
-                        Accesses.Add(function_access.type_subject_add);
-                        Accesses.Add(function_access.type_subject_delete);
-                        Accesses.Add(function_access.type_subject_get_all);
-                        Accesses.Add(function_access.week_add);
-                        Accesses.Add(function_access.week_delete);
-                        Accesses.Add(function_access.week_get_all);
-                        Accesses.Add(function_access.timeTable_teachers_add);
-                        Accesses.Add(function_access.timeTable_group_add);
-                        Accesses.Add(function_access.timeTable_add);
-                        Accesses.Add(function_access.timetable_delete);
-                        Accesses.Add(function_access.delete_transfer);
-                        Accesses.Add(function_access.add_transfer);
-                        Accesses.Add(function_access.get_transfers);
-                        Accesses.Add(function_access.timetable_get);
+                       
                         return true;
                     }
             }
