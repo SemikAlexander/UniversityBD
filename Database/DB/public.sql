@@ -12,7 +12,7 @@
  Target Server Version : 90612
  File Encoding         : 65001
 
- Date: 17/04/2019 00:17:08
+ Date: 17/04/2019 12:45:20
 */
 
 
@@ -969,11 +969,46 @@ $BODY$
 -- ----------------------------
 -- Function structure for get_transfers
 -- ----------------------------
-DROP FUNCTION IF EXISTS "public"."get_transfers"("id_tm" int4);
-CREATE OR REPLACE FUNCTION "public"."get_transfers"("id_tm" int4)
-  RETURNS TABLE("datefrom" date, "dateto" date, "numless" int4) AS $BODY$BEGIN
+DROP FUNCTION IF EXISTS "public"."get_transfers"("facult" text, "depar" text, "fio" text);
+CREATE OR REPLACE FUNCTION "public"."get_transfers"("facult" text, "depar" text, "fio" text)
+  RETURNS TABLE("ID" int4, "Date" date, "Time" time, "num_lesson" int4, "NameDay" text, "Sub_Name_Group" text, "Year_Of_Entry" int4, "Housing" int4, "Num_Classroom" int4, "Name_Subject" text, "type_lesson" varchar, "Abbreviation_Specialty" text, "dateto" date) AS $BODY$
+	DECLARE
+	date_start_week date := now();
+	date_end_week date := now();
+	BEGIN
+	SELECT date_trunc('week', now()::timestamp) INTO date_start_week;
+	SELECT (date_trunc('week', now()::timestamp)+ '6 days'::interval)::date INTO date_end_week;
+	
 
-	RETURN query SELECT date_from,date_to,num_lesson_to FROM transfers WHERE id_lesson=id_tm;
+CREATE TEMP TABLE seltm as (
+		SELECT ttw."Date",ttw."ID",ttw."Time",ttw.num_lesson, ttw.type_subject,ttw."NameDay",ttw.id_classroom, groups."Sub_Name_Group",groups."Year_Of_Entry","stadyingPlan"."DateStartStuding","stadyingPlan"."DateEndStuding","stadyingPlan"."DateStartSession","stadyingPlan"."DateEndSession",specialty."Abbreviation_Specialty" from 
+			(
+				SELECT "timeTable"."Date","timeTable"."ID","timeTable"."Time","timeTable".id_classroom,"timeTable".num_lesson, "timeTable".type_subject,week."NameDay" from (
+						SELECT teachers."ID_TEACHER" from (
+								SELECT department."ID_DEPARTMENT" FROM (
+										SELECT "ID_FACULTY" FROM faculty WHERE "Name_Faculty"=facult
+								) as facul 
+								INNER JOIN department on department.id_faculty=facul."ID_FACULTY" WHERE department."Name_Department"=depar) as dep
+						INNER JOIN teachers on teachers.id_department=dep."ID_DEPARTMENT" WHERE teachers."Name_Teacher"=fio LIMIT 1) as teach
+								INNER JOIN "subjectPay" on "subjectPay".id_teacher=teach."ID_TEACHER" INNER JOIN "timeTable" on "timeTable"."ID"="subjectPay".id_subject INNER JOIN week on week."ID_DAY"="timeTable".id_type_week) as ttw 
+		INNER JOIN para on para.id_lesson=ttw."ID" 
+		INNER JOIN groups on groups."ID_GROUP"=para.id_group 
+		INNER JOIN specialty on groups.id_specialty=specialty."ID_SPECIALTY"
+		INNER JOIN "stadyingPlan" on groups."ID_GROUP" = "stadyingPlan".id_group
+);
+CREATE TEMP TABLE res as (
+		SELECT finish_timetable."ID", finish_timetable."Date", finish_timetable."Time", finish_timetable."num_lesson", finish_timetable."NameDay",finish_timetable."Sub_Name_Group",finish_timetable."Year_Of_Entry",classroom."Housing",classroom."Num_Classroom","typeSubject"."Name_Subject","typeSubject".type_lesson,finish_timetable."Abbreviation_Specialty"
+		from(
+				SELECT * from seltm WHERE "DateStartStuding"<now() and "DateEndStuding">now() 
+				UNION ALL 
+				SELECT * from seltm WHERE "DateStartSession"<now() and "DateEndSession">now()
+				)as finish_timetable
+		INNER JOIN classroom on classroom."ID_CLASSROOM"=finish_timetable."id_classroom" 
+		INNER JOIN "typeSubject" on finish_timetable.type_subject = "typeSubject"."ID_SUBJECT"
+);
+RETURN query SELECT res."ID", res."Date", res."Time", transfers.num_lesson_to, res."NameDay",res."Sub_Name_Group",res."Year_Of_Entry",res."Housing",res."Num_Classroom",res."Name_Subject",res.type_lesson,res."Abbreviation_Specialty",transfers.date_to FROM res INNER JOIN transfers on res."ID"=transfers.id_lesson
+WHERE transfers.date_to>=date_start_week and transfers.date_to<=date_end_week;
+	
 END
 $BODY$
   LANGUAGE plpgsql VOLATILE
