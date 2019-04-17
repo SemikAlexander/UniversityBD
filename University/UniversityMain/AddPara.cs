@@ -16,7 +16,7 @@ namespace UniversityMain
         [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
         private extern static void ReleaseCapture();
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
-        private extern static void SendMessage(System.IntPtr hwnd, int wmsg, int wparam, int lparam);
+        private extern static void SendMessage(IntPtr hwnd, int wmsg, int wparam, int lparam);
         public List<string> NameTeacherForPara = new List<string>();
         bool ChoiseTypePayForTeacher = false;
         #region Classes

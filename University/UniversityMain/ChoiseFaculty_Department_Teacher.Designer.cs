@@ -39,6 +39,8 @@
             this.button1 = new System.Windows.Forms.Button();
             this.TeacherBox = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.TypeWeekBox = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -158,11 +160,36 @@
             this.label1.TabIndex = 27;
             this.label1.Text = "Преподаватель";
             // 
+            // TypeWeekBox
+            // 
+            this.TypeWeekBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.TypeWeekBox.FormattingEnabled = true;
+            this.TypeWeekBox.Items.AddRange(new object[] {
+            "Верхняя неделя",
+            "Нижняя неделя"});
+            this.TypeWeekBox.Location = new System.Drawing.Point(128, 139);
+            this.TypeWeekBox.Name = "TypeWeekBox";
+            this.TypeWeekBox.Size = new System.Drawing.Size(386, 23);
+            this.TypeWeekBox.TabIndex = 30;
+            this.TypeWeekBox.SelectedIndexChanged += new System.EventHandler(this.TypeWeekBox_SelectedIndexChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.Location = new System.Drawing.Point(35, 140);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(87, 18);
+            this.label2.TabIndex = 29;
+            this.label2.Text = "Тип недели";
+            // 
             // ChoiseFaculty_Department_Teacher
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(518, 144);
+            this.ClientSize = new System.Drawing.Size(518, 171);
+            this.Controls.Add(this.TypeWeekBox);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.TeacherBox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel1);
@@ -197,5 +224,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ComboBox TeacherBox;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox TypeWeekBox;
+        private System.Windows.Forms.Label label2;
     }
 }

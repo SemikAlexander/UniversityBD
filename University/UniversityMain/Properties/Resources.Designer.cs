@@ -203,6 +203,16 @@ namespace UniversityMain.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap EditList {
+            get {
+                object obj = ResourceManager.GetObject("EditList", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap EditRecord {
             get {
                 object obj = ResourceManager.GetObject("EditRecord", resourceCulture);
@@ -246,6 +256,16 @@ namespace UniversityMain.Properties {
         internal static System.Drawing.Bitmap GetList {
             get {
                 object obj = ResourceManager.GetObject("GetList", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap GetList_50_ {
+            get {
+                object obj = ResourceManager.GetObject("GetList_50_", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -446,6 +466,26 @@ namespace UniversityMain.Properties {
         internal static System.Drawing.Bitmap TimeTable_50_ {
             get {
                 object obj = ResourceManager.GetObject("TimeTable_50_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap TransferLesson {
+            get {
+                object obj = ResourceManager.GetObject("TransferLesson", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap TransferLesson_50_ {
+            get {
+                object obj = ResourceManager.GetObject("TransferLesson_50_", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

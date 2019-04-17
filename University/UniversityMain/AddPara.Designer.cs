@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -215,11 +215,11 @@
             // FacultyBox
             // 
             this.FacultyBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.FacultyBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.FacultyBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.FacultyBox.FormattingEnabled = true;
             this.FacultyBox.Location = new System.Drawing.Point(99, 318);
             this.FacultyBox.Name = "FacultyBox";
-            this.FacultyBox.Size = new System.Drawing.Size(374, 24);
+            this.FacultyBox.Size = new System.Drawing.Size(374, 21);
             this.FacultyBox.TabIndex = 23;
             this.FacultyBox.SelectedIndexChanged += new System.EventHandler(this.FacultyBox_SelectedIndexChanged);
             // 
@@ -236,11 +236,11 @@
             // DepartmentBox
             // 
             this.DepartmentBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.DepartmentBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.DepartmentBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.DepartmentBox.FormattingEnabled = true;
-            this.DepartmentBox.Location = new System.Drawing.Point(99, 353);
+            this.DepartmentBox.Location = new System.Drawing.Point(99, 345);
             this.DepartmentBox.Name = "DepartmentBox";
-            this.DepartmentBox.Size = new System.Drawing.Size(374, 24);
+            this.DepartmentBox.Size = new System.Drawing.Size(374, 21);
             this.DepartmentBox.TabIndex = 21;
             this.DepartmentBox.SelectedIndexChanged += new System.EventHandler(this.DepartmentBox_SelectedIndexChanged);
             // 
@@ -248,7 +248,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label7.Location = new System.Drawing.Point(19, 354);
+            this.label7.Location = new System.Drawing.Point(21, 346);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(72, 18);
             this.label7.TabIndex = 20;
@@ -260,14 +260,14 @@
             this.TeacherInfo.AllowUserToDeleteRows = false;
             this.TeacherInfo.BackgroundColor = System.Drawing.Color.White;
             this.TeacherInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.TeacherInfo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.TeacherInfo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.TeacherInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.TeacherInfo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.NameTeacher,
@@ -276,9 +276,9 @@
             this.Stavka});
             this.TeacherInfo.Location = new System.Drawing.Point(99, 6);
             this.TeacherInfo.Name = "TeacherInfo";
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.TeacherInfo.RowsDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.TeacherInfo.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.TeacherInfo.Size = new System.Drawing.Size(590, 297);
             this.TeacherInfo.TabIndex = 6;
             this.TeacherInfo.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.TeacherInfo_CellContentClick);
@@ -345,6 +345,7 @@
             this.TimeSessionPanel.Controls.Add(this.label15);
             this.TimeSessionPanel.Controls.Add(this.StopSomithing);
             this.TimeSessionPanel.Controls.Add(this.StartSomething);
+            this.TimeSessionPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.TimeSessionPanel.Location = new System.Drawing.Point(458, 6);
             this.TimeSessionPanel.Name = "TimeSessionPanel";
             this.TimeSessionPanel.Size = new System.Drawing.Size(322, 61);
@@ -354,7 +355,8 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(20, 5);
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label17.Location = new System.Drawing.Point(20, 3);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(40, 16);
             this.label17.TabIndex = 39;
@@ -364,12 +366,13 @@
             // 
             this.DateSomething.Location = new System.Drawing.Point(66, 2);
             this.DateSomething.Name = "DateSomething";
-            this.DateSomething.Size = new System.Drawing.Size(250, 22);
+            this.DateSomething.Size = new System.Drawing.Size(250, 20);
             this.DateSomething.TabIndex = 38;
             // 
             // label16
             // 
             this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label16.Location = new System.Drawing.Point(176, 35);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(48, 16);
@@ -379,6 +382,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label15.Location = new System.Drawing.Point(2, 35);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(58, 16);
@@ -390,7 +394,7 @@
             this.StopSomithing.Format = System.Windows.Forms.DateTimePickerFormat.Time;
             this.StopSomithing.Location = new System.Drawing.Point(230, 32);
             this.StopSomithing.Name = "StopSomithing";
-            this.StopSomithing.Size = new System.Drawing.Size(86, 22);
+            this.StopSomithing.Size = new System.Drawing.Size(86, 20);
             this.StopSomithing.TabIndex = 35;
             // 
             // StartSomething
@@ -398,7 +402,7 @@
             this.StartSomething.Format = System.Windows.Forms.DateTimePickerFormat.Time;
             this.StartSomething.Location = new System.Drawing.Point(66, 32);
             this.StartSomething.Name = "StartSomething";
-            this.StartSomething.Size = new System.Drawing.Size(86, 22);
+            this.StartSomething.Size = new System.Drawing.Size(86, 20);
             this.StartSomething.TabIndex = 34;
             // 
             // AddLessonsInTimeTable
@@ -417,28 +421,29 @@
             // DisciplineBox
             // 
             this.DisciplineBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.DisciplineBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.DisciplineBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.DisciplineBox.FormattingEnabled = true;
             this.DisciplineBox.Location = new System.Drawing.Point(113, 6);
             this.DisciplineBox.Name = "DisciplineBox";
-            this.DisciplineBox.Size = new System.Drawing.Size(331, 24);
+            this.DisciplineBox.Size = new System.Drawing.Size(331, 21);
             this.DisciplineBox.TabIndex = 28;
             this.DisciplineBox.SelectedIndexChanged += new System.EventHandler(this.DisciplineBox_SelectedIndexChanged);
             // 
             // ClassRoomBox
             // 
             this.ClassRoomBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ClassRoomBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.ClassRoomBox.FormattingEnabled = true;
             this.ClassRoomBox.Location = new System.Drawing.Point(113, 213);
             this.ClassRoomBox.Name = "ClassRoomBox";
-            this.ClassRoomBox.Size = new System.Drawing.Size(331, 24);
+            this.ClassRoomBox.Size = new System.Drawing.Size(331, 21);
             this.ClassRoomBox.TabIndex = 18;
             this.ClassRoomBox.SelectedIndexChanged += new System.EventHandler(this.ClassRoomBox_SelectedIndexChanged);
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(28, 216);
+            this.label11.Location = new System.Drawing.Point(25, 214);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(79, 16);
             this.label11.TabIndex = 17;
@@ -447,17 +452,18 @@
             // HousingBox
             // 
             this.HousingBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.HousingBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.HousingBox.FormattingEnabled = true;
             this.HousingBox.Location = new System.Drawing.Point(113, 183);
             this.HousingBox.Name = "HousingBox";
-            this.HousingBox.Size = new System.Drawing.Size(331, 24);
+            this.HousingBox.Size = new System.Drawing.Size(331, 21);
             this.HousingBox.TabIndex = 16;
             this.HousingBox.SelectedIndexChanged += new System.EventHandler(this.HousingBox_SelectedIndexChanged);
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(49, 186);
+            this.label10.Location = new System.Drawing.Point(49, 184);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(55, 16);
             this.label10.TabIndex = 15;
@@ -466,20 +472,21 @@
             // TypeLessonsBox
             // 
             this.TypeLessonsBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.TypeLessonsBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.TypeLessonsBox.FormattingEnabled = true;
             this.TypeLessonsBox.Items.AddRange(new object[] {
             "Сессия",
             "Обучение"});
             this.TypeLessonsBox.Location = new System.Drawing.Point(113, 35);
             this.TypeLessonsBox.Name = "TypeLessonsBox";
-            this.TypeLessonsBox.Size = new System.Drawing.Size(331, 24);
+            this.TypeLessonsBox.Size = new System.Drawing.Size(331, 21);
             this.TypeLessonsBox.TabIndex = 14;
             this.TypeLessonsBox.SelectedIndexChanged += new System.EventHandler(this.ComboBox1_SelectedIndexChanged_1);
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(17, 38);
+            this.label9.Location = new System.Drawing.Point(17, 36);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(90, 16);
             this.label9.TabIndex = 13;
@@ -488,17 +495,18 @@
             // TypeSubjectBox
             // 
             this.TypeSubjectBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.TypeSubjectBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.TypeSubjectBox.FormattingEnabled = true;
             this.TypeSubjectBox.Location = new System.Drawing.Point(113, 65);
             this.TypeSubjectBox.Name = "TypeSubjectBox";
-            this.TypeSubjectBox.Size = new System.Drawing.Size(331, 24);
+            this.TypeSubjectBox.Size = new System.Drawing.Size(331, 21);
             this.TypeSubjectBox.TabIndex = 12;
             this.TypeSubjectBox.SelectedIndexChanged += new System.EventHandler(this.TypeSubjectBox_SelectedIndexChanged);
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(35, 68);
+            this.label8.Location = new System.Drawing.Point(35, 66);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(69, 16);
             this.label8.TabIndex = 11;
@@ -507,20 +515,21 @@
             // TypeWeekBox
             // 
             this.TypeWeekBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.TypeWeekBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.TypeWeekBox.FormattingEnabled = true;
             this.TypeWeekBox.Items.AddRange(new object[] {
             "Верхняя неделя",
             "Нижняя неделя"});
             this.TypeWeekBox.Location = new System.Drawing.Point(113, 123);
             this.TypeWeekBox.Name = "TypeWeekBox";
-            this.TypeWeekBox.Size = new System.Drawing.Size(331, 24);
+            this.TypeWeekBox.Size = new System.Drawing.Size(331, 21);
             this.TypeWeekBox.TabIndex = 10;
             this.TypeWeekBox.SelectedIndexChanged += new System.EventHandler(this.ComboBox1_SelectedIndexChanged);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(20, 126);
+            this.label3.Location = new System.Drawing.Point(20, 124);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(84, 16);
             this.label3.TabIndex = 9;
@@ -529,17 +538,18 @@
             // WeekDayBox
             // 
             this.WeekDayBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.WeekDayBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.WeekDayBox.FormattingEnabled = true;
             this.WeekDayBox.Location = new System.Drawing.Point(113, 153);
             this.WeekDayBox.Name = "WeekDayBox";
-            this.WeekDayBox.Size = new System.Drawing.Size(331, 24);
+            this.WeekDayBox.Size = new System.Drawing.Size(331, 21);
             this.WeekDayBox.TabIndex = 8;
             this.WeekDayBox.SelectedIndexChanged += new System.EventHandler(this.WeekDayBox_SelectedIndexChanged);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(13, 156);
+            this.label5.Location = new System.Drawing.Point(13, 154);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(91, 16);
             this.label5.TabIndex = 7;
@@ -547,6 +557,7 @@
             // 
             // NumPara
             // 
+            this.NumPara.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.NumPara.Location = new System.Drawing.Point(113, 95);
             this.NumPara.Maximum = new decimal(new int[] {
             8,
@@ -559,7 +570,7 @@
             0,
             0});
             this.NumPara.Name = "NumPara";
-            this.NumPara.Size = new System.Drawing.Size(331, 22);
+            this.NumPara.Size = new System.Drawing.Size(331, 20);
             this.NumPara.TabIndex = 4;
             this.NumPara.Value = new decimal(new int[] {
             1,
@@ -570,7 +581,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(20, 97);
+            this.label2.Location = new System.Drawing.Point(20, 95);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(87, 16);
             this.label2.TabIndex = 2;
@@ -579,7 +590,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(-3, 9);
+            this.label1.Location = new System.Drawing.Point(-3, 7);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(110, 16);
             this.label1.TabIndex = 1;
@@ -684,20 +695,20 @@
             // 
             this.GroupsInfo.AllowUserToAddRows = false;
             this.GroupsInfo.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.GroupsInfo.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.GroupsInfo.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
             this.GroupsInfo.BackgroundColor = System.Drawing.Color.White;
             this.GroupsInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle9.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.GroupsInfo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.GroupsInfo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.GroupsInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.GroupsInfo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.NameGroup,
@@ -706,8 +717,8 @@
             this.GroupsInfo.Location = new System.Drawing.Point(62, 0);
             this.GroupsInfo.Name = "GroupsInfo";
             this.GroupsInfo.ReadOnly = true;
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.GroupsInfo.RowsDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.GroupsInfo.RowsDefaultCellStyle = dataGridViewCellStyle5;
             this.GroupsInfo.Size = new System.Drawing.Size(656, 285);
             this.GroupsInfo.TabIndex = 18;
             this.GroupsInfo.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GroupsInfo_CellContentClick);
@@ -740,9 +751,9 @@
             this.AddParaInTimeTable.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.AddParaInTimeTable.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.AddParaInTimeTable.Image = global::UniversityMain.Properties.Resources.OK;
-            this.AddParaInTimeTable.Location = new System.Drawing.Point(0, 514);
+            this.AddParaInTimeTable.Location = new System.Drawing.Point(0, 511);
             this.AddParaInTimeTable.Name = "AddParaInTimeTable";
-            this.AddParaInTimeTable.Size = new System.Drawing.Size(788, 52);
+            this.AddParaInTimeTable.Size = new System.Drawing.Size(788, 35);
             this.AddParaInTimeTable.TabIndex = 15;
             this.AddParaInTimeTable.UseVisualStyleBackColor = true;
             this.AddParaInTimeTable.Visible = false;
@@ -752,7 +763,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(788, 566);
+            this.ClientSize = new System.Drawing.Size(788, 546);
             this.Controls.Add(this.AddParaInTimeTable);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.panel1);

@@ -171,10 +171,6 @@ namespace UniversityMain
             Close();
             new Specialities(connectionDB).Show();
         }
-        private void INFO_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
         private void Button14_Click_1(object sender, EventArgs e)
         {
             new ChoiseFaculty_Department_Teacher(connectionDB).ShowDialog();
@@ -186,11 +182,22 @@ namespace UniversityMain
         }
         private void MainForm_Load(object sender, EventArgs e)
         {
+            for (int i = 0; i < 8; i++)
+            {
+                LessonsInfo.Rows.Add();
+                LessonsInfo.Rows[i].HeaderCell.Value = (i + 1).ToString();
+            }
             /*Проверка права доступа к некоторым функциям*/
         }
         public void SetTimeTableForTeacher(string NameTeacher)
         {
 
+        }
+        private void Timetable_Click(object sender, EventArgs e)
+        {
+            /*Проверка прав доступа. Если есть на добавление и изменение - отображаем форму, а если только на просмотр - загрузить форму с переносами на просмотр*/
+            new ChoiseForm(connectionDB).Show();
+            Close();
         }
     }
 }
