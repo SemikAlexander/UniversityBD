@@ -20,6 +20,7 @@ namespace UniversityMain
         bool WindowMaximize = true;
         int HeightPanel = 455;
         ChoiseFaculty_Department_Teacher choiseFaculty_Department_Teacher;
+        ForTransfer forTransfer;
         public List<Logics.MainTable.TimeTable.TimeTableStructure> tableStructures = new List<Logics.MainTable.TimeTable.TimeTableStructure>();
         Logics.Functions.Connection.ConnectionDB connectionDB;
         List<NumOfWeekDayForOutputInTable> arrayNumOfWeekDayForOutputInTable = new List<NumOfWeekDayForOutputInTable>();
@@ -218,11 +219,14 @@ namespace UniversityMain
                 }
             }
         }
-        public void GetArrayFromChoiseForm(List<Logics.MainTable.TimeTable.TimeTableStructure> timeTableStructures, string NameTeacher)
+        public void GetArrayFromChoiseForm(List<Logics.MainTable.TimeTable.TimeTableStructure> timeTableStructures, string NameTeacher, string NameFaculty, string NameDepartment)
         {
             foreach (var TTS in timeTableStructures)
                 tableStructures.Add(TTS);
             NameTeacherForOutput.Text = NameTeacher;
+            forTransfer.NameTeacher = NameTeacher;
+            forTransfer.NameFaculty = NameFaculty;
+            forTransfer.NameDepartment = NameDepartment;
         }
         int GetNumOfWeekDayForOutputTable(string NameDayWeek)
         {
@@ -233,14 +237,21 @@ namespace UniversityMain
         }
         private void Timetable_Click(object sender, EventArgs e)
         {
-            Close();
-            new TransferPara(connectionDB, "Get").Show();            
+            if (forTransfer.NameTeacher != "")
+            {
+                Close();
+                new TransferPara(connectionDB, "Get", -1, forTransfer.NameTeacher, forTransfer.NameFaculty, forTransfer.NameDepartment).Show();
+            }
         }
         #region SomeStuctForOutput
         public struct NumOfWeekDayForOutputInTable
         {
             public string NameWeek;
             public int NumDay;  /*Start with 0*/
+        }
+        public struct ForTransfer
+        {
+            public string NameFaculty, NameDepartment, NameTeacher;
         }
         #endregion
         private void LessonsInfo_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -249,7 +260,7 @@ namespace UniversityMain
             if (result == DialogResult.Yes)
             {
                 Close();
-                new TransferPara(connectionDB, "Set").Show();
+                new TransferPara(connectionDB, "Set", 0, forTransfer.NameTeacher, forTransfer.NameFaculty, forTransfer.NameDepartment).Show();    /*IDLesson*/
             }
         }
     }
