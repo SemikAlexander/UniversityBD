@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Windows.Input;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -212,16 +213,16 @@ namespace UniversityMain
                 for (int i = 0; i < timeTableStructures.Count; i++)
                 {
                     int num_para = timeTableStructures[i].num_para - 1, num_day_week = GetNumOfWeekDayForOutputTable(timeTableStructures[i].week.name_day);
-                    string addRecordInTable = "";
-                    addRecordInTable += timeTableStructures[0].groupsStructures[0].name_speciality + timeTableStructures[0].groupsStructures[0].YearCreate.ToString()[timeTableStructures[0].groupsStructures[0].YearCreate.ToString().Length - 2] + timeTableStructures[0].groupsStructures[0].YearCreate.ToString()[timeTableStructures[0].groupsStructures[0].YearCreate.ToString().Length - 1] + timeTableStructures[0].groupsStructures[0].Subname + "\r\n" + timeTableStructures[0].classroom.Housing.ToString() + "." + timeTableStructures[0].classroom.Number_Class.ToString() + " (" + timeTableStructures[0].typeSubject.name + ")";
+                    string addRecordInTable = timeTableStructures[0].groupsStructures[0].name_speciality + timeTableStructures[0].groupsStructures[0].YearCreate.ToString()[timeTableStructures[0].groupsStructures[0].YearCreate.ToString().Length - 2] + timeTableStructures[0].groupsStructures[0].YearCreate.ToString()[timeTableStructures[0].groupsStructures[0].YearCreate.ToString().Length - 1] + timeTableStructures[0].groupsStructures[0].Subname + "\r\n" + timeTableStructures[0].classroom.Housing.ToString() + "." + timeTableStructures[0].classroom.Number_Class.ToString() + " (" + timeTableStructures[0].typeSubject.name + ")";
                     LessonsInfo.Rows[num_para].Cells[num_day_week].Value = addRecordInTable;
                 }
             }
         }
-        public void GetArrayFromChoiseForm(List<Logics.MainTable.TimeTable.TimeTableStructure> timeTableStructures)
+        public void GetArrayFromChoiseForm(List<Logics.MainTable.TimeTable.TimeTableStructure> timeTableStructures, string NameTeacher)
         {
             foreach (var TTS in timeTableStructures)
                 tableStructures.Add(TTS);
+            NameTeacherForOutput.Text = NameTeacher;
         }
         int GetNumOfWeekDayForOutputTable(string NameDayWeek)
         {
@@ -232,9 +233,8 @@ namespace UniversityMain
         }
         private void Timetable_Click(object sender, EventArgs e)
         {
-            /*Проверка прав доступа. Если есть на добавление и изменение - отображаем форму, а если только на просмотр - загрузить форму с переносами на просмотр*/
-            new ChoiseForm(connectionDB).Show();
             Close();
+            new TransferPara(connectionDB, "Get").Show();            
         }
         #region SomeStuctForOutput
         public struct NumOfWeekDayForOutputInTable
@@ -243,5 +243,14 @@ namespace UniversityMain
             public int NumDay;  /*Start with 0*/
         }
         #endregion
+        private void LessonsInfo_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Вы хотите перенести пару?", "Перенос", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
+            {
+                Close();
+                new TransferPara(connectionDB, "Set").Show();
+            }
+        }
     }
 }
