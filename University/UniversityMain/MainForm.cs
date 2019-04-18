@@ -18,10 +18,24 @@ namespace UniversityMain
         private extern static void SendMessage(System.IntPtr hwnd, int wmsg, int wparam, int lparam);
         bool WindowMaximize = true;
         int HeightPanel = 455;
+        ChoiseFaculty_Department_Teacher choiseFaculty_Department_Teacher;
+        public List<Logics.MainTable.TimeTable.TimeTableStructure> tableStructures = new List<Logics.MainTable.TimeTable.TimeTableStructure>();
         Logics.Functions.Connection.ConnectionDB connectionDB;
+        List<NumOfWeekDayForOutputInTable> arrayNumOfWeekDayForOutputInTable = new List<NumOfWeekDayForOutputInTable>();
         public MainForm(Logics.Functions.Connection.ConnectionDB connection)
         {
             InitializeComponent();
+            #region Need for output timetable
+            string[] NumDayWeek = { "Понедельник", "Вторник", "Среда", "Четверг", "Пятница" };
+            NumOfWeekDayForOutputInTable numOfWeekDayForOutputInTable;
+            for (int i = 0; i < 5; i++)
+            {
+                numOfWeekDayForOutputInTable.NameWeek = NumDayWeek[i];
+                numOfWeekDayForOutputInTable.NumDay = i;
+                arrayNumOfWeekDayForOutputInTable.Add(numOfWeekDayForOutputInTable);
+            }
+            #endregion
+            choiseFaculty_Department_Teacher = new ChoiseFaculty_Department_Teacher(connection);
             connectionDB = connection;
         }
         #region Design
@@ -171,13 +185,10 @@ namespace UniversityMain
             Close();
             new Specialities(connectionDB).Show();
         }
-        private void INFO_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
         private void Button14_Click_1(object sender, EventArgs e)
         {
-            new ChoiseFaculty_Department_Teacher(connectionDB).ShowDialog();
+            Close();
+            choiseFaculty_Department_Teacher.ShowDialog();
         }     
         private void Button15_Click(object sender, EventArgs e)
         {
@@ -186,11 +197,51 @@ namespace UniversityMain
         }
         private void MainForm_Load(object sender, EventArgs e)
         {
-            /*Проверка права доступа к некоторым функциям*/
+            SetTimeTableForTeacher(tableStructures);
         }
-        public void SetTimeTableForTeacher(string NameTeacher)
+        public void SetTimeTableForTeacher(List<Logics.MainTable.TimeTable.TimeTableStructure> timeTableStructures)
         {
-
+            if (timeTableStructures.Count != 0)
+            {
+                LessonsInfo.Rows.Clear();
+                for (int i = 0; i < 8; i++)
+                {
+                    LessonsInfo.Rows.Add();
+                    LessonsInfo.Rows[i].HeaderCell.Value = (i + 1).ToString();
+                }
+                for (int i = 0; i < timeTableStructures.Count; i++)
+                {
+                    int num_para = timeTableStructures[i].num_para - 1, num_day_week = GetNumOfWeekDayForOutputTable(timeTableStructures[i].week.name_day);
+                    string addRecordInTable = "";
+                    addRecordInTable += timeTableStructures[0].groupsStructures[0].name_speciality + timeTableStructures[0].groupsStructures[0].YearCreate.ToString()[timeTableStructures[0].groupsStructures[0].YearCreate.ToString().Length - 2] + timeTableStructures[0].groupsStructures[0].YearCreate.ToString()[timeTableStructures[0].groupsStructures[0].YearCreate.ToString().Length - 1] + timeTableStructures[0].groupsStructures[0].Subname + "\r\n" + timeTableStructures[0].classroom.Housing.ToString() + "." + timeTableStructures[0].classroom.Number_Class.ToString() + " (" + timeTableStructures[0].typeSubject.name + ")";
+                    LessonsInfo.Rows[num_para].Cells[num_day_week].Value = addRecordInTable;
+                }
+            }
         }
+        public void GetArrayFromChoiseForm(List<Logics.MainTable.TimeTable.TimeTableStructure> timeTableStructures)
+        {
+            foreach (var TTS in timeTableStructures)
+                tableStructures.Add(TTS);
+        }
+        int GetNumOfWeekDayForOutputTable(string NameDayWeek)
+        {
+            foreach (var Num in arrayNumOfWeekDayForOutputInTable)
+                if (Num.NameWeek == NameDayWeek)
+                    return Num.NumDay;
+            return -1;
+        }
+        private void Timetable_Click(object sender, EventArgs e)
+        {
+            /*Проверка прав доступа. Если есть на добавление и изменение - отображаем форму, а если только на просмотр - загрузить форму с переносами на просмотр*/
+            new ChoiseForm(connectionDB).Show();
+            Close();
+        }
+        #region SomeStuctForOutput
+        public struct NumOfWeekDayForOutputInTable
+        {
+            public string NameWeek;
+            public int NumDay;  /*Start with 0*/
+        }
+        #endregion
     }
 }

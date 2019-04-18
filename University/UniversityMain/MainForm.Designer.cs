@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.VerticalMenu = new System.Windows.Forms.Panel();
             this.INFO = new System.Windows.Forms.Panel();
             this.button13 = new System.Windows.Forms.Button();
@@ -55,7 +56,7 @@
             this.VerticalMenuStatus = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.ParaInfo = new System.Windows.Forms.DataGridView();
+            this.LessonsInfo = new System.Windows.Forms.DataGridView();
             this.Monday = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Tuesday = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Wednesday = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -71,7 +72,7 @@
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ParaInfo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LessonsInfo)).BeginInit();
             this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -107,7 +108,6 @@
             this.INFO.Size = new System.Drawing.Size(210, 42);
             this.INFO.TabIndex = 6;
             this.INFO.Click += new System.EventHandler(this.INFO_Click);
-            this.INFO.Paint += new System.Windows.Forms.PaintEventHandler(this.INFO_Paint);
             // 
             // button13
             // 
@@ -310,7 +310,7 @@
             this.timetable.FlatAppearance.BorderSize = 0;
             this.timetable.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.timetable.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.timetable.Image = ((System.Drawing.Image)(resources.GetObject("timetable.Image")));
+            this.timetable.Image = global::UniversityMain.Properties.Resources.TransferLesson;
             this.timetable.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.timetable.Location = new System.Drawing.Point(0, 44);
             this.timetable.Name = "timetable";
@@ -318,6 +318,7 @@
             this.timetable.TabIndex = 0;
             this.timetable.Text = "       Переносы";
             this.timetable.UseVisualStyleBackColor = true;
+            this.timetable.Click += new System.EventHandler(this.Timetable_Click);
             // 
             // panel1
             // 
@@ -404,19 +405,19 @@
             // 
             // panel5
             // 
-            this.panel5.Controls.Add(this.ParaInfo);
+            this.panel5.Controls.Add(this.LessonsInfo);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel5.Location = new System.Drawing.Point(0, 0);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(833, 489);
             this.panel5.TabIndex = 11;
             // 
-            // ParaInfo
+            // LessonsInfo
             // 
-            this.ParaInfo.AllowUserToAddRows = false;
-            this.ParaInfo.AllowUserToDeleteRows = false;
-            this.ParaInfo.BackgroundColor = System.Drawing.Color.White;
-            this.ParaInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.LessonsInfo.AllowUserToAddRows = false;
+            this.LessonsInfo.AllowUserToDeleteRows = false;
+            this.LessonsInfo.BackgroundColor = System.Drawing.Color.White;
+            this.LessonsInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -424,23 +425,33 @@
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.ParaInfo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.ParaInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.ParaInfo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.LessonsInfo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.LessonsInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.LessonsInfo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Monday,
             this.Tuesday,
             this.Wednesday,
             this.Thuesday,
             this.Friday});
-            this.ParaInfo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ParaInfo.Location = new System.Drawing.Point(0, 0);
-            this.ParaInfo.Name = "ParaInfo";
-            this.ParaInfo.ReadOnly = true;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ParaInfo.RowsDefaultCellStyle = dataGridViewCellStyle2;
-            this.ParaInfo.Size = new System.Drawing.Size(833, 489);
-            this.ParaInfo.TabIndex = 9;
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.LessonsInfo.DefaultCellStyle = dataGridViewCellStyle2;
+            this.LessonsInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.LessonsInfo.Location = new System.Drawing.Point(0, 0);
+            this.LessonsInfo.Name = "LessonsInfo";
+            this.LessonsInfo.ReadOnly = true;
+            this.LessonsInfo.RowHeadersWidth = 45;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.LessonsInfo.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            this.LessonsInfo.RowTemplate.Height = 50;
+            this.LessonsInfo.Size = new System.Drawing.Size(833, 489);
+            this.LessonsInfo.TabIndex = 9;
             // 
             // Monday
             // 
@@ -548,7 +559,7 @@
             this.panel2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.ParaInfo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LessonsInfo)).EndInit();
             this.panel4.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -581,7 +592,7 @@
         private System.Windows.Forms.Button button14;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panel5;
-        public System.Windows.Forms.DataGridView ParaInfo;
+        public System.Windows.Forms.DataGridView LessonsInfo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Monday;
         private System.Windows.Forms.DataGridViewTextBoxColumn Tuesday;
         private System.Windows.Forms.DataGridViewTextBoxColumn Wednesday;
