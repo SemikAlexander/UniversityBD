@@ -21,7 +21,7 @@ namespace UniversityMain
         #region Arrays
         List<Logics.MainTable.Teachers.TeachersStructure> teachersStructures = new List<Logics.MainTable.Teachers.TeachersStructure>();
         List<Logics.MainTable.Speciality.SpecialtyStructure> specialtyStructures = new List<Logics.MainTable.Speciality.SpecialtyStructure>();
-        List<Logics.MainTable.TimeTable.TimeTableStructure> timeTableStructures = new List<Logics.MainTable.TimeTable.TimeTableStructure>();
+        public List<Logics.MainTable.TimeTable.TimeTableStructure> timeTableStructures = new List<Logics.MainTable.TimeTable.TimeTableStructure>();
         #endregion
         #region Classes
         Logics.Functions.Connection.ConnectionDB connectionDB;
@@ -39,6 +39,9 @@ namespace UniversityMain
         private void Button1_Click(object sender, EventArgs e)
         {
             Close();
+            MainForm mainForm = new MainForm(connectionDB);
+            mainForm.GetArrayFromChoiseForm(timeTableStructures);
+            mainForm.Show();
         }
         private void FacultyBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -57,8 +60,7 @@ namespace UniversityMain
         {
             if (DepartmentBox.SelectedItem != null)
             {
-                MainForm mainForm = new MainForm(connectionDB);
-                mainForm.LessonsInfo.Rows.Clear();
+                TeacherBox.Items.Clear();
                 DepartmentForGetTimeTable = DepartmentBox.SelectedItem.ToString();
                 teachers.GetTeachers(FacultyForGetTimeTable, DepartmentForGetTimeTable, out teachersStructures);
                 foreach (var teach in teachersStructures)

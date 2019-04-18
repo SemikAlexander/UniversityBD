@@ -28,16 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.VerticalMenu = new System.Windows.Forms.Panel();
             this.INFO = new System.Windows.Forms.Panel();
+            this.button13 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button12 = new System.Windows.Forms.Button();
+            this.button11 = new System.Windows.Forms.Button();
+            this.button10 = new System.Windows.Forms.Button();
+            this.button9 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.timetable = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.VerticalMenuStatus = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.LessonsInfo = new System.Windows.Forms.DataGridView();
@@ -49,31 +65,15 @@
             this.panel4 = new System.Windows.Forms.Panel();
             this.button15 = new System.Windows.Forms.Button();
             this.button14 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.VerticalMenuStatus = new System.Windows.Forms.Button();
-            this.button13 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button12 = new System.Windows.Forms.Button();
-            this.button11 = new System.Windows.Forms.Button();
-            this.button10 = new System.Windows.Forms.Button();
-            this.button9 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.timetable = new System.Windows.Forms.Button();
             this.VerticalMenu.SuspendLayout();
             this.INFO.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.LessonsInfo)).BeginInit();
             this.panel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // VerticalMenu
@@ -108,242 +108,6 @@
             this.INFO.Size = new System.Drawing.Size(210, 42);
             this.INFO.TabIndex = 6;
             this.INFO.Click += new System.EventHandler(this.INFO_Click);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
-            this.label2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label2.Location = new System.Drawing.Point(57, 7);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(129, 24);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Справочники";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(66, 5);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(86, 29);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "МЕНЮ";
-            // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.DeepSkyBlue;
-            this.panel1.Controls.Add(this.panel2);
-            this.panel1.Controls.Add(this.VerticalMenuStatus);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(210, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(833, 44);
-            this.panel1.TabIndex = 3;
-            this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown_1);
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.button3);
-            this.panel2.Controls.Add(this.button2);
-            this.panel2.Controls.Add(this.button1);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel2.Location = new System.Drawing.Point(723, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(110, 44);
-            this.panel2.TabIndex = 1;
-            // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.panel5);
-            this.panel3.Controls.Add(this.panel4);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(210, 44);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(833, 526);
-            this.panel3.TabIndex = 4;
-            // 
-            // panel5
-            // 
-            this.panel5.Controls.Add(this.LessonsInfo);
-            this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel5.Location = new System.Drawing.Point(0, 0);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(833, 489);
-            this.panel5.TabIndex = 11;
-            // 
-            // LessonsInfo
-            // 
-            this.LessonsInfo.AllowUserToAddRows = false;
-            this.LessonsInfo.AllowUserToDeleteRows = false;
-            this.LessonsInfo.BackgroundColor = System.Drawing.Color.White;
-            this.LessonsInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.LessonsInfo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.LessonsInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.LessonsInfo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Monday,
-            this.Tuesday,
-            this.Wednesday,
-            this.Thuesday,
-            this.Friday});
-            this.LessonsInfo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.LessonsInfo.Location = new System.Drawing.Point(0, 0);
-            this.LessonsInfo.Name = "LessonsInfo";
-            this.LessonsInfo.ReadOnly = true;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.LessonsInfo.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.LessonsInfo.RowHeadersWidth = 45;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.LessonsInfo.RowsDefaultCellStyle = dataGridViewCellStyle3;
-            this.LessonsInfo.RowTemplate.Height = 50;
-            this.LessonsInfo.Size = new System.Drawing.Size(833, 489);
-            this.LessonsInfo.TabIndex = 9;
-            // 
-            // Monday
-            // 
-            this.Monday.HeaderText = "Понедельник";
-            this.Monday.Name = "Monday";
-            this.Monday.ReadOnly = true;
-            this.Monday.Width = 155;
-            // 
-            // Tuesday
-            // 
-            this.Tuesday.HeaderText = "Вторник";
-            this.Tuesday.Name = "Tuesday";
-            this.Tuesday.ReadOnly = true;
-            this.Tuesday.Width = 155;
-            // 
-            // Wednesday
-            // 
-            this.Wednesday.HeaderText = "Среда";
-            this.Wednesday.Name = "Wednesday";
-            this.Wednesday.ReadOnly = true;
-            this.Wednesday.Width = 155;
-            // 
-            // Thuesday
-            // 
-            this.Thuesday.HeaderText = "Четверг";
-            this.Thuesday.Name = "Thuesday";
-            this.Thuesday.ReadOnly = true;
-            this.Thuesday.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Thuesday.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Thuesday.Width = 155;
-            // 
-            // Friday
-            // 
-            this.Friday.HeaderText = "Пятница";
-            this.Friday.Name = "Friday";
-            this.Friday.ReadOnly = true;
-            this.Friday.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Friday.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Friday.Width = 155;
-            // 
-            // panel4
-            // 
-            this.panel4.Controls.Add(this.button15);
-            this.panel4.Controls.Add(this.button14);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel4.Location = new System.Drawing.Point(0, 489);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(833, 37);
-            this.panel4.TabIndex = 10;
-            // 
-            // button15
-            // 
-            this.button15.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button15.Dock = System.Windows.Forms.DockStyle.Right;
-            this.button15.FlatAppearance.BorderSize = 0;
-            this.button15.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button15.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button15.Image = global::UniversityMain.Properties.Resources.AddTimeTable;
-            this.button15.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button15.Location = new System.Drawing.Point(753, 0);
-            this.button15.Name = "button15";
-            this.button15.Size = new System.Drawing.Size(40, 37);
-            this.button15.TabIndex = 10;
-            this.button15.UseVisualStyleBackColor = true;
-            this.button15.Click += new System.EventHandler(this.Button15_Click);
-            // 
-            // button14
-            // 
-            this.button14.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button14.Dock = System.Windows.Forms.DockStyle.Right;
-            this.button14.FlatAppearance.BorderSize = 0;
-            this.button14.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button14.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button14.Image = global::UniversityMain.Properties.Resources.Settings;
-            this.button14.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button14.Location = new System.Drawing.Point(793, 0);
-            this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(40, 37);
-            this.button14.TabIndex = 9;
-            this.button14.UseVisualStyleBackColor = true;
-            this.button14.Click += new System.EventHandler(this.Button14_Click_1);
-            // 
-            // button3
-            // 
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Image = global::UniversityMain.Properties.Resources.Maximize;
-            this.button3.Location = new System.Drawing.Point(37, 8);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(30, 28);
-            this.button3.TabIndex = 5;
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click_2);
-            // 
-            // button2
-            // 
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Image = global::UniversityMain.Properties.Resources.Minimize;
-            this.button2.Location = new System.Drawing.Point(1, 8);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(30, 28);
-            this.button2.TabIndex = 4;
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click_2);
-            // 
-            // button1
-            // 
-            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Image = global::UniversityMain.Properties.Resources.close;
-            this.button1.Location = new System.Drawing.Point(73, 8);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(30, 28);
-            this.button1.TabIndex = 3;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_2);
-            // 
-            // VerticalMenuStatus
-            // 
-            this.VerticalMenuStatus.FlatAppearance.BorderSize = 0;
-            this.VerticalMenuStatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.VerticalMenuStatus.ForeColor = System.Drawing.Color.Black;
-            this.VerticalMenuStatus.Image = ((System.Drawing.Image)(resources.GetObject("VerticalMenuStatus.Image")));
-            this.VerticalMenuStatus.Location = new System.Drawing.Point(3, 3);
-            this.VerticalMenuStatus.Name = "VerticalMenuStatus";
-            this.VerticalMenuStatus.Size = new System.Drawing.Size(40, 38);
-            this.VerticalMenuStatus.TabIndex = 2;
-            this.VerticalMenuStatus.UseVisualStyleBackColor = true;
-            this.VerticalMenuStatus.Click += new System.EventHandler(this.button4_Click);
             // 
             // button13
             // 
@@ -469,6 +233,18 @@
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
+            this.label2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label2.Location = new System.Drawing.Point(57, 7);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(129, 24);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Справочники";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
+            // 
             // button7
             // 
             this.button7.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -518,6 +294,16 @@
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(66, 5);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(86, 29);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "МЕНЮ";
+            // 
             // timetable
             // 
             this.timetable.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -533,6 +319,220 @@
             this.timetable.Text = "       Переносы";
             this.timetable.UseVisualStyleBackColor = true;
             this.timetable.Click += new System.EventHandler(this.Timetable_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.DeepSkyBlue;
+            this.panel1.Controls.Add(this.panel2);
+            this.panel1.Controls.Add(this.VerticalMenuStatus);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(210, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(833, 44);
+            this.panel1.TabIndex = 3;
+            this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown_1);
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.button3);
+            this.panel2.Controls.Add(this.button2);
+            this.panel2.Controls.Add(this.button1);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel2.Location = new System.Drawing.Point(723, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(110, 44);
+            this.panel2.TabIndex = 1;
+            // 
+            // button3
+            // 
+            this.button3.FlatAppearance.BorderSize = 0;
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button3.Image = global::UniversityMain.Properties.Resources.Maximize;
+            this.button3.Location = new System.Drawing.Point(37, 8);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(30, 28);
+            this.button3.TabIndex = 5;
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click_2);
+            // 
+            // button2
+            // 
+            this.button2.FlatAppearance.BorderSize = 0;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.Image = global::UniversityMain.Properties.Resources.Minimize;
+            this.button2.Location = new System.Drawing.Point(1, 8);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(30, 28);
+            this.button2.TabIndex = 4;
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click_2);
+            // 
+            // button1
+            // 
+            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Image = global::UniversityMain.Properties.Resources.close;
+            this.button1.Location = new System.Drawing.Point(73, 8);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(30, 28);
+            this.button1.TabIndex = 3;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_2);
+            // 
+            // VerticalMenuStatus
+            // 
+            this.VerticalMenuStatus.FlatAppearance.BorderSize = 0;
+            this.VerticalMenuStatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.VerticalMenuStatus.ForeColor = System.Drawing.Color.Black;
+            this.VerticalMenuStatus.Image = ((System.Drawing.Image)(resources.GetObject("VerticalMenuStatus.Image")));
+            this.VerticalMenuStatus.Location = new System.Drawing.Point(3, 3);
+            this.VerticalMenuStatus.Name = "VerticalMenuStatus";
+            this.VerticalMenuStatus.Size = new System.Drawing.Size(40, 38);
+            this.VerticalMenuStatus.TabIndex = 2;
+            this.VerticalMenuStatus.UseVisualStyleBackColor = true;
+            this.VerticalMenuStatus.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.panel5);
+            this.panel3.Controls.Add(this.panel4);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(210, 44);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(833, 526);
+            this.panel3.TabIndex = 4;
+            // 
+            // panel5
+            // 
+            this.panel5.Controls.Add(this.LessonsInfo);
+            this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel5.Location = new System.Drawing.Point(0, 0);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(833, 489);
+            this.panel5.TabIndex = 11;
+            // 
+            // LessonsInfo
+            // 
+            this.LessonsInfo.AllowUserToAddRows = false;
+            this.LessonsInfo.AllowUserToDeleteRows = false;
+            this.LessonsInfo.BackgroundColor = System.Drawing.Color.White;
+            this.LessonsInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.LessonsInfo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.LessonsInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.LessonsInfo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Monday,
+            this.Tuesday,
+            this.Wednesday,
+            this.Thuesday,
+            this.Friday});
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.LessonsInfo.DefaultCellStyle = dataGridViewCellStyle2;
+            this.LessonsInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.LessonsInfo.Location = new System.Drawing.Point(0, 0);
+            this.LessonsInfo.Name = "LessonsInfo";
+            this.LessonsInfo.ReadOnly = true;
+            this.LessonsInfo.RowHeadersWidth = 45;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.LessonsInfo.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            this.LessonsInfo.RowTemplate.Height = 50;
+            this.LessonsInfo.Size = new System.Drawing.Size(833, 489);
+            this.LessonsInfo.TabIndex = 9;
+            // 
+            // Monday
+            // 
+            this.Monday.HeaderText = "Понедельник";
+            this.Monday.Name = "Monday";
+            this.Monday.ReadOnly = true;
+            this.Monday.Width = 155;
+            // 
+            // Tuesday
+            // 
+            this.Tuesday.HeaderText = "Вторник";
+            this.Tuesday.Name = "Tuesday";
+            this.Tuesday.ReadOnly = true;
+            this.Tuesday.Width = 155;
+            // 
+            // Wednesday
+            // 
+            this.Wednesday.HeaderText = "Среда";
+            this.Wednesday.Name = "Wednesday";
+            this.Wednesday.ReadOnly = true;
+            this.Wednesday.Width = 155;
+            // 
+            // Thuesday
+            // 
+            this.Thuesday.HeaderText = "Четверг";
+            this.Thuesday.Name = "Thuesday";
+            this.Thuesday.ReadOnly = true;
+            this.Thuesday.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Thuesday.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Thuesday.Width = 155;
+            // 
+            // Friday
+            // 
+            this.Friday.HeaderText = "Пятница";
+            this.Friday.Name = "Friday";
+            this.Friday.ReadOnly = true;
+            this.Friday.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Friday.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Friday.Width = 155;
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.button15);
+            this.panel4.Controls.Add(this.button14);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel4.Location = new System.Drawing.Point(0, 489);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(833, 37);
+            this.panel4.TabIndex = 10;
+            // 
+            // button15
+            // 
+            this.button15.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button15.Dock = System.Windows.Forms.DockStyle.Right;
+            this.button15.FlatAppearance.BorderSize = 0;
+            this.button15.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button15.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button15.Image = global::UniversityMain.Properties.Resources.AddTimeTable;
+            this.button15.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button15.Location = new System.Drawing.Point(753, 0);
+            this.button15.Name = "button15";
+            this.button15.Size = new System.Drawing.Size(40, 37);
+            this.button15.TabIndex = 10;
+            this.button15.UseVisualStyleBackColor = true;
+            this.button15.Click += new System.EventHandler(this.Button15_Click);
+            // 
+            // button14
+            // 
+            this.button14.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button14.Dock = System.Windows.Forms.DockStyle.Right;
+            this.button14.FlatAppearance.BorderSize = 0;
+            this.button14.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button14.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button14.Image = global::UniversityMain.Properties.Resources.Settings;
+            this.button14.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button14.Location = new System.Drawing.Point(793, 0);
+            this.button14.Name = "button14";
+            this.button14.Size = new System.Drawing.Size(40, 37);
+            this.button14.TabIndex = 9;
+            this.button14.UseVisualStyleBackColor = true;
+            this.button14.Click += new System.EventHandler(this.Button14_Click_1);
             // 
             // MainForm
             // 
@@ -554,13 +554,13 @@
             this.VerticalMenu.PerformLayout();
             this.INFO.ResumeLayout(false);
             this.INFO.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.LessonsInfo)).EndInit();
             this.panel4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }

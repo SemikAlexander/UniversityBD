@@ -52,7 +52,7 @@ namespace Logics.MainTable
             {
                 var conn = new NpgsqlConnection(this._connectionDB.ConnectString);
                 conn.Open();
-                using (var cmd = new NpgsqlCommand($"SELECT * FROM timetable_get('{nameFaculty}','{department}','{teacherFIO}',{((type_Week== Logics.Books.Week.Type_Week.Top)?'V' : 'N')});", conn))
+                using (var cmd = new NpgsqlCommand($"SELECT * FROM timetable_get('{nameFaculty}','{department}','{teacherFIO}','{((type_Week== Logics.Books.Week.Type_Week.Top)?'V' : 'N')}');", conn))
                 using (var reader = cmd.ExecuteReader())
                     while (reader.Read())
                     {
