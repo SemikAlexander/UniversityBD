@@ -44,21 +44,12 @@
             this.WeekDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NumLesson = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TypeLesson = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.NumPara = new System.Windows.Forms.NumericUpDown();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.StopSomithing = new System.Windows.Forms.DateTimePicker();
-            this.StartSomething = new System.Windows.Forms.DateTimePicker();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TransferInfo)).BeginInit();
-            this.panel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NumPara)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -134,7 +125,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(0, 44);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1038, 285);
+            this.panel3.Size = new System.Drawing.Size(1038, 242);
             this.panel3.TabIndex = 6;
             // 
             // TransferInfo
@@ -160,14 +151,13 @@
             this.NumLesson,
             this.TypeLesson,
             this.ID});
-            this.TransferInfo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TransferInfo.Location = new System.Drawing.Point(0, 0);
             this.TransferInfo.Name = "TransferInfo";
             this.TransferInfo.ReadOnly = true;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.TransferInfo.RowsDefaultCellStyle = dataGridViewCellStyle2;
-            this.TransferInfo.Size = new System.Drawing.Size(1038, 285);
+            this.TransferInfo.Size = new System.Drawing.Size(1038, 242);
             this.TransferInfo.TabIndex = 11;
             this.TransferInfo.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.TransferInfo_CellContentDoubleClick);
             // 
@@ -212,91 +202,6 @@
             this.TypeLesson.ReadOnly = true;
             this.TypeLesson.Width = 135;
             // 
-            // panel4
-            // 
-            this.panel4.Controls.Add(this.NumPara);
-            this.panel4.Controls.Add(this.label2);
-            this.panel4.Controls.Add(this.label16);
-            this.panel4.Controls.Add(this.label15);
-            this.panel4.Controls.Add(this.StopSomithing);
-            this.panel4.Controls.Add(this.StartSomething);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel4.Location = new System.Drawing.Point(0, 330);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1038, 95);
-            this.panel4.TabIndex = 7;
-            // 
-            // NumPara
-            // 
-            this.NumPara.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.NumPara.Location = new System.Drawing.Point(105, 10);
-            this.NumPara.Maximum = new decimal(new int[] {
-            8,
-            0,
-            0,
-            0});
-            this.NumPara.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.NumPara.Name = "NumPara";
-            this.NumPara.Size = new System.Drawing.Size(88, 22);
-            this.NumPara.TabIndex = 39;
-            this.NumPara.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.label2.Location = new System.Drawing.Point(12, 12);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(87, 16);
-            this.label2.TabIndex = 38;
-            this.label2.Text = "Номер пары";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label16.Location = new System.Drawing.Point(51, 71);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(48, 16);
-            this.label16.TabIndex = 43;
-            this.label16.Text = "Конец";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label15.Location = new System.Drawing.Point(41, 43);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(58, 16);
-            this.label15.TabIndex = 42;
-            this.label15.Text = "Начало";
-            // 
-            // StopSomithing
-            // 
-            this.StopSomithing.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.StopSomithing.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.StopSomithing.Location = new System.Drawing.Point(105, 66);
-            this.StopSomithing.Name = "StopSomithing";
-            this.StopSomithing.Size = new System.Drawing.Size(86, 22);
-            this.StopSomithing.TabIndex = 41;
-            // 
-            // StartSomething
-            // 
-            this.StartSomething.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.StartSomething.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.StartSomething.Location = new System.Drawing.Point(105, 38);
-            this.StartSomething.Name = "StartSomething";
-            this.StartSomething.Size = new System.Drawing.Size(86, 22);
-            this.StartSomething.TabIndex = 40;
-            // 
             // ID
             // 
             this.ID.HeaderText = "КОД";
@@ -308,8 +213,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1038, 425);
-            this.Controls.Add(this.panel4);
+            this.ClientSize = new System.Drawing.Size(1038, 285);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -323,9 +227,6 @@
             this.panel2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.TransferInfo)).EndInit();
-            this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NumPara)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -346,13 +247,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn WeekDay;
         private System.Windows.Forms.DataGridViewTextBoxColumn NumLesson;
         private System.Windows.Forms.DataGridViewTextBoxColumn TypeLesson;
-        private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.NumericUpDown NumPara;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.DateTimePicker StopSomithing;
-        private System.Windows.Forms.DateTimePicker StartSomething;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
     }
 }

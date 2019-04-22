@@ -24,15 +24,15 @@ namespace UniversityMain
         Logics.Functions.Connection.ConnectionDB connectionDB;
         Logics.MainTable.Transfers transfers;
         #endregion
-        string workWithForm = "", faculty = "", department = "", nameTeacher = "";
-        public TransferPara(Logics.Functions.Connection.ConnectionDB connection, string TypeForm, int IDLesson, string NameTeacher, string NameFaculty, string NameDepartment)
+        string faculty = "", department = "", nameTeacher = "";
+        public TransferPara(Logics.Functions.Connection.ConnectionDB connection, int IDLesson, string NameTeacher, string NameFaculty, string NameDepartment)
         {
-            workWithForm = TypeForm;
             transfers = new Logics.MainTable.Transfers(connection);
             connectionDB = connection;
             nameTeacher = NameTeacher;
             faculty = NameFaculty;
             department = NameDepartment;
+            transfers.GetTransfers(faculty, department, nameTeacher, out transfersStructs);
             InitializeComponent();
         }
         private void Panel1_MouseDown(object sender, MouseEventArgs e)
@@ -43,6 +43,9 @@ namespace UniversityMain
         private void TransferInfo_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             int IDForDelete = (int)TransferInfo.CurrentRow.Cells[6].Value;
+            for(int i = 0; i < transfersStructs.Count; i++)
+                if (transfersStructs[i].tm.id == IDForDelete)
+                    transfers.delete_transfer(IDForDelete, transfersStructs[i].date_from, transfersStructs[i].date_to, transfersStructs[i].tm.num_para);
         }
         private void Button2_Click(object sender, EventArgs e)
         {
@@ -55,11 +58,6 @@ namespace UniversityMain
         }
         private void TransferPara_Load(object sender, EventArgs e)
         {
-            switch (workWithForm)
-            {
-                case "Get": panel4.Visible = false; break;
-            }
-            transfers.GetTransfers(faculty, department, nameTeacher, out transfersStructs);
             for(int i = 0; i < transfersStructs.Count; i++)
                 TransferInfo.Rows.Add(transfersStructs[i].tm.teachersStructures[i].name_teacher, transfersStructs[i].tm.Discipline.name, transfersStructs[i].tm.groupsStructures[i].name_speciality, transfersStructs[i].tm.week.name_day, transfersStructs[i].tm.num_para, transfersStructs[i].tm.typeSubject.name, transfersStructs[i].tm.id);
         }

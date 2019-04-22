@@ -144,6 +144,12 @@
     <Compile Include="TransferPara.Designer.cs">
       <DependentUpon>TransferPara.cs</DependentUpon>
     </Compile>
+    <Compile Include="TransferSet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TransferSet.Designer.cs">
+      <DependentUpon>TransferSet.cs</DependentUpon>
+    </Compile>
     <Compile Include="TypeSubject.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -213,6 +219,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TransferPara.resx">
       <DependentUpon>TransferPara.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TransferSet.resx">
+      <DependentUpon>TransferSet.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TypeSubject.resx">
       <DependentUpon>TypeSubject.cs</DependentUpon>
