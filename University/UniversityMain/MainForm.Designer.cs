@@ -63,6 +63,7 @@
             this.Thuesday = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Friday = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.NameTeacherForOutput = new System.Windows.Forms.Label();
             this.button15 = new System.Windows.Forms.Button();
             this.button14 = new System.Windows.Forms.Button();
             this.VerticalMenu.SuspendLayout();
@@ -452,6 +453,7 @@
             this.LessonsInfo.RowTemplate.Height = 50;
             this.LessonsInfo.Size = new System.Drawing.Size(833, 489);
             this.LessonsInfo.TabIndex = 9;
+            this.LessonsInfo.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.LessonsInfo_CellContentDoubleClick);
             // 
             // Monday
             // 
@@ -494,6 +496,7 @@
             // 
             // panel4
             // 
+            this.panel4.Controls.Add(this.NameTeacherForOutput);
             this.panel4.Controls.Add(this.button15);
             this.panel4.Controls.Add(this.button14);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -501,6 +504,14 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(833, 37);
             this.panel4.TabIndex = 10;
+            // 
+            // NameTeacherForOutput
+            // 
+            this.NameTeacherForOutput.AutoSize = true;
+            this.NameTeacherForOutput.Location = new System.Drawing.Point(6, 12);
+            this.NameTeacherForOutput.Name = "NameTeacherForOutput";
+            this.NameTeacherForOutput.Size = new System.Drawing.Size(0, 16);
+            this.NameTeacherForOutput.TabIndex = 10;
             // 
             // button15
             // 
@@ -561,6 +572,7 @@
             this.panel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.LessonsInfo)).EndInit();
             this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -599,5 +611,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Thuesday;
         private System.Windows.Forms.DataGridViewTextBoxColumn Friday;
         private System.Windows.Forms.Button button15;
+        private System.Windows.Forms.Label NameTeacherForOutput;
     }
 }

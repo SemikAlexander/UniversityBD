@@ -70,12 +70,6 @@
     <Compile Include="ChoiseFaculty_Department_Teacher.Designer.cs">
       <DependentUpon>ChoiseFaculty_Department_Teacher.cs</DependentUpon>
     </Compile>
-    <Compile Include="ChoiseForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ChoiseForm.Designer.cs">
-      <DependentUpon>ChoiseForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Classroom.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -150,6 +144,12 @@
     <Compile Include="TransferPara.Designer.cs">
       <DependentUpon>TransferPara.cs</DependentUpon>
     </Compile>
+    <Compile Include="TransferSet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TransferSet.Designer.cs">
+      <DependentUpon>TransferSet.cs</DependentUpon>
+    </Compile>
     <Compile Include="TypeSubject.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -173,9 +173,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ChoiseFaculty_Department_Teacher.resx">
       <DependentUpon>ChoiseFaculty_Department_Teacher.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ChoiseForm.resx">
-      <DependentUpon>ChoiseForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Classroom.resx">
       <DependentUpon>Classroom.cs</DependentUpon>
@@ -222,6 +219,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TransferPara.resx">
       <DependentUpon>TransferPara.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TransferSet.resx">
+      <DependentUpon>TransferSet.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TypeSubject.resx">
       <DependentUpon>TypeSubject.cs</DependentUpon>

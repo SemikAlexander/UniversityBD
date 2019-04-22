@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Windows.Input;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -19,6 +20,7 @@ namespace UniversityMain
         bool WindowMaximize = true;
         int HeightPanel = 455;
         ChoiseFaculty_Department_Teacher choiseFaculty_Department_Teacher;
+        ForTransfer forTransfer;
         public List<Logics.MainTable.TimeTable.TimeTableStructure> tableStructures = new List<Logics.MainTable.TimeTable.TimeTableStructure>();
         Logics.Functions.Connection.ConnectionDB connectionDB;
         List<NumOfWeekDayForOutputInTable> arrayNumOfWeekDayForOutputInTable = new List<NumOfWeekDayForOutputInTable>();
@@ -209,19 +211,44 @@ namespace UniversityMain
                     LessonsInfo.Rows.Add();
                     LessonsInfo.Rows[i].HeaderCell.Value = (i + 1).ToString();
                 }
-                for (int i = 0; i < timeTableStructures.Count; i++)
+                int IDForOutput = timeTableStructures[0].id, num_para, num_day_week;
+                string GroupsOnLesson = "", addRecordInTable = "";
+                for (int i = 0; i <= timeTableStructures.Count; i++)
                 {
-                    int num_para = timeTableStructures[i].num_para - 1, num_day_week = GetNumOfWeekDayForOutputTable(timeTableStructures[i].week.name_day);
-                    string addRecordInTable = "";
-                    addRecordInTable += timeTableStructures[0].groupsStructures[0].name_speciality + timeTableStructures[0].groupsStructures[0].YearCreate.ToString()[timeTableStructures[0].groupsStructures[0].YearCreate.ToString().Length - 2] + timeTableStructures[0].groupsStructures[0].YearCreate.ToString()[timeTableStructures[0].groupsStructures[0].YearCreate.ToString().Length - 1] + timeTableStructures[0].groupsStructures[0].Subname + "\r\n" + timeTableStructures[0].classroom.Housing.ToString() + "." + timeTableStructures[0].classroom.Number_Class.ToString() + " (" + timeTableStructures[0].typeSubject.name + ")";
+                    try
+                    {
+                        if (timeTableStructures[i].id == IDForOutput)
+                        {
+                            GroupsOnLesson += timeTableStructures[i].groupsStructures[0].name_speciality + " " + timeTableStructures[i].groupsStructures[0].YearCreate.ToString()[timeTableStructures[i].groupsStructures[0].YearCreate.ToString().Length - 2] + timeTableStructures[i].groupsStructures[0].YearCreate.ToString()[timeTableStructures[i].groupsStructures[0].YearCreate.ToString().Length - 1] + " " + timeTableStructures[i].groupsStructures[0].Subname + ", ";
+                            continue;
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        addRecordInTable = GroupsOnLesson + "\r\n" + timeTableStructures[i - 1].classroom.Housing.ToString() + "." + timeTableStructures[i - 1].classroom.Number_Class.ToString() + " (" + timeTableStructures[i - 1].typeSubject.name + ")";
+                        num_para = timeTableStructures[i - 1].num_para - 1;
+                        num_day_week = GetNumOfWeekDayForOutputTable(timeTableStructures[i - 1].week.name_day);
+                        LessonsInfo.Rows[num_para].Cells[num_day_week].Value = addRecordInTable;
+                        break;
+                    }
+                    addRecordInTable = GroupsOnLesson + "\r\n" + timeTableStructures[i - 1].classroom.Housing.ToString() + "." + timeTableStructures[i - 1].classroom.Number_Class.ToString() + " (" + timeTableStructures[i - 1].typeSubject.name + ")";
+                    num_para = timeTableStructures[i - 1].num_para - 1;
+                    num_day_week = GetNumOfWeekDayForOutputTable(timeTableStructures[i - 1].week.name_day);
                     LessonsInfo.Rows[num_para].Cells[num_day_week].Value = addRecordInTable;
+                    IDForOutput = timeTableStructures[i].id;
+                    i -= 1;
+                    GroupsOnLesson = ""; addRecordInTable = "";                
                 }
             }
         }
-        public void GetArrayFromChoiseForm(List<Logics.MainTable.TimeTable.TimeTableStructure> timeTableStructures)
+        public void GetArrayFromChoiseForm(List<Logics.MainTable.TimeTable.TimeTableStructure> timeTableStructures, string NameTeacher, string NameFaculty, string NameDepartment)
         {
             foreach (var TTS in timeTableStructures)
                 tableStructures.Add(TTS);
+            NameTeacherForOutput.Text = NameTeacher;
+            forTransfer.NameTeacher = NameTeacher;
+            forTransfer.NameFaculty = NameFaculty;
+            forTransfer.NameDepartment = NameDepartment;
         }
         int GetNumOfWeekDayForOutputTable(string NameDayWeek)
         {
@@ -232,9 +259,11 @@ namespace UniversityMain
         }
         private void Timetable_Click(object sender, EventArgs e)
         {
-            /*Проверка прав доступа. Если есть на добавление и изменение - отображаем форму, а если только на просмотр - загрузить форму с переносами на просмотр*/
-            new ChoiseForm(connectionDB).Show();
-            Close();
+            if (forTransfer.NameTeacher != "")
+            {
+                Close();
+                new TransferPara(connectionDB, -1, forTransfer.NameTeacher, forTransfer.NameFaculty, forTransfer.NameDepartment).Show();
+            }
         }
         #region SomeStuctForOutput
         public struct NumOfWeekDayForOutputInTable
@@ -242,6 +271,29 @@ namespace UniversityMain
             public string NameWeek;
             public int NumDay;  /*Start with 0*/
         }
+        public struct ForTransfer
+        {
+            public string NameFaculty, NameDepartment, NameTeacher;
+        }
         #endregion
+        private void LessonsInfo_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int ID = 0;
+            DialogResult result = MessageBox.Show("Вы хотите перенести пару?", "Перенос", MessageBoxButtons.YesNo);
+            String[] words = LessonsInfo.CurrentRow.Cells[e.ColumnIndex].Value.ToString().Split(new char[] { ',', ' ', '.', '(', ')', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            for (int i = 0; i < tableStructures.Count; i++)
+            {
+                if (tableStructures[i].groupsStructures[0].name_speciality == words[0])
+                    if (tableStructures[i].groupsStructures[0].YearCreate.ToString()[tableStructures[i].groupsStructures[0].YearCreate.ToString().Length - 2] + tableStructures[i].groupsStructures[0].YearCreate.ToString()[tableStructures[i].groupsStructures[0].YearCreate.ToString().Length - 1].ToString() == words[1])
+                        if (tableStructures[i].classroom.Housing.ToString() == words[words.Length - 3])
+                            if (tableStructures[i].classroom.Number_Class.ToString() == words[words.Length - 2])
+                            {
+                                ID = tableStructures[i].id;
+                                break;
+                            }
+            }
+            if (result == DialogResult.Yes)
+                new TransferSet(connectionDB, ID).Show();    /*IDLesson*/
+        }
     }
 }

@@ -24,7 +24,7 @@ namespace UniversityMain
         private extern static void SendMessage(System.IntPtr hwnd, int wmsg, int wparam, int lparam);
         Logics.MainTable.Teachers teachers;
         Teachers teachersDisc;
-        string facultyName, departmentName, Name;
+        string facultyName, departmentName;
         bool addForm;
         public ChoiseDiscipline(Logics.Functions.Connection.ConnectionDB connection, string faculty, string department, bool add, string NameTeacher)
         {
