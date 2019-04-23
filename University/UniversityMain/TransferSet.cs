@@ -66,5 +66,15 @@ namespace UniversityMain
                 Close();
             }
         }
+        private void TransferSet_Load(object sender, EventArgs e)
+        {
+            foreach (var access in connectionDB.Accesses)
+            {
+                switch (access)
+                {
+                    case Logics.Functions.Connection.ConnectionDB.function_access.add_transfer: AddParaInTimeTable.Visible = true; break;
+                }
+            }
+        }
     }
 }

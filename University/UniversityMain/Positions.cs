@@ -19,6 +19,7 @@ namespace UniversityMain
         private extern static void SendMessage(System.IntPtr hwnd, int wmsg, int wparam, int lparam);
         List<Logics.Books.Position.StructPosition> structPositions = new List<Logics.Books.Position.StructPosition>();
         Logics.Functions.Connection.ConnectionDB connectionDB;
+        bool edit_data = false;
         Logics.Books.Position position;
         public Positions(Logics.Functions.Connection.ConnectionDB connection)
         {
@@ -29,17 +30,26 @@ namespace UniversityMain
 
         private void Positions_Load(object sender, EventArgs e)
         {
-            try
+            foreach (var access in connectionDB.Accesses)
             {
-                position.GetAllPositions(out structPositions);
-                foreach (var pos in structPositions)
-                    PositionInfo.Rows.Add(pos.id, pos.name);
-            }
-            catch (Exception)
-            {
-                MessageBox.Show(position.exception, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Close();
-                new MainForm(connectionDB).Show();
+                switch (access)
+                {
+                    case Logics.Functions.Connection.ConnectionDB.function_access.position_add: panel3.Visible = true; edit_data = true; break;
+                    case Logics.Functions.Connection.ConnectionDB.function_access.position_get_all:
+                        try
+                        {
+                            position.GetAllPositions(out structPositions);
+                            foreach (var pos in structPositions)
+                                PositionInfo.Rows.Add(pos.id, pos.name);
+                        }
+                        catch (Exception)
+                        {
+                            MessageBox.Show(position.exception, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            Close();
+                            new MainForm(connectionDB).Show();
+                        }
+                        break;
+                }
             }
         }
         private void panel1_MouseDown(object sender, MouseEventArgs e)
@@ -79,7 +89,7 @@ namespace UniversityMain
         private void PositionInfo_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var senderGrid = (DataGridView)sender;
-            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn & senderGrid.Columns[e.ColumnIndex].Name == "DeletePosition" && e.RowIndex >= 0)
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn & senderGrid.Columns[e.ColumnIndex].Name == "DeletePosition" && e.RowIndex >= 0 & edit_data == true)
             {
                 int ID_Delete = (int)PositionInfo.Rows[e.RowIndex].Cells[0].Value;
                 position.DeletePosition(ID_Delete);

@@ -18,6 +18,7 @@ namespace UniversityMain
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
         private extern static void SendMessage(System.IntPtr hwnd, int wmsg, int wparam, int lparam);
         Logics.Functions.Connection.ConnectionDB connectionDB;
+        bool edit_data = false;
         public FacultyForm(Logics.Functions.Connection.ConnectionDB connection)
         {
             InitializeComponent();
@@ -41,18 +42,26 @@ namespace UniversityMain
         #endregion
         private void FacultyForm_Load(object sender, EventArgs e)
         {
-            /*Проверка на права тут должна быть!*/
-            List<Logics.Books.Faculty.StructFaculty> structFaculties = new List<Logics.Books.Faculty.StructFaculty>();
-            Logics.Books.Faculty faculty = new Logics.Books.Faculty(connectionDB);
-            if(faculty.GetAllFaculty(out structFaculties))
+            foreach (var access in connectionDB.Accesses)
             {
-                for (int i = 0; i < structFaculties.Count; i++)
-                    FacultyInfo.Rows.Add(structFaculties[i].id, structFaculties[i].Name, structFaculties[i].logo);
-            }
-            else
-            {
-                MessageBox.Show(faculty.exception, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                switch (access)
+                {
+                    case Logics.Functions.Connection.ConnectionDB.function_access.faculty_add: panel3.Visible = true; edit_data = true; break;
+                    case Logics.Functions.Connection.ConnectionDB.function_access.faculty_get_all:
+                        List<Logics.Books.Faculty.StructFaculty> structFaculties = new List<Logics.Books.Faculty.StructFaculty>();
+                        Logics.Books.Faculty faculty = new Logics.Books.Faculty(connectionDB);
+                        if (faculty.GetAllFaculty(out structFaculties))
+                        {
+                            for (int i = 0; i < structFaculties.Count; i++)
+                                FacultyInfo.Rows.Add(structFaculties[i].id, structFaculties[i].Name, structFaculties[i].logo);
+                        }
+                        else
+                        {
+                            MessageBox.Show(faculty.exception, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        break;
+                }
             }
         }
         private void button3_Click(object sender, EventArgs e)
@@ -111,7 +120,7 @@ namespace UniversityMain
         {
             var senderGrid = (DataGridView)sender;
 
-            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn & senderGrid.Columns[e.ColumnIndex].Name == "DeleteFaculty" & e.RowIndex >= 0)
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn & senderGrid.Columns[e.ColumnIndex].Name == "DeleteFaculty" & e.RowIndex >= 0 & edit_data == true)
             {
                 Logics.Books.Faculty.StructFaculty structFaculty;
                 structFaculty.id = (int)FacultyInfo.Rows[e.RowIndex].Cells[0].Value;

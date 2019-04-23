@@ -17,6 +17,7 @@ namespace UniversityMain
         private extern static void ReleaseCapture();
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
         private extern static void SendMessage(System.IntPtr hwnd, int wmsg, int wparam, int lparam);
+        bool edit_data = false;
         List<Logics.Books.Discipline.StructDiscipline> structDisciplines = new List<Logics.Books.Discipline.StructDiscipline>();
         Logics.Functions.Connection.ConnectionDB connectionDB;
         Logics.Books.Discipline discipline;
@@ -70,11 +71,21 @@ namespace UniversityMain
         }
         private void Discipline_Load(object sender, EventArgs e)
         {
-            Logics.Books.Faculty faculty = new Logics.Books.Faculty(connectionDB);
-            List<Logics.Books.Faculty.StructFaculty> structFaculties = new List<Logics.Books.Faculty.StructFaculty>();
-            faculty.GetAllFaculty(out structFaculties);
-            foreach(var faculties in structFaculties)
-                FacultyBox.Items.Add(faculties.Name);
+            foreach (var access in connectionDB.Accesses)
+            {
+                switch (access)
+                {
+                    case Logics.Functions.Connection.ConnectionDB.function_access.discipline_get_all:
+                        Logics.Books.Faculty faculty = new Logics.Books.Faculty(connectionDB);
+                        List<Logics.Books.Faculty.StructFaculty> structFaculties = new List<Logics.Books.Faculty.StructFaculty>();
+                        faculty.GetAllFaculty(out structFaculties);
+                        foreach (var faculties in structFaculties)
+                            FacultyBox.Items.Add(faculties.Name);
+                        break;
+                    case Logics.Functions.Connection.ConnectionDB.function_access.discipline_add: panel3.Visible = true; edit_data = true; break;
+                }
+            }
+            
         }
         private void button4_Click(object sender, EventArgs e)
         {
@@ -98,7 +109,7 @@ namespace UniversityMain
         private void DisciplineInfo_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var senderGrid = (DataGridView)sender;
-            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn & senderGrid.Columns[e.ColumnIndex].Name== "DeleteDiscipline" && e.RowIndex >= 0)
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn & senderGrid.Columns[e.ColumnIndex].Name== "DeleteDiscipline" && e.RowIndex >= 0 & edit_data == true)
             {
                 int ID_Delete = (int)DisciplineInfo.Rows[e.RowIndex].Cells[0].Value;
                 StartRow = 0;
