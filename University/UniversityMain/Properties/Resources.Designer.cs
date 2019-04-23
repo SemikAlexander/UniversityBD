@@ -273,6 +273,16 @@ namespace UniversityMain.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap GetTimeTableForTeacher {
+            get {
+                object obj = ResourceManager.GetObject("GetTimeTableForTeacher", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Groups {
             get {
                 object obj = ResourceManager.GetObject("Groups", resourceCulture);
