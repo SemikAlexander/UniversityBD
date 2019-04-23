@@ -76,7 +76,6 @@ namespace Logics.Functions.Connection
             teachersdelete_all_discipline,
             timetable_get,
             get_transfers
-
         };
         /// <summary>
         /// доступ, который есть у пользователя
