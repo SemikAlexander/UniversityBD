@@ -23,7 +23,8 @@ namespace UniversityMain
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
         private extern static void SendMessage(System.IntPtr hwnd, int wmsg, int wparam, int lparam);
         Logics.MainTable.Teachers teachers;
-        string facultyName, departmentName, Name;
+        Teachers teachersDisc;
+        string facultyName, departmentName;
         bool addForm;
         public ChoiseDiscipline(Logics.Functions.Connection.ConnectionDB connection, string faculty, string department, bool add, string NameTeacher)
         {
@@ -35,9 +36,11 @@ namespace UniversityMain
             addForm = add;
             Name = NameTeacher;
             teachers = new Logics.MainTable.Teachers(connection);
+            teachersDisc = new Teachers(connection);
         }
         private void button1_Click(object sender, EventArgs e)
         {
+            teachersDisc.GetArrayFromChoiseDiscipline(disciplineForTeacher);
             Close();
         }
         private void UpButton_Click(object sender, EventArgs e)
@@ -69,7 +72,6 @@ namespace UniversityMain
             ReleaseCapture();
             SendMessage(Handle, 0x112, 0xf012, 0);
         }
-
         private void DisciplineInfo_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
             var senderGrid = (DataGridView)sender;

@@ -22,6 +22,7 @@ namespace UniversityMain
         ChoiseDiscipline choiseDiscipline;
         Logics.Functions.Connection.ConnectionDB connectionDB;
         Logics.MainTable.Teachers.TeachersStructure structure;
+        bool edit_data = false;
         List<Logics.MainTable.Teachers.TeachersStructure> teachersStructures = new List<Logics.MainTable.Teachers.TeachersStructure>();
         public Teachers(Logics.Functions.Connection.ConnectionDB connection)
         {
@@ -47,19 +48,28 @@ namespace UniversityMain
         #endregion
         private void Teachers_Load(object sender, EventArgs e)
         {
-            Logics.Books.Faculty faculty = new Logics.Books.Faculty(connectionDB);
-            List<Logics.Books.Faculty.StructFaculty> structFaculties = new List<Logics.Books.Faculty.StructFaculty>();
-            faculty.GetAllFaculty(out structFaculties);
-            foreach (var fac in structFaculties)
+            foreach (var access in connectionDB.Accesses)
             {
-                FacultyBox.Items.Add(fac.Name);
-                FacultyInputBox.Items.Add(fac.Name);
+                switch (access)
+                {
+                    case Logics.Functions.Connection.ConnectionDB.function_access.teachers_add: panel3.Visible = true; edit_data = true; break;
+                    case Logics.Functions.Connection.ConnectionDB.function_access.getallteachers:
+                        Logics.Books.Faculty faculty = new Logics.Books.Faculty(connectionDB);
+                        List<Logics.Books.Faculty.StructFaculty> structFaculties = new List<Logics.Books.Faculty.StructFaculty>();
+                        faculty.GetAllFaculty(out structFaculties);
+                        foreach (var fac in structFaculties)
+                        {
+                            FacultyBox.Items.Add(fac.Name);
+                            FacultyInputBox.Items.Add(fac.Name);
+                        }
+                        List<Logics.Books.Position.StructPosition> structPositions = new List<Logics.Books.Position.StructPosition>();
+                        Logics.Books.Position position = new Logics.Books.Position(connectionDB);
+                        position.GetAllPositions(out structPositions);
+                        foreach (var pos in structPositions)
+                            PositionBox.Items.Add(pos.name);
+                        break;
+                }
             }
-            List<Logics.Books.Position.StructPosition> structPositions = new List<Logics.Books.Position.StructPosition>();
-            Logics.Books.Position position = new Logics.Books.Position(connectionDB);
-            position.GetAllPositions(out structPositions);
-            foreach (var pos in structPositions)
-                PositionBox.Items.Add(pos.name);
         }
         private void faculty_choise_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -86,7 +96,7 @@ namespace UniversityMain
         private void TeacherInfo_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var senderGrid = (DataGridView)sender;
-            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn & senderGrid.Columns[e.ColumnIndex].Name == "DeleteTeacher" && e.RowIndex >= 0)
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn & senderGrid.Columns[e.ColumnIndex].Name == "DeleteTeacher" && e.RowIndex >= 0 & edit_data == true)
             {
                 string NameTeacher = (string)TeacherInfo.Rows[e.RowIndex].Cells[0].Value;
                 teachers.Delete(DepartmentBox.SelectedItem.ToString(), FacultyBox.SelectedItem.ToString(), NameTeacher);
@@ -106,12 +116,12 @@ namespace UniversityMain
         }
         private void button5_Click(object sender, EventArgs e)
         {
-            if(textBox3.Text.Length!=0 & InputRating.Text.Length!=0 & FacultyInputBox.SelectedItem!=null & DepartmentInputBox.SelectedItem!=null & textBox1.Text.Length!=0 & EmailTeacher.Text.Length!=0 & PositionBox.SelectedItem != null)
+            if(textBox3.Text.Length!=0 & InputRating.Text.Length!=0 & FacultyInputBox.SelectedItem!=null & DepartmentInputBox.SelectedItem!=null & NameTeacher.Text.Length!=0 & EmailTeacher.Text.Length!=0 & PositionBox.SelectedItem != null)
             {
 
                 if (IsValidEmail(EmailTeacher.Text))
                 {
-                    structure.nameteacher = textBox1.Text;
+                    structure.nameteacher = NameTeacher.Text;
                     structure.nameposition = PositionBox.SelectedItem.ToString();
                     structure.emaildata = EmailTeacher.Text;
                     structure.rating = float.Parse(InputRating.Text);
@@ -121,12 +131,12 @@ namespace UniversityMain
                         if (choiseDiscipline.disciplineForTeacher.Count > 0)
                         {
                             foreach (var dis in choiseDiscipline.disciplineForTeacher)
-                                teachers.AddTeacherDiscipline(DepartmentInputBox.SelectedItem.ToString(), FacultyInputBox.SelectedItem.ToString(), textBox1.Text, dis);
+                                teachers.AddTeacherDiscipline(DepartmentInputBox.SelectedItem.ToString(), FacultyInputBox.SelectedItem.ToString(), NameTeacher.Text, dis);
                             textBox3.Clear();
                             InputRating.Clear();
                             FacultyInputBox.SelectedItem = null;
                             DepartmentInputBox.SelectedItem = null;
-                            textBox1.Clear();
+                            NameTeacher.Clear();
                             EmailTeacher.Clear();
                             PositionBox.SelectedItem = null;
                             TeacherInfo.Rows.Clear();
@@ -192,11 +202,16 @@ namespace UniversityMain
         }
         private void button3_Click(object sender, EventArgs e)
         {
-            if (FacultyInputBox.SelectedItem!=null & DepartmentInputBox.SelectedItem!=null)
+            if (FacultyInputBox.SelectedItem != null & DepartmentInputBox.SelectedItem != null)
             {
-                 choiseDiscipline = new ChoiseDiscipline(connectionDB, FacultyInputBox.SelectedItem.ToString(), DepartmentInputBox.SelectedItem.ToString(), true, null);
+                choiseDiscipline = new ChoiseDiscipline(connectionDB, FacultyInputBox.SelectedItem.ToString(), DepartmentInputBox.SelectedItem.ToString(), true, NameTeacher.Text);
                 choiseDiscipline.ShowDialog();
             }
+        }
+        public void GetArrayFromChoiseDiscipline(List<string> SetTeacherDiscipline)
+        {
+            foreach (var disc in SetTeacherDiscipline)
+                teacherDiscipline.Add(disc);
         }
     }
 }

@@ -42,6 +42,8 @@
             this.DeleteSubject = new System.Windows.Forms.DataGridViewButtonColumn();
             this.EditSubject = new System.Windows.Forms.DataGridViewButtonColumn();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.TypeSub = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.InputSubject = new System.Windows.Forms.TextBox();
@@ -78,10 +80,10 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label4.Location = new System.Drawing.Point(77, 12);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(103, 21);
+            this.label4.Size = new System.Drawing.Size(102, 20);
             this.label4.TabIndex = 14;
             this.label4.Text = "Тип занятий";
             // 
@@ -127,7 +129,7 @@
             this.SubjectInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -143,7 +145,7 @@
             this.SubjectInfo.Name = "SubjectInfo";
             this.SubjectInfo.ReadOnly = true;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.SubjectInfo.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.SubjectInfo.Size = new System.Drawing.Size(416, 287);
             this.SubjectInfo.TabIndex = 4;
@@ -181,24 +183,49 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.TypeSub);
+            this.panel3.Controls.Add(this.label2);
             this.panel3.Controls.Add(this.button4);
             this.panel3.Controls.Add(this.label1);
             this.panel3.Controls.Add(this.InputSubject);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(0, 335);
+            this.panel3.Location = new System.Drawing.Point(0, 339);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(416, 53);
+            this.panel3.Size = new System.Drawing.Size(416, 73);
             this.panel3.TabIndex = 5;
+            this.panel3.Visible = false;
+            // 
+            // TypeSub
+            // 
+            this.TypeSub.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
+            this.TypeSub.FormattingEnabled = true;
+            this.TypeSub.Items.AddRange(new object[] {
+            "Сессия",
+            "Обучение"});
+            this.TypeSub.Location = new System.Drawing.Point(104, 38);
+            this.TypeSub.Name = "TypeSub";
+            this.TypeSub.Size = new System.Drawing.Size(244, 26);
+            this.TypeSub.TabIndex = 14;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.Location = new System.Drawing.Point(11, 41);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(87, 18);
+            this.label2.TabIndex = 13;
+            this.label2.Text = "Отношение";
             // 
             // button4
             // 
             this.button4.FlatAppearance.BorderSize = 0;
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button4.Image = global::UniversityMain.Properties.Resources.OK;
             this.button4.Location = new System.Drawing.Point(354, 8);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(50, 26);
+            this.button4.Size = new System.Drawing.Size(50, 54);
             this.button4.TabIndex = 11;
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
@@ -206,26 +233,26 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.Location = new System.Drawing.Point(11, 11);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(80, 20);
+            this.label1.Size = new System.Drawing.Size(75, 18);
             this.label1.TabIndex = 8;
             this.label1.Text = "Название";
             // 
             // InputSubject
             // 
-            this.InputSubject.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.InputSubject.Location = new System.Drawing.Point(97, 8);
+            this.InputSubject.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.InputSubject.Location = new System.Drawing.Point(104, 8);
             this.InputSubject.Name = "InputSubject";
-            this.InputSubject.Size = new System.Drawing.Size(236, 26);
+            this.InputSubject.Size = new System.Drawing.Size(244, 24);
             this.InputSubject.TabIndex = 7;
             // 
             // TypeSubject
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(416, 388);
+            this.ClientSize = new System.Drawing.Size(416, 412);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.SubjectInfo);
             this.Controls.Add(this.panel1);
@@ -261,5 +288,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn NameSubject;
         private System.Windows.Forms.DataGridViewButtonColumn DeleteSubject;
         private System.Windows.Forms.DataGridViewButtonColumn EditSubject;
+        private System.Windows.Forms.ComboBox TypeSub;
+        private System.Windows.Forms.Label label2;
     }
 }

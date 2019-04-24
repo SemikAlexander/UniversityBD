@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddPara.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddPara.Designer.cs">
+      <DependentUpon>AddPara.cs</DependentUpon>
+    </Compile>
     <Compile Include="Authorization.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -57,6 +63,12 @@
     </Compile>
     <Compile Include="ChoiseDiscipline.Designer.cs">
       <DependentUpon>ChoiseDiscipline.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ChoiseFaculty_Department_Teacher.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChoiseFaculty_Department_Teacher.Designer.cs">
+      <DependentUpon>ChoiseFaculty_Department_Teacher.cs</DependentUpon>
     </Compile>
     <Compile Include="Classroom.cs">
       <SubType>Form</SubType>
@@ -126,6 +138,18 @@
     <Compile Include="Teachers.Designer.cs">
       <DependentUpon>Teachers.cs</DependentUpon>
     </Compile>
+    <Compile Include="TransferPara.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TransferPara.Designer.cs">
+      <DependentUpon>TransferPara.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TransferSet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TransferSet.Designer.cs">
+      <DependentUpon>TransferSet.cs</DependentUpon>
+    </Compile>
     <Compile Include="TypeSubject.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -138,11 +162,17 @@
     <Compile Include="WeekForm.Designer.cs">
       <DependentUpon>WeekForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AddPara.resx">
+      <DependentUpon>AddPara.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Authorization.resx">
       <DependentUpon>Authorization.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ChoiseDiscipline.resx">
       <DependentUpon>ChoiseDiscipline.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChoiseFaculty_Department_Teacher.resx">
+      <DependentUpon>ChoiseFaculty_Department_Teacher.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Classroom.resx">
       <DependentUpon>Classroom.cs</DependentUpon>
@@ -186,6 +216,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Teachers.resx">
       <DependentUpon>Teachers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TransferPara.resx">
+      <DependentUpon>TransferPara.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TransferSet.resx">
+      <DependentUpon>TransferSet.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TypeSubject.resx">
       <DependentUpon>TypeSubject.cs</DependentUpon>
@@ -334,6 +370,36 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Syllabus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TimeTable%2850%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AddTimeTable.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AddTeacher.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AddGroup.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AddLesson.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EditList.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GetList%2850%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TransferLesson%2850%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TransferLesson.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GetTimeTableForTeacher.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

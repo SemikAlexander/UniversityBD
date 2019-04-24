@@ -38,6 +38,11 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.ClassroomInfo = new System.Windows.Forms.DataGridView();
+            this.IDFaculty = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NameFaculty = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Logo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DeleteH = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.EditFaculty = new System.Windows.Forms.DataGridViewButtonColumn();
             this.panel3 = new System.Windows.Forms.Panel();
             this.button4 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -46,11 +51,6 @@
             this.InputHousing = new System.Windows.Forms.TextBox();
             this.UpButton = new System.Windows.Forms.Button();
             this.DownButton = new System.Windows.Forms.Button();
-            this.IDFaculty = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NameFaculty = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Logo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DeleteH = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.EditFaculty = new System.Windows.Forms.DataGridViewButtonColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -156,6 +156,45 @@
             this.ClassroomInfo.TabIndex = 3;
             this.ClassroomInfo.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ClassroomInfo_CellContentClick);
             // 
+            // IDFaculty
+            // 
+            this.IDFaculty.HeaderText = "ID";
+            this.IDFaculty.Name = "IDFaculty";
+            this.IDFaculty.ReadOnly = true;
+            this.IDFaculty.Visible = false;
+            // 
+            // NameFaculty
+            // 
+            this.NameFaculty.HeaderText = "Корпус";
+            this.NameFaculty.Name = "NameFaculty";
+            this.NameFaculty.ReadOnly = true;
+            this.NameFaculty.Width = 90;
+            // 
+            // Logo
+            // 
+            this.Logo.HeaderText = "Аудитория";
+            this.Logo.Name = "Logo";
+            this.Logo.ReadOnly = true;
+            this.Logo.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Logo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Logo.Width = 90;
+            // 
+            // DeleteH
+            // 
+            this.DeleteH.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.DeleteH.HeaderText = "Удалить";
+            this.DeleteH.Name = "DeleteH";
+            this.DeleteH.ReadOnly = true;
+            this.DeleteH.Width = 80;
+            // 
+            // EditFaculty
+            // 
+            this.EditFaculty.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.EditFaculty.HeaderText = "Изменить";
+            this.EditFaculty.Name = "EditFaculty";
+            this.EditFaculty.ReadOnly = true;
+            this.EditFaculty.Width = 80;
+            // 
             // panel3
             // 
             this.panel3.Controls.Add(this.button4);
@@ -168,6 +207,7 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(393, 114);
             this.panel3.TabIndex = 4;
+            this.panel3.Visible = false;
             // 
             // button4
             // 
@@ -243,45 +283,6 @@
             this.DownButton.TabIndex = 12;
             this.DownButton.UseVisualStyleBackColor = true;
             this.DownButton.Click += new System.EventHandler(this.DownButton_Click);
-            // 
-            // IDFaculty
-            // 
-            this.IDFaculty.HeaderText = "ID";
-            this.IDFaculty.Name = "IDFaculty";
-            this.IDFaculty.ReadOnly = true;
-            this.IDFaculty.Visible = false;
-            // 
-            // NameFaculty
-            // 
-            this.NameFaculty.HeaderText = "Корпус";
-            this.NameFaculty.Name = "NameFaculty";
-            this.NameFaculty.ReadOnly = true;
-            this.NameFaculty.Width = 90;
-            // 
-            // Logo
-            // 
-            this.Logo.HeaderText = "Аудитория";
-            this.Logo.Name = "Logo";
-            this.Logo.ReadOnly = true;
-            this.Logo.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Logo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Logo.Width = 90;
-            // 
-            // DeleteH
-            // 
-            this.DeleteH.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.DeleteH.HeaderText = "Удалить";
-            this.DeleteH.Name = "DeleteH";
-            this.DeleteH.ReadOnly = true;
-            this.DeleteH.Width = 80;
-            // 
-            // EditFaculty
-            // 
-            this.EditFaculty.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.EditFaculty.HeaderText = "Изменить";
-            this.EditFaculty.Name = "EditFaculty";
-            this.EditFaculty.ReadOnly = true;
-            this.EditFaculty.Width = 80;
             // 
             // Classroom
             // 

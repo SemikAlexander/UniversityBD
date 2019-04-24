@@ -24,6 +24,7 @@ namespace UniversityMain
         List<Logics.MainTable.Groups.GroupPlan> GP = new List<Logics.MainTable.Groups.GroupPlan>();
         Logics.MainTable.Groups.GroupPlan plan;
         string nameFaculty, nameDepartment, groupABR, subName;
+        bool edit_data = false;
         int yearEntry;
         public StudyPlan(Logics.Functions.Connection.ConnectionDB connection, List<Logics.MainTable.Groups.GroupPlan> groupPlan, string NAME_FACULTY, string NAME_DEP, string ABR, string SUB_NAME, int YEAR_ENTRY)
         {
@@ -53,11 +54,10 @@ namespace UniversityMain
         {
             WindowState = FormWindowState.Minimized;
         }
-
         private void PlanStadInfo_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var senderGrid = (DataGridView)sender;
-            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn & senderGrid.Columns[e.ColumnIndex].Name == "DeletePlane" && e.RowIndex >= 0)
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn & senderGrid.Columns[e.ColumnIndex].Name == "DeletePlane" && e.RowIndex >= 0 & edit_data == true)
             {
                 structure.Subname = subName;
                 structure.YearCreate = yearEntry;
@@ -72,7 +72,6 @@ namespace UniversityMain
                     PlanStadInfo.Rows.Add(gp.startStudy.ToString("d"), gp.EndStudy.ToString("d"), gp.startSession.ToString("d"), gp.EndSession.ToString("d"));
             }
         }
-
         private void panel1_MouseDown(object sender, MouseEventArgs e)
         {
             ReleaseCapture();
@@ -80,8 +79,17 @@ namespace UniversityMain
         }
         private void StudyPlan_Load(object sender, EventArgs e)
         {
-            foreach (var PLAN in GP)
-                PlanStadInfo.Rows.Add(PLAN.startStudy.ToString("d"), PLAN.EndStudy.ToString("d"), PLAN.startSession.ToString("d"), PLAN.EndSession.ToString("d"));
+            foreach (var access in connectionDB.Accesses)
+            {
+                switch (access)
+                {
+                    case Logics.Functions.Connection.ConnectionDB.function_access.add_styding_plans: panel3.Visible = true; edit_data = true; break;
+                    case Logics.Functions.Connection.ConnectionDB.function_access.get_styding_plans:
+                        foreach (var PLAN in GP)
+                            PlanStadInfo.Rows.Add(PLAN.startStudy.ToString("d"), PLAN.EndStudy.ToString("d"), PLAN.startSession.ToString("d"), PLAN.EndSession.ToString("d"));
+                        break;
+                }
+            }
         }
         private void button5_Click(object sender, EventArgs e)
         {
