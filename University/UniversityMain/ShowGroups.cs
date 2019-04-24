@@ -18,6 +18,7 @@ namespace UniversityMain
         Logics.Functions.Connection.ConnectionDB connectionDB;
         Logics.MainTable.Speciality speciality;
         List<string> specialityName = new List<string>();
+        bool edit_data = false;
         Logics.MainTable.Groups groups;
         public ShowGroups(Logics.Functions.Connection.ConnectionDB connection)
         {
@@ -42,13 +43,22 @@ namespace UniversityMain
         }
         private void ShowGroups_Load(object sender, EventArgs e)
         {
-            Logics.Books.Faculty faculty = new Logics.Books.Faculty(connectionDB);
-            List<Logics.Books.Faculty.StructFaculty> structFaculties = new List<Logics.Books.Faculty.StructFaculty>();
-            faculty.GetAllFaculty(out structFaculties);
-            foreach (var fac in structFaculties)
+            foreach (var access in connectionDB.Accesses)
             {
-                FacultyBox.Items.Add(fac.Name);
-                FacultyInputBox.Items.Add(fac.Name);
+                switch (access)
+                {
+                    case Logics.Functions.Connection.ConnectionDB.function_access.group_add: panel3.Visible = true; edit_data = true; break;
+                    case Logics.Functions.Connection.ConnectionDB.function_access.get_groups:
+                        Logics.Books.Faculty faculty = new Logics.Books.Faculty(connectionDB);
+                        List<Logics.Books.Faculty.StructFaculty> structFaculties = new List<Logics.Books.Faculty.StructFaculty>();
+                        faculty.GetAllFaculty(out structFaculties);
+                        foreach (var fac in structFaculties)
+                        {
+                            FacultyBox.Items.Add(fac.Name);
+                            FacultyInputBox.Items.Add(fac.Name);
+                        }
+                        break;
+                }
             }
         }
         private void FacultyBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -123,7 +133,7 @@ namespace UniversityMain
         private void GroupsInfo_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var senderGrid = (DataGridView)sender;
-            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn & senderGrid.Columns[e.ColumnIndex].Name == "DeleteGroup" && e.RowIndex >= 0)
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn & senderGrid.Columns[e.ColumnIndex].Name == "DeleteGroup" && e.RowIndex >= 0 & edit_data == true)
             {
                 try
                 {

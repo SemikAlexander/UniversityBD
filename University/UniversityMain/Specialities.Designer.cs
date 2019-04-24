@@ -32,8 +32,11 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Specialities));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label4 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.SpecialitiesInfo = new System.Windows.Forms.DataGridView();
             this.NameSpecialities = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Abbreviation = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -47,6 +50,7 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.DepartmentBox = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.button5 = new System.Windows.Forms.Button();
             this.FacultyBox = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -57,15 +61,11 @@
             this.label8 = new System.Windows.Forms.Label();
             this.DownButton = new System.Windows.Forms.Button();
             this.UpButton = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SpecialitiesInfo)).BeginInit();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -80,6 +80,16 @@
             this.panel1.Size = new System.Drawing.Size(766, 44);
             this.panel1.TabIndex = 3;
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::UniversityMain.Properties.Resources.Speciality_50_;
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(70, 44);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 15;
+            this.pictureBox1.TabStop = false;
             // 
             // label4
             // 
@@ -100,6 +110,30 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(73, 44);
             this.panel2.TabIndex = 1;
+            // 
+            // button2
+            // 
+            this.button2.FlatAppearance.BorderSize = 0;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.Image = global::UniversityMain.Properties.Resources.Minimize;
+            this.button2.Location = new System.Drawing.Point(3, 8);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(30, 28);
+            this.button2.TabIndex = 4;
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // button1
+            // 
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Image = global::UniversityMain.Properties.Resources.close;
+            this.button1.Location = new System.Drawing.Point(39, 8);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(30, 28);
+            this.button1.TabIndex = 3;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // SpecialitiesInfo
             // 
@@ -187,6 +221,7 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(766, 215);
             this.panel3.TabIndex = 5;
+            this.panel3.Visible = false;
             // 
             // label6
             // 
@@ -243,6 +278,19 @@
             this.label2.Size = new System.Drawing.Size(83, 20);
             this.label2.TabIndex = 18;
             this.label2.Text = "Кафедра";
+            // 
+            // button5
+            // 
+            this.button5.FlatAppearance.BorderSize = 0;
+            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button5.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button5.Image = global::UniversityMain.Properties.Resources.OK;
+            this.button5.Location = new System.Drawing.Point(712, 166);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(50, 46);
+            this.button5.TabIndex = 17;
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // FacultyBox
             // 
@@ -346,53 +394,6 @@
             this.UpButton.UseVisualStyleBackColor = true;
             this.UpButton.Click += new System.EventHandler(this.UpButton_Click);
             // 
-            // button5
-            // 
-            this.button5.FlatAppearance.BorderSize = 0;
-            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button5.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button5.Image = global::UniversityMain.Properties.Resources.OK;
-            this.button5.Location = new System.Drawing.Point(712, 166);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(50, 46);
-            this.button5.TabIndex = 17;
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::UniversityMain.Properties.Resources.Speciality_50_;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(70, 44);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 15;
-            this.pictureBox1.TabStop = false;
-            // 
-            // button2
-            // 
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Image = global::UniversityMain.Properties.Resources.Minimize;
-            this.button2.Location = new System.Drawing.Point(3, 8);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(30, 28);
-            this.button2.TabIndex = 4;
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // button1
-            // 
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Image = global::UniversityMain.Properties.Resources.close;
-            this.button1.Location = new System.Drawing.Point(39, 8);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(30, 28);
-            this.button1.TabIndex = 3;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // Specialities
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -414,11 +415,11 @@
             this.Load += new System.EventHandler(this.Specialities_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.SpecialitiesInfo)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

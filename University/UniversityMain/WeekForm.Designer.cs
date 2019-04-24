@@ -37,17 +37,17 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.WeekInfo = new System.Windows.Forms.DataGridView();
+            this.IDWeek = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NameWeek = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TypeWeek = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DeleteWeek = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.EditWeek = new System.Windows.Forms.DataGridViewButtonColumn();
             this.panel3 = new System.Windows.Forms.Panel();
             this.WeekBox = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.InputWeek = new System.Windows.Forms.TextBox();
-            this.IDWeek = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NameWeek = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TypeWeek = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DeleteWeek = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.EditWeek = new System.Windows.Forms.DataGridViewButtonColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -153,6 +153,43 @@
             this.WeekInfo.TabIndex = 5;
             this.WeekInfo.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.WeekInfo_CellContentClick);
             // 
+            // IDWeek
+            // 
+            this.IDWeek.HeaderText = "ID";
+            this.IDWeek.Name = "IDWeek";
+            this.IDWeek.ReadOnly = true;
+            this.IDWeek.Visible = false;
+            // 
+            // NameWeek
+            // 
+            this.NameWeek.HeaderText = "Название";
+            this.NameWeek.Name = "NameWeek";
+            this.NameWeek.ReadOnly = true;
+            this.NameWeek.Width = 150;
+            // 
+            // TypeWeek
+            // 
+            this.TypeWeek.HeaderText = "Тип недели";
+            this.TypeWeek.Name = "TypeWeek";
+            this.TypeWeek.ReadOnly = true;
+            this.TypeWeek.Width = 150;
+            // 
+            // DeleteWeek
+            // 
+            this.DeleteWeek.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.DeleteWeek.HeaderText = "Удалить";
+            this.DeleteWeek.Name = "DeleteWeek";
+            this.DeleteWeek.ReadOnly = true;
+            this.DeleteWeek.Width = 80;
+            // 
+            // EditWeek
+            // 
+            this.EditWeek.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.EditWeek.HeaderText = "Изменить";
+            this.EditWeek.Name = "EditWeek";
+            this.EditWeek.ReadOnly = true;
+            this.EditWeek.Width = 80;
+            // 
             // panel3
             // 
             this.panel3.Controls.Add(this.WeekBox);
@@ -165,6 +202,7 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(523, 123);
             this.panel3.TabIndex = 6;
+            this.panel3.Visible = false;
             // 
             // WeekBox
             // 
@@ -219,43 +257,6 @@
             this.InputWeek.Name = "InputWeek";
             this.InputWeek.Size = new System.Drawing.Size(374, 26);
             this.InputWeek.TabIndex = 7;
-            // 
-            // IDWeek
-            // 
-            this.IDWeek.HeaderText = "ID";
-            this.IDWeek.Name = "IDWeek";
-            this.IDWeek.ReadOnly = true;
-            this.IDWeek.Visible = false;
-            // 
-            // NameWeek
-            // 
-            this.NameWeek.HeaderText = "Название";
-            this.NameWeek.Name = "NameWeek";
-            this.NameWeek.ReadOnly = true;
-            this.NameWeek.Width = 150;
-            // 
-            // TypeWeek
-            // 
-            this.TypeWeek.HeaderText = "Тип недели";
-            this.TypeWeek.Name = "TypeWeek";
-            this.TypeWeek.ReadOnly = true;
-            this.TypeWeek.Width = 150;
-            // 
-            // DeleteWeek
-            // 
-            this.DeleteWeek.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.DeleteWeek.HeaderText = "Удалить";
-            this.DeleteWeek.Name = "DeleteWeek";
-            this.DeleteWeek.ReadOnly = true;
-            this.DeleteWeek.Width = 80;
-            // 
-            // EditWeek
-            // 
-            this.EditWeek.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.EditWeek.HeaderText = "Изменить";
-            this.EditWeek.Name = "EditWeek";
-            this.EditWeek.ReadOnly = true;
-            this.EditWeek.Width = 80;
             // 
             // WeekForm
             // 

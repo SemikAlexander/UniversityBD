@@ -18,6 +18,7 @@ namespace UniversityMain
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
         private extern static void SendMessage(System.IntPtr hwnd, int wmsg, int wparam, int lparam);
         Logics.Functions.Connection.ConnectionDB connectionDB;
+        bool edit_data = false;
         Logics.Books.Classroom classroom;
         List<Logics.Books.Classroom.StructClassroom> structClassrooms = new List<Logics.Books.Classroom.StructClassroom>();
         List<int> housing = new List<int>();
@@ -87,20 +88,31 @@ namespace UniversityMain
         }
         private void Classroom_Load(object sender, EventArgs e)
         {
-            classroom.GetAllHousign(out housing);
-            for (int i = 0; i < housing.Count; i++)
+            foreach (var access in connectionDB.Accesses)
             {
-                classroom.GetAllClassroom(housing[i], 0, 20, out structClassrooms);
-                for (int j = 0; j < structClassrooms.Count; j++)
+                switch (access)
                 {
-                    ClassroomInfo.Rows.Add(structClassrooms[j].id, structClassrooms[j].Housing, structClassrooms[j].Number_Class);
+                    case Logics.Functions.Connection.ConnectionDB.function_access.classroom_get_all:
+                        classroom.GetAllHousign(out housing);
+                        for (int i = 0; i < housing.Count; i++)
+                        {
+                            classroom.GetAllClassroom(housing[i], 0, 20, out structClassrooms);
+                            for (int j = 0; j < structClassrooms.Count; j++)
+                            {
+                                ClassroomInfo.Rows.Add(structClassrooms[j].id, structClassrooms[j].Housing, structClassrooms[j].Number_Class);
+                            }
+                        }
+                        break;
+                    case Logics.Functions.Connection.ConnectionDB.function_access.classroom_add: panel3.Visible = true; break;
+                    case Logics.Functions.Connection.ConnectionDB.function_access.classroom_delete: edit_data = true; break;
                 }
             }
+            
         }
         private void ClassroomInfo_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var senderGrid = (DataGridView)sender;
-            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn & senderGrid.Columns[e.ColumnIndex].Name == "DeleteH" && e.RowIndex >= 0)
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn & senderGrid.Columns[e.ColumnIndex].Name == "DeleteH" && e.RowIndex >= 0 & edit_data == true) 
             {
                 int ID_Delete = (int)ClassroomInfo.Rows[e.RowIndex].Cells[0].Value;
                 classroom.DeleteClass(ID_Delete);

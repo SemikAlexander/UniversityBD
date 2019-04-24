@@ -260,9 +260,9 @@ namespace Logics.Functions.Connection
             try
             {
                 using (var cmd = new NpgsqlCommand("SET ROLE admin_vuz", conn))
-                using (var reader = cmd.ExecuteReader())
+                    new NpgsqlCommand("SET ROLE admin_vuz", conn).ExecuteNonQuery();
+
                 {
-                    reader.Read();
                     Accesses.Add(function_access.classroom_get_class);
                     Accesses.Add(function_access.classroom_get_housing);
                     Accesses.Add(function_access.add_transfer);
@@ -322,11 +322,10 @@ namespace Logics.Functions.Connection
             #region AdminFaculty
             try
             {
-                using (var cmd = new NpgsqlCommand("SET ROLE admin_faculty", conn))
-                using (var reader = cmd.ExecuteReader())
-                    if (reader.Read())
-                    {
-                        Accesses.Add(function_access.classroom_get_class);
+                    new NpgsqlCommand("SET ROLE admin_faculty", conn).ExecuteNonQuery();
+
+                {
+                    Accesses.Add(function_access.classroom_get_class);
                         Accesses.Add(function_access.classroom_get_housing);
                         Accesses.Add(function_access.add_transfer);
                         Accesses.Add(function_access.faculty_get_all);
@@ -374,11 +373,11 @@ namespace Logics.Functions.Connection
             #region AdminKafedra
             try
             {
-                using (var cmd = new NpgsqlCommand("SET ROLE admin_depar", conn))
-                using (var reader = cmd.ExecuteReader())
-                    if (reader.Read())
-                    {
-                        Accesses.Add(function_access.classroom_get_class);
+                //using (var cmd = new NpgsqlCommand("SET ROLE admin_depar", conn))
+                    new NpgsqlCommand("SET ROLE admin_depar", conn).ExecuteNonQuery();
+
+                {
+                    Accesses.Add(function_access.classroom_get_class);
                         Accesses.Add(function_access.classroom_get_housing);
                         Accesses.Add(function_access.add_transfer);
                         Accesses.Add(function_access.faculty_get_all);
@@ -422,9 +421,8 @@ namespace Logics.Functions.Connection
             #region Teachers
             try
             {
-                using (var cmd = new NpgsqlCommand("SET ROLE teachers", conn))
-                using (var reader = cmd.ExecuteReader())
-                    if (reader.Read())
+                new NpgsqlCommand("SET ROLE teachers", conn).ExecuteNonQuery();
+                   
                     {
                         Accesses.Add(function_access.classroom_get_class);
                         Accesses.Add(function_access.classroom_get_housing);
@@ -456,11 +454,10 @@ namespace Logics.Functions.Connection
             #region AdminSpravochnik
             try
             {
-                using (var cmd = new NpgsqlCommand("SET ROLE spravochniki", conn))
-                using (var reader = cmd.ExecuteReader())
-                    if (reader.Read())
-                    {
-                        Accesses.Add(function_access.classroom_add);
+                    new NpgsqlCommand("SET ROLE spravochniki", conn).ExecuteNonQuery();
+
+                {
+                    Accesses.Add(function_access.classroom_add);
                         Accesses.Add(function_access.classroom_delete);
                         Accesses.Add(function_access.classroom_get_all);
                         Accesses.Add(function_access.classroom_get_class);

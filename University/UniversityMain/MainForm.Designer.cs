@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.VerticalMenu = new System.Windows.Forms.Panel();
             this.INFO = new System.Windows.Forms.Panel();
             this.button13 = new System.Windows.Forms.Button();
@@ -47,7 +47,7 @@
             this.button6 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.timetable = new System.Windows.Forms.Button();
+            this.TransfersGet = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.button3 = new System.Windows.Forms.Button();
@@ -64,8 +64,8 @@
             this.Friday = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel4 = new System.Windows.Forms.Panel();
             this.NameTeacherForOutput = new System.Windows.Forms.Label();
-            this.button15 = new System.Windows.Forms.Button();
-            this.button14 = new System.Windows.Forms.Button();
+            this.TTAdd = new System.Windows.Forms.Button();
+            this.TeacherLessons = new System.Windows.Forms.Button();
             this.VerticalMenu.SuspendLayout();
             this.INFO.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -82,7 +82,7 @@
             this.VerticalMenu.BackColor = System.Drawing.Color.DeepSkyBlue;
             this.VerticalMenu.Controls.Add(this.INFO);
             this.VerticalMenu.Controls.Add(this.label1);
-            this.VerticalMenu.Controls.Add(this.timetable);
+            this.VerticalMenu.Controls.Add(this.TransfersGet);
             this.VerticalMenu.Dock = System.Windows.Forms.DockStyle.Left;
             this.VerticalMenu.Location = new System.Drawing.Point(0, 0);
             this.VerticalMenu.Name = "VerticalMenu";
@@ -108,6 +108,7 @@
             this.INFO.Name = "INFO";
             this.INFO.Size = new System.Drawing.Size(210, 42);
             this.INFO.TabIndex = 6;
+            this.INFO.Visible = false;
             this.INFO.Click += new System.EventHandler(this.INFO_Click);
             // 
             // button13
@@ -305,21 +306,22 @@
             this.label1.TabIndex = 4;
             this.label1.Text = "МЕНЮ";
             // 
-            // timetable
+            // TransfersGet
             // 
-            this.timetable.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.timetable.FlatAppearance.BorderSize = 0;
-            this.timetable.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.timetable.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.timetable.Image = global::UniversityMain.Properties.Resources.TransferLesson;
-            this.timetable.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.timetable.Location = new System.Drawing.Point(0, 44);
-            this.timetable.Name = "timetable";
-            this.timetable.Size = new System.Drawing.Size(210, 35);
-            this.timetable.TabIndex = 0;
-            this.timetable.Text = "       Переносы";
-            this.timetable.UseVisualStyleBackColor = true;
-            this.timetable.Click += new System.EventHandler(this.Timetable_Click);
+            this.TransfersGet.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.TransfersGet.FlatAppearance.BorderSize = 0;
+            this.TransfersGet.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.TransfersGet.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.TransfersGet.Image = global::UniversityMain.Properties.Resources.TransferLesson;
+            this.TransfersGet.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.TransfersGet.Location = new System.Drawing.Point(0, 44);
+            this.TransfersGet.Name = "TransfersGet";
+            this.TransfersGet.Size = new System.Drawing.Size(210, 35);
+            this.TransfersGet.TabIndex = 0;
+            this.TransfersGet.Text = "       Переносы";
+            this.TransfersGet.UseVisualStyleBackColor = true;
+            this.TransfersGet.Visible = false;
+            this.TransfersGet.Click += new System.EventHandler(this.Timetable_Click);
             // 
             // panel1
             // 
@@ -419,14 +421,14 @@
             this.LessonsInfo.AllowUserToDeleteRows = false;
             this.LessonsInfo.BackgroundColor = System.Drawing.Color.White;
             this.LessonsInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.LessonsInfo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.LessonsInfo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.LessonsInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.LessonsInfo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Monday,
@@ -434,25 +436,26 @@
             this.Wednesday,
             this.Thuesday,
             this.Friday});
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.LessonsInfo.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.LessonsInfo.DefaultCellStyle = dataGridViewCellStyle2;
             this.LessonsInfo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.LessonsInfo.Location = new System.Drawing.Point(0, 0);
             this.LessonsInfo.Name = "LessonsInfo";
             this.LessonsInfo.ReadOnly = true;
             this.LessonsInfo.RowHeadersWidth = 45;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.LessonsInfo.RowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.LessonsInfo.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.LessonsInfo.RowTemplate.Height = 50;
             this.LessonsInfo.Size = new System.Drawing.Size(833, 489);
             this.LessonsInfo.TabIndex = 9;
+            this.LessonsInfo.Visible = false;
             this.LessonsInfo.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.LessonsInfo_CellContentDoubleClick);
             // 
             // Monday
@@ -497,8 +500,8 @@
             // panel4
             // 
             this.panel4.Controls.Add(this.NameTeacherForOutput);
-            this.panel4.Controls.Add(this.button15);
-            this.panel4.Controls.Add(this.button14);
+            this.panel4.Controls.Add(this.TTAdd);
+            this.panel4.Controls.Add(this.TeacherLessons);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel4.Location = new System.Drawing.Point(0, 489);
             this.panel4.Name = "panel4";
@@ -513,37 +516,39 @@
             this.NameTeacherForOutput.Size = new System.Drawing.Size(0, 16);
             this.NameTeacherForOutput.TabIndex = 10;
             // 
-            // button15
+            // TTAdd
             // 
-            this.button15.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button15.Dock = System.Windows.Forms.DockStyle.Right;
-            this.button15.FlatAppearance.BorderSize = 0;
-            this.button15.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button15.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button15.Image = global::UniversityMain.Properties.Resources.AddTimeTable;
-            this.button15.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button15.Location = new System.Drawing.Point(753, 0);
-            this.button15.Name = "button15";
-            this.button15.Size = new System.Drawing.Size(40, 37);
-            this.button15.TabIndex = 10;
-            this.button15.UseVisualStyleBackColor = true;
-            this.button15.Click += new System.EventHandler(this.Button15_Click);
+            this.TTAdd.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.TTAdd.Dock = System.Windows.Forms.DockStyle.Right;
+            this.TTAdd.FlatAppearance.BorderSize = 0;
+            this.TTAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.TTAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.TTAdd.Image = global::UniversityMain.Properties.Resources.AddTimeTable;
+            this.TTAdd.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.TTAdd.Location = new System.Drawing.Point(753, 0);
+            this.TTAdd.Name = "TTAdd";
+            this.TTAdd.Size = new System.Drawing.Size(40, 37);
+            this.TTAdd.TabIndex = 10;
+            this.TTAdd.UseVisualStyleBackColor = true;
+            this.TTAdd.Visible = false;
+            this.TTAdd.Click += new System.EventHandler(this.Button15_Click);
             // 
-            // button14
+            // TeacherLessons
             // 
-            this.button14.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button14.Dock = System.Windows.Forms.DockStyle.Right;
-            this.button14.FlatAppearance.BorderSize = 0;
-            this.button14.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button14.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button14.Image = global::UniversityMain.Properties.Resources.GetTimeTableForTeacher;
-            this.button14.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button14.Location = new System.Drawing.Point(793, 0);
-            this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(40, 37);
-            this.button14.TabIndex = 9;
-            this.button14.UseVisualStyleBackColor = true;
-            this.button14.Click += new System.EventHandler(this.Button14_Click_1);
+            this.TeacherLessons.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.TeacherLessons.Dock = System.Windows.Forms.DockStyle.Right;
+            this.TeacherLessons.FlatAppearance.BorderSize = 0;
+            this.TeacherLessons.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.TeacherLessons.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.TeacherLessons.Image = global::UniversityMain.Properties.Resources.GetTimeTableForTeacher;
+            this.TeacherLessons.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.TeacherLessons.Location = new System.Drawing.Point(793, 0);
+            this.TeacherLessons.Name = "TeacherLessons";
+            this.TeacherLessons.Size = new System.Drawing.Size(40, 37);
+            this.TeacherLessons.TabIndex = 9;
+            this.TeacherLessons.UseVisualStyleBackColor = true;
+            this.TeacherLessons.Visible = false;
+            this.TeacherLessons.Click += new System.EventHandler(this.Button14_Click_1);
             // 
             // MainForm
             // 
@@ -599,9 +604,9 @@
         private System.Windows.Forms.Button button12;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button13;
-        private System.Windows.Forms.Button timetable;
+        private System.Windows.Forms.Button TransfersGet;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Button button14;
+        private System.Windows.Forms.Button TeacherLessons;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panel5;
         public System.Windows.Forms.DataGridView LessonsInfo;
@@ -610,7 +615,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Wednesday;
         private System.Windows.Forms.DataGridViewTextBoxColumn Thuesday;
         private System.Windows.Forms.DataGridViewTextBoxColumn Friday;
-        private System.Windows.Forms.Button button15;
+        private System.Windows.Forms.Button TTAdd;
         private System.Windows.Forms.Label NameTeacherForOutput;
     }
 }

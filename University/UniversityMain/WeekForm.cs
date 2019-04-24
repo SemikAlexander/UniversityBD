@@ -21,6 +21,7 @@ namespace UniversityMain
         Logics.Functions.Connection.ConnectionDB connectionDB;
         List<Logics.Books.Week.StructWeek> structWeeks = new List<Logics.Books.Week.StructWeek>();
         Logics.Books.Week.StructWeek @struct;
+        bool edit_data = false;
         public WeekForm(Logics.Functions.Connection.ConnectionDB connection)
         {
             connectionDB = connection;
@@ -29,19 +30,28 @@ namespace UniversityMain
         }
 
         private void WeekForm_Load(object sender, EventArgs e)
-        {           
-            try
+        {
+            foreach (var access in connectionDB.Accesses)
             {
-                week.GetAllWeek(out structWeeks);
-                foreach (var week_out in structWeeks)
-                    WeekInfo.Rows.Add(week_out.id, week_out.name_day, week_out.type);
-            }
-            catch (Exception)
-            {
-                MessageBox.Show(week.exception, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Close();
-                new MainForm(connectionDB).Show();
-            }
+                switch (access)
+                {
+                    case Logics.Functions.Connection.ConnectionDB.function_access.week_add: panel3.Visible = true; edit_data = true; break;
+                    case Logics.Functions.Connection.ConnectionDB.function_access.week_get_all:
+                        try
+                        {
+                            week.GetAllWeek(out structWeeks);
+                            foreach (var week_out in structWeeks)
+                                WeekInfo.Rows.Add(week_out.id, week_out.name_day, week_out.type);
+                        }
+                        catch (Exception)
+                        {
+                            MessageBox.Show(week.exception, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            Close();
+                            new MainForm(connectionDB).Show();
+                        }
+                        break;
+                }
+            }            
         }
         private void panel1_MouseDown(object sender, MouseEventArgs e)
         {
@@ -57,7 +67,6 @@ namespace UniversityMain
             Close();
             new MainForm(connectionDB).Show();
         }
-
         private void button4_Click(object sender, EventArgs e)
         {
             if(InputWeek.Text.Trim(' ').Length!=0 & WeekBox.SelectedItem != null)
@@ -97,7 +106,6 @@ namespace UniversityMain
                 }
             }
         }
-
         private void WeekInfo_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var senderGrid = (DataGridView)sender;

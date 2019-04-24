@@ -199,7 +199,16 @@ namespace UniversityMain
         }
         private void MainForm_Load(object sender, EventArgs e)
         {
-            SetTimeTableForTeacher(tableStructures);
+            foreach(var access in connectionDB.Accesses)
+            {
+                switch (access)
+                {
+                    case Logics.Functions.Connection.ConnectionDB.function_access.classroom_get_all: INFO.Visible = true; break;
+                    case Logics.Functions.Connection.ConnectionDB.function_access.get_transfers:TransfersGet.Visible = true; break;
+                    case Logics.Functions.Connection.ConnectionDB.function_access.timetable_get: LessonsInfo.Visible = true; TeacherLessons.Visible = true; SetTimeTableForTeacher(tableStructures); break;
+                    case Logics.Functions.Connection.ConnectionDB.function_access.timetable_add: TTAdd.Visible = true; break;
+                }
+            }
         }
         public void SetTimeTableForTeacher(List<Logics.MainTable.TimeTable.TimeTableStructure> timeTableStructures)
         {

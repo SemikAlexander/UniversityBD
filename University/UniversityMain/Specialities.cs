@@ -21,6 +21,7 @@ namespace UniversityMain
         Logics.Functions.Connection.ConnectionDB connectionDB;
         Logics.MainTable.Speciality.SpecialtyStructure structure;
         Logics.MainTable.Speciality speciality;
+        bool edit_data = false;
         int StartRow = 0;
         public Specialities(Logics.Functions.Connection.ConnectionDB connection)
         {
@@ -31,16 +32,24 @@ namespace UniversityMain
 
         private void Specialities_Load(object sender, EventArgs e)
         {
-            Logics.Books.Faculty faculty = new Logics.Books.Faculty(connectionDB);
-            List<Logics.Books.Faculty.StructFaculty> structFaculties = new List<Logics.Books.Faculty.StructFaculty>();
-            faculty.GetAllFaculty(out structFaculties);
-            foreach (var fac in structFaculties)
+            foreach (var access in connectionDB.Accesses)
             {
-                comboBox1.Items.Add(fac.Name);
-                FacultyBox.Items.Add(fac.Name);
+                switch (access)
+                {
+                    case Logics.Functions.Connection.ConnectionDB.function_access.specialty_add: panel3.Visible = true; edit_data = true; break;
+                    case Logics.Functions.Connection.ConnectionDB.function_access.getallspeciality:
+                        Logics.Books.Faculty faculty = new Logics.Books.Faculty(connectionDB);
+                        List<Logics.Books.Faculty.StructFaculty> structFaculties = new List<Logics.Books.Faculty.StructFaculty>();
+                        faculty.GetAllFaculty(out structFaculties);
+                        foreach (var fac in structFaculties)
+                        {
+                            comboBox1.Items.Add(fac.Name);
+                            FacultyBox.Items.Add(fac.Name);
+                        }
+                        break;
+                }
             }
         }
-
         private void button1_Click(object sender, EventArgs e)
         {
             Close();
@@ -68,7 +77,6 @@ namespace UniversityMain
             ReleaseCapture();
             SendMessage(Handle, 0x112, 0xf012, 0);
         }
-
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboBox1.SelectedItem != null)
@@ -84,7 +92,7 @@ namespace UniversityMain
         private void SpecialitiesInfo_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var senderGrid = (DataGridView)sender;
-            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn & senderGrid.Columns[e.ColumnIndex].Name == "DeleteSpeciality" & e.RowIndex >= 0)
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn & senderGrid.Columns[e.ColumnIndex].Name == "DeleteSpeciality" & e.RowIndex >= 0 & edit_data == true)
             {
                 string DelDep = comboBox2.SelectedItem.ToString();
                 string DelFac = comboBox1.SelectedItem.ToString();
