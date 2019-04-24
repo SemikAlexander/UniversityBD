@@ -40,8 +40,14 @@ namespace UniversityMain
         {
             Close();
             MainForm mainForm = new MainForm(connectionDB);
-            mainForm.GetArrayFromChoiseForm(timeTableStructures, TeacherBox.SelectedItem.ToString(), FacultyBox.SelectedItem.ToString(), DepartmentBox.SelectedItem.ToString());
-            mainForm.Show();
+            try
+            {
+                mainForm.GetArrayFromChoiseForm(timeTableStructures, TeacherBox.SelectedItem.ToString(), FacultyBox.SelectedItem.ToString(), DepartmentBox.SelectedItem.ToString());
+            }
+            catch (Exception)
+            {
+                mainForm.Show();
+            }
         }
         private void FacultyBox_SelectedIndexChanged(object sender, EventArgs e)
         {
