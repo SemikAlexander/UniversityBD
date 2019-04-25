@@ -50,9 +50,9 @@ namespace UniversityMain
         {
             var senderGrid = (DataGridView)sender;
 
-            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn & senderGrid.Columns[e.ColumnIndex].Name == "DeleteHoliday" & e.RowIndex >= 0 & edit_data == true)
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn & senderGrid.Columns[e.ColumnIndex].Name == "DeleteHoliday" & e.RowIndex >= 0 /*& edit_data == true*/)
             {
-                holidays.DeleteHolidays((int)HolidayInfo.Rows[e.RowIndex].Cells[0].Value);
+                holidays.DeleteHolidays((DateTime)HolidayInfo.Rows[e.RowIndex].Cells[1].Value);
                 HolidayInfo.Rows.Clear();
                 if (holidays.GetAllHolidays(out structHolidays))
                 {
