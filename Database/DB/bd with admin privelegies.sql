@@ -704,6 +704,56 @@ $$;
 ALTER FUNCTION public.group_delete(namefaculty text, namedepartment text, abbreviationspecialty text, yea integer, sub text) OWNER TO postgres;
 
 --
+-- Name: holidays_add(date); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.holidays_add(holid_day date) RETURNS text
+    LANGUAGE plpgsql
+    AS $$
+	DECLARE
+	BEGIN 
+
+INSERT INTO "holidays" (date_hol) VALUES (holid_day);
+
+
+RETURN 'Success';
+
+END
+$$;
+
+
+ALTER FUNCTION public.holidays_add(holid_day date) OWNER TO postgres;
+
+--
+-- Name: holidays_delete(date); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.holidays_delete(holid_day date) RETURNS text
+    LANGUAGE plpgsql
+    AS $$BEGIN
+  DELETE FROM "holidays" WHERE date_hol=holid_day;
+RETURN 'Success';
+END
+$$;
+
+
+ALTER FUNCTION public.holidays_delete(holid_day date) OWNER TO postgres;
+
+--
+-- Name: holidays_get(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.holidays_get() RETURNS TABLE(_id integer, hol_date date)
+    LANGUAGE plpgsql
+    AS $$BEGIN
+  RETURN query SELECT * FROM holidays;
+END
+$$;
+
+
+ALTER FUNCTION public.holidays_get() OWNER TO postgres;
+
+--
 -- Name: position_add(text); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -1433,6 +1483,32 @@ CREATE TABLE public."helpDiscip" (
 ALTER TABLE public."helpDiscip" OWNER TO postgres;
 
 --
+-- Name: holidays_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.holidays_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.holidays_seq OWNER TO postgres;
+
+--
+-- Name: holidays; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.holidays (
+    id integer DEFAULT nextval('public.holidays_seq'::regclass) NOT NULL,
+    date_hol date NOT NULL
+);
+
+
+ALTER TABLE public.holidays OWNER TO postgres;
+
+--
 -- Name: para; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -2047,6 +2123,21 @@ COPY public."helpDiscip" (id_teacher, id_discipline) FROM stdin;
 
 
 --
+-- Data for Name: holidays; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.holidays (id, date_hol) FROM stdin;
+\.
+
+
+--
+-- Name: holidays_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.holidays_seq', 1, false);
+
+
+--
 -- Data for Name: para; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -2323,6 +2414,14 @@ ALTER TABLE ONLY public."typeSubject"
 
 ALTER TABLE ONLY public.week
     ADD CONSTRAINT "Week_pkey" PRIMARY KEY ("ID_DAY");
+
+
+--
+-- Name: holidays holidays_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.holidays
+    ADD CONSTRAINT holidays_pkey PRIMARY KEY (id);
 
 
 --
