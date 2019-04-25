@@ -43,6 +43,7 @@ namespace UniversityMain
             try
             {
                 mainForm.GetArrayFromChoiseForm(timeTableStructures, TeacherBox.SelectedItem.ToString(), FacultyBox.SelectedItem.ToString(), DepartmentBox.SelectedItem.ToString());
+                mainForm.Show();
             }
             catch (Exception)
             {

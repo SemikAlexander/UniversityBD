@@ -18,7 +18,7 @@ namespace UniversityMain
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
         private extern static void SendMessage(System.IntPtr hwnd, int wmsg, int wparam, int lparam);
         bool WindowMaximize = true;
-        int HeightPanel = 455;
+        int HeightPanel = 490;
         ChoiseFaculty_Department_Teacher choiseFaculty_Department_Teacher;
         ForTransfer forTransfer;
         public List<Logics.MainTable.TimeTable.TimeTableStructure> tableStructures = new List<Logics.MainTable.TimeTable.TimeTableStructure>();
@@ -303,6 +303,11 @@ namespace UniversityMain
             }
             if (result == DialogResult.Yes)
                 new TransferSet(connectionDB, ID).Show();    /*IDLesson*/
+        }
+        private void Button14_Click(object sender, EventArgs e)
+        {
+            Close();
+            new Holidays(connectionDB).Show();
         }
     }
 }
