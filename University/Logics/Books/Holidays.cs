@@ -64,15 +64,14 @@ namespace Logics.Books
                 return false;
             }
         }
-        public bool DeleteHolidays(int id)
+        public bool DeleteHolidays(DateTime id)
         {
-            if (id < 0) { exception = "ID не указан"; return false; }
             if (_connectionDB == null) { exception = "Подключение не установленно"; return false; }
             try
             {
                 var conn = new NpgsqlConnection(this._connectionDB.ConnectString);
                 conn.Open();
-                using (var cmd = new NpgsqlCommand($"SELECT * from holidays_delete({id});", conn))
+                using (var cmd = new NpgsqlCommand($"SELECT * from holidays_delete('{id}');", conn))
                 using (var reader = cmd.ExecuteReader())
                     if (reader.Read())
                     {
