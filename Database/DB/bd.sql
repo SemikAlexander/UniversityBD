@@ -588,7 +588,7 @@ ALTER FUNCTION public.getallspecialitynames(namefaculty text, namedepartment tex
 CREATE FUNCTION public.getallteachers(facultet text, departm text) RETURNS TABLE(nameteacher text, emaildata text, rating real, hourlypayment real, nameposition text)
     LANGUAGE plpgsql
     AS $$BEGIN
-	RETURN query SELECT teachers."Name_Teacher",teachers."Email",teachers."Rate",teachers."Hourly_Payment","position"."Name_Position" from (SELECT department."ID_DEPARTMENT" FROM (SELECT "ID_FACULTY" FROM faculty WHERE "Name_Faculty"=facultet) as facul INNER JOIN department on department.id_faculty=facul."ID_FACULTY" WHERE department."Name_Department"=departm) as dep INNER JOIN teachers on teachers.id_department=dep."ID_DEPARTMENT" INNER JOIN "position" on teachers.id_position="position"."ID_POSITION";
+	RETURN query SELECT teachers."Name_Teacher",teachers."Email",teachers."Rate",teachers."Hourly_Payment","position"."Name_Position",teachers."pol_stavka" from (SELECT department."ID_DEPARTMENT" FROM (SELECT "ID_FACULTY" FROM faculty WHERE "Name_Faculty"=facultet) as facul INNER JOIN department on department.id_faculty=facul."ID_FACULTY" WHERE department."Name_Department"=departm) as dep INNER JOIN teachers on teachers.id_department=dep."ID_DEPARTMENT" INNER JOIN "position" on teachers.id_position="position"."ID_POSITION";
 
 END
 $$;
@@ -944,6 +944,42 @@ $$;
 ALTER FUNCTION public.teachers_add(namefaculty text, namedepartment text, nameteacher text, emailteacher text, rateteacher double precision, hourlypayment double precision, nameposition text) OWNER TO postgres;
 
 --
+-- Name: teachers_add(text, text, text, text, double precision, double precision, text, real); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.teachers_add(namefaculty text, namedepartment text, nameteacher text, emailteacher text, rateteacher double precision, hourlypayment double precision, nameposition text, polstavka real) RETURNS text
+    LANGUAGE plpgsql
+    AS $$
+	DECLARE
+	IDDEPARTMENT INTEGER :=0;
+	IDFACULTY INTEGER := 0;
+	IDPOSITION INTEGER := 0;
+	BEGIN 
+
+
+SELECT "ID_FACULTY" FROM faculty INTO IDFACULTY WHERE "Name_Faculty"=namefaculty LIMIT 1;
+IF NOT FOUND THEN
+    RETURN 'Факультет не найден';
+END IF;
+
+SELECT "ID_DEPARTMENT" From department WHERE  department."Name_Department"=namedepartment and IDFACULTY=department.id_faculty INTO IDDEPARTMENT;
+IF NOT FOUND THEN
+    RETURN 'Кафедра не найдена';
+END IF;
+SELECT "ID_POSITION" FROM "position" WHERE "Name_Position"=nameposition INTO IDPOSITION;
+IF NOT FOUND THEN
+    RETURN 'Должность не найдена';
+END IF;
+			
+			INSERT INTO teachers("Email","Hourly_Payment","Name_Teacher","Rate",id_department,id_position,pol_stavka) VALUES(emailteacher,hourlypayment,nameteacher,rateteacher,IDDEPARTMENT,IDPOSITION,polstavka);
+			RETURN 'Success';
+END
+$$;
+
+
+ALTER FUNCTION public.teachers_add(namefaculty text, namedepartment text, nameteacher text, emailteacher text, rateteacher double precision, hourlypayment double precision, nameposition text, polstavka real) OWNER TO postgres;
+
+--
 -- Name: teachersdelete(text, text, text); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -1062,11 +1098,13 @@ CREATE FUNCTION public.timetable_get(facult text, depar text, fio text, type_wee
 	DECLARE
 	date_start_week date := now();
 	date_end_week date := now();
+	isk TEXT :=' ';
+	q RECORD;
+	qs int4 :=0;
+	daynum int4 :=0;
 	BEGIN
 	SELECT date_trunc('week', now()::timestamp) INTO date_start_week;
 	SELECT (date_trunc('week', now()::timestamp)+ '6 days'::interval)::date INTO date_end_week;
-	
-
 CREATE TEMP TABLE seltm as (
 		SELECT ttw."Date",ttw."ID",ttw."Time",ttw.num_lesson, ttw.type_subject,ttw."NameDay",ttw.id_classroom, groups."Sub_Name_Group",groups."Year_Of_Entry","stadyingPlan"."DateStartStuding","stadyingPlan"."DateEndStuding","stadyingPlan"."DateStartSession","stadyingPlan"."DateEndSession",specialty."Abbreviation_Specialty" from 
 			(
@@ -1094,9 +1132,74 @@ CREATE TEMP TABLE res as (
 		INNER JOIN classroom on classroom."ID_CLASSROOM"=finish_timetable."id_classroom" 
 		INNER JOIN "typeSubject" on finish_timetable.type_subject = "typeSubject"."ID_SUBJECT"
 );
-RETURN query SELECT * FROM res UNION ALL (SELECT res."ID", res."Date", res."Time", transfers.num_lesson_to, res."NameDay",res."Sub_Name_Group",res."Year_Of_Entry",res."Housing",res."Num_Classroom",res."Name_Subject",res.type_lesson,res."Abbreviation_Specialty" FROM res INNER JOIN transfers on res."ID"=transfers.id_lesson
-WHERE transfers.date_to>=date_start_week and transfers.date_to<=date_end_week ) ORDER BY "ID" DESC;
-	
+CREATE TEMP TABLE r as(
+	SELECT * FROM res UNION ALL (SELECT res."ID", res."Date", res."Time", transfers.num_lesson_to, res."NameDay",res."Sub_Name_Group",res."Year_Of_Entry",res."Housing",res."Num_Classroom",res."Name_Subject",res.type_lesson,res."Abbreviation_Specialty" FROM res INNER JOIN transfers on res."ID"=transfers.id_lesson
+WHERE transfers.date_to>=date_start_week and transfers.date_to<=date_end_week ) ORDER BY "ID" DESC
+);
+	FOR q IN SELECT date_hol FROM holidays WHERE date_hol>= date_start_week and date_hol<=date_end_week
+	LOOP
+	SELECT EXTRACT(DOW FROM q.date_hol) INTO daynum;
+	CASE daynum
+	WHEN 0 THEN
+		IF qs=0 then
+			qs:=1;
+			isk:='WHERE';
+			isk:=isk || ' r."NameDay"!= ''Воскресенье''';
+		else
+				isk:=isk || ' and r."NameDay"!= ''Воскресенье''';
+		end IF;
+	WHEN 1 THEN
+	IF qs=0 then
+			qs:=1;
+			isk:='WHERE';
+			isk:=isk || ' r."NameDay"!= ''Понедельник''';
+		else
+				isk:=isk || ' and r."NameDay"!= ''Понедельник''';
+		end IF;
+	WHEN 2 THEN
+	IF qs=0 then
+			qs:=1;
+			isk:='WHERE';
+			isk:=isk || ' r."NameDay"!= ''Вторник''';
+		else
+				isk:=isk || ' and r."NameDay"!= ''Вторник''';
+		end IF;
+	WHEN 3 THEN
+	IF qs=0 then
+			qs:=1;
+						isk:='WHERE';
+			isk:=isk || ' r."NameDay"!= ''Среда''';
+		else
+				isk:=isk || ' and r."NameDay"!= ''Среда''';
+		end IF;
+	WHEN 4 THEN
+	IF qs=0 then
+			qs:=1;
+						isk:='WHERE';
+			isk:=isk || ' r."NameDay"!= ''Четверг''';
+		else
+				isk:=isk || ' and r."NameDay"!= ''Четверг''';
+		end IF;
+	WHEN 5 THEN
+	IF qs=0 then
+			qs:=1;
+			isk:='WHERE';
+			isk:=isk || ' r."NameDay"!= ''Пятница''';
+		else
+				isk:=isk || ' and r."NameDay"!= ''Пятница''';
+		end IF;
+	WHEN 6 THEN
+	IF qs=0 then
+			isk:='WHERE';
+			qs:=1;
+			isk:=isk ||  ' r."NameDay"!= ''Суббота''';
+		else
+				isk:=isk || ' and r."NameDay"!= ''Суббота''';
+		end IF;
+END CASE;
+END LOOP;
+isk:='SELECT * FROM r ' || isk;
+RETURN query EXECUTE isk;
 END
 $$;
 
@@ -1657,7 +1760,8 @@ CREATE TABLE public.teachers (
     id_department integer NOT NULL,
     "Email" text NOT NULL,
     "Rate" real NOT NULL,
-    "Hourly_Payment" real NOT NULL
+    "Hourly_Payment" real NOT NULL,
+    pol_stavka real DEFAULT 0 NOT NULL
 );
 
 
@@ -2127,6 +2231,8 @@ COPY public."helpDiscip" (id_teacher, id_discipline) FROM stdin;
 --
 
 COPY public.holidays (id, date_hol) FROM stdin;
+1	2019-04-10
+2	2019-04-23
 \.
 
 
@@ -2134,7 +2240,7 @@ COPY public.holidays (id, date_hol) FROM stdin;
 -- Name: holidays_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.holidays_seq', 1, false);
+SELECT pg_catalog.setval('public.holidays_seq', 2, true);
 
 
 --
@@ -2148,6 +2254,8 @@ COPY public.para (id_group, id_lesson) FROM stdin;
 32	20
 32	21
 36	21
+32	22
+36	22
 \.
 
 
@@ -2214,6 +2322,7 @@ COPY public."subjectPay" (id_teacher, type_pay, id_subject) FROM stdin;
 17	1	18
 17	1	20
 17	1	21
+17	1	22
 \.
 
 
@@ -2221,14 +2330,14 @@ COPY public."subjectPay" (id_teacher, type_pay, id_subject) FROM stdin;
 -- Data for Name: teachers; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.teachers ("ID_TEACHER", "Name_Teacher", id_position, id_department, "Email", "Rate", "Hourly_Payment") FROM stdin;
-17	Федяев Олег Иванович	18	84	fedyaev@donntu.org	1	1
-18	Коломойцева Ирина Александровна	20	84	bolatiger@gmail.com	1	1
-19	Чернышова Алла Викторовна	20	84	chernyshova.alla@rambler.ru	1	1
-20	Скворцов Анатолий Ефремович	18	84	a.e.skvorcov@mail.ru	1	1
-21	Щедрин Сергей Валерьевич	17	84	do010575ssv@gmail.com	1	1
-22	Незамова Лариса Викторовна	17	84	larkot@mail.ru	1	1
-23	Григорьев Александр Владимирович	19	84	grigorievalvl@gmail.com	1	1
+COPY public.teachers ("ID_TEACHER", "Name_Teacher", id_position, id_department, "Email", "Rate", "Hourly_Payment", pol_stavka) FROM stdin;
+17	Федяев Олег Иванович	18	84	fedyaev@donntu.org	1	1	0
+18	Коломойцева Ирина Александровна	20	84	bolatiger@gmail.com	1	1	0
+19	Чернышова Алла Викторовна	20	84	chernyshova.alla@rambler.ru	1	1	0
+20	Скворцов Анатолий Ефремович	18	84	a.e.skvorcov@mail.ru	1	1	0
+21	Щедрин Сергей Валерьевич	17	84	do010575ssv@gmail.com	1	1	0
+22	Незамова Лариса Викторовна	17	84	larkot@mail.ru	1	1	0
+23	Григорьев Александр Владимирович	19	84	grigorievalvl@gmail.com	1	1	0
 \.
 
 
@@ -2252,6 +2361,7 @@ COPY public."timeTable" ("ID", id_classroom, num_lesson, type_subject, id_type_w
 18	37	1	17	4	2019-04-16	21:35:42.948955	35
 20	16	1	17	14	2019-04-16	22:03:11.268964	35
 21	25	1	18	3	2019-04-18	19:33:41.805622	36
+22	14	1	17	3	2019-04-25	21:01:33.045872	35
 \.
 
 
@@ -2259,7 +2369,7 @@ COPY public."timeTable" ("ID", id_classroom, num_lesson, type_subject, id_type_w
 -- Name: timeTable_ID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."timeTable_ID_seq"', 21, true);
+SELECT pg_catalog.setval('public."timeTable_ID_seq"', 22, true);
 
 
 --
@@ -2848,6 +2958,33 @@ GRANT ALL ON FUNCTION public.group_delete(namefaculty text, namedepartment text,
 
 
 --
+-- Name: FUNCTION holidays_add(holid_day date); Type: ACL; Schema: public; Owner: postgres
+--
+
+GRANT ALL ON FUNCTION public.holidays_add(holid_day date) TO admin_vuz WITH GRANT OPTION;
+GRANT ALL ON FUNCTION public.holidays_add(holid_day date) TO spravochniki WITH GRANT OPTION;
+
+
+--
+-- Name: FUNCTION holidays_delete(holid_day date); Type: ACL; Schema: public; Owner: postgres
+--
+
+GRANT ALL ON FUNCTION public.holidays_delete(holid_day date) TO admin_vuz WITH GRANT OPTION;
+GRANT ALL ON FUNCTION public.holidays_delete(holid_day date) TO spravochniki WITH GRANT OPTION;
+
+
+--
+-- Name: FUNCTION holidays_get(); Type: ACL; Schema: public; Owner: postgres
+--
+
+GRANT ALL ON FUNCTION public.holidays_get() TO admin_vuz WITH GRANT OPTION;
+GRANT ALL ON FUNCTION public.holidays_get() TO admin_faculty WITH GRANT OPTION;
+GRANT ALL ON FUNCTION public.holidays_get() TO admin_depar WITH GRANT OPTION;
+GRANT ALL ON FUNCTION public.holidays_get() TO teachers WITH GRANT OPTION;
+GRANT ALL ON FUNCTION public.holidays_get() TO spravochniki WITH GRANT OPTION;
+
+
+--
 -- Name: FUNCTION position_add(name_position text); Type: ACL; Schema: public; Owner: postgres
 --
 
@@ -3095,6 +3232,17 @@ GRANT ALL ON TABLE public."helpDiscip" TO admin_vuz WITH GRANT OPTION;
 GRANT ALL ON TABLE public."helpDiscip" TO admin_faculty WITH GRANT OPTION;
 GRANT ALL ON TABLE public."helpDiscip" TO admin_depar WITH GRANT OPTION;
 GRANT ALL ON TABLE public."helpDiscip" TO teachers WITH GRANT OPTION;
+
+
+--
+-- Name: TABLE holidays; Type: ACL; Schema: public; Owner: postgres
+--
+
+GRANT ALL ON TABLE public.holidays TO admin_vuz WITH GRANT OPTION;
+GRANT SELECT ON TABLE public.holidays TO admin_faculty WITH GRANT OPTION;
+GRANT SELECT ON TABLE public.holidays TO admin_depar WITH GRANT OPTION;
+GRANT SELECT ON TABLE public.holidays TO teachers WITH GRANT OPTION;
+GRANT ALL ON TABLE public.holidays TO spravochniki WITH GRANT OPTION;
 
 
 --
