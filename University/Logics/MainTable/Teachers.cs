@@ -37,7 +37,7 @@ namespace Logics.MainTable
                             nameposition = reader.GetString(4),
                             rating = reader.GetFloat(2),
                             hourlypayment = reader.GetFloat(3),
-                            pol_stavka = reader.GetFloat(4)
+                            pol_stavka = reader.GetFloat(5)
                         });
                     }
                 conn.Close();

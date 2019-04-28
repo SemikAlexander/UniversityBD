@@ -12,7 +12,7 @@
  Target Server Version : 90612
  File Encoding         : 65001
 
- Date: 23/04/2019 20:54:46
+ Date: 28/04/2019 16:23:24
 */
 
 
@@ -65,6 +65,17 @@ CACHE 1;
 -- ----------------------------
 DROP SEQUENCE IF EXISTS "public"."groups_ID_GROUP_seq";
 CREATE SEQUENCE "public"."groups_ID_GROUP_seq" 
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+
+-- ----------------------------
+-- Sequence structure for holidays_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."holidays_seq";
+CREATE SEQUENCE "public"."holidays_seq" 
 INCREMENT 1
 MINVALUE  1
 MAXVALUE 9223372036854775807
@@ -373,6 +384,22 @@ INSERT INTO "public"."helpDiscip" VALUES (22, 54);
 INSERT INTO "public"."helpDiscip" VALUES (23, 55);
 
 -- ----------------------------
+-- Table structure for holidays
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."holidays";
+CREATE TABLE "public"."holidays" (
+  "id" int4 NOT NULL DEFAULT nextval('holidays_seq'::regclass),
+  "date_hol" date NOT NULL
+)
+;
+
+-- ----------------------------
+-- Records of holidays
+-- ----------------------------
+INSERT INTO "public"."holidays" VALUES (1, '2019-04-10');
+INSERT INTO "public"."holidays" VALUES (2, '2019-04-23');
+
+-- ----------------------------
 -- Table structure for para
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."para";
@@ -391,6 +418,8 @@ INSERT INTO "public"."para" VALUES (36, 18);
 INSERT INTO "public"."para" VALUES (32, 20);
 INSERT INTO "public"."para" VALUES (32, 21);
 INSERT INTO "public"."para" VALUES (36, 21);
+INSERT INTO "public"."para" VALUES (32, 22);
+INSERT INTO "public"."para" VALUES (36, 22);
 
 -- ----------------------------
 -- Table structure for position
@@ -469,6 +498,7 @@ COMMENT ON COLUMN "public"."subjectPay"."type_pay" IS '0 - ставка, 1 -по
 INSERT INTO "public"."subjectPay" VALUES (17, 1, 18);
 INSERT INTO "public"."subjectPay" VALUES (17, 1, 20);
 INSERT INTO "public"."subjectPay" VALUES (17, 1, 21);
+INSERT INTO "public"."subjectPay" VALUES (17, 1, 22);
 
 -- ----------------------------
 -- Table structure for teachers
@@ -481,20 +511,21 @@ CREATE TABLE "public"."teachers" (
   "id_department" int4 NOT NULL,
   "Email" text COLLATE "pg_catalog"."default" NOT NULL,
   "Rate" float4 NOT NULL,
-  "Hourly_Payment" float4 NOT NULL
+  "Hourly_Payment" float4 NOT NULL,
+  "pol_stavka" float4 NOT NULL DEFAULT 0
 )
 ;
 
 -- ----------------------------
 -- Records of teachers
 -- ----------------------------
-INSERT INTO "public"."teachers" VALUES (17, 'Федяев Олег Иванович', 18, 84, 'fedyaev@donntu.org', 1, 1);
-INSERT INTO "public"."teachers" VALUES (18, 'Коломойцева Ирина Александровна', 20, 84, 'bolatiger@gmail.com', 1, 1);
-INSERT INTO "public"."teachers" VALUES (19, 'Чернышова Алла Викторовна', 20, 84, 'chernyshova.alla@rambler.ru', 1, 1);
-INSERT INTO "public"."teachers" VALUES (20, 'Скворцов Анатолий Ефремович', 18, 84, 'a.e.skvorcov@mail.ru', 1, 1);
-INSERT INTO "public"."teachers" VALUES (21, 'Щедрин Сергей Валерьевич', 17, 84, 'do010575ssv@gmail.com', 1, 1);
-INSERT INTO "public"."teachers" VALUES (22, 'Незамова Лариса Викторовна', 17, 84, 'larkot@mail.ru', 1, 1);
-INSERT INTO "public"."teachers" VALUES (23, 'Григорьев Александр Владимирович', 19, 84, 'grigorievalvl@gmail.com', 1, 1);
+INSERT INTO "public"."teachers" VALUES (17, 'Федяев Олег Иванович', 18, 84, 'fedyaev@donntu.org', 1, 1, 0);
+INSERT INTO "public"."teachers" VALUES (18, 'Коломойцева Ирина Александровна', 20, 84, 'bolatiger@gmail.com', 1, 1, 0);
+INSERT INTO "public"."teachers" VALUES (19, 'Чернышова Алла Викторовна', 20, 84, 'chernyshova.alla@rambler.ru', 1, 1, 0);
+INSERT INTO "public"."teachers" VALUES (20, 'Скворцов Анатолий Ефремович', 18, 84, 'a.e.skvorcov@mail.ru', 1, 1, 0);
+INSERT INTO "public"."teachers" VALUES (21, 'Щедрин Сергей Валерьевич', 17, 84, 'do010575ssv@gmail.com', 1, 1, 0);
+INSERT INTO "public"."teachers" VALUES (22, 'Незамова Лариса Викторовна', 17, 84, 'larkot@mail.ru', 1, 1, 0);
+INSERT INTO "public"."teachers" VALUES (23, 'Григорьев Александр Владимирович', 19, 84, 'grigorievalvl@gmail.com', 1, 1, 0);
 
 -- ----------------------------
 -- Table structure for timeTable
@@ -523,6 +554,7 @@ INSERT INTO "public"."timeTable" VALUES (17, 14, 1, 17, 14, '2019-04-16', '21:32
 INSERT INTO "public"."timeTable" VALUES (18, 37, 1, 17, 4, '2019-04-16', '21:35:42.948955', 35);
 INSERT INTO "public"."timeTable" VALUES (20, 16, 1, 17, 14, '2019-04-16', '22:03:11.268964', 35);
 INSERT INTO "public"."timeTable" VALUES (21, 25, 1, 18, 3, '2019-04-18', '19:33:41.805622', 36);
+INSERT INTO "public"."timeTable" VALUES (22, 14, 1, 17, 3, '2019-04-25', '21:01:33.045872', 35);
 
 -- ----------------------------
 -- Table structure for transfers
@@ -535,6 +567,11 @@ CREATE TABLE "public"."transfers" (
   "num_lesson_to" int4 NOT NULL
 )
 ;
+
+-- ----------------------------
+-- Records of transfers
+-- ----------------------------
+INSERT INTO "public"."transfers" VALUES (21, '2019-04-28', '2019-04-28', 2);
 
 -- ----------------------------
 -- Table structure for typeSubject
@@ -653,7 +690,7 @@ CREATE OR REPLACE FUNCTION "public"."add_transfer"("id_tm" int4, "datefrom" date
   RETURNS "pg_catalog"."text" AS $BODY$BEGIN
 
 	INSERT INTO transfers(date_from,date_to,id_lesson,num_lesson_to) VALUES(datefrom,dateto,id_tm,numless);
-	RETURN "Success";
+	RETURN 'Success';
 END
 $BODY$
   LANGUAGE plpgsql VOLATILE
@@ -1069,8 +1106,8 @@ $BODY$
 -- ----------------------------
 DROP FUNCTION IF EXISTS "public"."getallteachers"("facultet" text, "departm" text);
 CREATE OR REPLACE FUNCTION "public"."getallteachers"("facultet" text, "departm" text)
-  RETURNS TABLE("nameteacher" text, "emaildata" text, "rating" float4, "hourlypayment" float4, "nameposition" text) AS $BODY$BEGIN
-	RETURN query SELECT teachers."Name_Teacher",teachers."Email",teachers."Rate",teachers."Hourly_Payment","position"."Name_Position" from (SELECT department."ID_DEPARTMENT" FROM (SELECT "ID_FACULTY" FROM faculty WHERE "Name_Faculty"=facultet) as facul INNER JOIN department on department.id_faculty=facul."ID_FACULTY" WHERE department."Name_Department"=departm) as dep INNER JOIN teachers on teachers.id_department=dep."ID_DEPARTMENT" INNER JOIN "position" on teachers.id_position="position"."ID_POSITION";
+  RETURNS TABLE("nameteacher" text, "emaildata" text, "rating" float4, "hourlypayment" float4, "nameposition" text, "pol_stavka" float4) AS $BODY$BEGIN
+	RETURN query SELECT teachers."Name_Teacher",teachers."Email",teachers."Rate",teachers."Hourly_Payment","position"."Name_Position",teachers."pol_stavka" from (SELECT department."ID_DEPARTMENT" FROM (SELECT "ID_FACULTY" FROM faculty WHERE "Name_Faculty"=facultet) as facul INNER JOIN department on department.id_faculty=facul."ID_FACULTY" WHERE department."Name_Department"=departm) as dep INNER JOIN teachers on teachers.id_department=dep."ID_DEPARTMENT" INNER JOIN "position" on teachers.id_position="position"."ID_POSITION";
 
 END
 $BODY$
@@ -1178,6 +1215,51 @@ END
 $BODY$
   LANGUAGE plpgsql VOLATILE
   COST 100;
+
+-- ----------------------------
+-- Function structure for holidays_add
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."holidays_add"("holid_day" date);
+CREATE OR REPLACE FUNCTION "public"."holidays_add"("holid_day" date)
+  RETURNS "pg_catalog"."text" AS $BODY$
+	DECLARE
+	BEGIN 
+
+INSERT INTO "holidays" (date_hol) VALUES (holid_day);
+
+
+RETURN 'Success';
+
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+-- ----------------------------
+-- Function structure for holidays_delete
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."holidays_delete"("holid_day" date);
+CREATE OR REPLACE FUNCTION "public"."holidays_delete"("holid_day" date)
+  RETURNS "pg_catalog"."text" AS $BODY$BEGIN
+  DELETE FROM "holidays" WHERE date_hol=holid_day;
+RETURN 'Success';
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+-- ----------------------------
+-- Function structure for holidays_get
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."holidays_get"();
+CREATE OR REPLACE FUNCTION "public"."holidays_get"()
+  RETURNS TABLE("_id" int4, "hol_date" date) AS $BODY$BEGIN
+  RETURN query SELECT * FROM holidays;
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100
+  ROWS 1000;
 
 -- ----------------------------
 -- Function structure for position_add
@@ -1357,6 +1439,40 @@ $BODY$
   COST 100;
 
 -- ----------------------------
+-- Function structure for teachers_add
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."teachers_add"("namefaculty" text, "namedepartment" text, "nameteacher" text, "emailteacher" text, "rateteacher" float8, "hourlypayment" float8, "nameposition" text, "polstavka" float4);
+CREATE OR REPLACE FUNCTION "public"."teachers_add"("namefaculty" text, "namedepartment" text, "nameteacher" text, "emailteacher" text, "rateteacher" float8, "hourlypayment" float8, "nameposition" text, "polstavka" float4)
+  RETURNS "pg_catalog"."text" AS $BODY$
+	DECLARE
+	IDDEPARTMENT INTEGER :=0;
+	IDFACULTY INTEGER := 0;
+	IDPOSITION INTEGER := 0;
+	BEGIN 
+
+
+SELECT "ID_FACULTY" FROM faculty INTO IDFACULTY WHERE "Name_Faculty"=namefaculty LIMIT 1;
+IF NOT FOUND THEN
+    RETURN 'Факультет не найден';
+END IF;
+
+SELECT "ID_DEPARTMENT" From department WHERE  department."Name_Department"=namedepartment and IDFACULTY=department.id_faculty INTO IDDEPARTMENT;
+IF NOT FOUND THEN
+    RETURN 'Кафедра не найдена';
+END IF;
+SELECT "ID_POSITION" FROM "position" WHERE "Name_Position"=nameposition INTO IDPOSITION;
+IF NOT FOUND THEN
+    RETURN 'Должность не найдена';
+END IF;
+			
+			INSERT INTO teachers("Email","Hourly_Payment","Name_Teacher","Rate",id_department,id_position,pol_stavka) VALUES(emailteacher,hourlypayment,nameteacher,rateteacher,IDDEPARTMENT,IDPOSITION,polstavka);
+			RETURN 'Success';
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+-- ----------------------------
 -- Function structure for teachersdelete
 -- ----------------------------
 DROP FUNCTION IF EXISTS "public"."teachersdelete"("namefaculty" text, "namedepartment" text, "nameteacher" text);
@@ -1466,11 +1582,14 @@ CREATE OR REPLACE FUNCTION "public"."timetable_get"("facult" text, "depar" text,
 	DECLARE
 	date_start_week date := now();
 	date_end_week date := now();
+	isk TEXT :=' ';
+	q RECORD;
+	qs int4 :=0;
+	id_les RECORD;
+	daynum int4 :=0;
 	BEGIN
 	SELECT date_trunc('week', now()::timestamp) INTO date_start_week;
 	SELECT (date_trunc('week', now()::timestamp)+ '6 days'::interval)::date INTO date_end_week;
-	
-
 CREATE TEMP TABLE seltm as (
 		SELECT ttw."Date",ttw."ID",ttw."Time",ttw.num_lesson, ttw.type_subject,ttw."NameDay",ttw.id_classroom, groups."Sub_Name_Group",groups."Year_Of_Entry","stadyingPlan"."DateStartStuding","stadyingPlan"."DateEndStuding","stadyingPlan"."DateStartSession","stadyingPlan"."DateEndSession",specialty."Abbreviation_Specialty" from 
 			(
@@ -1498,9 +1617,80 @@ CREATE TEMP TABLE res as (
 		INNER JOIN classroom on classroom."ID_CLASSROOM"=finish_timetable."id_classroom" 
 		INNER JOIN "typeSubject" on finish_timetable.type_subject = "typeSubject"."ID_SUBJECT"
 );
-RETURN query SELECT * FROM res UNION ALL (SELECT res."ID", res."Date", res."Time", transfers.num_lesson_to, res."NameDay",res."Sub_Name_Group",res."Year_Of_Entry",res."Housing",res."Num_Classroom",res."Name_Subject",res.type_lesson,res."Abbreviation_Specialty" FROM res INNER JOIN transfers on res."ID"=transfers.id_lesson
-WHERE transfers.date_to>=date_start_week and transfers.date_to<=date_end_week ) ORDER BY "ID" DESC;
-	
+
+CREATE TEMP TABLE perenos as(
+ SELECT res."ID", res."Date", res."Time", transfers.num_lesson_to as num_lesson , res."NameDay",res."Sub_Name_Group",res."Year_Of_Entry",res."Housing",res."Num_Classroom",res."Name_Subject",res.type_lesson,res."Abbreviation_Specialty" FROM res INNER JOIN transfers on res."ID"=transfers.id_lesson
+WHERE transfers.date_to>=date_start_week and transfers.date_to<=date_end_week );
+
+CREATE TEMP TABLE r as(
+	SELECT res."ID", res."Date", res."Time", res.num_lesson , res."NameDay",res."Sub_Name_Group",res."Year_Of_Entry",res."Housing",res."Num_Classroom",res."Name_Subject",res.type_lesson,res."Abbreviation_Specialty" FROM res LEFT JOIN perenos on res."ID"=perenos."ID" WHERE perenos.num_lesson is null UNION SELECT * from perenos
+);
+	FOR q IN SELECT date_hol FROM holidays WHERE date_hol>= date_start_week and date_hol<=date_end_week
+	LOOP
+	SELECT EXTRACT(DOW FROM q.date_hol) INTO daynum;
+	CASE daynum
+	WHEN 0 THEN
+		IF qs=0 then
+			qs:=1;
+			isk:='WHERE';
+			isk:=isk || ' r."NameDay"!= ''Воскресенье''';
+		else
+				isk:=isk || ' or r."NameDay"!= ''Воскресенье''';
+		end IF;
+	WHEN 1 THEN
+	IF qs=0 then
+			qs:=1;
+			isk:='WHERE';
+			isk:=isk || ' r."NameDay"!= ''Понедельник''';
+		else
+				isk:=isk || ' or r."NameDay"!= ''Понедельник''';
+		end IF;
+	WHEN 2 THEN
+	IF qs=0 then
+			qs:=1;
+			isk:='WHERE';
+			isk:=isk || ' r."NameDay"!= ''Вторник''';
+		else
+				isk:=isk || ' or r."NameDay"!= ''Вторник''';
+		end IF;
+	WHEN 3 THEN
+	IF qs=0 then
+			qs:=1;
+						isk:='WHERE';
+			isk:=isk || ' r."NameDay"!= ''Среда''';
+		else
+				isk:=isk || ' or r."NameDay"!= ''Среда''';
+		end IF;
+	WHEN 4 THEN
+	IF qs=0 then
+			qs:=1;
+						isk:='WHERE';
+			isk:=isk || ' r."NameDay"!= ''Четверг''';
+		else
+				isk:=isk || ' or r."NameDay"!= ''Четверг''';
+		end IF;
+	WHEN 5 THEN
+	IF qs=0 then
+			qs:=1;
+			isk:='WHERE';
+			isk:=isk || ' r."NameDay"!= ''Пятница''';
+		else
+				isk:=isk || ' or r."NameDay"!= ''Пятница''';
+		end IF;
+	WHEN 6 THEN
+	IF qs=0 then
+			isk:='WHERE';
+			qs:=1;
+			isk:=isk ||  ' r."NameDay"!= ''Суббота''';
+		else
+				isk:=isk || ' or r."NameDay"!= ''Суббота''';
+		end IF;
+END CASE;
+END LOOP;
+isk:='SELECT * FROM r ' || isk;
+RETURN query EXECUTE isk;
+
+
 END
 $BODY$
   LANGUAGE plpgsql VOLATILE
@@ -1690,6 +1880,7 @@ SELECT setval('"public"."faculty_ID_FACULTY_seq"', 24, true);
 ALTER SEQUENCE "public"."groups_ID_GROUP_seq"
 OWNED BY "public"."groups"."ID_GROUP";
 SELECT setval('"public"."groups_ID_GROUP_seq"', 40, true);
+SELECT setval('"public"."holidays_seq"', 3, true);
 ALTER SEQUENCE "public"."position_ID_POSITION_seq"
 OWNED BY "public"."position"."ID_POSITION";
 SELECT setval('"public"."position_ID_POSITION_seq"', 24, true);
@@ -1704,7 +1895,7 @@ OWNED BY "public"."teachers"."ID_TEACHER";
 SELECT setval('"public"."teachers_ID_TEACHER_seq"', 27, true);
 ALTER SEQUENCE "public"."timeTable_ID_seq"
 OWNED BY "public"."timeTable"."ID";
-SELECT setval('"public"."timeTable_ID_seq"', 22, true);
+SELECT setval('"public"."timeTable_ID_seq"', 23, true);
 ALTER SEQUENCE "public"."typeSubject_ID_SUBJECT_seq"
 OWNED BY "public"."typeSubject"."ID_SUBJECT";
 SELECT setval('"public"."typeSubject_ID_SUBJECT_seq"', 24, true);
@@ -1736,6 +1927,11 @@ ALTER TABLE "public"."faculty" ADD CONSTRAINT "Faculty_pkey" PRIMARY KEY ("ID_FA
 -- Primary Key structure for table groups
 -- ----------------------------
 ALTER TABLE "public"."groups" ADD CONSTRAINT "Groups_pkey" PRIMARY KEY ("ID_GROUP");
+
+-- ----------------------------
+-- Primary Key structure for table holidays
+-- ----------------------------
+ALTER TABLE "public"."holidays" ADD CONSTRAINT "holidays_pkey" PRIMARY KEY ("id");
 
 -- ----------------------------
 -- Primary Key structure for table position

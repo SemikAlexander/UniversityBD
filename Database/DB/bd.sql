@@ -33,11 +33,11 @@ ALTER ROLE teachers WITH NOSUPERUSER INHERIT NOCREATEROLE NOCREATEDB NOLOGIN NOR
 -- Database creation
 --
 
+CREATE DATABASE "Univer" WITH TEMPLATE = template0 OWNER = postgres;
 REVOKE CONNECT,TEMPORARY ON DATABASE template1 FROM PUBLIC;
 GRANT CONNECT ON DATABASE template1 TO PUBLIC;
 
 
-<<<<<<< HEAD:Database/DB/bd.sql
 \connect "Univer"
 
 SET default_transaction_read_only = off;
@@ -138,7 +138,7 @@ CREATE FUNCTION public.add_transfer(id_tm integer, datefrom date, dateto date, n
     AS $$BEGIN
 
 	INSERT INTO transfers(date_from,date_to,id_lesson,num_lesson_to) VALUES(datefrom,dateto,id_tm,numless);
-	RETURN "Success";
+	RETURN 'Success';
 END
 $$;
 
@@ -585,7 +585,7 @@ ALTER FUNCTION public.getallspecialitynames(namefaculty text, namedepartment tex
 -- Name: getallteachers(text, text); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
-CREATE FUNCTION public.getallteachers(facultet text, departm text) RETURNS TABLE(nameteacher text, emaildata text, rating real, hourlypayment real, nameposition text)
+CREATE FUNCTION public.getallteachers(facultet text, departm text) RETURNS TABLE(nameteacher text, emaildata text, rating real, hourlypayment real, nameposition text, pol_stavka real)
     LANGUAGE plpgsql
     AS $$BEGIN
 	RETURN query SELECT teachers."Name_Teacher",teachers."Email",teachers."Rate",teachers."Hourly_Payment","position"."Name_Position",teachers."pol_stavka" from (SELECT department."ID_DEPARTMENT" FROM (SELECT "ID_FACULTY" FROM faculty WHERE "Name_Faculty"=facultet) as facul INNER JOIN department on department.id_faculty=facul."ID_FACULTY" WHERE department."Name_Department"=departm) as dep INNER JOIN teachers on teachers.id_department=dep."ID_DEPARTMENT" INNER JOIN "position" on teachers.id_position="position"."ID_POSITION";
@@ -1101,6 +1101,7 @@ CREATE FUNCTION public.timetable_get(facult text, depar text, fio text, type_wee
 	isk TEXT :=' ';
 	q RECORD;
 	qs int4 :=0;
+	id_les RECORD;
 	daynum int4 :=0;
 	BEGIN
 	SELECT date_trunc('week', now()::timestamp) INTO date_start_week;
@@ -1132,9 +1133,13 @@ CREATE TEMP TABLE res as (
 		INNER JOIN classroom on classroom."ID_CLASSROOM"=finish_timetable."id_classroom" 
 		INNER JOIN "typeSubject" on finish_timetable.type_subject = "typeSubject"."ID_SUBJECT"
 );
+
+CREATE TEMP TABLE perenos as(
+ SELECT res."ID", res."Date", res."Time", transfers.num_lesson_to as num_lesson , res."NameDay",res."Sub_Name_Group",res."Year_Of_Entry",res."Housing",res."Num_Classroom",res."Name_Subject",res.type_lesson,res."Abbreviation_Specialty" FROM res INNER JOIN transfers on res."ID"=transfers.id_lesson
+WHERE transfers.date_to>=date_start_week and transfers.date_to<=date_end_week );
+
 CREATE TEMP TABLE r as(
-	SELECT * FROM res UNION ALL (SELECT res."ID", res."Date", res."Time", transfers.num_lesson_to, res."NameDay",res."Sub_Name_Group",res."Year_Of_Entry",res."Housing",res."Num_Classroom",res."Name_Subject",res.type_lesson,res."Abbreviation_Specialty" FROM res INNER JOIN transfers on res."ID"=transfers.id_lesson
-WHERE transfers.date_to>=date_start_week and transfers.date_to<=date_end_week ) ORDER BY "ID" DESC
+	SELECT res."ID", res."Date", res."Time", res.num_lesson , res."NameDay",res."Sub_Name_Group",res."Year_Of_Entry",res."Housing",res."Num_Classroom",res."Name_Subject",res.type_lesson,res."Abbreviation_Specialty" FROM res LEFT JOIN perenos on res."ID"=perenos."ID" WHERE perenos.num_lesson is null UNION SELECT * from perenos
 );
 	FOR q IN SELECT date_hol FROM holidays WHERE date_hol>= date_start_week and date_hol<=date_end_week
 	LOOP
@@ -1146,7 +1151,7 @@ WHERE transfers.date_to>=date_start_week and transfers.date_to<=date_end_week ) 
 			isk:='WHERE';
 			isk:=isk || ' r."NameDay"!= ''Воскресенье''';
 		else
-				isk:=isk || ' and r."NameDay"!= ''Воскресенье''';
+				isk:=isk || ' or r."NameDay"!= ''Воскресенье''';
 		end IF;
 	WHEN 1 THEN
 	IF qs=0 then
@@ -1154,7 +1159,7 @@ WHERE transfers.date_to>=date_start_week and transfers.date_to<=date_end_week ) 
 			isk:='WHERE';
 			isk:=isk || ' r."NameDay"!= ''Понедельник''';
 		else
-				isk:=isk || ' and r."NameDay"!= ''Понедельник''';
+				isk:=isk || ' or r."NameDay"!= ''Понедельник''';
 		end IF;
 	WHEN 2 THEN
 	IF qs=0 then
@@ -1162,7 +1167,7 @@ WHERE transfers.date_to>=date_start_week and transfers.date_to<=date_end_week ) 
 			isk:='WHERE';
 			isk:=isk || ' r."NameDay"!= ''Вторник''';
 		else
-				isk:=isk || ' and r."NameDay"!= ''Вторник''';
+				isk:=isk || ' or r."NameDay"!= ''Вторник''';
 		end IF;
 	WHEN 3 THEN
 	IF qs=0 then
@@ -1170,7 +1175,7 @@ WHERE transfers.date_to>=date_start_week and transfers.date_to<=date_end_week ) 
 						isk:='WHERE';
 			isk:=isk || ' r."NameDay"!= ''Среда''';
 		else
-				isk:=isk || ' and r."NameDay"!= ''Среда''';
+				isk:=isk || ' or r."NameDay"!= ''Среда''';
 		end IF;
 	WHEN 4 THEN
 	IF qs=0 then
@@ -1178,7 +1183,7 @@ WHERE transfers.date_to>=date_start_week and transfers.date_to<=date_end_week ) 
 						isk:='WHERE';
 			isk:=isk || ' r."NameDay"!= ''Четверг''';
 		else
-				isk:=isk || ' and r."NameDay"!= ''Четверг''';
+				isk:=isk || ' or r."NameDay"!= ''Четверг''';
 		end IF;
 	WHEN 5 THEN
 	IF qs=0 then
@@ -1186,7 +1191,7 @@ WHERE transfers.date_to>=date_start_week and transfers.date_to<=date_end_week ) 
 			isk:='WHERE';
 			isk:=isk || ' r."NameDay"!= ''Пятница''';
 		else
-				isk:=isk || ' and r."NameDay"!= ''Пятница''';
+				isk:=isk || ' or r."NameDay"!= ''Пятница''';
 		end IF;
 	WHEN 6 THEN
 	IF qs=0 then
@@ -1194,12 +1199,14 @@ WHERE transfers.date_to>=date_start_week and transfers.date_to<=date_end_week ) 
 			qs:=1;
 			isk:=isk ||  ' r."NameDay"!= ''Суббота''';
 		else
-				isk:=isk || ' and r."NameDay"!= ''Суббота''';
+				isk:=isk || ' or r."NameDay"!= ''Суббота''';
 		end IF;
 END CASE;
 END LOOP;
 isk:='SELECT * FROM r ' || isk;
 RETURN query EXECUTE isk;
+
+
 END
 $$;
 
@@ -2377,6 +2384,7 @@ SELECT pg_catalog.setval('public."timeTable_ID_seq"', 22, true);
 --
 
 COPY public.transfers (id_lesson, date_from, date_to, num_lesson_to) FROM stdin;
+21	2019-04-28	2019-04-28	2
 \.
 
 
@@ -2910,16 +2918,6 @@ GRANT ALL ON FUNCTION public.getallspecialitynames(namefaculty text, namedepartm
 
 
 --
--- Name: FUNCTION getallteachers(facultet text, departm text); Type: ACL; Schema: public; Owner: postgres
---
-
-GRANT ALL ON FUNCTION public.getallteachers(facultet text, departm text) TO admin_vuz WITH GRANT OPTION;
-GRANT ALL ON FUNCTION public.getallteachers(facultet text, departm text) TO admin_faculty WITH GRANT OPTION;
-GRANT ALL ON FUNCTION public.getallteachers(facultet text, departm text) TO admin_depar WITH GRANT OPTION;
-GRANT ALL ON FUNCTION public.getallteachers(facultet text, departm text) TO teachers WITH GRANT OPTION;
-
-
---
 -- Name: FUNCTION getdepartmentfull(namefaculty text, startrow integer, countrow integer); Type: ACL; Schema: public; Owner: postgres
 --
 
@@ -3353,8 +3351,6 @@ GRANT ALL ON TABLE public.week TO spravochniki WITH GRANT OPTION;
 -- PostgreSQL database dump complete
 --
 
-=======
->>>>>>> d59ffac6ffdadf6a3c7eece1a720c6a477c37cce:Database/DB/bd with admin privelegies.sql
 \connect postgres
 
 SET default_transaction_read_only = off;
