@@ -1174,36 +1174,41 @@ CREATE TEMP TABLE perenos_finish
 	"Abbreviation_Specialty" text
 );
 
+INSERT INTO perenos_finish SELECT perenos."ID", perenos."Date", perenos."Time", perenos.num_lesson , perenos."NameDay",perenos."Sub_Name_Group",perenos."Year_Of_Entry",perenos."Housing",perenos."Num_Classroom",perenos."Name_Subject",perenos.type_lesson,perenos."Abbreviation_Specialty" FROM perenos;
+
+
+
+CREATE TEMP TABLE r as(
+	SELECT res."ID", res."Date", res."Time", res.num_lesson , res."NameDay",res."Sub_Name_Group",res."Year_Of_Entry",res."Housing",res."Num_Classroom",res."Name_Subject",res.type_lesson,res."Abbreviation_Specialty" FROM res LEFT JOIN perenos_finish on res."ID"=perenos_finish."ID" WHERE perenos_finish.num_lesson is null 
+);
+
 FOR q IN SELECT * from perenos LOOP
 	 SELECT EXTRACT(DOW FROM q.date_to) INTO daynum;
 	CASE daynum
 	WHEN 0 THEN
-		INSERT INTO perenos_finish VALUES (q."ID", q."Date", q."Time", q.num_lesson , 'Воскресенье',q."Sub_Name_Group",q."Year_Of_Entry",q."Housing",q."Num_Classroom",q."Name_Subject",q.type_lesson,q."Abbreviation_Specialty");
+		UPDATE perenos_finish SET "NameDay"='Воскресенье' WHERE perenos_finish."ID" = q."ID";
 	WHEN 1 THEN
-			INSERT INTO perenos_finish VALUES (q."ID", q."Date", q."Time", q.num_lesson , 'Понедельник',q."Sub_Name_Group",q."Year_Of_Entry",q."Housing",q."Num_Classroom",q."Name_Subject",q.type_lesson,q."Abbreviation_Specialty");
+				UPDATE perenos_finish SET "NameDay"='Понедельник' WHERE perenos_finish."ID" = q."ID";
 
 	WHEN 2 THEN
-			INSERT INTO perenos_finish VALUES (q."ID", q."Date", q."Time", q.num_lesson , 'Вторник',q."Sub_Name_Group",q."Year_Of_Entry",q."Housing",q."Num_Classroom",q."Name_Subject",q.type_lesson,q."Abbreviation_Specialty");
+				UPDATE perenos_finish SET "NameDay"='Вторник' WHERE perenos_finish."ID" = q."ID";
 
 	WHEN 3 THEN
-			INSERT INTO perenos_finish VALUES (q."ID", q."Date", q."Time", q.num_lesson , 'Среда',q."Sub_Name_Group",q."Year_Of_Entry",q."Housing",q."Num_Classroom",q."Name_Subject",q.type_lesson,q."Abbreviation_Specialty");
+				UPDATE perenos_finish SET "NameDay"='Среда' WHERE perenos_finish."ID" = q."ID";
 
 	WHEN 4 THEN
-			INSERT INTO perenos_finish VALUES (q."ID", q."Date", q."Time", q.num_lesson , 'Четверг',q."Sub_Name_Group",q."Year_Of_Entry",q."Housing",q."Num_Classroom",q."Name_Subject",q.type_lesson,q."Abbreviation_Specialty");
+				UPDATE perenos_finish SET "NameDay"='Четверг' WHERE perenos_finish."ID" = q."ID";
 
 	WHEN 5 THEN
-			INSERT INTO perenos_finish VALUES (q."ID", q."Date", q."Time", q.num_lesson , 'Пятница',q."Sub_Name_Group",q."Year_Of_Entry",q."Housing",q."Num_Classroom",q."Name_Subject",q.type_lesson,q."Abbreviation_Specialty");
+				UPDATE perenos_finish SET "NameDay"='Пятница' WHERE perenos_finish."ID" = q."ID";
 
 	WHEN 6 THEN
-			INSERT INTO perenos_finish VALUES (q."ID", q."Date", q."Time", q.num_lesson , 'Суббота',q."Sub_Name_Group",q."Year_Of_Entry",q."Housing",q."Num_Classroom",q."Name_Subject",q.type_lesson,q."Abbreviation_Specialty");
+				UPDATE perenos_finish SET "NameDay"='Суббота' WHERE perenos_finish."ID" = q."ID";
 
 	END CASE;
 END LOOP;
 
 
-CREATE TEMP TABLE r as(
-	SELECT res."ID", res."Date", res."Time", res.num_lesson , res."NameDay",res."Sub_Name_Group",res."Year_Of_Entry",res."Housing",res."Num_Classroom",res."Name_Subject",res.type_lesson,res."Abbreviation_Specialty" FROM res LEFT JOIN perenos_finish on res."ID"=perenos_finish."ID" WHERE perenos_finish.num_lesson is null UNION SELECT * from perenos_finish
-);
 	FOR qw IN SELECT date_hol FROM holidays WHERE date_hol>= date_start_week and date_hol<=date_end_week
 	LOOP
 	SELECT EXTRACT(DOW FROM qw.date_hol) INTO daynum;
@@ -1266,7 +1271,7 @@ CREATE TEMP TABLE r as(
 		end IF;
 END CASE;
 END LOOP;
-isk:='SELECT * FROM r ' || isk;
+isk:='SELECT * FROM r ' || isk || ' UNION SELECT * from perenos_finish ' || isk;
 RETURN query EXECUTE isk;
 
 
@@ -2324,8 +2329,6 @@ COPY public.para (id_group, id_lesson) FROM stdin;
 32	20
 32	21
 36	21
-32	22
-36	22
 32	23
 36	23
 \.
@@ -2394,7 +2397,6 @@ COPY public."subjectPay" (id_teacher, type_pay, id_subject) FROM stdin;
 17	1	18
 17	1	20
 17	1	21
-17	1	22
 18	1	23
 18	0	23
 \.
@@ -2435,7 +2437,6 @@ COPY public."timeTable" ("ID", id_classroom, num_lesson, type_subject, id_type_w
 18	37	1	17	4	2019-04-16	21:35:42.948955	35
 20	16	1	17	14	2019-04-16	22:03:11.268964	35
 21	25	1	18	3	2019-04-18	19:33:41.805622	36
-22	14	1	17	3	2019-04-25	21:01:33.045872	35
 23	29	2	18	3	2019-04-28	21:27:22.755997	39
 \.
 
@@ -2452,9 +2453,8 @@ SELECT pg_catalog.setval('public."timeTable_ID_seq"', 23, true);
 --
 
 COPY public.transfers (id_lesson, date_from, date_to, num_lesson_to) FROM stdin;
-22	2019-04-23	2019-04-24	1
-22	2019-04-22	2019-04-24	1
-22	2019-04-29	2019-05-01	3
+18	2019-04-30	2019-05-02	1
+21	2019-04-30	2019-05-03	7
 \.
 
 
