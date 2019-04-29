@@ -94,6 +94,12 @@
     <Compile Include="FacultyForm.Designer.cs">
       <DependentUpon>FacultyForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="GenerationDoc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GenerationDoc.Designer.cs">
+      <DependentUpon>GenerationDoc.cs</DependentUpon>
+    </Compile>
     <Compile Include="Holidays.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -191,6 +197,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FacultyForm.resx">
       <DependentUpon>FacultyForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GenerationDoc.resx">
+      <DependentUpon>GenerationDoc.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Holidays.resx">
       <DependentUpon>Holidays.cs</DependentUpon>
@@ -415,6 +424,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Holiday.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CreateDoc.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CreateDoc%2850%29.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
