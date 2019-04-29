@@ -471,6 +471,24 @@ $$;
 ALTER FUNCTION public.get_groups(namefaculty text, namedepartment text, spec text) OWNER TO postgres;
 
 --
+-- Name: get_reports_from_months(text, text, text, integer); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.get_reports_from_months(facult text, depar text, fio text, type_oplat integer) RETURNS TABLE("ID" integer, "Date" date, "Time" time without time zone, num_lesson integer, "NameDay" text, "Sub_Name_Group" text, "Year_Of_Entry" integer, "Housing" integer, "Num_Classroom" integer, "Name_Subject" text, type_lesson character varying, "Abbreviation_Specialty" text, date_para date)
+    LANGUAGE plpgsql
+    AS $$
+	DECLARE
+	
+	BEGIN
+
+
+END
+$$;
+
+
+ALTER FUNCTION public.get_reports_from_months(facult text, depar text, fio text, type_oplat integer) OWNER TO postgres;
+
+--
 -- Name: get_styding_plans(text, text, text, integer, text); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -1100,6 +1118,8 @@ CREATE FUNCTION public.timetable_get(facult text, depar text, fio text, type_wee
 	date_end_week date := now();
 	isk TEXT :=' ';
 	q RECORD;
+		qw RECORD;
+
 	qs int4 :=0;
 	id_les RECORD;
 	daynum int4 :=0;
@@ -1135,15 +1155,58 @@ CREATE TEMP TABLE res as (
 );
 
 CREATE TEMP TABLE perenos as(
- SELECT res."ID", res."Date", res."Time", transfers.num_lesson_to as num_lesson , res."NameDay",res."Sub_Name_Group",res."Year_Of_Entry",res."Housing",res."Num_Classroom",res."Name_Subject",res.type_lesson,res."Abbreviation_Specialty" FROM res INNER JOIN transfers on res."ID"=transfers.id_lesson
+ SELECT res."ID", res."Date", res."Time", transfers.num_lesson_to as num_lesson , res."NameDay",res."Sub_Name_Group",res."Year_Of_Entry",res."Housing",res."Num_Classroom",res."Name_Subject",res.type_lesson,res."Abbreviation_Specialty",transfers.date_to FROM res INNER JOIN transfers on res."ID"=transfers.id_lesson
 WHERE transfers.date_to>=date_start_week and transfers.date_to<=date_end_week );
 
-CREATE TEMP TABLE r as(
-	SELECT res."ID", res."Date", res."Time", res.num_lesson , res."NameDay",res."Sub_Name_Group",res."Year_Of_Entry",res."Housing",res."Num_Classroom",res."Name_Subject",res.type_lesson,res."Abbreviation_Specialty" FROM res LEFT JOIN perenos on res."ID"=perenos."ID" WHERE perenos.num_lesson is null UNION SELECT * from perenos
+CREATE TEMP TABLE perenos_finish
+(
+	"ID" int4,
+	"Date" date,
+	"Time" time,
+	num_lesson int4,
+	"NameDay" TEXT,
+	"Sub_Name_Group" text,
+	"Year_Of_Entry" int4,
+	"Housing" int4,
+	"Num_Classroom" int4,
+	"Name_Subject" text,
+	type_lesson VARCHAR,
+	"Abbreviation_Specialty" text
 );
-	FOR q IN SELECT date_hol FROM holidays WHERE date_hol>= date_start_week and date_hol<=date_end_week
+
+FOR q IN SELECT * from perenos LOOP
+	 SELECT EXTRACT(DOW FROM q.date_to) INTO daynum;
+	CASE daynum
+	WHEN 0 THEN
+		INSERT INTO perenos_finish VALUES (q."ID", q."Date", q."Time", q.num_lesson , 'Воскресенье',q."Sub_Name_Group",q."Year_Of_Entry",q."Housing",q."Num_Classroom",q."Name_Subject",q.type_lesson,q."Abbreviation_Specialty");
+	WHEN 1 THEN
+			INSERT INTO perenos_finish VALUES (q."ID", q."Date", q."Time", q.num_lesson , 'Понедельник',q."Sub_Name_Group",q."Year_Of_Entry",q."Housing",q."Num_Classroom",q."Name_Subject",q.type_lesson,q."Abbreviation_Specialty");
+
+	WHEN 2 THEN
+			INSERT INTO perenos_finish VALUES (q."ID", q."Date", q."Time", q.num_lesson , 'Вторник',q."Sub_Name_Group",q."Year_Of_Entry",q."Housing",q."Num_Classroom",q."Name_Subject",q.type_lesson,q."Abbreviation_Specialty");
+
+	WHEN 3 THEN
+			INSERT INTO perenos_finish VALUES (q."ID", q."Date", q."Time", q.num_lesson , 'Среда',q."Sub_Name_Group",q."Year_Of_Entry",q."Housing",q."Num_Classroom",q."Name_Subject",q.type_lesson,q."Abbreviation_Specialty");
+
+	WHEN 4 THEN
+			INSERT INTO perenos_finish VALUES (q."ID", q."Date", q."Time", q.num_lesson , 'Четверг',q."Sub_Name_Group",q."Year_Of_Entry",q."Housing",q."Num_Classroom",q."Name_Subject",q.type_lesson,q."Abbreviation_Specialty");
+
+	WHEN 5 THEN
+			INSERT INTO perenos_finish VALUES (q."ID", q."Date", q."Time", q.num_lesson , 'Пятница',q."Sub_Name_Group",q."Year_Of_Entry",q."Housing",q."Num_Classroom",q."Name_Subject",q.type_lesson,q."Abbreviation_Specialty");
+
+	WHEN 6 THEN
+			INSERT INTO perenos_finish VALUES (q."ID", q."Date", q."Time", q.num_lesson , 'Суббота',q."Sub_Name_Group",q."Year_Of_Entry",q."Housing",q."Num_Classroom",q."Name_Subject",q.type_lesson,q."Abbreviation_Specialty");
+
+	END CASE;
+END LOOP;
+
+
+CREATE TEMP TABLE r as(
+	SELECT res."ID", res."Date", res."Time", res.num_lesson , res."NameDay",res."Sub_Name_Group",res."Year_Of_Entry",res."Housing",res."Num_Classroom",res."Name_Subject",res.type_lesson,res."Abbreviation_Specialty" FROM res LEFT JOIN perenos_finish on res."ID"=perenos_finish."ID" WHERE perenos_finish.num_lesson is null UNION SELECT * from perenos_finish
+);
+	FOR qw IN SELECT date_hol FROM holidays WHERE date_hol>= date_start_week and date_hol<=date_end_week
 	LOOP
-	SELECT EXTRACT(DOW FROM q.date_hol) INTO daynum;
+	SELECT EXTRACT(DOW FROM qw.date_hol) INTO daynum;
 	CASE daynum
 	WHEN 0 THEN
 		IF qs=0 then
@@ -2263,6 +2326,8 @@ COPY public.para (id_group, id_lesson) FROM stdin;
 36	21
 32	22
 36	22
+32	23
+36	23
 \.
 
 
@@ -2330,6 +2395,8 @@ COPY public."subjectPay" (id_teacher, type_pay, id_subject) FROM stdin;
 17	1	20
 17	1	21
 17	1	22
+18	1	23
+18	0	23
 \.
 
 
@@ -2369,6 +2436,7 @@ COPY public."timeTable" ("ID", id_classroom, num_lesson, type_subject, id_type_w
 20	16	1	17	14	2019-04-16	22:03:11.268964	35
 21	25	1	18	3	2019-04-18	19:33:41.805622	36
 22	14	1	17	3	2019-04-25	21:01:33.045872	35
+23	29	2	18	3	2019-04-28	21:27:22.755997	39
 \.
 
 
@@ -2376,7 +2444,7 @@ COPY public."timeTable" ("ID", id_classroom, num_lesson, type_subject, id_type_w
 -- Name: timeTable_ID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."timeTable_ID_seq"', 22, true);
+SELECT pg_catalog.setval('public."timeTable_ID_seq"', 23, true);
 
 
 --
@@ -2384,7 +2452,9 @@ SELECT pg_catalog.setval('public."timeTable_ID_seq"', 22, true);
 --
 
 COPY public.transfers (id_lesson, date_from, date_to, num_lesson_to) FROM stdin;
-21	2019-04-28	2019-04-28	2
+22	2019-04-23	2019-04-24	1
+22	2019-04-22	2019-04-24	1
+22	2019-04-29	2019-05-01	3
 \.
 
 
