@@ -301,6 +301,7 @@ namespace UniversityMain
                                 break;
                             }
             }
+            
             if (result == DialogResult.Yes)
                 new TransferSet(connectionDB, ID, tableStructures).Show();    /*IDLesson*/
         }

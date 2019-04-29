@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -66,6 +66,8 @@
             this.button4 = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.InputRating = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.PolStavka = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -186,20 +188,20 @@
             // 
             this.TeacherInfo.AllowUserToAddRows = false;
             this.TeacherInfo.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.TeacherInfo.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.TeacherInfo.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
             this.TeacherInfo.BackgroundColor = System.Drawing.Color.White;
             this.TeacherInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.TeacherInfo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.TeacherInfo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.TeacherInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.TeacherInfo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.NameGroup,
@@ -262,6 +264,8 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.label12);
+            this.panel3.Controls.Add(this.PolStavka);
             this.panel3.Controls.Add(this.button3);
             this.panel3.Controls.Add(this.label11);
             this.panel3.Controls.Add(this.label10);
@@ -313,7 +317,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label10.Location = new System.Drawing.Point(698, 41);
+            this.label10.Location = new System.Drawing.Point(704, 70);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(85, 18);
             this.label10.TabIndex = 27;
@@ -322,10 +326,11 @@
             // textBox3
             // 
             this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox3.Location = new System.Drawing.Point(795, 41);
+            this.textBox3.Location = new System.Drawing.Point(795, 68);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(190, 21);
             this.textBox3.TabIndex = 26;
+            this.textBox3.Text = "0";
             this.textBox3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox3_KeyPress);
             // 
             // label3
@@ -454,11 +459,11 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label9.Location = new System.Drawing.Point(708, 13);
+            this.label9.Location = new System.Drawing.Point(725, 15);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(74, 18);
+            this.label9.Size = new System.Drawing.Size(58, 18);
             this.label9.TabIndex = 6;
-            this.label9.Text = "Зарплата";
+            this.label9.Text = "Ставка";
             // 
             // InputRating
             // 
@@ -467,7 +472,27 @@
             this.InputRating.Name = "InputRating";
             this.InputRating.Size = new System.Drawing.Size(190, 21);
             this.InputRating.TabIndex = 5;
+            this.InputRating.Text = "0";
             this.InputRating.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.InputYearEntry_KeyPress);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label12.Location = new System.Drawing.Point(705, 43);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(84, 18);
+            this.label12.TabIndex = 31;
+            this.label12.Text = "Полставки";
+            // 
+            // PolStavka
+            // 
+            this.PolStavka.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.PolStavka.Location = new System.Drawing.Point(795, 41);
+            this.PolStavka.Name = "PolStavka";
+            this.PolStavka.Size = new System.Drawing.Size(190, 21);
+            this.PolStavka.TabIndex = 30;
+            this.PolStavka.Text = "0";
             // 
             // Teachers
             // 
@@ -538,5 +563,7 @@
         private System.Windows.Forms.DataGridViewButtonColumn GetDiscipline;
         private System.Windows.Forms.DataGridViewButtonColumn DeleteTeacher;
         private System.Windows.Forms.DataGridViewButtonColumn EditTeacher;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox PolStavka;
     }
 }
