@@ -48,10 +48,6 @@
             this.DepartmentBox = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.TeacherInfo = new System.Windows.Forms.DataGridView();
-            this.NameTeacher = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ChoiseTeacher = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Pochasovka = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Stavka = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.TimeSessionPanel = new System.Windows.Forms.Panel();
             this.label17 = new System.Windows.Forms.Label();
@@ -91,6 +87,11 @@
             this.GroupOnLesson = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.AddParaInTimeTable = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.NameTeacher = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ChoiseTeacher = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Pochasovka = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Stavka = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.PolStavka = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -273,41 +274,16 @@
             this.NameTeacher,
             this.ChoiseTeacher,
             this.Pochasovka,
-            this.Stavka});
-            this.TeacherInfo.Location = new System.Drawing.Point(99, 6);
+            this.Stavka,
+            this.PolStavka});
+            this.TeacherInfo.Location = new System.Drawing.Point(37, 6);
             this.TeacherInfo.Name = "TeacherInfo";
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.TeacherInfo.RowsDefaultCellStyle = dataGridViewCellStyle2;
-            this.TeacherInfo.Size = new System.Drawing.Size(590, 297);
+            this.TeacherInfo.Size = new System.Drawing.Size(695, 297);
             this.TeacherInfo.TabIndex = 6;
             this.TeacherInfo.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.TeacherInfo_CellContentClick);
-            // 
-            // NameTeacher
-            // 
-            this.NameTeacher.HeaderText = "Имя преподавателя";
-            this.NameTeacher.Name = "NameTeacher";
-            this.NameTeacher.Width = 300;
-            // 
-            // ChoiseTeacher
-            // 
-            this.ChoiseTeacher.HeaderText = "Выбрать";
-            this.ChoiseTeacher.Name = "ChoiseTeacher";
-            this.ChoiseTeacher.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.ChoiseTeacher.Width = 80;
-            // 
-            // Pochasovka
-            // 
-            this.Pochasovka.HeaderText = "Почасовка";
-            this.Pochasovka.Name = "Pochasovka";
-            this.Pochasovka.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Pochasovka.Width = 80;
-            // 
-            // Stavka
-            // 
-            this.Stavka.HeaderText = "Ставка";
-            this.Stavka.Name = "Stavka";
-            this.Stavka.Width = 80;
             // 
             // tabPage3
             // 
@@ -759,6 +735,37 @@
             this.AddParaInTimeTable.Visible = false;
             this.AddParaInTimeTable.Click += new System.EventHandler(this.Button3_Click);
             // 
+            // NameTeacher
+            // 
+            this.NameTeacher.HeaderText = "Имя преподавателя";
+            this.NameTeacher.Name = "NameTeacher";
+            this.NameTeacher.Width = 300;
+            // 
+            // ChoiseTeacher
+            // 
+            this.ChoiseTeacher.HeaderText = "Выбрать";
+            this.ChoiseTeacher.Name = "ChoiseTeacher";
+            this.ChoiseTeacher.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ChoiseTeacher.Width = 80;
+            // 
+            // Pochasovka
+            // 
+            this.Pochasovka.HeaderText = "Почасовка";
+            this.Pochasovka.Name = "Pochasovka";
+            this.Pochasovka.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Pochasovka.Width = 80;
+            // 
+            // Stavka
+            // 
+            this.Stavka.HeaderText = "Ставка";
+            this.Stavka.Name = "Stavka";
+            this.Stavka.Width = 80;
+            // 
+            // PolStavka
+            // 
+            this.PolStavka.HeaderText = "Полставки";
+            this.PolStavka.Name = "PolStavka";
+            // 
             // AddPara
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -835,10 +842,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn YearOfEntry;
         private System.Windows.Forms.DataGridViewCheckBoxColumn GroupOnLesson;
         private System.Windows.Forms.ComboBox DisciplineBox;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NameTeacher;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn ChoiseTeacher;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Pochasovka;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Stavka;
         private System.Windows.Forms.Button AddTeacherInTimeTable;
         private System.Windows.Forms.Button AddLessonsInTimeTable;
         private System.Windows.Forms.Button AddGroupInTimeTable;
@@ -850,5 +853,10 @@
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.DateTimePicker DateSomething;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NameTeacher;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn ChoiseTeacher;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Pochasovka;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Stavka;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn PolStavka;
     }
 }

@@ -301,8 +301,9 @@ namespace UniversityMain
                                 break;
                             }
             }
+            
             if (result == DialogResult.Yes)
-                new TransferSet(connectionDB, ID).Show();    /*IDLesson*/
+                new TransferSet(connectionDB, ID, tableStructures).Show();    /*IDLesson*/
         }
         private void Button14_Click(object sender, EventArgs e)
         {
