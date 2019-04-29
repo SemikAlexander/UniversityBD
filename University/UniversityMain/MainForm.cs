@@ -301,9 +301,13 @@ namespace UniversityMain
                                 break;
                             }
             }
-            
+            DateTime GetDayForTransfer = DateTime.Now;
+            if ((LessonsInfo.CurrentCell.ColumnIndex + 1) - (int)DateTime.Now.DayOfWeek >= 0)
+            {
+                GetDayForTransfer = DateTime.Now.Date.AddDays((LessonsInfo.CurrentCell.ColumnIndex + 1) - (int)DateTime.Now.DayOfWeek);
+            }
             if (result == DialogResult.Yes)
-                new TransferSet(connectionDB, ID, tableStructures).Show();    /*IDLesson*/
+                new TransferSet(connectionDB, ID, tableStructures, GetDayForTransfer).Show();    /*IDLesson*/
         }
         private void Button14_Click(object sender, EventArgs e)
         {
