@@ -18,16 +18,19 @@ namespace UniversityMain
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
         private extern static void SendMessage(IntPtr hwnd, int wmsg, int wparam, int lparam);
         int TimeTableData;
+        List<Logics.MainTable.TimeTable.TimeTableStructure> structures = new List<Logics.MainTable.TimeTable.TimeTableStructure>();
         #region Classes
         Logics.Functions.Connection.ConnectionDB connectionDB;
         Logics.MainTable.Transfers transfers;
         #endregion
-        public TransferSet(Logics.Functions.Connection.ConnectionDB connection, int IDLesson)
+        public TransferSet(Logics.Functions.Connection.ConnectionDB connection, int IDLesson, List<Logics.MainTable.TimeTable.TimeTableStructure> timeTableStructures)
         {
             InitializeComponent();
             TimeTableData = IDLesson;
             transfers = new Logics.MainTable.Transfers(connection);
             connectionDB = connection;
+            foreach (var TT in timeTableStructures)
+                structures.Add(TT);
         }
 
         private void Panel1_MouseDown(object sender, MouseEventArgs e)

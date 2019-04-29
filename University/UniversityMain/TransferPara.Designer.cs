@@ -38,8 +38,6 @@
             this.button1 = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.TransferInfo = new System.Windows.Forms.DataGridView();
-            this.NameTeacher = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NameLesson = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TransferGroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.WeekDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NumLesson = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -61,7 +59,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1038, 44);
+            this.panel1.Size = new System.Drawing.Size(600, 44);
             this.panel1.TabIndex = 5;
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Panel1_MouseDown);
             // 
@@ -90,7 +88,7 @@
             this.panel2.Controls.Add(this.button2);
             this.panel2.Controls.Add(this.button1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel2.Location = new System.Drawing.Point(965, 0);
+            this.panel2.Location = new System.Drawing.Point(527, 0);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(73, 44);
             this.panel2.TabIndex = 1;
@@ -122,10 +120,10 @@
             // panel3
             // 
             this.panel3.Controls.Add(this.TransferInfo);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(0, 44);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1038, 242);
+            this.panel3.Size = new System.Drawing.Size(600, 241);
             this.panel3.TabIndex = 6;
             // 
             // TransferInfo
@@ -144,36 +142,21 @@
             this.TransferInfo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.TransferInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.TransferInfo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.NameTeacher,
-            this.NameLesson,
             this.TransferGroup,
             this.WeekDay,
             this.NumLesson,
             this.TypeLesson,
             this.ID});
+            this.TransferInfo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TransferInfo.Location = new System.Drawing.Point(0, 0);
             this.TransferInfo.Name = "TransferInfo";
             this.TransferInfo.ReadOnly = true;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.TransferInfo.RowsDefaultCellStyle = dataGridViewCellStyle2;
-            this.TransferInfo.Size = new System.Drawing.Size(1038, 242);
+            this.TransferInfo.Size = new System.Drawing.Size(600, 241);
             this.TransferInfo.TabIndex = 11;
             this.TransferInfo.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.TransferInfo_CellContentDoubleClick);
-            // 
-            // NameTeacher
-            // 
-            this.NameTeacher.HeaderText = "Преподаватель";
-            this.NameTeacher.Name = "NameTeacher";
-            this.NameTeacher.ReadOnly = true;
-            this.NameTeacher.Width = 250;
-            // 
-            // NameLesson
-            // 
-            this.NameLesson.HeaderText = "Название пары";
-            this.NameLesson.Name = "NameLesson";
-            this.NameLesson.ReadOnly = true;
-            this.NameLesson.Width = 200;
             // 
             // TransferGroup
             // 
@@ -213,7 +196,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1038, 285);
+            this.ClientSize = new System.Drawing.Size(600, 285);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -241,8 +224,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel panel3;
         public System.Windows.Forms.DataGridView TransferInfo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NameTeacher;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NameLesson;
         private System.Windows.Forms.DataGridViewTextBoxColumn TransferGroup;
         private System.Windows.Forms.DataGridViewTextBoxColumn WeekDay;
         private System.Windows.Forms.DataGridViewTextBoxColumn NumLesson;
