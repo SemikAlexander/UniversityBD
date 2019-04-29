@@ -474,7 +474,7 @@ ALTER FUNCTION public.get_groups(namefaculty text, namedepartment text, spec tex
 -- Name: get_reports_from_months(text, text, text, integer, date, date); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
-CREATE FUNCTION public.get_reports_from_months(facult text, depar text, fio text, type_oplat integer, months date, start_study date) RETURNS TABLE("ID" integer, "Date" date, "Time" time without time zone, num_lesson integer, "NameDay" text, "Sub_Name_Group" text, "Year_Of_Entry" integer, "Housing" integer, "Num_Classroom" integer, "Name_Subject" text, type_lesson character varying, "Abbreviation_Specialty" text, date_para date)
+CREATE FUNCTION public.get_reports_from_months(facult text, depar text, fio text, type_oplat integer, months date, start_study date) RETURNS TABLE("ID" integer, "Date" date, "Time" time without time zone, num_lesson integer, "Sub_Name_Group" text, "Year_Of_Entry" integer, "Housing" integer, "Num_Classroom" integer, "Name_Subject" text, type_lesson character varying, "Abbreviation_Specialty" text, date_para date)
     LANGUAGE plpgsql
     AS $$
 	DECLARE
@@ -509,9 +509,7 @@ SELECT ttw."Date",ttw."ID",ttw."Time",ttw.num_lesson, ttw.type_subject,ttw."Name
 CREATE TEMP TABLE res as (
 		SELECT finish_timetable."ID", finish_timetable."Date", finish_timetable."Time", finish_timetable."num_lesson", finish_timetable."NameDay",finish_timetable."TypeWeek",finish_timetable."Sub_Name_Group",finish_timetable."Year_Of_Entry",classroom."Housing",classroom."Num_Classroom","typeSubject"."Name_Subject","typeSubject".type_lesson,finish_timetable."Abbreviation_Specialty"
 		from(
-				SELECT * from seltm WHERE "DateStartStuding"<=month_start and "DateEndStuding">=month_end 
-				UNION ALL 
-				SELECT * from seltm WHERE "DateStartSession"<=month_start and "DateEndSession">=month_end
+				SELECT * from seltm WHERE "DateStartStuding"<=month_start and "DateEndSession">=month_end
 				)as finish_timetable
 		INNER JOIN classroom on classroom."ID_CLASSROOM"=finish_timetable."id_classroom" 
 		INNER JOIN "typeSubject" on finish_timetable.type_subject = "typeSubject"."ID_SUBJECT"
@@ -526,7 +524,6 @@ CREATE TEMP TABLE result_table
 	"Date" date,
 	"Time" time,
 	num_lesson int4,
-	"NameDay" TEXT,
 	"Sub_Name_Group" text,
 	"Year_Of_Entry" int4,
 	"Housing" int4,
@@ -559,26 +556,25 @@ WHILE month_start<=month_end LOOP
 			_nameday='Суббота';
 		END CASE;
 	
-	INSERT INTO result_table SELECT* FROM
+	INSERT INTO result_table SELECT * FROM
 	(
-		SELECT qs."ID", qs."Date", qs."Time", qs.num_lesson , qs."NameDay",qs."Sub_Name_Group",qs."Year_Of_Entry",qs."Housing",qs."Num_Classroom",qs."Name_Subject",qs.type_lesson,qs."Abbreviation_Specialty" FROM (
+		SELECT qs."ID", qs."Date", qs."Time", qs.num_lesson , qs."Sub_Name_Group",qs."Year_Of_Entry",qs."Housing",qs."Num_Classroom",qs."Name_Subject",qs.type_lesson,qs."Abbreviation_Specialty" FROM (
 			SELECT res."ID", res."Date", res."Time", res.num_lesson , res."NameDay",res."Sub_Name_Group",res."Year_Of_Entry",res."Housing",res."Num_Classroom",res."Name_Subject",res.type_lesson,res."Abbreviation_Specialty" FROM res WHERE res."NameDay"=_nameday and res."TypeWeek"=type_week_q
 		)as qs 
 			LEFT JOIN 
 			(
-				SELECT perenos."ID", perenos."Date", perenos."Time", perenos.num_lesson , perenos."NameDay",perenos."Sub_Name_Group",perenos."Year_Of_Entry",perenos."Housing",perenos."Num_Classroom",perenos."Name_Subject",perenos.type_lesson,perenos."Abbreviation_Specialty" FROM perenos WHERE perenos.date_to=month_start or perenos.date_from=month_start
+				SELECT perenos."ID", perenos."Date", perenos."Time", perenos.num_lesson , perenos."Sub_Name_Group",perenos."Year_Of_Entry",perenos."Housing",perenos."Num_Classroom",perenos."Name_Subject",perenos.type_lesson,perenos."Abbreviation_Specialty" FROM perenos WHERE perenos.date_to=month_start or perenos.date_from=month_start
 			)as perenos_finish on qs."ID"=perenos_finish."ID" WHERE perenos_finish.num_lesson is null 
 		UNION 
-		SELECT perenos."ID", perenos."Date", perenos."Time", perenos.num_lesson , perenos."NameDay",perenos."Sub_Name_Group",perenos."Year_Of_Entry",perenos."Housing",perenos."Num_Classroom",perenos."Name_Subject",perenos.type_lesson,perenos."Abbreviation_Specialty" FROM perenos WHERE perenos.date_to=month_start and perenos.date_from=month_start 
+		SELECT perenos."ID", perenos."Date", perenos."Time", perenos.num_lesson , perenos."Sub_Name_Group",perenos."Year_Of_Entry",perenos."Housing",perenos."Num_Classroom",perenos."Name_Subject",perenos.type_lesson,perenos."Abbreviation_Specialty" FROM perenos WHERE perenos.date_to=month_start 
 		) as qqq CROSS JOIN (SELECT month_start) as date_para;
-	
 	
 	end if;
 	
 	
 	month_start:=month_start+interval '1' day;
 END LOOP;
-RETURN query SELECT * from result_table;
+RETURN query SELECT * from result_table ORDER BY "date_para" ASC;
 
 
 END
@@ -1209,9 +1205,7 @@ CREATE TEMP TABLE seltm as (
 CREATE TEMP TABLE res as (
 		SELECT finish_timetable."ID", finish_timetable."Date", finish_timetable."Time", finish_timetable."num_lesson", finish_timetable."NameDay",finish_timetable."Sub_Name_Group",finish_timetable."Year_Of_Entry",classroom."Housing",classroom."Num_Classroom","typeSubject"."Name_Subject","typeSubject".type_lesson,finish_timetable."Abbreviation_Specialty"
 		from(
-				SELECT * from seltm WHERE "DateStartStuding"<now() and "DateEndStuding">now() 
-				UNION ALL 
-				SELECT * from seltm WHERE "DateStartSession"<now() and "DateEndSession">now()
+				SELECT * from seltm WHERE "DateStartStuding"<now() and "DateEndSession">now()
 				)as finish_timetable
 		INNER JOIN classroom on classroom."ID_CLASSROOM"=finish_timetable."id_classroom" 
 		INNER JOIN "typeSubject" on finish_timetable.type_subject = "typeSubject"."ID_SUBJECT"
@@ -2370,8 +2364,6 @@ COPY public."helpDiscip" (id_teacher, id_discipline) FROM stdin;
 --
 
 COPY public.holidays (id, date_hol) FROM stdin;
-1	2019-04-10
-2	2019-04-23
 \.
 
 
@@ -2517,8 +2509,8 @@ SELECT pg_catalog.setval('public."timeTable_ID_seq"', 23, true);
 --
 
 COPY public.transfers (id_lesson, date_from, date_to, num_lesson_to) FROM stdin;
-18	2019-04-30	2019-05-02	1
-21	2019-04-30	2019-05-03	7
+21	2019-04-30	2019-04-29	7
+18	2019-04-30	2019-05-02	5
 \.
 
 
