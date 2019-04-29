@@ -268,4 +268,16 @@
   <data name="GetTimeTableForTeacher" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\GetTimeTableForTeacher.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Holiday" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Holiday.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Holiday_50_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Holiday(50).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CreateDoc" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CreateDoc.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CreateDoc_50_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CreateDoc(50).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

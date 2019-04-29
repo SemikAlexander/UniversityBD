@@ -253,6 +253,35 @@ namespace UniversityMain
                         TeacherInfo.Rows.Add(teach.nameteacher);
                 }
             }
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewCheckBoxColumn & senderGrid.Columns[e.ColumnIndex].Name == "PolStavka" && e.RowIndex >= 0)
+            {
+                if (TeacherInfo.CurrentRow.Cells[1].Value != null && (bool)TeacherInfo.CurrentRow.Cells[1].Value == true)
+                {
+                    if (TeacherInfo.CurrentRow.Cells[4].Value != null && (bool)TeacherInfo.CurrentRow.Cells[1].Value == true)
+                    {
+                        TeacherInfo.CurrentRow.Cells[4].Value = false;
+                        TeacherInfo.CurrentRow.Cells[4].Value = null;
+                        type_Opl.type_Oplaty_Teacher = 0;
+                        ChoiseTypePayForTeacher = false;
+                    }
+                    else if (TeacherInfo.CurrentRow.Cells[4].Value == null & TeacherInfo.CurrentRow.Cells[1].Value != null && (bool)TeacherInfo.CurrentRow.Cells[1].Value == true)
+                    {
+                        TeacherInfo.CurrentRow.Cells[4].Value = true;
+                        type_Opl.type_Oplaty_Teacher = Logics.MainTable.TimeTable.type_oplaty_teacher.PolStavka;
+                        array_type_Opl.Add(type_Opl);
+                        TeacherInfo.CurrentRow.Cells[2].Value = false;
+                        TeacherInfo.CurrentRow.Cells[2].Value = null;
+                        ChoiseTypePayForTeacher = true;
+                    }
+                }
+                else
+                {
+                    TeacherInfo.Rows.Clear();
+                    teachers.GetTeachers(FacultyBox.SelectedItem.ToString(), DepartmentBox.SelectedItem.ToString(), out teachersStructure);
+                    foreach (var teach in teachersStructure)
+                        TeacherInfo.Rows.Add(teach.nameteacher);
+                }
+            }
         }
         private void ComboBox1_SelectedIndexChanged_1(object sender, EventArgs e)
         {

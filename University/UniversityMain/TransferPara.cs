@@ -32,7 +32,6 @@ namespace UniversityMain
             nameTeacher = NameTeacher;
             faculty = NameFaculty;
             department = NameDepartment;
-            transfers.GetTransfers(faculty, department, nameTeacher, out transfersStructs);
             InitializeComponent();
         }
         private void Panel1_MouseDown(object sender, MouseEventArgs e)
@@ -58,8 +57,14 @@ namespace UniversityMain
         }
         private void TransferPara_Load(object sender, EventArgs e)
         {
-            for(int i = 0; i < transfersStructs.Count; i++)
-                TransferInfo.Rows.Add(transfersStructs[i].tm.teachersStructures[i].name_teacher, transfersStructs[i].tm.Discipline.name, transfersStructs[i].tm.groupsStructures[i].name_speciality, transfersStructs[i].tm.week.name_day, transfersStructs[i].tm.num_para, transfersStructs[i].tm.typeSubject.name, transfersStructs[i].tm.id);
+            transfers.GetTransfers(faculty, department, nameTeacher, out transfersStructs);
+            for (int i = 0; i < transfersStructs.Count; i++)
+            {
+                for(int j = 0; j < transfersStructs[i].tm.groupsStructures.Count; j++)
+                {
+                    TransferInfo.Rows.Add(transfersStructs[i].tm.groupsStructures[j].name_speciality + " " + transfersStructs[i].tm.groupsStructures[j].YearCreate.ToString()[transfersStructs[i].tm.groupsStructures[j].YearCreate.ToString().Length - 2] + transfersStructs[i].tm.groupsStructures[j].YearCreate.ToString()[transfersStructs[i].tm.groupsStructures[j].YearCreate.ToString().Length - 1] + transfersStructs[i].tm.groupsStructures[j].Subname, transfersStructs[i].tm.week.name_day, transfersStructs[i].tm.num_para, transfersStructs[i].tm.typeSubject.name, transfersStructs[i].tm.id);
+                }
+            }
         }
     }
 }

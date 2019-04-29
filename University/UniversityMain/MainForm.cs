@@ -18,7 +18,7 @@ namespace UniversityMain
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
         private extern static void SendMessage(System.IntPtr hwnd, int wmsg, int wparam, int lparam);
         bool WindowMaximize = true;
-        int HeightPanel = 455;
+        int HeightPanel = 490;
         ChoiseFaculty_Department_Teacher choiseFaculty_Department_Teacher;
         ForTransfer forTransfer;
         public List<Logics.MainTable.TimeTable.TimeTableStructure> tableStructures = new List<Logics.MainTable.TimeTable.TimeTableStructure>();
@@ -301,8 +301,22 @@ namespace UniversityMain
                                 break;
                             }
             }
+            DateTime GetDayForTransfer = DateTime.Now;
+            if ((LessonsInfo.CurrentCell.ColumnIndex + 1) - (int)DateTime.Now.DayOfWeek >= 0)
+            {
+                GetDayForTransfer = DateTime.Now.Date.AddDays((LessonsInfo.CurrentCell.ColumnIndex + 1) - (int)DateTime.Now.DayOfWeek);
+            }
             if (result == DialogResult.Yes)
-                new TransferSet(connectionDB, ID).Show();    /*IDLesson*/
+                new TransferSet(connectionDB, ID, tableStructures, GetDayForTransfer).Show();    /*IDLesson*/
+        }
+        private void Button14_Click(object sender, EventArgs e)
+        {
+            Close();
+            new Holidays(connectionDB).Show();
+        }
+        private void Button15_Click_1(object sender, EventArgs e)
+        {
+            new GenerationDoc(connectionDB).Show();
         }
     }
 }

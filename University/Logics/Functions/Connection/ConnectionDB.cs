@@ -75,7 +75,10 @@ namespace Logics.Functions.Connection
             teacher_add_discipline,
             teachersdelete_all_discipline,
             timetable_get,
-            get_transfers
+            get_transfers,
+            holidays_add,
+            holidays_get,
+            holidays_delete
         };
         /// <summary>
         /// доступ, который есть у пользователя
@@ -104,7 +107,7 @@ namespace Logics.Functions.Connection
             Load();
         }
 
-
+        
         /// <summary>
         /// указание логина и пароля
         /// </summary>
@@ -263,6 +266,10 @@ namespace Logics.Functions.Connection
                     new NpgsqlCommand("SET ROLE admin_vuz", conn).ExecuteNonQuery();
 
                 {
+                    Accesses.Add(function_access.holidays_add);
+                    Accesses.Add(function_access.holidays_get);
+                    Accesses.Add(function_access.holidays_delete);
+
                     Accesses.Add(function_access.classroom_get_class);
                     Accesses.Add(function_access.classroom_get_housing);
                     Accesses.Add(function_access.add_transfer);
@@ -325,6 +332,9 @@ namespace Logics.Functions.Connection
                     new NpgsqlCommand("SET ROLE admin_faculty", conn).ExecuteNonQuery();
 
                 {
+
+                    Accesses.Add(function_access.holidays_get);
+
                     Accesses.Add(function_access.classroom_get_class);
                         Accesses.Add(function_access.classroom_get_housing);
                         Accesses.Add(function_access.add_transfer);
@@ -377,6 +387,9 @@ namespace Logics.Functions.Connection
                     new NpgsqlCommand("SET ROLE admin_depar", conn).ExecuteNonQuery();
 
                 {
+
+                    Accesses.Add(function_access.holidays_get);
+
                     Accesses.Add(function_access.classroom_get_class);
                         Accesses.Add(function_access.classroom_get_housing);
                         Accesses.Add(function_access.add_transfer);
@@ -424,7 +437,10 @@ namespace Logics.Functions.Connection
                 new NpgsqlCommand("SET ROLE teachers", conn).ExecuteNonQuery();
                    
                     {
-                        Accesses.Add(function_access.classroom_get_class);
+
+                    Accesses.Add(function_access.holidays_get);
+
+                    Accesses.Add(function_access.classroom_get_class);
                         Accesses.Add(function_access.classroom_get_housing);
                         Accesses.Add(function_access.add_transfer);
                         Accesses.Add(function_access.faculty_get_all);
@@ -455,8 +471,12 @@ namespace Logics.Functions.Connection
             try
             {
                     new NpgsqlCommand("SET ROLE spravochniki", conn).ExecuteNonQuery();
-
                 {
+
+                    Accesses.Add(function_access.holidays_add);
+                    Accesses.Add(function_access.holidays_get);
+                    Accesses.Add(function_access.holidays_delete);
+
                     Accesses.Add(function_access.classroom_add);
                         Accesses.Add(function_access.classroom_delete);
                         Accesses.Add(function_access.classroom_get_all);

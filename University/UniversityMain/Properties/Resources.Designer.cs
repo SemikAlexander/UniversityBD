@@ -153,6 +153,26 @@ namespace UniversityMain.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap CreateDoc {
+            get {
+                object obj = ResourceManager.GetObject("CreateDoc", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap CreateDoc_50_ {
+            get {
+                object obj = ResourceManager.GetObject("CreateDoc_50_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Dep {
             get {
                 object obj = ResourceManager.GetObject("Dep", resourceCulture);
@@ -306,6 +326,26 @@ namespace UniversityMain.Properties {
         internal static System.Drawing.Bitmap Help {
             get {
                 object obj = ResourceManager.GetObject("Help", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Holiday {
+            get {
+                object obj = ResourceManager.GetObject("Holiday", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Holiday_50_ {
+            get {
+                object obj = ResourceManager.GetObject("Holiday_50_", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
