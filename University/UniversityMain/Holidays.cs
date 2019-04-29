@@ -50,7 +50,7 @@ namespace UniversityMain
         {
             var senderGrid = (DataGridView)sender;
 
-            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn & senderGrid.Columns[e.ColumnIndex].Name == "DeleteHoliday" & e.RowIndex >= 0 /*& edit_data == true*/)
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn & senderGrid.Columns[e.ColumnIndex].Name == "DeleteHoliday" & e.RowIndex >= 0 & edit_data == true)
             {
                 holidays.DeleteHolidays((DateTime)HolidayInfo.Rows[e.RowIndex].Cells[1].Value);
                 HolidayInfo.Rows.Clear();
@@ -63,7 +63,13 @@ namespace UniversityMain
         }
         private void Holidays_Load(object sender, EventArgs e)
         {
-            /*Проверка прав доступа*/
+            foreach (var access in connectionDB.Accesses)
+            {
+                switch (access)
+                {
+                    case Logics.Functions.Connection.ConnectionDB.function_access.holidays_add: panel3.Visible = true; edit_data = true; break;
+                }
+            }
             HolidayInfo.Rows.Clear();
             holidays.GetAllHolidays(out structHolidays);
             foreach (var SH in structHolidays)
