@@ -23,9 +23,11 @@ namespace UniversityMain
         Logics.Functions.Connection.ConnectionDB connectionDB;
         Logics.MainTable.Transfers transfers;
         #endregion
-        public TransferSet(Logics.Functions.Connection.ConnectionDB connection, int IDLesson, List<Logics.MainTable.TimeTable.TimeTableStructure> timeTableStructures)
+        public TransferSet(Logics.Functions.Connection.ConnectionDB connection, int IDLesson, List<Logics.MainTable.TimeTable.TimeTableStructure> timeTableStructures, DateTime DayFromTransfer)
         {
             InitializeComponent();
+            StartSomething.Value = DayFromTransfer;
+            StopSomithing.Value = DayFromTransfer;
             TimeTableData = IDLesson;
             transfers = new Logics.MainTable.Transfers(connection);
             connectionDB = connection;
