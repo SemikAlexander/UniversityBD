@@ -11,7 +11,7 @@ namespace Logics.MainTable
         {
             Stavka=0,
             Pochasovka=1,
-            Zamena=2
+            PolStavka=2
         }
         public struct type_opl_teacher
         {
