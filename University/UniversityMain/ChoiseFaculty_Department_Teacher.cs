@@ -20,7 +20,6 @@ namespace UniversityMain
         string FacultyForGetTimeTable = "", DepartmentForGetTimeTable = "", NameTeacherForGetTimeTable = "";
         #region Arrays
         List<Logics.MainTable.Teachers.TeachersStructure> teachersStructures = new List<Logics.MainTable.Teachers.TeachersStructure>();
-        List<Logics.MainTable.Speciality.SpecialtyStructure> specialtyStructures = new List<Logics.MainTable.Speciality.SpecialtyStructure>();
         public List<Logics.MainTable.TimeTable.TimeTableStructure> timeTableStructures = new List<Logics.MainTable.TimeTable.TimeTableStructure>();
         #endregion
         #region Classes
