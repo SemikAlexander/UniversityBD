@@ -471,22 +471,117 @@ $$;
 ALTER FUNCTION public.get_groups(namefaculty text, namedepartment text, spec text) OWNER TO postgres;
 
 --
--- Name: get_reports_from_months(text, text, text, integer); Type: FUNCTION; Schema: public; Owner: postgres
+-- Name: get_reports_from_months(text, text, text, integer, date, date); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
-CREATE FUNCTION public.get_reports_from_months(facult text, depar text, fio text, type_oplat integer) RETURNS TABLE("ID" integer, "Date" date, "Time" time without time zone, num_lesson integer, "NameDay" text, "Sub_Name_Group" text, "Year_Of_Entry" integer, "Housing" integer, "Num_Classroom" integer, "Name_Subject" text, type_lesson character varying, "Abbreviation_Specialty" text, date_para date)
+CREATE FUNCTION public.get_reports_from_months(facult text, depar text, fio text, type_oplat integer, months date, start_study date) RETURNS TABLE("ID" integer, "Date" date, "Time" time without time zone, num_lesson integer, "Sub_Name_Group" text, "Year_Of_Entry" integer, "Housing" integer, "Num_Classroom" integer, "Name_Subject" text, type_lesson character varying, "Abbreviation_Specialty" text, date_para date)
     LANGUAGE plpgsql
     AS $$
 	DECLARE
-	
+	month_start date :=now();
+	month_end date :=now();
+	type_week_q VARCHAR:='V';
+	daynum int4 :=0;
+	_nameday TEXT:='';
 	BEGIN
+select date_trunc('month', months) INTO month_start;
+select date_trunc('month', months)+'1month'::interval-'1day'::interval into month_end;
+
+
+CREATE TEMP TABLE seltm as(
+SELECT ttw."Date",ttw."ID",ttw."Time",ttw.num_lesson, ttw.type_subject,ttw."NameDay",ttw."TypeWeek",ttw.id_classroom, groups."Sub_Name_Group",groups."Year_Of_Entry","stadyingPlan"."DateStartStuding","stadyingPlan"."DateEndStuding","stadyingPlan"."DateStartSession","stadyingPlan"."DateEndSession",specialty."Abbreviation_Specialty" from 
+			(
+				SELECT "timeTable"."Date","timeTable"."ID","timeTable"."Time","timeTable".id_classroom,"timeTable".num_lesson, "timeTable".type_subject,week."NameDay",week."TypeWeek" from (
+						SELECT teachers."ID_TEACHER" from (
+								SELECT department."ID_DEPARTMENT" FROM (
+										SELECT "ID_FACULTY" FROM faculty WHERE "Name_Faculty"=facult
+								) as facul 
+								INNER JOIN department on department.id_faculty=facul."ID_FACULTY" WHERE department."Name_Department"=depar) as dep
+						INNER JOIN teachers on teachers.id_department=dep."ID_DEPARTMENT" WHERE teachers."Name_Teacher"=fio LIMIT 1) as teach
+								INNER JOIN "subjectPay" on "subjectPay".id_teacher=teach."ID_TEACHER" INNER JOIN "timeTable" on "timeTable"."ID"="subjectPay".id_subject INNER JOIN week on week."ID_DAY"="timeTable".id_type_week WHERE "subjectPay".type_pay=type_oplat
+			) as ttw 
+		INNER JOIN para on para.id_lesson=ttw."ID" 
+		INNER JOIN groups on groups."ID_GROUP"=para.id_group 
+		LEFT JOIN "stadyingPlan" on groups."ID_GROUP" = "stadyingPlan".id_group
+		LEFT JOIN specialty on groups.id_specialty=specialty."ID_SPECIALTY"
+);
+
+CREATE TEMP TABLE res as (
+		SELECT finish_timetable."ID", finish_timetable."Date", finish_timetable."Time", finish_timetable."num_lesson", finish_timetable."NameDay",finish_timetable."TypeWeek",finish_timetable."Sub_Name_Group",finish_timetable."Year_Of_Entry",classroom."Housing",classroom."Num_Classroom","typeSubject"."Name_Subject","typeSubject".type_lesson,finish_timetable."Abbreviation_Specialty"
+		from(
+				SELECT * from seltm WHERE "DateStartStuding"<=month_start and "DateEndSession">=month_end
+				)as finish_timetable
+		INNER JOIN classroom on classroom."ID_CLASSROOM"=finish_timetable."id_classroom" 
+		INNER JOIN "typeSubject" on finish_timetable.type_subject = "typeSubject"."ID_SUBJECT"
+);
+
+CREATE TEMP TABLE perenos as(
+ SELECT res."ID", res."Date", res."Time", transfers.num_lesson_to as num_lesson , res."NameDay", res."TypeWeek",res."Sub_Name_Group",res."Year_Of_Entry",res."Housing",res."Num_Classroom",res."Name_Subject",res.type_lesson,res."Abbreviation_Specialty",transfers.date_to,transfers.date_from FROM res INNER JOIN transfers on res."ID"=transfers.id_lesson
+WHERE transfers.date_to>=month_start and transfers.date_to<=month_end or transfers.date_from>=month_start and transfers.date_from<=month_end  );
+CREATE TEMP TABLE result_table
+(
+	"ID" int4,
+	"Date" date,
+	"Time" time,
+	num_lesson int4,
+	"Sub_Name_Group" text,
+	"Year_Of_Entry" int4,
+	"Housing" int4,
+	"Num_Classroom" int4,
+	"Name_Subject" text,
+	type_lesson VARCHAR,
+	"Abbreviation_Specialty" text,
+	"date_para" date
+);
+
+WHILE month_start<=month_end LOOP
+	IF not EXISTS(	SELECT * from holidays WHERE date_hol=month_start) then
+		SELECT INTO type_week_q case ((((DATE_PART('day', month_start)-date_part('day', start_study))/7)::int) % 2) 
+		when 0 then 'V'	else 'N' end;
+		SELECT EXTRACT(DOW FROM month_start) INTO daynum;
+		CASE daynum
+		WHEN 0 THEN
+			_nameday:='Воскресенье';
+		WHEN 1 THEN
+		_nameday:='Понедельник';
+		WHEN 2 THEN
+			_nameday='Вторник';
+		WHEN 3 THEN
+			_nameday='Среда';
+		WHEN 4 THEN
+			_nameday='Четверг';
+		WHEN 5 THEN
+			_nameday='Пятница';
+		WHEN 6 THEN
+			_nameday='Суббота';
+		END CASE;
+	
+	INSERT INTO result_table SELECT * FROM
+	(
+		SELECT qs."ID", qs."Date", qs."Time", qs.num_lesson , qs."Sub_Name_Group",qs."Year_Of_Entry",qs."Housing",qs."Num_Classroom",qs."Name_Subject",qs.type_lesson,qs."Abbreviation_Specialty" FROM (
+			SELECT res."ID", res."Date", res."Time", res.num_lesson , res."NameDay",res."Sub_Name_Group",res."Year_Of_Entry",res."Housing",res."Num_Classroom",res."Name_Subject",res.type_lesson,res."Abbreviation_Specialty" FROM res WHERE res."NameDay"=_nameday and res."TypeWeek"=type_week_q
+		)as qs 
+			LEFT JOIN 
+			(
+				SELECT perenos."ID", perenos."Date", perenos."Time", perenos.num_lesson , perenos."Sub_Name_Group",perenos."Year_Of_Entry",perenos."Housing",perenos."Num_Classroom",perenos."Name_Subject",perenos.type_lesson,perenos."Abbreviation_Specialty" FROM perenos WHERE perenos.date_to=month_start or perenos.date_from=month_start
+			)as perenos_finish on qs."ID"=perenos_finish."ID" WHERE perenos_finish.num_lesson is null 
+		UNION 
+		SELECT perenos."ID", perenos."Date", perenos."Time", perenos.num_lesson , perenos."Sub_Name_Group",perenos."Year_Of_Entry",perenos."Housing",perenos."Num_Classroom",perenos."Name_Subject",perenos.type_lesson,perenos."Abbreviation_Specialty" FROM perenos WHERE perenos.date_to=month_start 
+		) as qqq CROSS JOIN (SELECT month_start) as date_para;
+	
+	end if;
+	
+	
+	month_start:=month_start+interval '1' day;
+END LOOP;
+RETURN query SELECT * from result_table ORDER BY "date_para" ASC;
 
 
 END
 $$;
 
 
-ALTER FUNCTION public.get_reports_from_months(facult text, depar text, fio text, type_oplat integer) OWNER TO postgres;
+ALTER FUNCTION public.get_reports_from_months(facult text, depar text, fio text, type_oplat integer, months date, start_study date) OWNER TO postgres;
 
 --
 -- Name: get_styding_plans(text, text, text, integer, text); Type: FUNCTION; Schema: public; Owner: postgres
@@ -926,42 +1021,6 @@ $$;
 ALTER FUNCTION public.teacher_add_discipline(namefaculty text, namedepartment text, nameteacher text, namediscplin text) OWNER TO postgres;
 
 --
--- Name: teachers_add(text, text, text, text, double precision, double precision, text); Type: FUNCTION; Schema: public; Owner: postgres
---
-
-CREATE FUNCTION public.teachers_add(namefaculty text, namedepartment text, nameteacher text, emailteacher text, rateteacher double precision, hourlypayment double precision, nameposition text) RETURNS text
-    LANGUAGE plpgsql
-    AS $$
-	DECLARE
-	IDDEPARTMENT INTEGER :=0;
-	IDFACULTY INTEGER := 0;
-	IDPOSITION INTEGER := 0;
-	BEGIN 
-
-
-SELECT "ID_FACULTY" FROM faculty INTO IDFACULTY WHERE "Name_Faculty"=namefaculty LIMIT 1;
-IF NOT FOUND THEN
-    RETURN 'Факультет не найден';
-END IF;
-
-SELECT "ID_DEPARTMENT" From department WHERE  department."Name_Department"=namedepartment and IDFACULTY=department.id_faculty INTO IDDEPARTMENT;
-IF NOT FOUND THEN
-    RETURN 'Кафедра не найдена';
-END IF;
-SELECT "ID_POSITION" FROM "position" WHERE "Name_Position"=nameposition INTO IDPOSITION;
-IF NOT FOUND THEN
-    RETURN 'Должность не найдена';
-END IF;
-			
-			INSERT INTO teachers("Email","Hourly_Payment","Name_Teacher","Rate",id_department,id_position) VALUES(emailteacher,hourlypayment,nameteacher,rateteacher,IDDEPARTMENT,IDPOSITION);
-			RETURN 'Success';
-END
-$$;
-
-
-ALTER FUNCTION public.teachers_add(namefaculty text, namedepartment text, nameteacher text, emailteacher text, rateteacher double precision, hourlypayment double precision, nameposition text) OWNER TO postgres;
-
---
 -- Name: teachers_add(text, text, text, text, double precision, double precision, text, real); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -1146,9 +1205,7 @@ CREATE TEMP TABLE seltm as (
 CREATE TEMP TABLE res as (
 		SELECT finish_timetable."ID", finish_timetable."Date", finish_timetable."Time", finish_timetable."num_lesson", finish_timetable."NameDay",finish_timetable."Sub_Name_Group",finish_timetable."Year_Of_Entry",classroom."Housing",classroom."Num_Classroom","typeSubject"."Name_Subject","typeSubject".type_lesson,finish_timetable."Abbreviation_Specialty"
 		from(
-				SELECT * from seltm WHERE "DateStartStuding"<now() and "DateEndStuding">now() 
-				UNION ALL 
-				SELECT * from seltm WHERE "DateStartSession"<now() and "DateEndSession">now()
+				SELECT * from seltm WHERE "DateStartStuding"<now() and "DateEndSession">now()
 				)as finish_timetable
 		INNER JOIN classroom on classroom."ID_CLASSROOM"=finish_timetable."id_classroom" 
 		INNER JOIN "typeSubject" on finish_timetable.type_subject = "typeSubject"."ID_SUBJECT"
@@ -1156,7 +1213,7 @@ CREATE TEMP TABLE res as (
 
 CREATE TEMP TABLE perenos as(
  SELECT res."ID", res."Date", res."Time", transfers.num_lesson_to as num_lesson , res."NameDay",res."Sub_Name_Group",res."Year_Of_Entry",res."Housing",res."Num_Classroom",res."Name_Subject",res.type_lesson,res."Abbreviation_Specialty",transfers.date_to FROM res INNER JOIN transfers on res."ID"=transfers.id_lesson
-WHERE transfers.date_to>=date_start_week and transfers.date_to<=date_end_week );
+WHERE transfers.date_to>=date_start_week and transfers.date_to<=date_end_week or transfers.date_from>=date_start_week and transfers.date_from<=date_end_week  );
 
 CREATE TEMP TABLE perenos_finish
 (
@@ -1174,15 +1231,16 @@ CREATE TEMP TABLE perenos_finish
 	"Abbreviation_Specialty" text
 );
 
-INSERT INTO perenos_finish SELECT perenos."ID", perenos."Date", perenos."Time", perenos.num_lesson , perenos."NameDay",perenos."Sub_Name_Group",perenos."Year_Of_Entry",perenos."Housing",perenos."Num_Classroom",perenos."Name_Subject",perenos.type_lesson,perenos."Abbreviation_Specialty" FROM perenos;
+INSERT INTO perenos_finish SELECT perenos."ID", perenos."Date", perenos."Time", perenos.num_lesson , perenos."NameDay",perenos."Sub_Name_Group",perenos."Year_Of_Entry",perenos."Housing",perenos."Num_Classroom",perenos."Name_Subject",perenos.type_lesson,perenos."Abbreviation_Specialty" FROM perenos  ;
 
 
 
 CREATE TEMP TABLE r as(
 	SELECT res."ID", res."Date", res."Time", res.num_lesson , res."NameDay",res."Sub_Name_Group",res."Year_Of_Entry",res."Housing",res."Num_Classroom",res."Name_Subject",res.type_lesson,res."Abbreviation_Specialty" FROM res LEFT JOIN perenos_finish on res."ID"=perenos_finish."ID" WHERE perenos_finish.num_lesson is null 
 );
-
-FOR q IN SELECT * from perenos LOOP
+DELETE FROM perenos_finish;
+INSERT INTO perenos_finish SELECT perenos."ID", perenos."Date", perenos."Time", perenos.num_lesson , perenos."NameDay",perenos."Sub_Name_Group",perenos."Year_Of_Entry",perenos."Housing",perenos."Num_Classroom",perenos."Name_Subject",perenos.type_lesson,perenos."Abbreviation_Specialty" FROM perenos WHERE perenos.date_to>=date_start_week and perenos.date_to<=date_end_week;
+FOR q IN SELECT * from perenos  LOOP
 	 SELECT EXTRACT(DOW FROM q.date_to) INTO daynum;
 	CASE daynum
 	WHEN 0 THEN
@@ -2306,8 +2364,6 @@ COPY public."helpDiscip" (id_teacher, id_discipline) FROM stdin;
 --
 
 COPY public.holidays (id, date_hol) FROM stdin;
-1	2019-04-10
-2	2019-04-23
 \.
 
 
@@ -2453,8 +2509,8 @@ SELECT pg_catalog.setval('public."timeTable_ID_seq"', 23, true);
 --
 
 COPY public.transfers (id_lesson, date_from, date_to, num_lesson_to) FROM stdin;
-18	2019-04-30	2019-05-02	1
-21	2019-04-30	2019-05-03	7
+21	2019-04-30	2019-04-29	7
+18	2019-04-30	2019-05-02	5
 \.
 
 
@@ -3102,15 +3158,6 @@ GRANT ALL ON FUNCTION public.specialty_delete(namefaculty text, depar text, spec
 GRANT ALL ON FUNCTION public.teacher_add_discipline(namefaculty text, namedepartment text, nameteacher text, namediscplin text) TO admin_vuz WITH GRANT OPTION;
 GRANT ALL ON FUNCTION public.teacher_add_discipline(namefaculty text, namedepartment text, nameteacher text, namediscplin text) TO admin_faculty WITH GRANT OPTION;
 GRANT ALL ON FUNCTION public.teacher_add_discipline(namefaculty text, namedepartment text, nameteacher text, namediscplin text) TO admin_depar WITH GRANT OPTION;
-
-
---
--- Name: FUNCTION teachers_add(namefaculty text, namedepartment text, nameteacher text, emailteacher text, rateteacher double precision, hourlypayment double precision, nameposition text); Type: ACL; Schema: public; Owner: postgres
---
-
-GRANT ALL ON FUNCTION public.teachers_add(namefaculty text, namedepartment text, nameteacher text, emailteacher text, rateteacher double precision, hourlypayment double precision, nameposition text) TO admin_vuz WITH GRANT OPTION;
-GRANT ALL ON FUNCTION public.teachers_add(namefaculty text, namedepartment text, nameteacher text, emailteacher text, rateteacher double precision, hourlypayment double precision, nameposition text) TO admin_faculty WITH GRANT OPTION;
-GRANT ALL ON FUNCTION public.teachers_add(namefaculty text, namedepartment text, nameteacher text, emailteacher text, rateteacher double precision, hourlypayment double precision, nameposition text) TO admin_depar WITH GRANT OPTION;
 
 
 --
