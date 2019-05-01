@@ -95,13 +95,11 @@ namespace UniversityMain
             if (reports.RunReports(type_Oplaty_Teacher, faculty, department, month, start_semestr, path_to_dir))
             {
                 MessageBox.Show("Отчёт сгенерирован!", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                backgroundWorker.CancelAsync();
                 return;
             }
             else
             {
                 MessageBox.Show(reports.exception, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                backgroundWorker.CancelAsync();
                 return;
             }
         }
