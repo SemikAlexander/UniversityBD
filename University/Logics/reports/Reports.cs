@@ -81,13 +81,18 @@ namespace Logics.reports
                     Excel.Worksheet sheetPivot = (Excel.Worksheet)Workbook.Worksheets.Add(Type.Missing, Workbook.Worksheets[j - 1], Type.Missing, Type.Missing);
                     sheetPivot.Name = q.nameteacher.Split(' ')[0];
                     #region Заполнение отчета
-
                     /*дописать вывод в страницы уже самого отчета, как в твоем рассписании используя sheetPivot и массив ниже*/
                     List<reportsStruct> reportsStructs = GetReports(type_Oplaty_Teacher, faculty, department, q.nameteacher, month, start_semestr);
-
-
-
-
+                    int tempID = reportsStructs[0].id;
+                    string GetRecord = "";
+                    for (int k = 0; k < reportsStructs.Count; k++)
+                    {
+                        if (reportsStructs[k].id == tempID)
+                        {
+                            GetRecord += reportsStructs[k].SubnameGroup + " " + reportsStructs[k].Year_of_Entry.ToString()[reportsStructs[k].Year_of_Entry.ToString().Length - 2] + reportsStructs[k].Year_of_Entry.ToString()[reportsStructs[k].Year_of_Entry.ToString().Length - 1] + reportsStructs[k].SubnameGroup + " ";
+                            continue;
+                        }
+                    }
                     #endregion
 
                     i += 1;
