@@ -90,6 +90,7 @@ namespace Logics.reports
                         if (reportsStructs[k].id == tempID)
                         {
                             GetRecord += reportsStructs[k].SubnameGroup + " " + reportsStructs[k].Year_of_Entry.ToString()[reportsStructs[k].Year_of_Entry.ToString().Length - 2] + reportsStructs[k].Year_of_Entry.ToString()[reportsStructs[k].Year_of_Entry.ToString().Length - 1] + reportsStructs[k].SubnameGroup + " ";
+                            /*По идее тут должно быть заполенение*/
                             continue;
                         }
                     }
