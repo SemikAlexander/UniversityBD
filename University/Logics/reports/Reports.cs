@@ -39,64 +39,136 @@ namespace Logics.reports
 
         public bool RunReports(MainTable.TimeTable.type_oplaty_teacher type_Oplaty_Teacher,string faculty,string department, DateTime month,DateTime start_semestr,string path_to_dir)
         {
-            BinaryWriter binaryWriter = new BinaryWriter(File.OpenWrite(Path.Combine(path_to_dir, "otchet" + file_excep)));
-            binaryWriter.Write(Resource1.journal);
-            binaryWriter.Close();
-            excel = new Excel.Application();
-            Workbook = excel.Workbooks.Open(Path.Combine(path_to_dir, "otchet" + file_excep));
-            Excel.Worksheet sheet = (Excel.Worksheet)Workbook.Worksheets.get_Item(1);
-            sheet.Cells[31, "D"] = department;
-            sheet.Cells[35, "D"] = faculty;
-            if (month.Month <= 6)
-                sheet.Cells[27, "B"] = "весенний";
-            else sheet.Cells[27, "B"] = "осенний";
-            if (start_semestr.Month < 6)
-                sheet.Cells[24, "B"] = (start_semestr.Year - 1).ToString() + "/" + start_semestr.Year.ToString();
-            else
-                sheet.Cells[24, "B"] = (start_semestr.Year).ToString() + "/" + (start_semestr.Year + 1).ToString();
-            sheet = (Excel.Worksheet)Workbook.Worksheets.get_Item(2);
-            var _teachers = new MainTable.Teachers(this._connectionDB);
-            List<MainTable.Teachers.TeachersStructure> teachers = new List<MainTable.Teachers.TeachersStructure>();
-            if (_teachers.GetTeachers(faculty, department, out teachers))
+            try
             {
-                int i = 1, j = 3;
-                foreach (var q in teachers)
+
+                List<Books.TypeSubject.StructTypeSubject> type_subj;
+                new Books.TypeSubject(_connectionDB).GetAllTypeSubjects(out type_subj);
+
+                BinaryWriter binaryWriter = new BinaryWriter(File.OpenWrite(Path.Combine(path_to_dir, "otchet" + file_excep)));
+                binaryWriter.Write(Resource1.journal);
+                binaryWriter.Close();
+                excel = new Excel.Application();
+                Workbook = excel.Workbooks.Open(Path.Combine(path_to_dir, "otchet" + file_excep));
+                Excel.Worksheet sheet = (Excel.Worksheet)Workbook.Worksheets.get_Item(1);
+                sheet.Cells[31, "D"] = department;
+                sheet.Cells[35, "D"] = faculty;
+                if (month.Month <= 6)
+                    sheet.Cells[27, "B"] = "весенний";
+                else sheet.Cells[27, "B"] = "осенний";
+                if (start_semestr.Month < 6)
+                    sheet.Cells[24, "B"] = (start_semestr.Year - 1).ToString() + "/" + start_semestr.Year.ToString();
+                else
+                    sheet.Cells[24, "B"] = (start_semestr.Year).ToString() + "/" + (start_semestr.Year + 1).ToString();
+                sheet = (Excel.Worksheet)Workbook.Worksheets.get_Item(2);
+                var _teachers = new MainTable.Teachers(this._connectionDB);
+                List<MainTable.Teachers.TeachersStructure> teachers = new List<MainTable.Teachers.TeachersStructure>();
+                if (_teachers.GetTeachers(faculty, department, out teachers))
                 {
-                    sheet.Cells[j, "A"] = i;
-                    sheet.Cells[j, "B"] = q.nameteacher;
-                    sheet.Cells[j, "C"] = q.nameposition;
-                    switch(type_Oplaty_Teacher)
+                    int i = 1, j = 3;
+                    foreach (var q in teachers)
                     {
-                        case MainTable.TimeTable.type_oplaty_teacher.Pochasovka:
-                            sheet.Cells[j, "D"] = q.hourlypayment;
-                            break;
-                        case MainTable.TimeTable.type_oplaty_teacher.PolStavka:
-                            sheet.Cells[j, "D"] = q.pol_stavka;
-                            break;
-                        case MainTable.TimeTable.type_oplaty_teacher.Stavka:
-                            sheet.Cells[j, "D"] = q.rating;
-                            break;
+                        sheet.Cells[j, "A"] = i;
+                        sheet.Cells[j, "B"] = q.nameteacher;
+                        sheet.Cells[j, "C"] = q.nameposition;
+                        switch (type_Oplaty_Teacher)
+                        {
+                            case MainTable.TimeTable.type_oplaty_teacher.Pochasovka:
+                                sheet.Cells[j, "D"] = q.hourlypayment;
+                                break;
+                            case MainTable.TimeTable.type_oplaty_teacher.PolStavka:
+                                sheet.Cells[j, "D"] = q.pol_stavka;
+                                break;
+                            case MainTable.TimeTable.type_oplaty_teacher.Stavka:
+                                sheet.Cells[j, "D"] = q.rating;
+                                break;
+                        }
+                        sheet.Cells[j, "E"] = j;
+                        Excel.Worksheet sheetPivot = (Excel.Worksheet)Workbook.Worksheets.Add(Type.Missing, Workbook.Worksheets[j - 1], Type.Missing, Type.Missing);
+                        sheetPivot.Name = q.nameteacher.Split(' ')[0];
+                        #region Заполнение отчета
+                        sheetPivot=(Excel.Worksheet)Workbook.Worksheets.get_Item(j);
+
+                        var temp = (Excel.Range)sheetPivot.Range[sheetPivot.Cells[1, "A"], sheetPivot.Cells[1, ((char)((int)'A' + type_subj.Count+3)).ToString()]];
+                        temp.Cells.Merge();
+                        sheetPivot.Cells[1, "A"] = q.nameteacher;
+
+                         temp = (Excel.Range)sheetPivot.Range[sheetPivot.Cells[3, "A"], sheetPivot.Cells[5, "A"]];
+                        temp.Cells.Merge();
+                        temp.Orientation = 90;
+                        sheetPivot.Cells[3, "A"] = "Дата";
+
+                        temp = (Excel.Range)sheetPivot.Range[sheetPivot.Cells[3, "B"], sheetPivot.Cells[5, "B"]];
+                        temp.Cells.Merge();
+                        temp.Orientation = 90;
+                        sheetPivot.Cells[3, "B"] = "Группа";
+
+                        temp = (Excel.Range)sheetPivot.Range[sheetPivot.Cells[3, "C"], sheetPivot.Cells[3, ((char)((int)'A' + type_subj.Count + 3)).ToString()]];
+                        temp.Cells.Merge();
+                        sheetPivot.Cells[3, "C"] = "Виды занятий";
+                        char qtps = 'C';
+                        foreach (var tpsub in type_subj)
+                        {
+                            temp = (Excel.Range)sheetPivot.Range[sheetPivot.Cells[4, qtps.ToString()], sheetPivot.Cells[5, qtps.ToString().ToString()]];
+                            temp.Cells.Merge();
+                            temp.Orientation = 90;
+                            sheetPivot.Cells[4, qtps.ToString()] = tpsub.name;
+                            qtps = (char)((int)qtps + 1);
+                        }
+                        temp = (Excel.Range)sheetPivot.Range[sheetPivot.Cells[4, qtps.ToString()], sheetPivot.Cells[5, qtps.ToString().ToString()]];
+                        temp.Cells.Merge();
+                        temp.Orientation = 90;
+                        sheetPivot.Cells[4, qtps.ToString()] = "Итого";
+
+                        List<reportsStruct> reportsStructs = GetReports(type_Oplaty_Teacher, faculty, department, q.nameteacher, month, start_semestr);
+                        try
+                        {
+                            var tempID = reportsStructs[0].date_para;
+                            string GetRecord = "";
+                            for (int k = 0; k <= reportsStructs.Count; k++)
+                            {
+                                try
+                                {
+                                    if (reportsStructs[k].date_para == tempID)
+                                    {
+                                        GetRecord += reportsStructs[k].Abbr + " " + reportsStructs[k].Year_of_Entry.ToString()[reportsStructs[k].Year_of_Entry.ToString().Length - 2] + reportsStructs[k].Year_of_Entry.ToString()[reportsStructs[k].Year_of_Entry.ToString().Length - 1] + reportsStructs[k].SubnameGroup + ", ";
+                                        /*По идее тут должно быть заполенение*/
+                                        continue;
+                                    }
+                                }
+                                catch (Exception)
+                                {
+                                    sheetPivot.Cells[6 + k, "A"] = tempID;
+                                    sheetPivot.Cells[6 + k, "B"] = GetRecord;
+                                    tempID = reportsStructs[k].date_para;
+                                    break;
+                                }
+                                sheetPivot.Cells[6 + k, "A"] = tempID;
+                                sheetPivot.Cells[6 + k, "B"] = GetRecord;
+                                tempID = reportsStructs[k].date_para;
+                                GetRecord = "";
+                                k -= 1;
+                            }
+
+                        }
+                        catch (Exception)
+                        {
+
+                        }
+                        #endregion
+
+                        i += 1;
+                        j += 1;
                     }
-                    sheet.Cells[j, "E"] = j;
-                    Excel.Worksheet sheetPivot = (Excel.Worksheet)Workbook.Worksheets.Add(Type.Missing, Workbook.Worksheets[j - 1], Type.Missing, Type.Missing);
-                    sheetPivot.Name = q.nameteacher.Split(' ')[0];
-                    #region Заполнение отчета
-
-                    /*дописать вывод в страницы уже самого отчета, как в твоем рассписании используя sheetPivot и массив ниже*/
-                    List<reportsStruct> reportsStructs = GetReports(type_Oplaty_Teacher, faculty, department, q.nameteacher, month, start_semestr);
-
-
-
-
-                    #endregion
-
-                    i += 1;
-                    j += 1;
                 }
-            }
 
-            Workbook.Save();
-            return true;
+                Workbook.Save();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         List<reportsStruct> GetReports(MainTable.TimeTable.type_oplaty_teacher type_Oplaty_Teacher, string faculty, string department,string FIO, DateTime month, DateTime start_semestr)
@@ -108,15 +180,20 @@ namespace Logics.reports
                 var conn = new NpgsqlConnection(this._connectionDB.ConnectString);
                 conn.Open();
 
-                using (var cmd = new NpgsqlCommand($"SELECT * FROM get_reports_from_months('{faculty}','{department}','{FIO}','{type_Oplaty_Teacher}','{month}','{start_semestr}');", conn))
+                using (var cmd = new NpgsqlCommand($"SELECT * FROM get_reports_from_months('{faculty}','{department}','{FIO}',{(int)type_Oplaty_Teacher},'{month}','{start_semestr}') ORDER BY \"date_para\" ASC;", conn))
                 using (var reader = cmd.ExecuteReader())
                     while (reader.Read())
                     {
+                        var qqqq = new DateTime(reader.GetDateTime(1).Year, reader.GetDateTime(1).Month, reader.GetDateTime(1).Day);
+                        var qqqqq= new DateTime(reader.GetDate(11).Year,
+                                reader.GetDate(11).Month,
+                                reader.GetDate(11).Day);
+                        var qqqqqq = reader.GetTimeSpan(2);
                         _reportsStructs.Add(
                             new reportsStruct() {
                                 id = reader.GetInt32(0),
-                                datesession = reader.GetDateTime(2),
-                                Time = reader.GetTimeSpan(2),
+                                datesession = qqqq,
+                                Time =qqqqqq,
                                 numlesson = reader.GetInt32(3),
                                 SubnameGroup = reader.GetString(4),
                                 Year_of_Entry = reader.GetInt32(5),
@@ -125,7 +202,7 @@ namespace Logics.reports
                                 Name_subject = reader.GetString(8),
                                 type_Lesson = ((reader.GetChar(9) == 'O') ? Books.TypeSubject.type_lesson.Study : Books.TypeSubject.type_lesson.Session),
                                 Abbr= reader.GetString(10),
-                                date_para=reader.GetDateTime(11)
+                                date_para=qqqqq,
                             }
                         );
                     }
