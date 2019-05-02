@@ -64,9 +64,15 @@ namespace UniversityMain
         {
             if (FacultyBox.SelectedItem != null & DepartmentBox.SelectedItem != null & TypeDoc.SelectedItem != null & FolderPath.Text.Length != 0)
             {
+                button4.Enabled = false;
                 backgroundWorker.DoWork += (obj, ea) => Gen(type_Oplaty_Teacher, FacultyForGeneration, DepartmentForGeneration, dateTimePicker2.Value.Date, dateTimePicker1.Value.Date, FolderPath.Text);
+                backgroundWorker.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
                 backgroundWorker.RunWorkerAsync();
             }
+        }
+        private void BackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            button4.Enabled = true;
         }
         private void GenerationDoc_Load(object sender, EventArgs e)
         {
