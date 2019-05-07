@@ -1,6 +1,7 @@
 ﻿using Npgsql;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -41,10 +42,37 @@ namespace Logics.reports
         {
             try
             {
+                List<string> type_subj1 = new List<string>
+                {
+                    "лекции",
+                    "практические (семинарские) занятия",
+                    "лабораторные занятия",
+                    "НИРС",
+                    "контр. раб. студентов-заочников",
+                    "проведение консультаций по курсу",
+                    "проведение экзаменационнных консультаций",
+                    "проверка контр. (мод.)работ, которые вып. в ауд.",
+                    "проверка  контр. (мод.) работ (сам. работа)"
 
-                List<Books.TypeSubject.StructTypeSubject> type_subj;
-                new Books.TypeSubject(_connectionDB).GetAllTypeSubjects(out type_subj);
+                };
+                List<string> type_subj2 = new List<string>
+                {
+                    "рефератов, переводов",
+                    "рассчётных, графических, рассч.-граф. работ",
+                    "курсовых проектов, работ"
+                };
+                List<string> type_subj3 = new List<string>
+                {
+                   "проведение семестровых экзаменов",
+                    "руководство практикой",
+                    "проведение государственных экзаменов",
+                    "рук-во, рец-е и пров-е защит ВКР",
+                    "рук-во асп., соискателями и стажировкой преп.",
+                    "другие виды учебной нагрузки",
+                    "ИТОГО"
 
+                };
+                int count = type_subj1.Count + type_subj2.Count + type_subj3.Count;
                 BinaryWriter binaryWriter = new BinaryWriter(File.OpenWrite(Path.Combine(path_to_dir, "otchet" + file_excep)));
                 binaryWriter.Write(Resource1.journal);
                 binaryWriter.Close();
@@ -61,8 +89,11 @@ namespace Logics.reports
                 else
                     sheet.Cells[24, "B"] = (start_semestr.Year).ToString() + "/" + (start_semestr.Year + 1).ToString();
                 sheet = (Excel.Worksheet)Workbook.Worksheets.get_Item(2);
+
+
                 var _teachers = new MainTable.Teachers(this._connectionDB);
                 List<MainTable.Teachers.TeachersStructure> teachers = new List<MainTable.Teachers.TeachersStructure>();
+
                 if (_teachers.GetTeachers(faculty, department, out teachers))
                 {
                     int i = 1, j = 3;
@@ -89,7 +120,7 @@ namespace Logics.reports
                         #region Заполнение отчета
                         sheetPivot=(Excel.Worksheet)Workbook.Worksheets.get_Item(j);
 
-                        var temp = (Excel.Range)sheetPivot.Range[sheetPivot.Cells[1, "A"], sheetPivot.Cells[1, ((char)((int)'A' + type_subj.Count+3)).ToString()]];
+                        var temp = (Excel.Range)sheetPivot.Range[sheetPivot.Cells[1, "A"], sheetPivot.Cells[1, ((char)((int)'A' + count + 1)).ToString()]];
                         temp.Cells.Merge();
                         sheetPivot.Cells[1, "A"] = q.nameteacher;
 
@@ -103,22 +134,48 @@ namespace Logics.reports
                         temp.Orientation = 90;
                         sheetPivot.Cells[3, "B"] = "Группа";
 
-                        temp = (Excel.Range)sheetPivot.Range[sheetPivot.Cells[3, "C"], sheetPivot.Cells[3, ((char)((int)'A' + type_subj.Count + 3)).ToString()]];
+                        temp = (Excel.Range)sheetPivot.Range[sheetPivot.Cells[3, "C"], sheetPivot.Cells[3, ((char)((int)'A' + count + 1)).ToString()]];
                         temp.Cells.Merge();
+                        temp.Cells.HorizontalAlignment = Excel.Constants.xlCenter;
                         sheetPivot.Cells[3, "C"] = "Виды занятий";
                         char qtps = 'C';
-                        foreach (var tpsub in type_subj)
+
+                        foreach (var tpsub in type_subj1)
                         {
                             temp = (Excel.Range)sheetPivot.Range[sheetPivot.Cells[4, qtps.ToString()], sheetPivot.Cells[5, qtps.ToString().ToString()]];
                             temp.Cells.Merge();
                             temp.Orientation = 90;
-                            sheetPivot.Cells[4, qtps.ToString()] = tpsub.name;
+                            sheetPivot.Cells[4, qtps.ToString()] = tpsub;
                             qtps = (char)((int)qtps + 1);
                         }
-                        temp = (Excel.Range)sheetPivot.Range[sheetPivot.Cells[4, qtps.ToString()], sheetPivot.Cells[5, qtps.ToString().ToString()]];
+                        char tmp = qtps;char qtmp = ' ';
+                        foreach (var tpsub in type_subj2)
+                        {
+                            temp = (Excel.Range)sheetPivot.Range[sheetPivot.Cells[5, qtps.ToString()], sheetPivot.Cells[5, qtps.ToString().ToString()]];
+                            temp.Cells.Merge();
+                            temp.Orientation = 90;
+                            sheetPivot.Cells[5, qtps.ToString()] = tpsub;
+                            qtmp = qtps;
+                            qtps = (char)((int)qtps + 1);
+                        }
+                        temp = (Excel.Range)sheetPivot.Range[sheetPivot.Cells[4, tmp.ToString()], sheetPivot.Cells[4, qtmp.ToString().ToString()]];
+                        sheetPivot.Cells[4, tmp.ToString()] = "рук-во и приём инд. заданий:";
+                        foreach (var tpsub in type_subj3)
+                        {
+                            temp = (Excel.Range)sheetPivot.Range[sheetPivot.Cells[4, qtps.ToString()], sheetPivot.Cells[5, qtps.ToString().ToString()]];
+                            temp.Cells.Merge();
+                            temp.Orientation = 90;
+                            sheetPivot.Cells[4, qtps.ToString()] = tpsub;
+                            qtps = (char)((int)qtps + 1);
+                        }
+                        for (int r = 0; r < count + 1; r++) sheetPivot.Cells[6, ((char)(((int)'C')+r)).ToString()] = r+1;
+                        temp = (Excel.Range)sheetPivot.Range[sheetPivot.Cells[7,"A"], sheetPivot.Cells[7, (((char)(((int)'C') + count+1)).ToString())]];
                         temp.Cells.Merge();
-                        temp.Orientation = 90;
-                        sheetPivot.Cells[4, qtps.ToString()] = "Итого";
+                        temp.Cells.HorizontalAlignment = Excel.Constants.xlCenter;
+                        var sq = month.ToString("MMMM", CultureInfo.CurrentCulture);
+                        sheetPivot.Cells[7, "A"] =sq;
+                        
+
 
                         List<reportsStruct> reportsStructs = GetReports(type_Oplaty_Teacher, faculty, department, q.nameteacher, month, start_semestr);
                         try
@@ -132,19 +189,18 @@ namespace Logics.reports
                                     if (reportsStructs[k].date_para == tempID)
                                     {
                                         GetRecord += reportsStructs[k].Abbr + " " + reportsStructs[k].Year_of_Entry.ToString()[reportsStructs[k].Year_of_Entry.ToString().Length - 2] + reportsStructs[k].Year_of_Entry.ToString()[reportsStructs[k].Year_of_Entry.ToString().Length - 1] + reportsStructs[k].SubnameGroup + ", ";
-                                        /*По идее тут должно быть заполенение*/
                                         continue;
                                     }
                                 }
                                 catch (Exception)
                                 {
-                                    sheetPivot.Cells[6 + k, "A"] = tempID;
-                                    sheetPivot.Cells[6 + k, "B"] = GetRecord;
+                                    sheetPivot.Cells[7 + k, "A"] = tempID;
+                                    sheetPivot.Cells[7 + k, "B"] = GetRecord;
                                     tempID = reportsStructs[k].date_para;
                                     break;
                                 }
-                                sheetPivot.Cells[6 + k, "A"] = tempID;
-                                sheetPivot.Cells[6 + k, "B"] = GetRecord;
+                                sheetPivot.Cells[7 + k, "A"] = tempID;
+                                sheetPivot.Cells[7 + k, "B"] = GetRecord;
                                 tempID = reportsStructs[k].date_para;
                                 GetRecord = "";
                                 k -= 1;
@@ -163,10 +219,13 @@ namespace Logics.reports
                 }
 
                 Workbook.Save();
+                Workbook.Close(true);
                 return true;
             }
             catch (Exception)
             {
+                Workbook.Close(false);
+
                 return false;
             }
         }
