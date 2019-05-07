@@ -78,7 +78,8 @@ namespace Logics.Functions.Connection
             get_transfers,
             holidays_add,
             holidays_get,
-            holidays_delete
+            holidays_delete,
+            get_reports
         };
         /// <summary>
         /// доступ, который есть у пользователя
@@ -318,6 +319,8 @@ namespace Logics.Functions.Connection
                     Accesses.Add(function_access.teachersdelete_all_discipline);
                     Accesses.Add(function_access.timetable_get);
                     Accesses.Add(function_access.get_transfers);
+                    Accesses.Add(function_access.get_reports);
+
                     return true;
 
                 }
@@ -373,7 +376,9 @@ namespace Logics.Functions.Connection
                         Accesses.Add(function_access.teachersdelete_all_discipline);
                         Accesses.Add(function_access.timetable_get);
                         Accesses.Add(function_access.get_transfers);
-                        return true;
+                    Accesses.Add(function_access.get_reports);
+
+                    return true;
                     }
             }
             catch
@@ -424,7 +429,9 @@ namespace Logics.Functions.Connection
                         Accesses.Add(function_access.teachersdelete_all_discipline);
                         Accesses.Add(function_access.timetable_get);
                         Accesses.Add(function_access.get_transfers);
-                        return true;
+                    Accesses.Add(function_access.get_reports);
+
+                    return true;
                     }
             }
             catch
@@ -460,7 +467,9 @@ namespace Logics.Functions.Connection
                         Accesses.Add(function_access.getallspeciality);
                         Accesses.Add(function_access.timetable_get);
                         Accesses.Add(function_access.get_transfers);
-                        return true;
+                    Accesses.Add(function_access.get_reports);
+
+                    return true;
                     }
             }
             catch
